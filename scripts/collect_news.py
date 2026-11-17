@@ -614,9 +614,8 @@ def build_themes_rank(kept: list, now: datetime, history: dict | None = None):
     for tid, arts in by_theme.items():
         arts = sorted(arts, key=lambda a: a.get("time") or "", reverse=True)
         times = [t for t in (to_dt(a.get("time")) for a in arts) if t]
-        n6 = sum(1 for t in times if t >= now - 6 * HOUR)
-        hot = sum(1 for a in arts if (a.get("relevance") or 0) >= 14)
         span = round((max(times) - min(times)).total_seconds() / 3600.0, 1) if len(times) > 1 else 0.0
+        n6, hot = 0, 0
 
         # 24시간 보도 기록이 있으면 그것으로 흐름을 가르고, 없으면 이번 수집분만 쓴다
         hist = history.get(tid) or []
@@ -627,6 +626,10 @@ def build_themes_rank(kept: list, now: datetime, history: dict | None = None):
         hint_pool = pool if len(pool) >= len(arts) else flow_pool_from_articles(arts)
         day_n = len(hint_pool)
         day_presses = len({p[1] for p in hint_pool if p[1]})
+        # 표시 수치와 힌트 판정이 같은 24시간 기록을 쓰도록 맞춘다
+        pool_times = [p[0] for p in hint_pool]
+        n6 = sum(1 for t in pool_times if t >= now - 6 * HOUR)
+        hot = sum(p[2] for p in hint_pool)
 
         rows.append({
             "id": tid,
@@ -634,7 +637,7 @@ def build_themes_rank(kept: list, now: datetime, history: dict | None = None):
             "color": THEME_COLOR.get(tid, "#9aa4b2"),
             "count": len(arts),
             "recent_6h": n6,
-            "recent_6h_ratio": round(n6 / len(arts) * 100) if arts else 0,
+            "recent_6h_ratio": round(n6 / day_n * 100) if day_n else 0,
             "day_count": day_n,
             "hot": hot,
             "presses": day_presses or len({a.get("press") for a in arts if a.get("press")}),
