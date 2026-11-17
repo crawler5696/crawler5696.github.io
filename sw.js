@@ -1,6 +1,6 @@
 /* 증시 뉴스 레이더 — 오프라인에서도 마지막으로 본 뉴스를 보여주는 최소 서비스워커
    네트워크 우선(network-first): 항상 최신을 먼저 시도하고, 실패하면 캐시를 쓴다. */
-const CACHE = 'newsradar-v1';
+const CACHE = 'newsradar-v2';
 const SHELL = ['./', './index.html', './manifest.json', './icons/icon-192.png'];
 
 self.addEventListener('install', e => {
