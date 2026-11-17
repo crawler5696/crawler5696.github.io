@@ -4,8 +4,8 @@
 다룬 정도로 묶어 '오늘의 이슈 순위'를 만든다.
 
 함께 만드는 것:
-  · flash       — 네이버 금융 실시간 속보(최신 15건). 5분마다 갱신되는 속보 흐름으로,
-    화면 뉴스 탭의 절반을 차지한다. 각 속보에는 증시 영향 여부 판별과 대장주 배지가 붙는다.
+  · flash       — 네이버 금융 실시간 속보·증시 뉴스(최근 1시간, 최대 6건). 5분마다 갱신되는 속보 흐름으로,
+    화면 뉴스 탭의 30%를 차지한다. 각 속보에는 증시 영향 여부 판별과 대장주 배지가 붙는다.
   · issues      — 같은 사건을 다룬 기사를 하나로 묶은 이슈 카드(대표 기사 + 관련 매체 링크).
     매체 수가 많을수록 상위 순위, [속보]·긴급 기사는 최상단.
   · leaders     — 기사에 직접 언급된 상장사 + 공개 테마별 상한가 주도 대장주 배지
@@ -56,10 +56,12 @@ ARTICLE_LIMIT = 100        # 원문 조회까지 할 후보 기사 수
 ARTICLE_FETCH_WORKERS = 12  # 본문/시각 조회 동시 요청 수
 
 # 실시간 속보(네이버 금융) — 화면 뉴스 탭의 절반(50%)을 차지하는 영역
-FLASH_MAX = 15             # 화면에 올릴 속보 수
+FLASH_MAX = 6              # 화면에 올릴 속보 수(뉴스 탭 3:7 구성의 30%)
 FLASH_PAGE_SIZE = 60       # 한 번에 받아오는 속보 수(최근 1시간 안팎)
 FLASH_PAGES = 2            # 최대 페이지 수
-FLASH_MAX_AGE_HOURS = 8    # 이보다 오래된 속보는 화면에서 뺀다
+FLASH_FRESH_MIN = 60       # 이 시간 안에 나온 뉴스만 '실시간'으로 상단에 올린다
+FLASH_GRACE_MIN = 90       # 이 시간을 넘기면 상단 속보에서 내리고 이슈 목록으로 넘긴다
+FLASH_MIN_FRESH = 3        # 새벽처럼 새 뉴스가 적을 때 최소한 이만큼은 최신순으로 채운다
 
 # --------------------------------------------------------------------------- 테마 사전
 # (id, 화면 라벨, 색상, [(키워드, 가중치), ...])
@@ -1567,22 +1569,23 @@ def flash_time(raw: str, now: datetime):
 
 
 def collect_flash_news(now: datetime, extra: list | None = None) -> list:
-    """실시간 속보를 최신순으로 모아 화면용 15건으로 줄인다.
+    """실시간 속보를 최신순으로 모아 화면용 최대 6건으로 줄인다.
 
-    증시에 영향을 주는 기사만 남기고(연예·스포츠·생활·단순 사건 제외),
-    같은 사건을 여러 매체가 쓴 속보는 가장 최근 한 건으로 합친다.
+    상단 '실시간 속보'는 시각이 생명이다. [속보] 말머리만 보고 오래된 기사를 위에
+    두지 않고, 최근 60분 안에 나온 네이버 금융 증시·산업 뉴스(리포트·시황·공시 포함)를
+    모두 올린다. 60~90분을 넘긴 기사는 아래 이슈 목록으로 내리고, 새벽처럼 새 뉴스가
+    적을 때만 최소 FLASH_MIN_FRESH건을 최신순으로 채우되 [속보] 표시는 떼고 '최신'으로 보여준다.
     """
     raw = parse_flash_api()
     if not raw:
         raw = parse_flash_legacy()
-    if not raw:  # 마지막 비상 경로: 이번 수집분의 [속보] 기사
-        raw = [a for a in (extra or []) if is_breaking(a.get("title", ""))]
+    if not raw:  # 마지막 비상 경로: 이번 수집분의 기사
+        raw = list(extra or [])
         for a in raw:
             a.setdefault("raw_time", "")
 
     seen_titles, seen_tokens, rows = [], [], []
     seen_ids = set()
-    cutoff = now - timedelta(hours=FLASH_MAX_AGE_HOURS)
     for a in raw:
         if a["id"] in seen_ids:
             continue
@@ -1595,8 +1598,7 @@ def collect_flash_news(now: datetime, extra: list | None = None) -> list:
         if is_near_duplicate(title, seen_titles, seen_tokens):
             continue
         t = flash_time(a.get("raw_time", ""), now)
-        if t < cutoff:
-            continue
+        age = (now - t).total_seconds() / 60.0
         seen_titles.append(norm_title(title))
         seen_tokens.append(title_tokens(title))
         tid, _tags, _rel = classify({"title": title, "lede": a.get("summary", ""), "weight": 0.9})
@@ -1610,16 +1612,31 @@ def collect_flash_news(now: datetime, extra: list | None = None) -> list:
             "theme": tid,
             "theme_label": THEME_LABEL.get(tid, "기타"),
             "theme_color": THEME_COLOR.get(tid, "#9aa4b2"),
-            "breaking": is_breaking(title),
+            "age_min": int(max(0, age)),
             "leaders": leaders_for(title + " " + a.get("summary", ""), tid, limit=2,
                                    named_text=title),
         })
-        if len(rows) >= FLASH_MAX:
-            break
 
     rows.sort(key=lambda r: r["time"], reverse=True)
-    print(f"[info] flash: {len(rows)} cards", file=sys.stderr)
-    return rows
+    fresh = [r for r in rows if r["age_min"] <= FLASH_FRESH_MIN]
+    grace = [r for r in rows if FLASH_FRESH_MIN < r["age_min"] <= FLASH_GRACE_MIN]
+    older = [r for r in rows if r["age_min"] > FLASH_GRACE_MIN]
+
+    picked = (fresh + grace)[:FLASH_MAX]
+    need = min(FLASH_MIN_FRESH, FLASH_MAX) - len(fresh)
+    if need > 0:  # 새벽 등 최근 1시간 뉴스가 적을 때만 오래된 기사로 최소한을 채운다
+        picked += older[:need]
+
+    for r in picked:
+        r["fresh"] = r["age_min"] <= FLASH_FRESH_MIN
+        r["breaking"] = r["fresh"] and is_breaking(r["title"])
+        r.pop("age_min", None)
+
+    picked.sort(key=lambda r: r["time"], reverse=True)
+    fresh_n = sum(1 for r in picked if r.get("fresh"))
+    print(f"[info] flash: {len(picked)} cards (최근 {FLASH_FRESH_MIN}분 {fresh_n}건 / "
+          f"기사 후보 {len(rows)}건)", file=sys.stderr)
+    return picked
 
 
 # --------------------------------------------------------------------------- 이슈 묶음
@@ -1631,7 +1648,7 @@ ISSUE_STOP = {
     "까지", "부터", "따라", "대해", "논란", "의혹", "확산", "나온다", "나왔다", "무죄",
 }
 
-MAX_ISSUES = 30          # 대시보드에 남길 이슈 카드 수(화면에는 앞 15건을 5:5로 먼저 보여준다)
+MAX_ISSUES = 30          # 대시보드에 남길 이슈 카드 수(화면에는 앞 14건을 3:7 비율로 먼저 보여준다)
 MAX_PER_THEME = 3        # 한 테마가 목록을 독점하지 않도록 하는 상한
 MAX_RELATED = 3          # 카드에 접어 넣을 다른 매체 기사 수
 BREAKING_HOURS = 14      # 이 시간 안의 [속보]만 최상단으로 올린다
@@ -1897,6 +1914,9 @@ def build(out_path: str):
         "generated_at": now.isoformat(),
         "generated_at_kst": now.strftime("%Y.%m.%d %H:%M"),
         "flash_count": len(flash),
+        "flash_fresh_min": FLASH_FRESH_MIN,
+        "flash_fresh_count": sum(1 for f in flash if f.get("fresh")),
+        "flash_updated": flash[0]["time"] if flash else None,
         "count": len(kept),
         "article_count": sum(c.get("article_count", 1) for c in kept),
         "main_source": {
