@@ -438,10 +438,17 @@ NOT_MARKET = ("수상", "나눔", "봉사", "기부", "축제", "점등", "전�
               "행사", "개막", "박람회", "체험", "공모전", "졸업", "입학")
 
 
+def has_hangul(text: str) -> bool:
+    """국내 대시보드이므로 한글이 없는 영문 단독 기사는 보여주지 않는다."""
+    return any("\uac00" <= ch <= "\ud7a3" for ch in (text or ""))
+
+
 def is_market_relevant(a: dict) -> bool:
     """증시와 무관한 생활·지역 뉴스를 걸러낸다."""
     title = a["title"]
     lede = a.get("lede", "") or ""
+    if not has_hangul(title):
+        return False
     if any(t in title for t in STRONG_MARKET):
         return True
     if any(t in title for t in NOT_MARKET):
@@ -578,6 +585,8 @@ def is_main_relevant(a: dict) -> bool:
     같은 사건이라도 정부 대책·규제·산업 영향이 있는 기사는 남긴다.
     """
     title = matchable(a["title"])
+    if not has_hangul(title):
+        return False
     if any(w in title for w in HARD_DROP):
         return False
     if case_only(title) and not any(w in title for w in ("코스피", "증시", "주가", "환율", "금리")):
@@ -588,7 +597,10 @@ def is_main_relevant(a: dict) -> bool:
         return False
     if any(c in title for c in MAIN_COMPANIES) and any(x in title for x in BUSINESS_ACTS):
         return True
-    return any(w in title for w in MAIN_WEAK)
+    # 약한 단서 하나만으로는 연예·가심 기사가 새여 들어온다 — 두 개 이상일 때만 남긴다
+    if sum(1 for w in MAIN_WEAK if w in title) >= 2:
+        return True
+    return False
 
 
 def is_breaking(title: str) -> bool:
