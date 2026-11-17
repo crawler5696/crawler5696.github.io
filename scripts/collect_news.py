@@ -289,6 +289,87 @@ MARKET_TERMS = ("주가", "증시", "코스피", "코스닥", "종목", "상한�
                 "외국인", "기관", "공시", "실적", "영업이익", "수주", "공급계약", "목표주가",
                 "특징주", "테마주", "상장", "IPO", "인수", "지분", "배당", "공모주", "주주")
 
+# 증시 기사 판별용 강한 신호 (제목에 있으면 무조건 채택)
+STRONG_MARKET = MARKET_TERMS + (
+    "주식", "매수", "매도", "거래량", "시가총액", "공매도", "ETF", "선물", "옵션",
+    "증권사", "리포트", "컨센서스", "어닝", "분기 실적", "3분기", "4분기", "영업익",
+    "최대주주", "유상증자", "무상증자", "자사주", "액면분할", "감자", "관리종목",
+    "투자의견", "목표가", "주가순자산", "PER", "PBR", "공모가", "수급", "반등", "약세",
+    "강세", "폭락", "폭등", "상승 마감", "하락 마감",
+)
+
+# 상장사·핵심 기업 이름 (이 이름 + 사업 동작이 함께 나오면 증시 기사로 본다)
+COMPANIES = (
+    "삼성전자", "SK하이닉스", "삼전닉스", "현대차", "기아", "LG에너지솔루션", "삼성SDI",
+    "삼성바이오로직스", "셀트리온", "한화에어로스페이스", "현대로템", "두산에너빌리티",
+    "네이버", "카카오", "LG전자", "POSCO", "포스코", "롯데케미칼", "이마트", "CJ",
+    "한화", "HD현대", "LS", "GS", "대한항공", "아모레", "하이브", "에코프로", "포스코퓨처엠",
+    "엔비디아", "테슬라", "애플", "마이크로소프트", "구글", "메타", "아마존", "TSMC",
+    "알테오젠", "유한양행", "한미약품", "HLB", "리가켐", "레인보우로보틱스", "로보티즈",
+    "이오테크닉스", "한미반도체", "HPSP", "주성엔지니어링", "DB하이텍", "리노공업",
+    "HD현대일렉트릭", "LS일렉트릭", "산일전기", "효성중공업", "한전기술", "두산에너빌",
+    "LIG넥스원", "한국항공우주", "케이조선", "HD한국조선해양", "삼성중공업", "한화오션",
+)
+
+BUSINESS_ACTS = ("투자", "수주", "계약", "공급", "실적", "매출", "영업이익", "개발", "출시",
+                 "증설", "인수", "합병", "상장", "임상", "특허", "감산", "증산", "가격 인상",
+                 "MOU", "협약", "납품", "진출", "점유율", "생산", "공장")
+
+# 기업 이름이 나와도 증시와 무관한 행사·사훈성 기사
+NOT_MARKET = ("수상", "나눔", "봉사", "기부", "축제", "점등", "전시", "공연", "시상",
+              "행사", "개막", "박람회", "체험", "공모전", "졸업", "입학")
+
+
+def is_market_relevant(a: dict) -> bool:
+    """증시와 무관한 생활·지역 뉴스를 걸러낸다."""
+    title = a["title"]
+    lede = a.get("lede", "") or ""
+    if any(t in title for t in STRONG_MARKET):
+        return True
+    if any(t in title for t in NOT_MARKET):
+        return False
+    has_company = any(c in title or c in lede for c in COMPANIES)
+    if has_company and any(act in title or act in lede for act in BUSINESS_ACTS):
+        return True
+    if sum(1 for t in STRONG_MARKET if t in lede) >= 2:
+        return True
+    return False
+
+
+def norm_title(t: str) -> str:
+    return re.sub(r"[^0-9A-Za-z가-힣]", "", t)
+
+
+STOPWORDS = {"그리고", "하지만", "이번", "오늘", "지금", "결국", "대한", "위한", "관련", "이같",
+             "있다", "있다는", "한다", "했다", "된다", "다는", "라는", "보다", "에서", "으로",
+             "까지", "부터", "따라", "대해", "모두", "우리", "이날", "지난", "올해", "내년"}
+
+
+def title_tokens(t: str) -> set:
+    words = re.findall(r"[가-힣A-Za-z]{2,}", t)
+    return {w for w in words if w not in STOPWORDS}
+
+
+def is_near_duplicate(t: str, seen: list, seen_tokens: list) -> bool:
+    """같은 사건을 살짝 바꿐 제목(다른 매체 중복)을 걸러낸다."""
+    n = norm_title(t)
+    if not n:
+        return True
+    toks = title_tokens(t)
+    for s, st in zip(seen, seen_tokens):
+        if n == s:
+            return True
+        k = min(len(n), len(s), 22)
+        if k >= 12 and n[:k] == s[:k]:
+            return True
+        if len(n) > 10 and (n in s or s in n):
+            return True
+        if toks and st:
+            inter = len(toks & st)
+            if inter / max(1, len(toks | st)) >= 0.55:
+                return True
+    return False
+
 
 # --------------------------------------------------------------------------- 대체 수집
 def collect_google_news():
@@ -362,7 +443,15 @@ def build(out_path: str):
 
     # 1차 분류·필터 (목록의 리드만으로 충분) → 관련 기사만 원문 조회해서 부하를 줄인다
     candidates = []
+    seen_titles = []
+    seen_tokens = []
     for a in articles:
+        if not is_market_relevant(a):
+            continue
+        if is_near_duplicate(a["title"], seen_titles, seen_tokens):
+            continue
+        seen_titles.append(norm_title(a["title"]))
+        seen_tokens.append(title_tokens(a["title"]))
         tid, tags, rel = classify(a)
         head = a["title"] + " " + a.get("lede", "")
         if rel < MIN_RELEVANCE and tid == "etc" and not any(t in head for t in MARKET_TERMS):
@@ -389,6 +478,14 @@ def build(out_path: str):
     # 원문에서 정확한 발행 시각·본문 리드 보강 (동시 요청)
     with ThreadPoolExecutor(max_workers=ARTICLE_FETCH_WORKERS) as pool:
         list(pool.map(enrich, candidates))
+
+    # 시각을 못 가져온 기사는 느린 속도로 한 번 더 시도 (서버 과부하·순간 오류 대비)
+    missing = [a for a in candidates if not a.get("time") and a.get("source") != "google"]
+    if missing:
+        print(f"[info] retry time for {len(missing)} items", file=sys.stderr)
+        with ThreadPoolExecutor(max_workers=3) as pool:
+            list(pool.map(enrich, missing))
+        print(f"[info] still missing: {sum(1 for a in missing if not a.get('time'))}", file=sys.stderr)
 
     kept = []
     for a in candidates:
