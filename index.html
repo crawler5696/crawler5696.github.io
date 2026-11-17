@@ -470,7 +470,7 @@ function flashHtml(a){
 
 function issueHtml(a, i){
   const color = themeColor(a.theme);
-  const rank = a.issue_rank || (i + 1);
+  const rank = i + 1;   // 화면에 보이는 순서대로 번호를 매긴다(속보와 겹쳐 빠지는 카드가 있어도 번호가 끊기지 않게)
   const pressN = a.presses || 1;
   const pressBadge = pressN >= 2
     ? `<button class="presses" type="button" aria-label="다른 매체 기사 펼치기">${pressN}개 매체</button>`
