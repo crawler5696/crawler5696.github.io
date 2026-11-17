@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>증시 뉴스 레이더 · 뉴스 / 테마 순위 / 일정</title>
-<meta property="description" content="국내 증시 뉴스를 30분마다 자동 수집해 테마 순위·단기 불씨/중기 흐름 힌트·일정 뉴스까지 한 화면에 보여주는 대시보드">
+<title>증시 뉴스 레이더 · 오늘의 이슈 순위 / 테마 / 일정</title>
+<meta property="description" content="네이버 뉴스 메인(언론사별 랭킹)과 경제 섹션을 30분마다 모아, 여러 매체가 함께 다룬 이슈를 매체 수 순으로 묶어 보여주는 대시보드">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="증시 뉴스 레이더">
-<meta property="og:title" content="증시 뉴스 레이더 · 뉴스 / 테마 순위 / 일정">
-<meta property="og:description" content="30분마다 갱신되는 국내 증시 뉴스 — 테마 순위, 단기 불씨·중기 흐름 힌트, 일정 뉴스">
+<meta property="og:title" content="증시 뉴스 레이더 · 오늘의 이슈 순위">
+<meta property="og:description" content="30분마다 갱신 — 매체 수로 묶은 메인 이슈 순위, 테마 대장주, 일정 뉴스">
 <meta property="og:url" content="https://crawler5696.github.io/">
 <meta property="og:image" content="https://crawler5696.github.io/icons/icon-512.png">
 <meta name="twitter:card" content="summary">
@@ -116,7 +116,7 @@
     padding:13px 14px 12px;margin-bottom:9px;position:relative;overflow:hidden;
     transition:.15s;animation:fade .35s ease both;
   }
-  .card:active{transform:scale(.992);background:var(--card2)}
+  .card:active{background:var(--card2)}
   @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
   .card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--c,#4f8cff);opacity:.85}
   .row1{display:flex;align-items:center;gap:6px;margin-bottom:7px;flex-wrap:wrap}
@@ -134,6 +134,32 @@
   .press{font-weight:600;color:var(--dim)}
   .sep{width:2px;height:2px;border-radius:50%;background:var(--dim2);display:inline-block;margin:0 4px;vertical-align:middle}
   .go{margin-left:auto;font-size:11px;color:#5f6f8c}
+
+  /* ---------- 이슈 카드 ---------- */
+  .issue-no{width:26px;height:26px;border-radius:9px;display:grid;place-items:center;flex:none;
+    font-size:12.5px;font-weight:800;color:#fff;background:rgba(255,255,255,.1);
+    border:1px solid rgba(255,255,255,.16)}
+  .issue-no.top3{background:linear-gradient(135deg,#4f8cff,#7c5cff);border-color:transparent;
+    box-shadow:0 3px 10px rgba(79,140,255,.35)}
+  .break{font-size:11px;font-weight:800;color:#fff;padding:3px 8px;border-radius:7px;
+    background:linear-gradient(135deg,#ff4d4d,#ff8a4c);animation:blink 1.8s infinite;white-space:nowrap}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:.6}}
+  .presses{margin-left:auto;font-size:11px;font-weight:800;color:#9fc0ff;background:rgba(79,140,255,.12);
+    border:1px solid rgba(79,140,255,.3);padding:2px 8px;border-radius:20px;white-space:nowrap;
+    font-family:inherit;cursor:pointer}
+  a.title{display:block;color:inherit}
+  .leaders{font-size:12px;color:#cfd9ea;background:rgba(79,140,255,.08);border:1px solid rgba(79,140,255,.22);
+    border-radius:9px;padding:6px 9px;margin:0 0 8px;line-height:1.5}
+  .leaders .lb{color:#8fb4ff;font-weight:800;margin-right:3px}
+  .relm{margin:0 0 8px}
+  .relm summary{font-size:12px;color:#8fa4c4;cursor:pointer;list-style:none;padding:4px 0;font-weight:600}
+  .relm summary::-webkit-details-marker{display:none}
+  .relm summary::before{content:'\25B8  ';}
+  .relm[open] summary::before{content:'\25BE  ';}
+  .relm a{display:block;font-size:12.5px;color:#a9b7cd;padding:6px 0 6px 9px;border-top:1px solid var(--line);line-height:1.42}
+  .relm a .rp{color:#6b778f;font-size:11px}
+  .rk-leaders{font-size:11.5px;color:#9fb4d8;background:rgba(79,140,255,.07);border:1px solid rgba(79,140,255,.2);
+    border-radius:8px;padding:5px 8px;margin-bottom:8px;line-height:1.5}
 
   /* ---------- 공통 뷰 헤더 ---------- */
   .viewhead{display:flex;align-items:baseline;gap:8px;padding:14px 2px 10px}
@@ -214,13 +240,13 @@
   <div class="wrap">
     <div class="top">
       <div class="logo" aria-hidden="true"><svg viewBox="0 0 64 64" width="22" height="22"><path d="M10 46 L22 33 L31 39 L44 23 L54 14 L54 49 L10 49 Z" fill="rgba(255,255,255,.22)"/><path d="M10 46 L22 33 L31 39 L44 23 L54 14" fill="none" stroke="#fff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="54" cy="14" r="3.6" fill="#fff"/></svg></div>
-      <div class="brand">증시 뉴스 레이더<small>뉴스 · 테마 흐름 · 일정</small></div>
+      <div class="brand">증시 뉴스 레이더<small>메인 이슈 순위 · 테마 · 일정</small></div>
       <div class="spacer"></div>
       <div class="live" id="live"><span class="dot"></span><span id="liveTxt">LIVE</span></div>
       <button class="refresh" id="btnRefresh" aria-label="새로고침">⟳</button>
     </div>
     <div class="tabs" role="tablist" aria-label="화면 전환">
-      <button class="tab" role="tab" data-tab="news" aria-selected="true">📰 뉴스</button>
+      <button class="tab" role="tab" data-tab="news" aria-selected="true">📰 이슈 순위</button>
       <button class="tab" role="tab" data-tab="themes" aria-selected="false">🔥 테마 순위</button>
       <button class="tab" role="tab" data-tab="schedules" aria-selected="false">📅 일정 뉴스</button>
     </div>
@@ -239,6 +265,10 @@
       <input id="q" type="search" inputmode="search" placeholder="종목·키워드 검색 (예: 반도체, 상한가)" autocomplete="off">
     </div>
     <div class="chips" id="chips"></div>
+    <p class="note" style="margin:0 2px 10px;border:0;padding:0">
+      네이버 뉴스 메인 랭킹과 경제 섹션에서 <b>증시·산업·정책에 닿는 기사만</b> 골라,
+      같은 이슈를 다룬 매체 수가 많은 순으로 줄을 세웠습니다. <b>⚡ 속보</b>는 맨 위, 카드의 <b>N개 매체</b>를 누르면 다른 매체 기사가 펼쳐집니다.
+    </p>
     <div id="list">
       <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
     </div>
@@ -252,7 +282,8 @@
     <p class="note">
       <b>단기 불씨</b>는 최근 몇 시간 안에 몰린 속보성 보도, <b>중기 흐름</b>은 여러 시간대와 다수 매체로 이어진 업황·정책 보도를 뜻합니다.
       판정은 공개 뉴스의 보도 시각·매체 수·표현만으로 계산하며, 근거 수치를 카드마다 그대로 적었습니다.
-      기사 수는 이번 수집분, 24시간 값은 하루 동안 이어받은 보도 기록입니다.
+      건수는 같은 사건을 하나로 묶은 <b>이슈 카드 수</b>이고, 24시간 값은 하루 동안 이어받은 보도 기록입니다.
+      <b>🏢 대장주</b>는 기사에 직접 언급된 상장사와 공개된 테마별 상한가 주도 종목을 붙인 것으로, 투자 권유가 아닙니다.
     </p>
   </section>
 
@@ -269,8 +300,9 @@
 </main>
 
 <footer>
-  <b>네이버뉴스</b> 경제 섹션과 <b>공개 뉴스 검색</b>을 30분마다 자동 수집합니다.<br>
-  요약은 기사 도입부를 줄인 것으로, 투자 판단의 근거가 아닙니다.<br>
+  <b>네이버 뉴스 메인(언론사별 많이 본 뉴스)</b>과 <b>경제 섹션</b>을 30분마다 자동 수집합니다.<br>
+  연예·스포츠·건강·지역 행사·개인 사건은 걸러내고, 증시·산업·거시·정책 이슈만 남깁니다.<br>
+  요약은 기사 도입부를 줄인 것이고, 대장주 배지는 공개 테마 정보로 붙인 것으로 투자 권유가 아닙니다.<br>
   저작권은 각 언론사에 있으며 모든 기사는 원문 링크로 연결됩니다.
 </footer>
 <button id="top" aria-label="맨 위로">↑</button>
@@ -307,7 +339,7 @@ function dayKey(iso){
 }
 
 function themes(){ return (state.data && state.data.themes) || []; }
-function allArticles(){ return (state.data && state.data.articles) || []; }
+function allArticles(){ return (state.data && state.data.issues) || (state.data && state.data.articles) || []; }
 
 /* ---------------- 탭 ---------------- */
 function switchTab(name, keepScroll){
@@ -347,21 +379,38 @@ function filtered(){
   return allArticles().filter(a => {
     if(state.theme !== 'all' && a.theme !== state.theme) return false;
     if(!q) return true;
-    const hay = (a.title + ' ' + (a.summary||'') + ' ' + (a.tags||[]).join(' ') + ' ' + (a.press||'')).toLowerCase();
+    const rel = (a.related||[]).map(x => x.title + ' ' + (x.press||'')).join(' ');
+    const hay = (a.title + ' ' + (a.summary||'') + ' ' + (a.tags||[]).join(' ') + ' ' +
+                 (a.press||'') + ' ' + (a.leaders||[]).join(' ') + ' ' + rel).toLowerCase();
     return hay.includes(q);
   });
 }
 
-function cardHtml(a){
+function cardHtml(a, i){
   const color = a.color || themeColor(a.theme);
   const tags = (a.tags||[]).slice(0,3).map(t => `<span class="tag">${esc(t)}</span>`).join('');
-  const hot = (a.relevance||0) >= 14 ? '<span class="hot">화제</span>' : '';
-  return `<a class="card" style="--c:${color}" href="${esc(a.url)}" target="_blank" rel="noopener noreferrer">
-    <div class="row1"><span class="badge" style="--c:${color};background:${color}22;border-color:${color}55">${esc(a.theme_label||'기타')}</span>${tags}${hot}</div>
-    <h2 class="title">${esc(a.title)}</h2>
+  const rank = a.issue_rank || (i + 1);
+  const pressN = a.presses || 1;
+  const pressBadge = pressN >= 2
+    ? `<button class="presses" type="button" aria-label="다른 매체 기사 펼치기">${pressN}개 매체</button>`
+    : (a.main_rank ? `<span class="presses" style="cursor:default">메인 ${a.main_rank}위</span>` : '');
+  const brk = a.breaking ? '<span class="break">⚡ 속보</span>' : '';
+  const leaders = (a.leaders||[]).length
+    ? `<div class="leaders"><span class="lb">🏢 대장주</span>${(a.leaders||[]).map(esc).join(' · ')}</div>` : '';
+  const related = (a.related||[]);
+  const relHtml = related.length
+    ? `<details class="relm"><summary>다른 매체 기사 ${related.length}건</summary>` +
+      related.map(r => `<a href="${esc(r.url)}" target="_blank" rel="noopener noreferrer">${esc(r.title)} <span class="rp">· ${esc(r.press||'')}</span></a>`).join('') +
+      `</details>` : '';
+  return `<article class="card" style="--c:${color}">
+    <div class="row1">${brk}<span class="issue-no${rank<=3?' top3':''}">${rank}</span>
+      <span class="badge" style="--c:${color};background:${color}22;border-color:${color}55">${esc(a.theme_label||'기타')}</span>${tags}${pressBadge}</div>
+    <a class="title" href="${esc(a.url)}" target="_blank" rel="noopener noreferrer">${esc(a.title)}</a>
     ${a.summary ? `<p class="sum">${esc(a.summary)}</p>` : ''}
-    <div class="foot"><span class="press">${esc(a.press||'')}</span><span class="sep"></span><span>${relTime(a.time)}</span><span class="go">원문 →</span></div>
-  </a>`;
+    ${leaders}
+    ${relHtml}
+    <div class="foot"><span class="press">${esc(a.press||'')}</span>${a.section?`<span class="sep"></span><span>${esc(a.section)}</span>`:''}<span class="sep"></span><span>${relTime(a.time)}</span><a class="go" href="${esc(a.url)}" target="_blank" rel="noopener noreferrer">원문 →</a></div>
+  </article>`;
 }
 
 function themeColor(id){
@@ -374,17 +423,14 @@ function renderList(reset){
   const list = $('#list');
   if(reset) { list.innerHTML = ''; state.rendered = 0; }
   if(!items.length){
-    list.innerHTML = `<div class="empty">조건에 맞는 기사가 없습니다.<br>검색어나 테마를 바꿔 보세요.</div>`;
+    list.innerHTML = `<div class="empty">조건에 맞는 이슈가 없습니다.<br>검색어나 테마를 바꿔 보세요.</div>`;
     return;
   }
   const start = state.rendered;
   const slice = items.slice(start, start + BATCH);
   let html = '';
-  let lastDay = start > 0 ? dayKey(items[start-1].time) : null;
-  for(const a of slice){
-    const dk = dayKey(a.time);
-    if(dk !== lastDay){ html += `<div class="daymark">${esc(dk)}</div>`; lastDay = dk; }
-    html += cardHtml(a);
+  for(let i = 0; i < slice.length; i++){
+    html += cardHtml(slice[i], start + i);
   }
   if(start === 0) list.innerHTML = html;
   else list.insertAdjacentHTML('beforeend', html);
@@ -420,7 +466,7 @@ function renderThemes(){
     box.innerHTML = `<div class="empty">테마 순위를 계산할 기사가 아직 없습니다.<br>다음 갱신(30분) 뒤 다시 확인해 주세요.</div>`;
     return;
   }
-  $('#themesSub').textContent = `기사 ${(state.data.count||0)}건 · 테마 ${rows.length}개`;
+  $('#themesSub').textContent = `이슈 ${(state.data.count||0)}건 · 테마 ${rows.length}개`;
   let html = '';
   for(const r of rows){
     const h = r.hint || {};
@@ -428,6 +474,8 @@ function renderThemes(){
     const kws = (r.keywords||[]).map(k => `<span class="kw">${esc(k)}</span>`).join('');
     const hds = (r.headlines||[]).map(x =>
       `<a class="rk-hd" href="${esc(x.url)}" target="_blank" rel="noopener noreferrer">${esc(x.title)}</a>`).join('');
+    const lds = (r.leaders||[]).length
+      ? `<div class="rk-leaders">🏢 대장주 · ${(r.leaders||[]).map(esc).join(' · ')}</div>` : '';
     html += `<article class="rank-card" style="--c:${r.color||'#4f8cff'}">
       <div class="rk-top">
         <span class="rk-no">${r.rank}</span>
@@ -437,6 +485,7 @@ function renderThemes(){
       </div>
       ${kws ? `<div class="rk-kws">${kws}</div>` : ''}
       ${hds ? `<div class="rk-hds">${hds}</div>` : ''}
+      ${lds}
       <div class="rk-metrics">최근 6시간 ${r.recent_6h||0}건(${r.recent_6h_ratio||0}%) · 24시간 ${r.day_count||r.count}건 · 매체 ${r.presses||0}곳 · 화제 ${r.hot||0}건</div>
       <div class="rk-reason">${esc(h.reason||'')}</div>
       <button class="rk-go" data-theme="${esc(r.id)}">이 테마 뉴스 보기 →</button>
@@ -502,7 +551,8 @@ async function load(manual){
 
 function applyData(data){
   $('#updated').textContent = data.generated_at_kst || '–';
-  $('#total').textContent = '기사 ' + (data.count||0) + '건';
+  const n = ((data.issues || data.articles)||[]).length;
+  $('#total').textContent = '이슈 ' + n + '건' + (data.article_count ? ' · 기사 ' + data.article_count + '건' : '');
   if(state.theme !== 'all' && !(data.themes||[]).some(t => t.id === state.theme)) state.theme = 'all';
   renderChips();
   renderList(true);
@@ -511,6 +561,14 @@ function applyData(data){
 }
 
 $('#q').addEventListener('input', e => { state.q = e.target.value; state.rendered = 0; renderList(true); });
+/* 카드의 'N개 매체'를 누르면 같은 이슈의 다른 매체 기사가 펼쳐진다 */
+document.addEventListener('click', e => {
+  const btn = e.target.closest('.presses');
+  if(!btn || btn.tagName !== 'BUTTON') return;
+  const card = btn.closest('.card');
+  const box = card && card.querySelector('.relm');
+  if(box){ box.open = !box.open; }
+});
 $('#btnRefresh').addEventListener('click', () => load(true));
 document.querySelectorAll('.tab').forEach(b => b.onclick = () => switchTab(b.dataset.tab));
 addEventListener('hashchange', () => {

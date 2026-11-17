@@ -1,9 +1,13 @@
 #!/usr/bin/env python3
-"""국내 증시 뉴스 수집기 — 네이버 뉴스 경제 섹션(증권/산업/금융/글로벌경제/경제일반)에서
-기사를 모아 테마 태그를 붙이고, 1~2줄 요약과 함께 data/news.json 으로 저장한다.
+"""국내 증시 뉴스 수집기 — 네이버 뉴스 경제 섹션(증권/산업/금융/글로벌경제/경제일반)과
+네이버 뉴스 메인(언론사별 많이 본 뉴스 1~5위)에서 기사를 모아, 같은 이슈를 여러 매체가
+다룬 정도로 묶어 '오늘의 이슈 순위'를 만든다.
 
 함께 만드는 것:
-  · themes_rank — 테마별 기사 수·최근 6시간 비중·화제 기사·대표 키워드·최신 헤드라인과,
+  · issues      — 같은 사건을 다룬 기사를 하나로 묶은 이슈 카드(대표 기사 + 관련 매체 링크).
+    매체 수가 많을수록 상위 순위, [속보]·긴급 기사는 최상단.
+  · leaders     — 기사에 직접 언급된 상장사 + 공개 테마별 상한가 주도 대장주 배지
+  · themes_rank — 테마별 이슈 수·최근 6시간 비중·대표 키워드·대장주와,
     공개 뉴스 패턴만으로 계산한 '단기 불씨 / 중기 흐름' 힌트와 그 근거 수치
   · schedules   — 제목·요약에서 일정·이벤트 단서(실적 발표, 금리 결정, IPO, 정책 시행 등)와
     시점 단서(내일/이번 주/날짜)를 함께 뽑아 주제별로 묶은 일정 카드
@@ -111,6 +115,17 @@ THEMES = [
         ("수주", 3), ("공급계약", 3), ("특허", 2), ("지분", 2), ("최대주주", 3),
         ("특징주", 3), ("테마주", 3), ("투자경고", 3), ("거래정지", 3), ("감자", 3),
         ("어닝", 3), ("컨센서스", 3), ("주가", 2), ("주주", 2),
+    ]),
+    ("aisec", "AI·보안", "#6fd0ff", [
+        ("보안", 3), ("해킹", 3), ("악성코드", 3), ("딥페이크", 3), ("랜섬웨어", 3),
+        ("부정행위", 3), ("커닝", 3), ("탐지", 2), ("생체인식", 3), ("양자암호", 3),
+        ("스마트안경", 3), ("피싱", 3), ("개인정보", 2), ("영상보안", 3), ("인증", 2),
+        ("위조", 2), ("CCTV", 2), ("수능", 2), ("재난문자", 2), ("시험", 1),
+        ("cheating", 3), ("CSAT", 2), ("exam", 1),
+    ]),
+    ("disaster", "재난·안전", "#ffb27a", [
+        ("지진", 3), ("태풍", 3), ("호우", 3), ("폭설", 3), ("한파", 3), ("산불", 3),
+        ("홍수", 3), ("가뭄", 3), ("대피", 3), ("기상청", 3), ("재난안전", 3), ("구조", 2),
     ]),
 ]
 THEME_LABEL = {tid: label for tid, label, _c, _k in THEMES}
@@ -238,6 +253,76 @@ def parse_section(section_id: int, name: str, weight: float):
     return out
 
 
+# --------------------------------------------------------------------------- 네이버 뉴스 메인 랭킹
+MAIN_RANKING_URL = "https://news.naver.com/main/ranking/popularDay.naver"
+MAIN_SECTION = "네이버 메인"
+
+MAIN_BOX = '<div class="rankingnews_box">'
+MAIN_NAME_RE = re.compile(r'<strong class="rankingnews_name">([^<]+)</strong>')
+MAIN_PRESS_RE = re.compile(r'media\.naver\.com/press/(\d+)/ranking')
+MAIN_LI_RE = re.compile(r'<li>(.*?)</li>', re.S)
+MAIN_HREF_RE = re.compile(r'href="(https://n\.news\.naver\.com/article/(\d+)/(\d+))[^"]*"')
+MAIN_TITLE_RE = re.compile(r'class="list_title[^"]*"[^>]*>(.*?)</a>', re.S)
+MAIN_RANKNUM_RE = re.compile(r'<em class="list_ranking_num">(\d+)')
+MAIN_TIME_RE = re.compile(r'<span class="list_time[^"]*">([^<]+)</span>')
+
+
+def parse_main_ranking(now: datetime | None = None):
+    """네이버 뉴스 메인 '언론사별 많이 본 뉴스' 1~5위(약 80개 매체)를 읽는다.
+
+    페이지가 euc-kr(cp949)로 내려오므로 해당 인코딩으로 디코드한다.
+    """
+    now = now or datetime.now(KST)
+    try:
+        page = fetch(MAIN_RANKING_URL, encoding="cp949", timeout=20)
+    except Exception as e:  # noqa: BLE001
+        print(f"[warn] main ranking failed: {e}", file=sys.stderr)
+        return []
+
+    out = []
+    for box in page.split(MAIN_BOX)[1:]:
+        m_name = MAIN_NAME_RE.search(box)
+        if not m_name:
+            continue
+        press = strip_tags(m_name.group(1))
+        m_pid = MAIN_PRESS_RE.search(box)
+        pid = m_pid.group(1) if m_pid else ""
+        try:
+            ul = box.split('<ul class="rankingnews_list">')[1].split("</ul>")[0]
+        except IndexError:
+            continue
+        for li in MAIN_LI_RE.findall(ul):
+            m_href = MAIN_HREF_RE.search(li)
+            m_title = MAIN_TITLE_RE.search(li)
+            if not (m_href and m_title):
+                continue
+            title = " ".join(strip_tags(m_title.group(1)).split())
+            if not title or len(title) < 6:
+                continue
+            m_rank = MAIN_RANKNUM_RE.search(li)
+            m_time = MAIN_TIME_RE.search(li)
+            item = {
+                "id": f"{m_href.group(2)}/{m_href.group(3)}",
+                "title": title,
+                "lede": "",
+                "press": press,
+                "press_id": pid,
+                "url": m_href.group(1),
+                "section": MAIN_SECTION,
+                "weight": 0.95,
+                "source": "main",
+                "main_rank": int(m_rank.group(1)) if m_rank else 99,
+            }
+            if m_time:
+                dt = parse_kr_time(html_lib.unescape(m_time.group(1)), now)
+                if dt:
+                    item["time"] = dt.isoformat()
+            out.append(item)
+    print(f"[info] main ranking: {len(out)} items / "
+          f"{len({x['press'] for x in out})} presses", file=sys.stderr)
+    return out
+
+
 TIME_RE = re.compile(r'_ARTICLE_DATE_TIME[^>]*data-date-time="([^"]+)"')
 
 
@@ -357,6 +442,147 @@ def is_market_relevant(a: dict) -> bool:
     if sum(1 for t in STRONG_MARKET if t in lede) >= 2:
         return True
     return False
+
+
+# --------------------------------------------------------------------------- 메인 랭킹 필터
+# 메인 랭킹에는 연예·건강·지역 행사·사건사고가 섞여 들어온다.
+# 증시·산업·기업·거시·금리·환율·정책/규제·지정학·수주·공급망에 닿는 기사만 남긴다.
+MAIN_STRONG = (
+    # 증시·수급
+    "주가", "주식", "증시", "코스피", "코스닥", "지수", "상한가", "급등", "급락", "폭락",
+    "폭등", "매수", "매도", "거래량", "외국인", "공매도", "시가총액", "ETF", "공모주", "IPO",
+    "상장", "공시", "유상증자", "무상증자", "자사주", "배당", "목표가", "투자의견", "실적",
+    "영업이익", "영업익", "매출", "컨센서스", "어닝", "특징주", "테마주", "증권사", "리포트",
+    # 거시
+    "환율", "원달러", "금리", "연준", "한은", "한국은행", "FOMC", "금통위", "물가", "CPI",
+    "국채", "채권", "GDP", "성장률", "무역수지", "경상수지", "고용", "실업", "최저임금",
+    "인플레이션", "디플레이션", "기준금리", "경기침체",
+    # 산업·기업
+    "반도체", "메모리", "HBM", "D램", "파운드리", "엔비디아", "삼성전자", "SK하이닉스",
+    "삼전닉스", "삼전", "하닉", "TSMC", "데이터센터", "AI", "인공지능", "디스플레이",
+    "배터리", "이차전지", "2차전지", "전기차", "원전", "원자력", "LNG", "알래스카",
+    "국제유가", "정유", "조선", "방산", "철강", "화학", "자동차", "바이오", "제약", "임상",
+    "CDMO", "수출", "수입", "무역", "관세", "수주", "공급계약", "납품", "공장", "증설",
+    "감산", "증산", "점유율", "투자", "수익", "손실", "자산",
+    # 정책·제도·부동산
+    "법안", "규제", "세제", "예산", "금융위", "공정위", "국토부", "특별법", "시행령",
+    "금융", "증권", "은행", "보험", "연금", "부동산", "집값", "아파트", "재건축", "재개발",
+    "분양", "전세", "경매", "리모델링",
+    # 재난·정책 빅이슈
+    "지진", "기상청", "태풍", "호우", "폭설", "한파", "산불", "홍수", "대피", "재난",
+    "수능", "부정행위", "커닝", "재난문자", "세무사",
+)
+
+MAIN_WEAK = (
+    "노조", "파업", "임단협", "정년", "일자리", "창업", "벤처", "스타트업", "소비", "유통",
+    "물류", "해운", "항공", "농산물", "곡물", "원자재", "OPEC", "에너지", "전력", "충전",
+    "수소", "태양광", "스마트폰", "갤럭시", "아이폰", "클라우드", "플랫폼", "게임",
+    "통상", "산업부", "기재부", "공정거래", "보험료", "가상자산", "비트코인", "대출",
+    "가계부채", "예금", "적금", "공모", "인수", "합병", "M&A", "지분", "최대주주",
+    "구조조정", "감원", "보안", "해킹", "딥페이크",
+)
+
+MAIN_COMPANIES = (
+    "삼성", "SK", "현대차", "기아", "LG", "롯데", "한화", "두산", "포스코", "POSCO", "GS",
+    "네이버", "카카오", "쿠팡", "셀트리온", "한미약품", "유한양행", "알테오젠", "에코프로",
+    "HD현대", "LS", "효성", "코오롱", "CJ", "이마트", "아모레", "하이브", "테슬라", "애플",
+    "마이크로소프트", "구글", "메타", "아마존", "오픈AI", "앤트로픽", "인텔",
+)
+
+MAIN_DROP = (
+    # 연예·가십·사생활
+    "연예", "아이돌", "배우", "걸그룹", "보이그룹", "결혼", "이혼", "열애", "임신", "불륜",
+    "스캔들", "근황", "인스타", "화보", "드라마", "영화", "예능", "뮤지컬", "콘서트",
+    "팬미팅", "데뷔", "컴백", "열애설", "결별", "아나운서", "방송인", "코미디언", "가수",
+    "OST", "스태프", "보너스", "여친", "모델", "패션", "스키복",
+    # 건강·생활·음식
+    "건강", "다이어트", "감량", "혈당", "콜레스테롤", "면역", "비타민", "음식", "레시피",
+    "영양", "숙면", "수면", "보습", "피부", "탈모", "갱년기", "병원", "의사", "치매",
+    "근육", "식품", "과일", "채소", "상추", "귤", "바나나", "달걀", "콩팥", "신장", "변비",
+    "알레르기", "전자담배", "담배", "음주", "숙취", "비만", "체중", "식단", "간식", "커피",
+    "라면", "뷔페", "보습크림",
+    # 여행·레저·문화·날씨
+    "여행", "산행", "등산", "캠핑", "맛집", "축제", "전시", "공연", "스키", "낚시", "골프",
+    "호캉스", "관광", "해녀", "트레킹", "날씨", "기온", "우산", "미세먼지",
+    # 사건사고·수사·재판
+    "참변", "숨져", "사망", "살해", "피살", "성폭행", "성비위", "불법촬영", "마약", "검거",
+    "체포", "구속", "입건", "실종", "납치", "음주운전", "교통사고", "추락", "익사", "실탄",
+    "권총", "테러", "횡령", "구타", "폭행", "시신", "변사", "영안실", "스토킹", "협박",
+    "징역", "선고", "무죄", "유죄", "기소", "구형",
+    # 스포츠·연예·기타 생활
+    "프로야구", "축구", "올림픽", "월드컵", "복권", "로또", "당첨", "반려견", "반려묘",
+    "고양이", "유기견", "웨딩", "신혼", "육아", "출산", "유치원", "문해력", "표창",
+    "봉사", "기부", "나눔", "박람회", "공모전", "졸업", "입학", "재승인", "강사", "일타",
+    # 정치 단독 이슈(증시와 무관)
+    "징계", "탈당", "제명", "공천", "국정조사", "특검", "후보 추천", "입국 거부", "당내",
+)
+
+# 개인 사건·수사성 표현 (정책·산업 신호가 없으면 버린다)
+CASE_WORDS = (
+    "리트", "만점자", "수석", "수험생", "헌재", "헌법소원", "효력정지", "경찰", "검찰",
+    "조사", "입건", "고소", "소송", "의혹", "예고글", "밈", "스토킹", "폭로", "자백",
+    "사과", "재판", "구속", "합격", "강사", "일타",
+)
+# 정책·제도·산업 신호 (사건성 기사라도 이것이 있으면 산업·정책 뉴스로 본다)
+POLICY_INDUSTRY = (
+    "정부", "교육부", "대책", "규제", "법안", "국회", "장관", "총리", "대통령", "시행",
+    "탐지", "보안", "기술", "산업", "통신", "전수검사", "앱", "개발", "제도", "당국",
+    "처벌", "감면", "포상", "차단", "점검",
+)
+
+
+# 강한 시장 키워드가 있어도 먼저 버리는 기사 종류 (연예·스포츠·개인 사건·학교)
+HARD_DROP = (
+    "연예", "아이돌", "배우", "가수", "걸그룹", "보이그룹", "예능", "드라마", "영화", "화보",
+    "콘서트", "팬미팅", "열애", "불륜", "이혼", "결혼", "임신", "스캔들", "근황",
+    "프로야구", "축구", "올림픽", "월드컵", "복권", "로또",
+    "살해", "피살", "성폭행", "불법촬영", "마약", "교통사고", "참변", "숨져", "사망", "자살",
+    "입건", "구속", "체포", "검거", "실탄", "권총",
+    "일타", "강사", "교사", "학원", "학부모", "여고", "수험생", "감독관", "고3", "초등학생",
+    "추락", "실종", "날씨", "기온", "추워", "눈 가능성", "재승인", "점수 조작", "가짜뉴스",
+    "체납", "수당", "매매 상위 종목", "상위 종목",
+)
+
+
+MATCH_FIX = (
+    ("견주가", "견주"), ("유가족", "유족"), ("은행나무", "나무"), ("TV조선", "TV방송"),
+    ("조선일보", "일간지"), ("조선비즈", "경제지"), ("주간조선", "주간지"), ("조선뉴스", "뉴스"),
+)
+
+
+def matchable(title: str) -> str:
+    """부분 문자열 오인(견주가→주가, 유가족→유가, 은행나무→은행, TV조선→조선)을 막는다."""
+    for a, b in MATCH_FIX:
+        title = title.replace(a, b)
+    return title
+
+
+def case_only(title: str) -> bool:
+    return any(w in title for w in CASE_WORDS) and not any(w in title for w in POLICY_INDUSTRY)
+
+
+def is_main_relevant(a: dict) -> bool:
+    """메인 랭킹 기사가 증시·산업·거시·정책에 닿는지 판단한다.
+
+    연예·건강·생활·스포츠·지역 행사·개인 사건은 제외하고,
+    같은 사건이라도 정부 대책·규제·산업 영향이 있는 기사는 남긴다.
+    """
+    title = matchable(a["title"])
+    if any(w in title for w in HARD_DROP):
+        return False
+    if case_only(title) and not any(w in title for w in ("코스피", "증시", "주가", "환율", "금리")):
+        return False
+    if any(w in title for w in MAIN_STRONG):
+        return True
+    if any(w in title for w in MAIN_DROP):
+        return False
+    if any(c in title for c in MAIN_COMPANIES) and any(x in title for x in BUSINESS_ACTS):
+        return True
+    return any(w in title for w in MAIN_WEAK)
+
+
+def is_breaking(title: str) -> bool:
+    return "속보" in title or "긴급" in title
 
 
 def norm_title(t: str) -> str:
@@ -645,6 +871,7 @@ def build_themes_rank(kept: list, now: datetime, history: dict | None = None):
             "keywords": theme_keywords(tid, arts),
             "headlines": [{"title": a["title"], "url": a["url"], "press": a.get("press", ""),
                            "time": a.get("time", "")} for a in arts[:2]],
+            "leaders": theme_leaders(tid, [{"title": a["title"]} for a in arts[:2]]),
             "hint": flow_hint(hint_pool, now, count=len(arts)),
         })
     rows.sort(key=lambda r: (-r["count"], -r["hot"], -r["recent_6h"]))
@@ -1097,95 +1324,383 @@ def build_schedules(kept: list, now: datetime):
     return enrich_schedule_summaries(final[:10], now)
 
 
+# --------------------------------------------------------------------------- 대장주 배지
+# 공개 시장에서 통상 쓰이는 테마별 '상한가 주도 대장주' 이름만 담는다(개인 DB·룰·매매 기준은 쓰지 않는다).
+# 종목명은 모두 국내 증시 상장사이며, 기사에 직접 언급된 회사를 먼저 보여준다.
+LEADER_RULES = (
+    (("알래스카", "가스관", "가스전", "액화천연가스", "LNG 사업", "LNG 프로젝트"),
+     ["동양철관", "하이스틸", "화성밸브", "세아제강"]),
+    (("남북", "북미", "북한", "김정은", "개성", "경협", "금강산", "대북"),
+     ["인디에프", "좋은사람들", "코데즈컴바인", "아난티"]),
+    (("부정행위", "커닝", "스마트안경", "AI 보안", "보안", "해킹", "딥페이크", "위조", "탐지",
+      "전수검사", "안경"),
+     ["지슨", "라온시큐어", "샌즈랩"]),
+    (("의료 AI", "의료AI", "AI 진단", "진단 AI", "의료기기"),
+     ["루닛", "노을", "뷰노"]),
+    (("지진", "재난", "태풍", "호우", "폭설", "한파", "산불", "대피", "안전", "소방"),
+     ["삼영엠텍", "파라텍", "포메탈"]),
+    (("원전", "원자력", "SMR", "체코 원전", "핵발전"),
+     ["두산에너빌리티", "우리기술", "한신기계", "보성파워텍"]),
+    (("방산", "국방", "미사일", "전투기", "K9", "천궁", "지정학", "전쟁", "이스라엘", "우크라이나", "중동"),
+     ["LIG넥스원", "빅텍", "스페코", "한일단조"]),
+    (("로봇", "휴머노이드", "자율주행", "피지컬 AI"),
+     ["레인보우로보틱스", "클로봇", "유일로보틱스", "계양전기"]),
+    (("2차전지", "이차전지", "배터리", "리튬", "양극재", "음극재"),
+     ["에코프로비엠", "리튬포어스", "하이드로리튬"]),
+    (("반도체", "HBM", "D램", "메모리", "파운드리", "엔비디아", "데이터센터", "AI 인프라",
+      "삼전닉스", "삼성전자", "SK하이닉스", "소부장", "웨이퍼"),
+     ["한미반도체", "이수페타시스", "가온칩스", "티엘비", "제주반도체"]),
+    (("전력", "변압기", "송전", "전력망", "전력기기"),
+     ["HD현대일렉트릭", "LS일렉트릭", "산일전기", "제룡전기"]),
+    (("조선", "선박", "LNG선"),
+     ["HD한국조선해양", "한화오션", "세진중공업"]),
+    (("자동차", "전기차", "완성차", "부품주"),
+     ["현대차", "기아"]),
+    (("바이오", "제약", "임상", "신약", "CDMO", "기술수출"),
+     ["알테오젠", "HLB", "삼성바이오로직스"]),
+    (("LLM", "챗GPT", "AI 반도체", "AI 팩토리", "AI 데이터센터"),
+     ["네이버", "카카오", "코난테크놀로지", "솔트룩스"]),
+    (("건설", "재건축", "재개발", "SOC", "인프라"),
+     ["현대건설", "대우건설", "DL이앤씨"]),
+    (("철강", "원자재", "철광석", "구리", "니켈"),
+     ["POSCO홀딩스", "현대제철"]),
+    (("우주", "위성", "발사체", "누리호"),
+     ["쎄트렉아이", "한국항공우주"]),
+    (("엔터", "K팝", "음원", "드라마 제작"),
+     ["하이브", "에스엠", "JYP Ent."]),
+)
+
+THEME_LEADERS = {
+    "semiconductor": ["한미반도체", "이수페타시스", "가온칩스"],
+    "robot": ["레인보우로보틱스", "클로봇", "유일로보틱스"],
+    "defense": ["LIG넥스원", "빅텍", "스페코"],
+    "bio": ["알테오젠", "HLB", "삼성바이오로직스"],
+    "battery": ["에코프로비엠", "리튬포어스", "하이드로리튬"],
+    "policy": ["현대건설", "대우건설"],
+    "geopolitics": ["인디에프", "좋은사람들", "코데즈컴바인"],
+    "aisec": ["지슨", "라온시큐어", "샌즈랩"],
+    "disaster": ["삼영엠텍", "파라텍", "포메탈"],
+}
+
+# 기사에 이름이 직접 나오면 대장주 후보로 올리는 국내 상장사 (너무 짧은 약칭은 오인 방지를 위해 제외)
+LISTED = (
+    "삼성전자", "SK하이닉스", "한미반도체", "이수페타시스", "가온칩스", "티엘비", "제주반도체",
+    "이오테크닉스", "HPSP", "네이버", "카카오", "코난테크놀로지", "솔트룩스", "알테오젠",
+    "삼성바이오로직스", "셀트리온", "한미약품", "유한양행", "HLB", "루닛", "노을", "뷰노",
+    "현대차", "기아", "LG에너지솔루션", "삼성SDI", "에코프로비엠", "포스코퓨처엠", "POSCO홀딩스",
+    "현대제철", "HD현대일렉트릭", "LS일렉트릭", "산일전기", "제룡전기", "효성중공업",
+    "두산에너빌리티", "한전기술", "우리기술", "한신기계", "보성파워텍", "HD한국조선해양",
+    "한화오션", "삼성중공업", "한화에어로스페이스", "LIG넥스원", "현대로템", "한국항공우주",
+    "레인보우로보틱스", "두산로보틱스", "클로봇", "유일로보틱스", "계양전기", "빅텍", "스페코",
+    "한일단조", "동양철관", "하이스틸", "화성밸브", "세아제강", "한국가스공사", "삼영엠텍",
+    "파라텍", "포메탈", "리튬포어스", "하이드로리튬", "지슨", "라온시큐어", "샌즈랩",
+    "인디에프", "좋은사람들", "코데즈컴바인", "아난티", "세진중공업", "현대건설", "대우건설",
+    "DL이앤씨", "쎄트렉아이", "하이브", "에스엠", "이마트", "아모레퍼시픽", "LG전자",
+)
+
+
+def leaders_for(text: str, theme_id: str | None = None, limit: int = 4, named_text: str | None = None):
+    """기사 제목에 직접 언급된 상장사를 앞세우고, 부족하면 공개 테마 대장주로 채운다.
+
+    테마 대장주는 제목에서 먼저 찾고, 제목에 단서가 없을 때만 요약문까지 본다
+    (요약문의 스쳐 지나가는 단어로 엉뚱한 종목이 붙는 것을 막는다).
+    """
+    # 통용 약칭을 정식 종목명으로 바꿔 읽는다
+    for a, b in (("삼전닉스", "삼성전자"), ("LS일렉", "LS일렉트릭"), ("하닉", "SK하이닉스"),
+                 ("삼전", "삼성전자")):
+        text = text.replace(a, b)
+        if named_text is not None:
+            named_text = named_text.replace(a, b)
+    # 대장주 판단에서만 '재난문자'를 재난 테마로 오인하지 않게 바꿔 읽는다
+    text = text.replace("재난문자", "안내문자")
+    named_text = None if named_text is None else named_text.replace("재난문자", "안내문자")
+    out = []
+    named_src = text if named_text is None else named_text
+    for name in sorted(LISTED, key=len, reverse=True):
+        if name not in named_src:
+            continue
+        if any(name in o for o in out):
+            continue
+        out.append(name)
+        if len(out) >= limit:
+            return out
+    for source in ((named_text or text), text):
+        for kws, stocks in LEADER_RULES:
+            if not any(k in source for k in kws):
+                continue
+            for s in stocks:
+                if s not in out:
+                    out.append(s)
+                if len(out) >= limit:
+                    return out
+            return out[:limit]  # 첫 번째로 맞는 테마의 대장주만 쓴다
+    return out
+
+
+def theme_leaders(theme_id: str, headlines: list, limit: int = 4):
+    base = list(THEME_LEADERS.get(theme_id, []))
+    if base:
+        return base[:limit]
+    out = []
+    for h in headlines or []:
+        for name in leaders_for(h.get("title", ""), limit=limit):
+            if name not in out:
+                out.append(name)
+    return out[:limit]
+
+
+# --------------------------------------------------------------------------- 이슈 묶음
+# 같은 사건을 다룬 기사끼리 묶어 '매체 수'로 순위를 매기기 위한 토큰·군집 도구
+ISSUE_STOP = {
+    "있다", "한다", "했다", "이번", "오늘", "지난", "위해", "관련", "대한", "그리고", "하지만",
+    "이날", "올해", "내년", "모두", "우리", "결국", "단독", "종합", "속보", "이대로", "무슨",
+    "이런", "그런", "어떻게", "아직", "다시", "이게", "저게", "그게", "보다", "에서", "으로",
+    "까지", "부터", "따라", "대해", "논란", "의혹", "확산", "나온다", "나왔다", "무죄",
+}
+
+MAX_ISSUES = 45          # 대시보드에 남길 이슈 카드 수
+MAX_PER_THEME = 5        # 한 테마가 목록을 독점하지 않도록 하는 상한
+MAX_RELATED = 3          # 카드에 접어 넣을 다른 매체 기사 수
+BREAKING_HOURS = 14      # 이 시간 안의 [속보]만 최상단으로 올린다
+
+
+def issue_tokens(title: str) -> set:
+    t = re.sub(r"\[[^\]]*\]|\([^)]*\)|[“”\"‘’]", " ", title)
+    t = re.sub(r"(\d+)\s*천", lambda m: str(int(m.group(1)) * 1000), t)
+    t = re.sub(r"(\d+)\s*만", lambda m: str(int(m.group(1)) * 10000), t)
+    words = re.findall(r"[가-힣A-Za-z0-9]{2,}", t)
+    return {w for w in words if w not in ISSUE_STOP}
+
+
+def _jac(a: set, b: set) -> float:
+    if not a or not b:
+        return 0.0
+    return len(a & b) / len(a | b)
+
+
+def cluster_news(items: list, max_df: int = 30):
+    """제목의 고유 토큰을 2개 이상 공유하면 같은 이슈로 연결한다(2단계 병합)."""
+    freq = {}
+    for it in items:
+        for t in it["tok"]:
+            freq[t] = freq.get(t, 0) + 1
+    sigs = [{t for t in it["tok"] if 2 <= freq[t] <= max_df} for it in items]
+
+    parent = list(range(len(items)))
+
+    def find(a):
+        while parent[a] != a:
+            parent[a] = parent[parent[a]]
+            a = parent[a]
+        return a
+
+    def union(a, b):
+        ra, rb = find(a), find(b)
+        if ra != rb:
+            parent[rb] = ra
+
+    for i in range(len(items)):
+        for j in range(i + 1, len(items)):
+            shared = sigs[i] & sigs[j]
+            jj = _jac(items[i]["tok"], items[j]["tok"])
+            if (len(shared) >= 2 and jj >= 0.15) or len(shared) >= 3 or jj >= 0.45:
+                union(i, j)
+
+    groups = {}
+    for i in range(len(items)):
+        groups.setdefault(find(i), []).append(i)
+    keys = list(groups)
+    if len(keys) > 1:
+        reps = {k: set().union(*(sigs[i] for i in groups[k])) for k in keys}
+        distinctive = {t for t in freq if freq[t] <= 15}
+        for a in range(len(keys)):
+            for b in range(a + 1, len(keys)):
+                ka, kb = keys[a], keys[b]
+                if find(groups[ka][0]) == find(groups[kb][0]):
+                    continue
+                if len((reps[ka] & reps[kb]) & distinctive) >= 3:
+                    union(groups[ka][0], groups[kb][0])
+
+    out = {}
+    for i in range(len(items)):
+        out.setdefault(find(i), []).append(items[i])
+    return list(out.values())
+
+
+def _fresh(a: dict, now: datetime, hours: int = BREAKING_HOURS) -> bool:
+    t = to_dt(a.get("time"))
+    return bool(t) and (now - t).total_seconds() <= hours * 3600
+
+
+def build_issues(cands: list, now: datetime):
+    """같은 이슈를 하나의 카드로 묶고, 매체 수와 속보 여부로 순위를 매긴다."""
+    for a in cands:
+        a["tok"] = issue_tokens(a["title"])
+    groups = cluster_news(cands)
+
+    cards = []
+    for g in groups:
+        # 대표 기사: 메인 랭킹 순위가 높은 기사 → 관련도 높은 기사
+        g.sort(key=lambda a: (a.get("main_rank") or 99, -(a.get("relevance") or 0)))
+        rep = g[0]
+        presses, plist = [], []
+        for a in g:
+            p = a.get("press")
+            if p and p not in presses:
+                presses.append(p)
+                plist.append(p)
+        best_rank = min((a.get("main_rank") or 99) for a in g)
+
+        related = []
+        used = {rep.get("press")}
+        for a in g[1:]:
+            if a.get("press") in used:
+                continue
+            used.add(a.get("press"))
+            related.append({"title": a["title"], "press": a.get("press", ""),
+                            "url": a["url"], "time": a.get("time", "")})
+            if len(related) >= MAX_RELATED:
+                break
+
+        lede = rep.get("lede") or ""
+        if not lede:
+            for a in g:
+                if a.get("lede"):
+                    lede = a["lede"]
+                    break
+
+        cards.append({
+            "id": rep["id"],
+            "title": rep["title"],
+            "url": rep["url"],
+            "press": rep.get("press", ""),
+            "time": rep.get("time", ""),
+            "section": rep.get("section", ""),
+            "source": rep.get("source", "section"),
+            "main_rank": None if best_rank == 99 else best_rank,
+            "theme": rep.get("theme", "etc"),
+            "theme_label": rep.get("theme_label", "기타"),
+            "tags": rep.get("tags", []),
+            "presses": len(presses),
+            "press_list": plist[:6],
+            "related": related,
+            "article_count": len(g),
+            "breaking": any(is_breaking(a["title"]) and _fresh(a, now) for a in g),
+            "relevance": (rep.get("relevance") or 0) + min(24, max(0, len(presses) - 1) * 3),
+            "_members": g,
+            "_lede": lede,
+        })
+
+    def ts(c):
+        t = to_dt(c.get("time"))
+        return t.timestamp() if t else 0
+
+    cards.sort(key=lambda c: (0 if c["breaking"] else 1, -c["presses"], -ts(c)))
+    per_theme, picked = {}, []
+    for c in cards:
+        n = per_theme.get(c["theme"], 0)
+        if n >= MAX_PER_THEME:
+            continue
+        per_theme[c["theme"]] = n + 1
+        picked.append(c)
+        if len(picked) >= MAX_ISSUES:
+            break
+    cards = picked
+
+    # 대표 기사 원문에서 정확한 시각·본문 리드 보강
+    targets = []
+    for c in cards:
+        t = {"id": c["id"], "url": c["url"], "lede": c.get("_lede") or "", "time": c.get("time", "")}
+        if c.get("source") == "main":
+            t["source"] = "main"
+        targets.append((c, t))
+    with ThreadPoolExecutor(max_workers=ARTICLE_FETCH_WORKERS) as pool:
+        list(pool.map(lambda p: enrich(p[1]), targets))
+    missing = [p for p in targets if not p[1].get("lede") and not p[1].get("body_lead")]
+    if missing:
+        with ThreadPoolExecutor(max_workers=3) as pool:
+            list(pool.map(lambda p: enrich(p[1]), missing))
+
+    for c, t in targets:
+        if t.get("time"):
+            c["time"] = t["time"]
+        c["summary"] = make_summary(t.get("lede") or t.get("body_lead") or c.get("_lede") or "")
+        c["leaders"] = leaders_for(c["title"] + " " + c["summary"], c["theme"],
+                                   named_text=c["title"] + " " + " ".join(c["tags"]))
+
+    # 시각 보강으로 순서가 흔들리지 않도록 한 번 더 정렬하고 순위를 매긴다
+    cards.sort(key=lambda c: (0 if c["breaking"] else 1, -c["presses"], -ts(c)))
+    for i, c in enumerate(cards):
+        c["issue_rank"] = i + 1
+        c.pop("_members", None)
+        c.pop("_lede", None)
+    print(f"[info] issues: {len(cards)} cards (max {MAX_ISSUES})", file=sys.stderr)
+    return cards
+
+
 # --------------------------------------------------------------------------- 메인
 def build(out_path: str):
+    now = datetime.now(KST)
     raw = []
     for sid, name, weight in SECTIONS:
         raw.extend(parse_section(sid, name, weight))
+    section_count = len(raw)
+    main_items = parse_main_ranking(now)
+    raw.extend(main_items)
 
-    # 중복 제거 (같은 기사가 여러 섹션에 노출)
+    # 기사 id 기준 병합 (같은 기사가 경제 섹션과 메인 랭킹에 동시에 오를 수 있다)
     merged = {}
     for a in raw:
         cur = merged.get(a["id"])
         if cur is None:
             merged[a["id"]] = a
-        else:
-            if a["weight"] > cur["weight"]:
-                cur["weight"] = a["weight"]
-                cur["section"] = a["section"]
-            if len(a["lede"]) > len(cur.get("lede", "")):
-                cur["lede"] = a["lede"]
-            if not cur.get("press"):
-                cur["press"] = a["press"]
-    articles = list(merged.values())
+            continue
+        if a["weight"] > cur["weight"]:
+            cur["weight"] = a["weight"]
+            cur["section"] = a["section"]
+        if a.get("source") == "main":
+            cur["source"] = "main"
+            cur["main_rank"] = a.get("main_rank")
+            cur["press_id"] = a.get("press_id", "")
+        if len(a.get("lede", "")) > len(cur.get("lede", "")):
+            cur["lede"] = a["lede"]
+        if not cur.get("press"):
+            cur["press"] = a.get("press", "")
 
-    # 1차 분류·필터 (목록의 리드만으로 충분) → 관련 기사만 원문 조회해서 부하를 줄인다
-    candidates = []
-    seen_titles = []
-    seen_tokens = []
-    for a in articles:
-        if not is_market_relevant(a):
+    # 1차 분류·필터 (목록의 리드만으로 충분)
+    candidates, main_dropped = [], 0
+    for a in merged.values():
+        if any(w in a["title"] for w in ("매매 상위 종목", "상위 종목", "주요 공시")):
             continue
-        if is_near_duplicate(a["title"], seen_titles, seen_tokens):
+        if a.get("source") == "main":
+            if not is_main_relevant(a):
+                main_dropped += 1
+                continue
+        elif not is_market_relevant(a):
             continue
-        seen_titles.append(norm_title(a["title"]))
-        seen_tokens.append(title_tokens(a["title"]))
         tid, tags, rel = classify(a)
         head = a["title"] + " " + a.get("lede", "")
-        if rel < MIN_RELEVANCE and tid == "etc" and not any(t in head for t in MARKET_TERMS):
+        if tid == "etc" and rel < MIN_RELEVANCE and not any(t in head for t in MARKET_TERMS):
             continue
         a["theme"] = tid
         a["theme_label"] = THEME_LABEL.get(tid, "기타")
-        a["tags"] = [t for t in tags if t != a["title"]][:3]
+        a["tags"] = [t for t in (tags or []) if t != a["title"]][:3]
         a["relevance"] = rel
         candidates.append(a)
-    candidates.sort(key=lambda a: -a["relevance"])
-    candidates = candidates[: ARTICLE_LIMIT]
 
     if len(candidates) < 12:
         print("[warn] not enough naver items, using google fallback", file=sys.stderr)
-        seen_titles = {a["title"] for a in candidates}
         for g in collect_google_news():
-            if g["title"] not in seen_titles:
-                seen_titles.add(g["title"])
-                tid, tags, rel = classify(g)
-                g.update(theme=tid, theme_label=THEME_LABEL.get(tid, "기타"),
-                         tags=tags[:3], relevance=rel)
-                candidates.append(g)
+            tid, tags, rel = classify(g)
+            g.update(theme=tid, theme_label=THEME_LABEL.get(tid, "기타"), tags=tags[:3],
+                     relevance=rel)
+            candidates.append(g)
 
-    # 원문에서 정확한 발행 시각·본문 리드 보강 (동시 요청)
-    with ThreadPoolExecutor(max_workers=ARTICLE_FETCH_WORKERS) as pool:
-        list(pool.map(enrich, candidates))
+    issues = build_issues(candidates, now)
+    kept = issues
 
-    # 시각을 못 가져온 기사는 느린 속도로 한 번 더 시도 (서버 과부하·순간 오류 대비)
-    missing = [a for a in candidates if not a.get("time") and a.get("source") != "google"]
-    if missing:
-        print(f"[info] retry time for {len(missing)} items", file=sys.stderr)
-        with ThreadPoolExecutor(max_workers=3) as pool:
-            list(pool.map(enrich, missing))
-        print(f"[info] still missing: {sum(1 for a in missing if not a.get('time'))}", file=sys.stderr)
-
-    kept = []
-    for a in candidates:
-        summary = make_summary(a.get("lede") or a.get("body_lead") or "")
-        if not summary:
-            summary = make_summary(a.get("body_lead", ""))
-        a["summary"] = summary
-        a.pop("lede", None)
-        a.pop("body_lead", None)
-        a.pop("weight", None)
-        kept.append(a)
-
-    # 시간 정보 없는 기사는 뒤로, 최신순 정렬
-    def sort_key(a):
-        return (a.get("time") or "", a.get("relevance", 0))
-
-    kept.sort(key=sort_key, reverse=True)
-    kept = kept[:MAX_ARTICLES]
-
-    now = datetime.now(KST)
     history = update_history(load_history(out_path), kept, now)
-    # 테마별 건수
+    # 테마별 이슈 수
     counts = {}
     for a in kept:
         counts[a["theme"]] = counts.get(a["theme"], 0) + 1
@@ -1197,24 +1712,41 @@ def build(out_path: str):
     if etc:
         themes.append({"id": "etc", "label": "기타", "color": "#9aa4b2", "count": etc})
 
+    # 일정 카드는 모든 매체의 기사 제목까지 참고한다
+    schedule_pool = list(kept)
+    for c in kept:
+        for r in c.get("related", []):
+            schedule_pool.append({"title": r["title"], "summary": "", "press": r.get("press", ""),
+                                  "url": r["url"], "time": r.get("time", "")})
+
     payload = {
         "generated_at": now.isoformat(),
         "generated_at_kst": now.strftime("%Y.%m.%d %H:%M"),
         "count": len(kept),
+        "article_count": sum(c.get("article_count", 1) for c in kept),
+        "main_source": {
+            "presses": len({a.get("press") for a in main_items if a.get("press")}),
+            "collected": len(main_items),
+            "dropped": main_dropped,
+            "cards": sum(1 for c in kept if c.get("source") == "main"),
+            "sections": section_count,
+        },
         "themes": themes,
         "themes_rank": build_themes_rank(kept, now, history),
-        "schedules": build_schedules(kept, now),
+        "schedules": build_schedules(schedule_pool, now),
         "history": history,
-        "articles": [{k: a[k] for k in ("id", "title", "summary", "press", "time", "url",
-                                        "theme", "theme_label", "tags", "section", "relevance")
-                      if k in a} for a in kept],
+        "issues": [{k: v for k, v in c.items() if not k.startswith("_")} for c in kept],
+        "articles": [{k: c.get(k) for k in ("id", "title", "summary", "press", "time", "url",
+                                            "theme", "theme_label", "tags", "section", "relevance",
+                                            "source", "leaders", "issue_rank")
+                      if c.get(k) is not None} for c in kept],
     }
 
     os.makedirs(os.path.dirname(out_path), exist_ok=True)
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump(payload, f, ensure_ascii=False, indent=1)
         f.write("\n")
-    print(f"[done] {len(kept)} articles -> {out_path}", file=sys.stderr)
+    print(f"[done] {len(kept)} issues / {payload['article_count']} articles -> {out_path}", file=sys.stderr)
     return payload
 
 
