@@ -630,7 +630,8 @@ async function load(manual){
 }
 
 function applyData(data){
-  $('#updated').textContent = data.generated_at_kst || '–';
+  const age = relTime(data.generated_at);
+  $('#updated').textContent = (data.generated_at_kst || '–') + (age ? ` (${age})` : '');
   const nf = (data.flash||[]).length;
   const ni = (data.issues || data.articles || []).length;
   $('#total').textContent = `속보 ${nf} · 이슈 ${ni}`;
