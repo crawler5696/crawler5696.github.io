@@ -4,6 +4,8 @@
 다룬 정도로 묶어 '오늘의 이슈 순위'를 만든다.
 
 함께 만드는 것:
+  · flash       — 네이버 금융 실시간 속보(최신 15건). 5분마다 갱신되는 속보 흐름으로,
+    화면 뉴스 탭의 절반을 차지한다. 각 속보에는 증시 영향 여부 판별과 대장주 배지가 붙는다.
   · issues      — 같은 사건을 다룬 기사를 하나로 묶은 이슈 카드(대표 기사 + 관련 매체 링크).
     매체 수가 많을수록 상위 순위, [속보]·긴급 기사는 최상단.
   · leaders     — 기사에 직접 언급된 상장사 + 공개 테마별 상한가 주도 대장주 배지
@@ -52,6 +54,12 @@ SECTIONS = [
 MAX_ARTICLES = 60          # 대시보드에 남길 최대 기사 수
 ARTICLE_LIMIT = 100        # 원문 조회까지 할 후보 기사 수
 ARTICLE_FETCH_WORKERS = 12  # 본문/시각 조회 동시 요청 수
+
+# 실시간 속보(네이버 금융) — 화면 뉴스 탭의 절반(50%)을 차지하는 영역
+FLASH_MAX = 15             # 화면에 올릴 속보 수
+FLASH_PAGE_SIZE = 60       # 한 번에 받아오는 속보 수(최근 1시간 안팎)
+FLASH_PAGES = 2            # 최대 페이지 수
+FLASH_MAX_AGE_HOURS = 8    # 이보다 오래된 속보는 화면에서 뺀다
 
 # --------------------------------------------------------------------------- 테마 사전
 # (id, 화면 라벨, 색상, [(키워드, 가중치), ...])
@@ -1406,8 +1414,9 @@ def leaders_for(text: str, theme_id: str | None = None, limit: int = 4, named_te
     (요약문의 스쳐 지나가는 단어로 엉뚱한 종목이 붙는 것을 막는다).
     """
     # 통용 약칭을 정식 종목명으로 바꿔 읽는다
-    for a, b in (("삼전닉스", "삼성전자"), ("LS일렉", "LS일렉트릭"), ("하닉", "SK하이닉스"),
-                 ("삼전", "삼성전자")):
+    for a, b in (("삼전닉스", "삼성전자"), ("LS, 일렉트릭", "LS일렉트릭"), ("LS 일렉트릭", "LS일렉트릭"),
+                 ("LS일렉", "LS일렉트릭"), ("한화에어로", "한화에어로스페이스"),
+                 ("하닉", "SK하이닉스"), ("삼전", "삼성전자")):
         text = text.replace(a, b)
         if named_text is not None:
             named_text = named_text.replace(a, b)
@@ -1449,6 +1458,170 @@ def theme_leaders(theme_id: str, headlines: list, limit: int = 4):
     return out[:limit]
 
 
+# --------------------------------------------------------------------------- 실시간 속보
+# 네이버 금융 실시간 속보 (news_list.naver?mode=LSS2D&section_id=101&section_id2=258).
+# 이 주소는 stock.naver.com/news/flashnews 로 넘어가 화면을 스크립트로 그리므로,
+# 같은 목록을 내려주는 공개 JSON 경로를 먼저 읽고, 그 경로가 막히면 예전 목록 HTML을 파싱한다.
+FLASH_LEGACY_URL = ("https://finance.naver.com/news/news_list.naver"
+                    "?mode=LSS2D&section_id=101&section_id2=258")
+FLASH_API = "https://stock.naver.com/api/domestic/news/list"
+FLASH_REFERER = "https://stock.naver.com/news/flashnews"
+
+
+def fetch_json(url: str, referer: str = FLASH_REFERER, timeout: int = 15, retries: int = 1):
+    last = None
+    for _ in range(retries + 1):
+        try:
+            req = urllib.request.Request(url, headers={
+                "User-Agent": UA,
+                "Accept": "application/json, text/plain, */*",
+                "Accept-Language": "ko-KR,ko;q=0.9",
+                "Referer": referer,
+            })
+            with urllib.request.urlopen(req, timeout=timeout) as r:
+                return json.loads(r.read().decode("utf-8", "ignore"))
+        except Exception as e:  # noqa: BLE001
+            last = e
+    raise RuntimeError(f"json fetch failed: {url} ({last})")
+
+
+FLASH_LEGACY_ITEM = re.compile(r'class="articleSubject"(.*?)(?=class="articleSubject"|</ul>)', re.S)
+FLASH_LEGACY_HREF = re.compile(r'href="[^"]*news_read\.naver\?([^"]+)"')
+FLASH_LEGACY_DATE = re.compile(r'class="articleDate"[^>]*>([^<]+)<')
+FLASH_LEGACY_PRESS = re.compile(r'class="press"[^>]*>([^<]+)<')
+FLASH_LEGACY_TITLE = re.compile(r'>([^<>]{6,})</a>')
+
+
+def parse_flash_legacy():
+    """예전 목록 HTML(articleSubject)에서 속보를 읽는다 (JSON 경로가 막혔을 때)."""
+    try:
+        page = fetch(FLASH_LEGACY_URL, encoding="utf-8", timeout=20)
+    except Exception as e:  # noqa: BLE001
+        print(f"[warn] flash legacy page failed: {e}", file=sys.stderr)
+        return []
+    out = []
+    for chunk in FLASH_LEGACY_ITEM.findall(page)[:80]:
+        m_href = FLASH_LEGACY_HREF.search(chunk)
+        m_title = FLASH_LEGACY_TITLE.search(chunk)
+        if not (m_href and m_title):
+            continue
+        qs = urllib.parse.parse_qs(m_href.group(1))
+        aid = (qs.get("article_id") or [""])[0]
+        oid = (qs.get("office_id") or [""])[0]
+        title = " ".join(strip_tags(m_title.group(1)).split())
+        if not (aid and oid and title):
+            continue
+        m_press = FLASH_LEGACY_PRESS.search(chunk)
+        out.append({
+            "id": f"{oid}/{aid}",
+            "title": title,
+            "press": strip_tags(m_press.group(1)) if m_press else "",
+            "summary": "",
+            "url": f"https://n.news.naver.com/article/{oid}/{aid}",
+            "raw_time": (FLASH_LEGACY_DATE.search(chunk).group(1).strip()
+                         if FLASH_LEGACY_DATE.search(chunk) else ""),
+        })
+    print(f"[info] flash legacy: {len(out)} items", file=sys.stderr)
+    return out
+
+
+def parse_flash_api():
+    """네이버 금융 실시간 속보 JSON 목록을 최신순으로 읽는다."""
+    out = []
+    for page in range(1, FLASH_PAGES + 1):
+        url = f"{FLASH_API}?category=FLASHNEWS&page={page}&pageSize={FLASH_PAGE_SIZE}"
+        try:
+            data = fetch_json(url)
+        except Exception as e:  # noqa: BLE001
+            print(f"[warn] flash api page {page} failed: {e}", file=sys.stderr)
+            break
+        arts = data.get("articles") or []
+        for a in arts:
+            aid, oid = str(a.get("articleId") or ""), str(a.get("officeId") or "")
+            title = " ".join((a.get("title") or "").split())
+            if not (aid and oid and title):
+                continue
+            out.append({
+                "id": f"{oid}/{aid}",
+                "title": html_lib.unescape(title),
+                "press": (a.get("officeHname") or "").strip(),
+                "summary": make_summary(html_lib.unescape(a.get("subcontent") or ""), 150),
+                "url": f"https://n.news.naver.com/article/{oid}/{aid}",
+                "raw_time": (a.get("datetime") or "").strip(),
+            })
+        if len(arts) < FLASH_PAGE_SIZE:
+            break
+    print(f"[info] flash api: {len(out)} items", file=sys.stderr)
+    return out
+
+
+def flash_time(raw: str, now: datetime):
+    """'2026-11-18 07:59:14' / '2026-11-18 07:59' 표기를 시각으로 바꾼다."""
+    raw = (raw or "").strip()
+    for fmt in ("%Y-%m-%d %H:%M:%S", "%Y-%m-%d %H:%M"):
+        try:
+            return datetime.strptime(raw, fmt).replace(tzinfo=KST)
+        except ValueError:
+            continue
+    return now
+
+
+def collect_flash_news(now: datetime, extra: list | None = None) -> list:
+    """실시간 속보를 최신순으로 모아 화면용 15건으로 줄인다.
+
+    증시에 영향을 주는 기사만 남기고(연예·스포츠·생활·단순 사건 제외),
+    같은 사건을 여러 매체가 쓴 속보는 가장 최근 한 건으로 합친다.
+    """
+    raw = parse_flash_api()
+    if not raw:
+        raw = parse_flash_legacy()
+    if not raw:  # 마지막 비상 경로: 이번 수집분의 [속보] 기사
+        raw = [a for a in (extra or []) if is_breaking(a.get("title", ""))]
+        for a in raw:
+            a.setdefault("raw_time", "")
+
+    seen_titles, seen_tokens, rows = [], [], []
+    seen_ids = set()
+    cutoff = now - timedelta(hours=FLASH_MAX_AGE_HOURS)
+    for a in raw:
+        if a["id"] in seen_ids:
+            continue
+        seen_ids.add(a["id"])
+        title = a["title"]
+        if len(title) < 8:
+            continue
+        if not is_main_relevant({"title": title, "lede": a.get("summary", "")}):
+            continue
+        if is_near_duplicate(title, seen_titles, seen_tokens):
+            continue
+        t = flash_time(a.get("raw_time", ""), now)
+        if t < cutoff:
+            continue
+        seen_titles.append(norm_title(title))
+        seen_tokens.append(title_tokens(title))
+        tid, _tags, _rel = classify({"title": title, "lede": a.get("summary", ""), "weight": 0.9})
+        rows.append({
+            "id": a["id"],
+            "title": title,
+            "press": a.get("press", ""),
+            "time": t.isoformat(),
+            "url": a["url"],
+            "summary": a.get("summary", ""),
+            "theme": tid,
+            "theme_label": THEME_LABEL.get(tid, "기타"),
+            "theme_color": THEME_COLOR.get(tid, "#9aa4b2"),
+            "breaking": is_breaking(title),
+            "leaders": leaders_for(title + " " + a.get("summary", ""), tid, limit=2,
+                                   named_text=title),
+        })
+        if len(rows) >= FLASH_MAX:
+            break
+
+    rows.sort(key=lambda r: r["time"], reverse=True)
+    print(f"[info] flash: {len(rows)} cards", file=sys.stderr)
+    return rows
+
+
 # --------------------------------------------------------------------------- 이슈 묶음
 # 같은 사건을 다룬 기사끼리 묶어 '매체 수'로 순위를 매기기 위한 토큰·군집 도구
 ISSUE_STOP = {
@@ -1458,8 +1631,8 @@ ISSUE_STOP = {
     "까지", "부터", "따라", "대해", "논란", "의혹", "확산", "나온다", "나왔다", "무죄",
 }
 
-MAX_ISSUES = 45          # 대시보드에 남길 이슈 카드 수
-MAX_PER_THEME = 5        # 한 테마가 목록을 독점하지 않도록 하는 상한
+MAX_ISSUES = 30          # 대시보드에 남길 이슈 카드 수(화면에는 앞 15건을 5:5로 먼저 보여준다)
+MAX_PER_THEME = 3        # 한 테마가 목록을 독점하지 않도록 하는 상한
 MAX_RELATED = 3          # 카드에 접어 넣을 다른 매체 기사 수
 BREAKING_HOURS = 14      # 이 시간 안의 [속보]만 최상단으로 올린다
 
@@ -1698,6 +1871,7 @@ def build(out_path: str):
 
     issues = build_issues(candidates, now)
     kept = issues
+    flash = collect_flash_news(now, extra=candidates)
 
     history = update_history(load_history(out_path), kept, now)
     # 테마별 이슈 수
@@ -1722,6 +1896,7 @@ def build(out_path: str):
     payload = {
         "generated_at": now.isoformat(),
         "generated_at_kst": now.strftime("%Y.%m.%d %H:%M"),
+        "flash_count": len(flash),
         "count": len(kept),
         "article_count": sum(c.get("article_count", 1) for c in kept),
         "main_source": {
@@ -1735,6 +1910,7 @@ def build(out_path: str):
         "themes_rank": build_themes_rank(kept, now, history),
         "schedules": build_schedules(schedule_pool, now),
         "history": history,
+        "flash": flash,
         "issues": [{k: v for k, v in c.items() if not k.startswith("_")} for c in kept],
         "articles": [{k: c.get(k) for k in ("id", "title", "summary", "press", "time", "url",
                                             "theme", "theme_label", "tags", "section", "relevance",
@@ -1746,7 +1922,8 @@ def build(out_path: str):
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump(payload, f, ensure_ascii=False, indent=1)
         f.write("\n")
-    print(f"[done] {len(kept)} issues / {payload['article_count']} articles -> {out_path}", file=sys.stderr)
+    print(f"[done] flash {len(flash)} / {len(kept)} issues / {payload['article_count']} articles -> {out_path}",
+          file=sys.stderr)
     return payload
 
 

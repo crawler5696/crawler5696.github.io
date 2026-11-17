@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>증시 뉴스 레이더 · 오늘의 이슈 순위 / 테마 / 일정</title>
-<meta property="description" content="네이버 뉴스 메인(언론사별 랭킹)과 경제 섹션을 30분마다 모아, 여러 매체가 함께 다룬 이슈를 매체 수 순으로 묶어 보여주는 대시보드">
+<title>증시 뉴스 레이더 · 실시간 속보 / 이슈 순위</title>
+<meta property="description" content="네이버 금융 실시간 속보와 네이버 뉴스 메인(언론사별 랭킹)을 5분마다 모아, 증시에 닿는 속보와 여러 매체가 함께 다룬 이슈를 5:5로 보여주는 대시보드">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="증시 뉴스 레이더">
-<meta property="og:title" content="증시 뉴스 레이더 · 오늘의 이슈 순위">
-<meta property="og:description" content="30분마다 갱신 — 매체 수로 묶은 메인 이슈 순위, 테마 대장주, 일정 뉴스">
+<meta property="og:title" content="증시 뉴스 레이더 · 실시간 속보 + 이슈 순위">
+<meta property="og:description" content="5분마다 갱신 — 실시간 속보 15건 + 매체 수로 묶은 이슈 순위 15건, 대장주 배지">
 <meta property="og:url" content="https://crawler5696.github.io/">
 <meta property="og:image" content="https://crawler5696.github.io/icons/icon-512.png">
 <meta name="twitter:card" content="summary">
@@ -25,213 +25,220 @@
     --bg:#0b1120; --bg2:#0e1730; --card:#141d33; --card2:#18233d;
     --line:rgba(255,255,255,.08); --txt:#eef2fa; --dim:#8f9bb3; --dim2:#6b778f;
     --accent:#4f8cff; --up:#ff5a6e; --ok:#3ddc97;
-    --radius:16px;
+    --radius:11px;
   }
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
   html,body{margin:0;padding:0}
   body{
     background:
-      radial-gradient(1200px 500px at 50% -200px, rgba(79,140,255,.22), transparent 70%),
+      radial-gradient(1200px 500px at 50% -200px, rgba(79,140,255,.20), transparent 70%),
       linear-gradient(180deg,var(--bg) 0%, var(--bg2) 100%);
     background-attachment:fixed;
     color:var(--txt);
     font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",Roboto,sans-serif;
-    font-size:15px;line-height:1.5;
+    font-size:13.5px;line-height:1.42;
     -webkit-font-smoothing:antialiased;
-    padding-bottom: calc(28px + env(safe-area-inset-bottom));
+    padding-bottom: calc(20px + env(safe-area-inset-bottom));
   }
   a{color:inherit;text-decoration:none}
-  .wrap{max-width:680px;margin:0 auto;padding:0 14px}
+  .wrap{max-width:640px;margin:0 auto;padding:0 9px}
 
   /* ---------- header ---------- */
   header{
     position:sticky;top:0;z-index:20;
     backdrop-filter:saturate(160%) blur(14px);
     -webkit-backdrop-filter:saturate(160%) blur(14px);
-    background:linear-gradient(180deg, rgba(11,17,32,.94), rgba(11,17,32,.8));
+    background:linear-gradient(180deg, rgba(11,17,32,.95), rgba(11,17,32,.84));
     border-bottom:1px solid var(--line);
     padding-top:env(safe-area-inset-top);
   }
-  .top{display:flex;align-items:center;gap:10px;padding:11px 0 7px}
-  .logo{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,#4f8cff,#8b5cf6);
-    display:grid;place-items:center;font-size:16px;box-shadow:0 4px 14px rgba(79,140,255,.4);flex:none}
-  .brand{font-size:17px;font-weight:800;letter-spacing:-.3px;white-space:nowrap}
-  .brand small{display:block;font-size:11px;font-weight:500;color:var(--dim2);letter-spacing:0}
+  .top{display:flex;align-items:center;gap:8px;padding:7px 0 5px}
+  .logo{width:26px;height:26px;border-radius:8px;background:linear-gradient(135deg,#4f8cff,#8b5cf6);
+    display:grid;place-items:center;font-size:14px;box-shadow:0 4px 12px rgba(79,140,255,.38);flex:none}
+  .brand{font-size:15px;font-weight:800;letter-spacing:-.4px;white-space:nowrap;line-height:1.15}
+  .brand small{display:block;font-size:9.5px;font-weight:600;color:var(--dim2);letter-spacing:0}
   .spacer{flex:1}
-  .live{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--ok);
+  .live{display:flex;align-items:center;gap:4px;font-size:10px;color:var(--ok);
     background:rgba(61,220,151,.1);border:1px solid rgba(61,220,151,.25);
-    padding:4px 8px;border-radius:20px;white-space:nowrap}
-  .dot{width:6px;height:6px;border-radius:50%;background:var(--ok);animation:pulse 1.8s infinite}
-  @keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(61,220,151,.5)}50%{opacity:.5;box-shadow:0 0 0 5px rgba(61,220,151,0)}}
-  .refresh{width:32px;height:32px;border-radius:10px;border:1px solid var(--line);background:var(--card);
-    color:var(--dim);display:grid;place-items:center;font-size:15px;flex:none;cursor:pointer;transition:.2s}
+    padding:3px 7px;border-radius:20px;white-space:nowrap}
+  .dot{width:5px;height:5px;border-radius:50%;background:var(--ok);animation:pulse 1.8s infinite}
+  @keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(61,220,151,.5)}50%{opacity:.5;box-shadow:0 0 0 4px rgba(61,220,151,0)}}
+  .refresh{width:29px;height:29px;border-radius:9px;border:1px solid var(--line);background:var(--card);
+    color:var(--dim);display:grid;place-items:center;font-size:14px;flex:none;cursor:pointer;transition:.2s}
   .refresh:active{transform:scale(.92);background:var(--card2)}
   .refresh.spinning{animation:spin .8s linear infinite}
   @keyframes spin{to{transform:rotate(360deg)}}
 
   /* ---------- 3단 탭 ---------- */
-  .tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;padding:2px 0 10px}
+  .tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;padding:0 0 7px}
   .tab{
     appearance:none;border:1px solid var(--line);background:rgba(255,255,255,.03);
-    color:var(--dim);font-family:inherit;font-size:12.5px;font-weight:700;letter-spacing:-.2px;
-    padding:9px 4px;border-radius:11px;cursor:pointer;white-space:nowrap;transition:.18s;
-    display:flex;align-items:center;justify-content:center;gap:4px;
+    color:var(--dim);font-family:inherit;font-size:11.5px;font-weight:700;letter-spacing:-.2px;
+    padding:6px 3px;border-radius:9px;cursor:pointer;white-space:nowrap;transition:.15s;
+    display:flex;align-items:center;justify-content:center;gap:3px;
   }
   .tab:active{transform:scale(.97)}
   .tab[aria-selected="true"]{
     color:#fff;border-color:transparent;background:linear-gradient(135deg,#4f8cff,#7c5cff);
-    box-shadow:0 4px 14px rgba(79,140,255,.35);
+    box-shadow:0 3px 12px rgba(79,140,255,.32);
   }
 
-  /* ---------- news controls ---------- */
-  .meta{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--dim2);padding:11px 0 9px}
+  /* ---------- controls ---------- */
+  .meta{display:flex;align-items:center;gap:6px;font-size:10.5px;color:var(--dim2);padding:7px 1px 5px}
   .meta b{color:var(--dim);font-weight:600}
 
-  .search{position:relative;padding-bottom:10px}
+  .search{position:relative;padding-bottom:6px}
   .search input{
     width:100%;border:1px solid var(--line);background:var(--card);color:var(--txt);
-    border-radius:12px;padding:11px 12px 11px 36px;font-size:14px;outline:none;font-family:inherit;
-    transition:.2s;
+    border-radius:9px;padding:7px 10px 7px 29px;font-size:12.5px;outline:none;font-family:inherit;
+    transition:border-color .2s;
   }
   .search input:focus{border-color:rgba(79,140,255,.55);background:var(--card2)}
-  .search .ic{position:absolute;left:12px;top:calc(50% - 6px);color:var(--dim2);font-size:14px}
+  .search .ic{position:absolute;left:9px;top:calc(50% - 13px);color:var(--dim2);font-size:11px}
 
-  .chips{display:flex;gap:7px;overflow-x:auto;padding:2px 0 11px;scrollbar-width:none;-ms-overflow-style:none}
+  .chips{display:flex;gap:5px;overflow-x:auto;padding:1px 0 7px;scrollbar-width:none;-ms-overflow-style:none}
   .chips::-webkit-scrollbar{display:none}
   .chip{
     flex:none;border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--dim);
-    border-radius:20px;padding:7px 12px;font-size:12.5px;font-weight:600;cursor:pointer;
-    white-space:nowrap;transition:.15s;font-family:inherit;display:flex;align-items:center;gap:5px;
+    border-radius:20px;padding:4px 9px;font-size:10.5px;font-weight:600;cursor:pointer;
+    white-space:nowrap;transition:.15s;font-family:inherit;display:flex;align-items:center;gap:4px;
   }
-  .chip .n{font-size:11px;color:var(--dim2);font-weight:700}
+  .chip .n{font-size:9.5px;color:var(--dim2);font-weight:700}
   .chip[aria-pressed="true"]{color:#fff;border-color:transparent;background:linear-gradient(135deg,#4f8cff,#7c5cff);
-    box-shadow:0 4px 14px rgba(79,140,255,.35)}
+    box-shadow:0 3px 12px rgba(79,140,255,.32)}
   .chip[aria-pressed="true"] .n{color:rgba(255,255,255,.8)}
 
-  /* ---------- list ---------- */
-  main{padding-top:2px}
-  .daymark{font-size:12px;font-weight:700;color:var(--dim2);margin:14px 2px 8px;letter-spacing:.2px}
-  .card{
-    display:block;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
-    padding:13px 14px 12px;margin-bottom:9px;position:relative;overflow:hidden;
-    transition:.15s;animation:fade .35s ease both;
+  /* ---------- 구역 머리 ---------- */
+  main{padding-top:1px}
+  .sechead{display:flex;align-items:center;gap:5px;margin:8px 1px 5px;font-size:12px;font-weight:800;letter-spacing:-.2px}
+  .sechead .bar{width:3px;height:11px;border-radius:2px;background:#ff5a6e}
+  .sechead.issue .bar{background:linear-gradient(180deg,#4f8cff,#7c5cff)}
+  .sechead .cnt{font-size:10px;font-weight:700;color:var(--dim);background:rgba(255,255,255,.05);
+    border:1px solid var(--line);padding:1px 6px;border-radius:6px}
+  .sechead .gt{margin-left:auto;font-size:9.5px;font-weight:600;color:var(--dim2)}
+  .sechead .livechip{display:inline-flex;align-items:center;gap:3px;font-size:9.5px;font-weight:800;color:#ff8b9c;
+    background:rgba(255,90,110,.12);border:1px solid rgba(255,90,110,.3);padding:1px 6px;border-radius:6px}
+
+  /* ---------- 속보 초슬림 카드 ---------- */
+  .fcard{
+    display:block;background:var(--card);border:1px solid var(--line);border-left:2.5px solid #ff5a6e;
+    border-radius:9px;padding:6px 8px 5px;margin-bottom:4px;transition:background .15s;
   }
-  .card:active{background:var(--card2)}
-  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
-  .card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--c,#4f8cff);opacity:.85}
-  .row1{display:flex;align-items:center;gap:6px;margin-bottom:7px;flex-wrap:wrap}
-  .badge{font-size:11px;font-weight:700;padding:3px 8px;border-radius:7px;letter-spacing:-.1px;
-    background:rgba(255,255,255,.06);color:var(--c);border:1px solid rgba(255,255,255,.14)}
-  .tag{font-size:11px;color:var(--dim2);background:rgba(255,255,255,.04);border:1px solid var(--line);
-    padding:2px 7px;border-radius:6px}
-  .hot{font-size:10.5px;font-weight:800;color:#ffd166;background:rgba(255,209,102,.12);
-    border:1px solid rgba(255,209,102,.3);padding:2px 7px;border-radius:6px;margin-left:auto}
-  .title{font-size:15.5px;font-weight:700;line-height:1.38;letter-spacing:-.3px;margin:0 0 6px;
-    display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-  .sum{font-size:13.5px;color:#a9b4c9;line-height:1.55;margin:0 0 9px;
-    display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-  .foot{display:flex;align-items:center;gap:7px;font-size:11.5px;color:var(--dim2)}
-  .press{font-weight:600;color:var(--dim)}
-  .sep{width:2px;height:2px;border-radius:50%;background:var(--dim2);display:inline-block;margin:0 4px;vertical-align:middle}
-  .go{margin-left:auto;font-size:11px;color:#5f6f8c}
+  .fcard:active{background:var(--card2)}
+  .frow{display:flex;gap:5px;align-items:baseline}
+  .fb{flex:none;font-size:9px;font-weight:800;color:#ff8b9c;background:rgba(255,90,110,.13);
+    border:1px solid rgba(255,90,110,.3);padding:1px 4px;border-radius:4px;letter-spacing:-.2px;position:relative;top:-1px}
+  .ft{font-size:12.7px;font-weight:700;line-height:1.3;letter-spacing:-.25px;
+    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .fmeta{display:flex;align-items:center;gap:5px;margin-top:3px;padding-left:1px}
+  .lead{display:inline-flex;align-items:center;gap:3px;font-size:9.8px;font-weight:700;color:#9fc0ff;
+    background:rgba(79,140,255,.09);border:1px solid rgba(79,140,255,.24);padding:1px 5px;border-radius:5px;
+    max-width:75%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+  .lead b{font-weight:800;color:#7fa8ff;font-size:9px}
+  .src{margin-left:auto;font-size:9.5px;color:var(--dim2);white-space:nowrap;font-weight:600}
+  .src .p{color:var(--dim)}
 
-  /* ---------- 이슈 카드 ---------- */
-  .issue-no{width:26px;height:26px;border-radius:9px;display:grid;place-items:center;flex:none;
-    font-size:12.5px;font-weight:800;color:#fff;background:rgba(255,255,255,.1);
-    border:1px solid rgba(255,255,255,.16)}
-  .issue-no.top3{background:linear-gradient(135deg,#4f8cff,#7c5cff);border-color:transparent;
-    box-shadow:0 3px 10px rgba(79,140,255,.35)}
-  .break{font-size:11px;font-weight:800;color:#fff;padding:3px 8px;border-radius:7px;
-    background:linear-gradient(135deg,#ff4d4d,#ff8a4c);animation:blink 1.8s infinite;white-space:nowrap}
-  @keyframes blink{0%,100%{opacity:1}50%{opacity:.6}}
-  .presses{margin-left:auto;font-size:11px;font-weight:800;color:#9fc0ff;background:rgba(79,140,255,.12);
-    border:1px solid rgba(79,140,255,.3);padding:2px 8px;border-radius:20px;white-space:nowrap;
-    font-family:inherit;cursor:pointer}
-  a.title{display:block;color:inherit}
-  .leaders{font-size:12px;color:#cfd9ea;background:rgba(79,140,255,.08);border:1px solid rgba(79,140,255,.22);
-    border-radius:9px;padding:6px 9px;margin:0 0 8px;line-height:1.5}
-  .leaders .lb{color:#8fb4ff;font-weight:800;margin-right:3px}
-  .relm{margin:0 0 8px}
-  .relm summary{font-size:12px;color:#8fa4c4;cursor:pointer;list-style:none;padding:4px 0;font-weight:600}
-  .relm summary::-webkit-details-marker{display:none}
-  .relm summary::before{content:'\25B8  ';}
-  .relm[open] summary::before{content:'\25BE  ';}
-  .relm a{display:block;font-size:12.5px;color:#a9b7cd;padding:6px 0 6px 9px;border-top:1px solid var(--line);line-height:1.42}
-  .relm a .rp{color:#6b778f;font-size:11px}
-  .rk-leaders{font-size:11.5px;color:#9fb4d8;background:rgba(79,140,255,.07);border:1px solid rgba(79,140,255,.2);
-    border-radius:8px;padding:5px 8px;margin-bottom:8px;line-height:1.5}
+  /* ---------- 이슈 슬림 카드 ---------- */
+  .icard{
+    background:var(--card);border:1px solid var(--line);border-left:2.5px solid var(--c,#4f8cff);
+    border-radius:9px;padding:6px 8px 5px;margin-bottom:4px;position:relative;
+  }
+  .irow{display:flex;gap:5px;align-items:flex-start}
+  .rankb{flex:none;min-width:17px;height:17px;border-radius:5px;display:grid;place-items:center;
+    font-size:9.5px;font-weight:800;color:var(--dim);background:rgba(255,255,255,.07);
+    border:1px solid rgba(255,255,255,.14);margin-top:1px}
+  .rankb.top3{color:#fff;background:linear-gradient(135deg,#4f8cff,#7c5cff);border-color:transparent}
+  .ititle{flex:1;font-size:12.7px;font-weight:700;line-height:1.3;letter-spacing:-.25px;color:var(--txt);
+    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .isum{font-size:10.5px;color:#93a1ba;line-height:1.38;margin:2px 0 0 22px;
+    display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
+  .ifoot{display:flex;align-items:center;gap:4px;margin:3px 0 0 22px;font-size:9.5px;color:var(--dim2);min-height:15px}
+  .ifoot .lead{font-size:9.3px;padding:0 4px}
+  .presses{font-size:9.3px;font-weight:800;color:#9fc0ff;background:rgba(79,140,255,.12);
+    border:1px solid rgba(79,140,255,.3);padding:0 5px;border-radius:20px;white-space:nowrap;
+    font-family:inherit;cursor:pointer;height:15px;line-height:13px}
+  .brk{font-size:9px;font-weight:800;color:#fff;padding:0 4px;border-radius:4px;
+    background:linear-gradient(135deg,#ff4d4d,#ff8a4c);white-space:nowrap;height:15px;line-height:15px}
+  .exp{margin-left:auto;appearance:none;border:0;background:transparent;color:#5f6f8c;
+    font-size:11px;padding:0 1px;cursor:pointer;font-family:inherit;line-height:1}
+  .icard.open .isum{-webkit-line-clamp:5}
+  .relm{display:none;margin:4px 0 0 22px}
+  .icard.open .relm{display:block}
+  .relm a{display:block;font-size:10.8px;color:#a9b7cd;padding:3px 0 3px 6px;border-top:1px solid var(--line);line-height:1.35}
+  .relm a .rp{color:#6b778f;font-size:9.5px}
+  .more{width:100%;appearance:none;border:1px solid var(--line);background:rgba(255,255,255,.03);
+    color:var(--dim);font-family:inherit;font-size:11px;font-weight:700;padding:7px;border-radius:9px;
+    margin-top:2px;cursor:pointer}
+  .more:active{background:var(--card2)}
+  .mini-empty{font-size:11px;color:var(--dim2);padding:10px 4px}
 
-  /* ---------- 공통 뷰 헤더 ---------- */
-  .viewhead{display:flex;align-items:baseline;gap:8px;padding:14px 2px 10px}
-  .viewhead b{font-size:15px;letter-spacing:-.2px}
-  .viewhead span{font-size:11.5px;color:var(--dim2)}
-  .note{font-size:11.5px;color:var(--dim2);line-height:1.65;margin:14px 2px 0;padding-top:11px;
+  /* ---------- 공통 ---------- */
+  .viewhead{display:flex;align-items:baseline;gap:7px;padding:10px 2px 7px}
+  .viewhead b{font-size:13.5px;letter-spacing:-.2px}
+  .viewhead span{font-size:10.5px;color:var(--dim2)}
+  .note{font-size:10.5px;color:var(--dim2);line-height:1.6;margin:12px 2px 0;padding-top:9px;
     border-top:1px solid var(--line)}
 
   /* ---------- 테마 순위 ---------- */
-  .rank-card{
-    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
-    padding:13px 14px 12px;margin-bottom:10px;position:relative;overflow:hidden;
-    animation:fade .3s ease both;
-  }
-  .rank-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--c,#4f8cff);opacity:.9}
-  .rk-top{display:flex;align-items:center;gap:7px;margin-bottom:8px;flex-wrap:wrap}
-  .rk-no{width:22px;height:22px;border-radius:7px;display:grid;place-items:center;flex:none;
-    font-size:11.5px;font-weight:800;color:var(--c,#4f8cff);
+  .rank-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:9px 10px 8px;margin-bottom:6px;position:relative;overflow:hidden}
+  .rank-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:2.5px;background:var(--c,#4f8cff);opacity:.9}
+  .rk-top{display:flex;align-items:center;gap:5px;margin-bottom:5px;flex-wrap:wrap}
+  .rk-no{width:18px;height:18px;border-radius:6px;display:grid;place-items:center;flex:none;
+    font-size:10px;font-weight:800;color:var(--c,#4f8cff);
     background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16)}
-  .rk-name{font-size:15px;font-weight:800;letter-spacing:-.3px}
-  .rk-cnt{font-size:11.5px;font-weight:700;color:var(--dim);background:rgba(255,255,255,.05);
-    border:1px solid var(--line);padding:2px 7px;border-radius:6px}
-  .hint{margin-left:auto;font-size:11px;font-weight:800;padding:4px 9px;border-radius:8px;white-space:nowrap}
+  .rk-name{font-size:13px;font-weight:800;letter-spacing:-.3px}
+  .rk-cnt{font-size:10px;font-weight:700;color:var(--dim);background:rgba(255,255,255,.05);
+    border:1px solid var(--line);padding:1px 6px;border-radius:6px}
+  .hint{margin-left:auto;font-size:9.5px;font-weight:800;padding:2px 7px;border-radius:7px;white-space:nowrap}
   .hint.short{color:#ffb27a;background:rgba(255,138,76,.14);border:1px solid rgba(255,138,76,.38)}
   .hint.medium{color:#7fd3e8;background:rgba(127,211,232,.12);border:1px solid rgba(127,211,232,.34)}
-  .rk-kws{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px}
-  .kw{font-size:11px;color:var(--dim);background:rgba(255,255,255,.04);border:1px solid var(--line);
-    padding:2px 7px;border-radius:6px}
-  .rk-hds{display:flex;flex-direction:column;gap:3px;margin-bottom:8px}
-  .rk-hd{font-size:13px;color:#c8d2e4;line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;
+  .rk-kws{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:5px}
+  .kw{font-size:9.8px;color:var(--dim);background:rgba(255,255,255,.04);border:1px solid var(--line);
+    padding:1px 5px;border-radius:5px}
+  .rk-hds{display:flex;flex-direction:column;gap:2px;margin-bottom:5px}
+  .rk-hd{font-size:11.5px;color:#c8d2e4;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;
     -webkit-box-orient:vertical;overflow:hidden}
   .rk-hd::before{content:"· ";color:var(--dim2)}
-  .rk-metrics{font-size:11.5px;color:var(--dim2);margin-bottom:4px}
-  .rk-reason{font-size:11.5px;color:#7d8aa3;line-height:1.55;margin-bottom:10px}
-  .rk-go{
-    width:100%;appearance:none;border:1px solid rgba(79,140,255,.35);background:rgba(79,140,255,.1);
-    color:#9fc0ff;font-family:inherit;font-size:12.5px;font-weight:700;padding:9px;border-radius:10px;
-    cursor:pointer;transition:.15s;
-  }
-  .rk-go:active{background:rgba(79,140,255,.2);transform:scale(.99)}
+  .rk-metrics{font-size:10px;color:var(--dim2);margin-bottom:2px}
+  .rk-reason{font-size:10px;color:#7d8aa3;line-height:1.45;margin-bottom:7px}
+  .rk-go{width:100%;appearance:none;border:1px solid rgba(79,140,255,.35);background:rgba(79,140,255,.1);
+    color:#9fc0ff;font-family:inherit;font-size:11px;font-weight:700;padding:6px;border-radius:8px;cursor:pointer}
+  .rk-go:active{background:rgba(79,140,255,.2)}
+  .rk-leaders{font-size:10px;color:#9fb4d8;background:rgba(79,140,255,.07);border:1px solid rgba(79,140,255,.2);
+    border-radius:7px;padding:3px 6px;margin-bottom:5px;line-height:1.45}
 
   /* ---------- 일정 뉴스 ---------- */
   .sch-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
-    padding:13px 14px 12px;margin-bottom:10px;animation:fade .3s ease both}
-  .sch-top{display:flex;align-items:center;gap:6px;margin-bottom:6px;flex-wrap:wrap}
-  .when{font-size:11.5px;font-weight:800;color:#ffd166;background:rgba(255,209,102,.13);
-    border:1px solid rgba(255,209,102,.34);padding:3px 9px;border-radius:7px}
-  .type{font-size:11px;color:var(--dim);background:rgba(255,255,255,.05);border:1px solid var(--line);
-    padding:2px 7px;border-radius:6px}
-  .sch-card .cnt{margin-left:auto;font-size:11px;color:var(--dim2)}
-  .sch-topic{font-size:15.5px;font-weight:800;letter-spacing:-.3px;margin:0 0 7px;line-height:1.35}
-  .sch-themes{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:9px}
-  .tag2{font-size:11px;font-weight:700;padding:2px 8px;border-radius:6px;border:1px solid transparent}
-  .sch-art{display:block;padding:9px 0;border-top:1px solid var(--line)}
+    padding:9px 10px 7px;margin-bottom:6px}
+  .sch-top{display:flex;align-items:center;gap:5px;margin-bottom:4px;flex-wrap:wrap}
+  .when{font-size:10px;font-weight:800;color:#ffd166;background:rgba(255,209,102,.13);
+    border:1px solid rgba(255,209,102,.34);padding:2px 7px;border-radius:6px}
+  .type{font-size:9.8px;color:var(--dim);background:rgba(255,255,255,.05);border:1px solid var(--line);
+    padding:1px 6px;border-radius:5px}
+  .sch-card .cnt{margin-left:auto;font-size:9.8px;color:var(--dim2)}
+  .sch-topic{font-size:13px;font-weight:800;letter-spacing:-.3px;margin:0 0 4px;line-height:1.3}
+  .sch-themes{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:5px}
+  .tag2{font-size:9.5px;font-weight:700;padding:1px 6px;border-radius:5px;border:1px solid transparent}
+  .sch-art{display:block;padding:5px 0;border-top:1px solid var(--line)}
   .sch-art:active{opacity:.75}
-  .sch-t{font-size:13.5px;font-weight:700;line-height:1.42;color:#dce4f2;
-    display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-  .sch-s{font-size:12.5px;color:#9aa7bd;line-height:1.5;margin-top:4px;
+  .sch-t{font-size:11.8px;font-weight:700;line-height:1.35;color:#dce4f2;
     display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-  .sch-f{display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--dim2);margin-top:5px}
+  .sch-s{font-size:10.8px;color:#9aa7bd;line-height:1.4;margin-top:2px;
+    display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
+  .sch-f{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--dim2);margin-top:3px}
 
-  .empty{text-align:center;color:var(--dim2);padding:60px 20px;font-size:13.5px;line-height:1.7}
-  .skeleton{height:88px;border-radius:var(--radius);background:linear-gradient(90deg,#141d33,#1b2743,#141d33);
-    background-size:200% 100%;animation:sk 1.4s infinite;margin-bottom:9px}
+  .empty{text-align:center;color:var(--dim2);padding:40px 16px;font-size:12px;line-height:1.7}
+  .skeleton{height:46px;border-radius:9px;background:linear-gradient(90deg,#141d33,#1b2743,#141d33);
+    background-size:200% 100%;animation:sk 1.4s infinite;margin-bottom:4px}
   @keyframes sk{0%{background-position:200% 0}100%{background-position:-200% 0}}
 
-  footer{margin-top:22px;padding:16px 4px 8px;border-top:1px solid var(--line);
-    font-size:11.5px;color:var(--dim2);line-height:1.7;text-align:center}
+  footer{margin-top:16px;padding:12px 4px 6px;border-top:1px solid var(--line);
+    font-size:10px;color:var(--dim2);line-height:1.65;text-align:center}
   footer b{color:var(--dim)}
-  #top{position:fixed;right:16px;bottom:calc(18px + env(safe-area-inset-bottom));width:42px;height:42px;
+  #top{position:fixed;right:12px;bottom:calc(14px + env(safe-area-inset-bottom));width:36px;height:36px;
     border-radius:50%;border:1px solid var(--line);background:rgba(20,29,51,.9);color:var(--dim);
-    display:none;place-items:center;font-size:16px;backdrop-filter:blur(8px);cursor:pointer;z-index:15}
+    display:none;place-items:center;font-size:14px;backdrop-filter:blur(8px);cursor:pointer;z-index:15}
   #top.show{display:grid}
 </style>
 </head>
@@ -239,16 +246,16 @@
 <header>
   <div class="wrap">
     <div class="top">
-      <div class="logo" aria-hidden="true"><svg viewBox="0 0 64 64" width="22" height="22"><path d="M10 46 L22 33 L31 39 L44 23 L54 14 L54 49 L10 49 Z" fill="rgba(255,255,255,.22)"/><path d="M10 46 L22 33 L31 39 L44 23 L54 14" fill="none" stroke="#fff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="54" cy="14" r="3.6" fill="#fff"/></svg></div>
-      <div class="brand">증시 뉴스 레이더<small>메인 이슈 순위 · 테마 · 일정</small></div>
+      <div class="logo" aria-hidden="true"><svg viewBox="0 0 64 64" width="19" height="19"><path d="M10 46 L22 33 L31 39 L44 23 L54 14 L54 49 L10 49 Z" fill="rgba(255,255,255,.22)"/><path d="M10 46 L22 33 L31 39 L44 23 L54 14" fill="none" stroke="#fff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="54" cy="14" r="3.6" fill="#fff"/></svg></div>
+      <div class="brand">증시 뉴스 레이더<small>실시간 속보 · 이슈 순위 · 테마</small></div>
       <div class="spacer"></div>
       <div class="live" id="live"><span class="dot"></span><span id="liveTxt">LIVE</span></div>
       <button class="refresh" id="btnRefresh" aria-label="새로고침">⟳</button>
     </div>
     <div class="tabs" role="tablist" aria-label="화면 전환">
-      <button class="tab" role="tab" data-tab="news" aria-selected="true">📰 이슈 순위</button>
-      <button class="tab" role="tab" data-tab="themes" aria-selected="false">🔥 테마 순위</button>
-      <button class="tab" role="tab" data-tab="schedules" aria-selected="false">📅 일정 뉴스</button>
+      <button class="tab" role="tab" data-tab="news" aria-selected="true">📰 뉴스/이슈</button>
+      <button class="tab" role="tab" data-tab="themes" aria-selected="false">🔥 테마</button>
+      <button class="tab" role="tab" data-tab="schedules" aria-selected="false">📅 일정</button>
     </div>
   </div>
 </header>
@@ -265,13 +272,30 @@
       <input id="q" type="search" inputmode="search" placeholder="종목·키워드 검색 (예: 반도체, 상한가)" autocomplete="off">
     </div>
     <div class="chips" id="chips"></div>
-    <p class="note" style="margin:0 2px 10px;border:0;padding:0">
-      네이버 뉴스 메인 랭킹과 경제 섹션에서 <b>증시·산업·정책에 닿는 기사만</b> 골라,
-      같은 이슈를 다룬 매체 수가 많은 순으로 줄을 세웠습니다. <b>⚡ 속보</b>는 맨 위, 카드의 <b>N개 매체</b>를 누르면 다른 매체 기사가 펼쳐집니다.
-    </p>
-    <div id="list">
+
+    <div class="sechead"><span class="bar"></span>⚡ 실시간 속보
+      <span class="cnt" id="flashCnt">–</span>
+      <span class="livechip"><span class="dot"></span>5분 갱신</span>
+      <span class="gt">제목 + 대장주</span>
+    </div>
+    <div id="flashList">
       <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
     </div>
+
+    <div class="sechead issue" style="margin-top:10px"><span class="bar"></span>🔥 이슈 순위
+      <span class="cnt" id="issueCnt">–</span>
+      <span class="gt">매체 수 순</span>
+    </div>
+    <div id="issueList">
+      <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
+    </div>
+    <button class="more" id="moreIssues" hidden>이슈 더 보기</button>
+
+    <p class="note">
+      네이버 금융 <b>실시간 속보</b>와 네이버 뉴스 메인 랭킹·경제 섹션을 5분마다 모아,
+      증시·산업·정책에 닿는 기사만 남깁니다.
+      속보는 <b>제목 + 대장주</b>만, 이슈는 <b>매체 수 순</b>으로 보여주고, 카드를 누르면 <b>요약·다른 매체 기사</b>가 펼쳐집니다.
+    </p>
   </section>
 
   <section class="view" data-view="themes" id="view-themes" hidden>
@@ -300,17 +324,17 @@
 </main>
 
 <footer>
-  <b>네이버 뉴스 메인(언론사별 많이 본 뉴스)</b>과 <b>경제 섹션</b>을 30분마다 자동 수집합니다.<br>
+  <b>네이버 금융 실시간 속보</b>와 <b>네이버 뉴스 메인(언론사별 많이 본 뉴스)</b>·경제 섹션을 5분마다 자동 수집합니다.<br>
   연예·스포츠·건강·지역 행사·개인 사건은 걸러내고, 증시·산업·거시·정책 이슈만 남깁니다.<br>
-  요약은 기사 도입부를 줄인 것이고, 대장주 배지는 공개 테마 정보로 붙인 것으로 투자 권유가 아닙니다.<br>
+  대장주 배지는 공개 테마 정보로 붙인 것으로 투자 권유가 아닙니다.<br>
   저작권은 각 언론사에 있으며 모든 기사는 원문 링크로 연결됩니다.
 </footer>
 <button id="top" aria-label="맨 위로">↑</button>
 
 <script>
-const state = { data:null, theme:'all', q:'', rendered:0, tab:'news' };
-const BATCH = 30;
+const state = { data:null, theme:'all', q:'', tab:'news', more:false, open:new Set() };
 const TABS = ['news','themes','schedules'];
+const FIRST_ISSUES = 15;   // 이슈 순위 첫 화면 15건 (속보 15건과 5:5)
 
 const $ = s => document.querySelector(s);
 const esc = s => (s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -328,18 +352,61 @@ function relTime(iso){
   if(days < 7) return days + '일 전';
   return (d.getMonth()+1) + '.' + d.getDate();
 }
-function dayKey(iso){
-  if(!iso) return '날짜 미상';
+function hm(iso){
+  if(!iso) return '';
   const d = new Date(iso);
-  const t = new Date(); const y = new Date(t.getTime()-864e5);
-  const same = (a,b) => a.getFullYear()===b.getFullYear() && a.getMonth()===b.getMonth() && a.getDate()===b.getDate();
-  if(same(d,t)) return '오늘';
-  if(same(d,y)) return '어제';
-  return (d.getMonth()+1) + '월 ' + d.getDate() + '일';
+  if(isNaN(d)) return '';
+  return String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0');
 }
 
-function themes(){ return (state.data && state.data.themes) || []; }
-function allArticles(){ return (state.data && state.data.issues) || (state.data && state.data.articles) || []; }
+function themesList(){ return (state.data && state.data.themes) || []; }
+function flashAll(){ return (state.data && state.data.flash) || []; }
+function issueAll(){ return (state.data && state.data.issues) || (state.data && state.data.articles) || []; }
+function themeColor(id){
+  const t = themesList().find(x => x.id === id);
+  return (t && t.color) || '#8f9bb3';
+}
+
+/* 제목을 글자만 남겨 비교 — 속보와 이슈에 같은 사건이 두 번 보이지 않게 한다 */
+function normTitle(t){
+  return (t||'').replace(/\[[^\]]*\]|\([^)]*\)|[“”"'‘’·…,!?.\-~]/g,'').replace(/[^0-9A-Za-z가-힣]/g,'');
+}
+function sameStory(a, b){
+  if(!a || !b) return false;
+  if(a === b) return true;
+  const k = Math.min(a.length, b.length, 16);
+  return k >= 11 && a.slice(0, k) === b.slice(0, k);
+}
+
+function matches(a, q){
+  if(!q) return true;
+  const hay = (a.title + ' ' + (a.summary||'') + ' ' + (a.theme_label||'') + ' ' +
+               (a.press||'') + ' ' + (a.leaders||[]).join(' ') + ' ' +
+               (a.related||[]).map(x => x.title + ' ' + (x.press||'')).join(' ')).toLowerCase();
+  return hay.includes(q);
+}
+
+function flashList(){
+  const q = state.q.trim().toLowerCase();
+  const items = flashAll().filter(a => {
+    if(state.theme !== 'all' && a.theme !== state.theme) return false;
+    return matches(a, q);
+  });
+  return items;
+}
+
+function issueList(){
+  const q = state.q.trim().toLowerCase();
+  const flashNorms = flashAll().map(a => normTitle(a.title));
+  return issueAll().filter(a => {
+    if(state.theme !== 'all' && a.theme !== state.theme) return false;
+    if(!q){
+      const n = normTitle(a.title);
+      if(flashNorms.some(f => sameStory(n, f))) return false;   // 속보와 중복되는 이슈는 이슈 목록에서 뺀다
+    }
+    return matches(a, q);
+  });
+}
 
 /* ---------------- 탭 ---------------- */
 function switchTab(name, keepScroll){
@@ -354,119 +421,121 @@ function switchTab(name, keepScroll){
 }
 
 function openTheme(id){
-  state.theme = id; state.q = ''; state.rendered = 0;
+  state.theme = id; state.q = ''; state.more = false;
   const q = $('#q'); if(q) q.value = '';
-  renderChips(); renderList(true);
+  lastKey = '';
+  renderChips(); renderNews(true);
   switchTab('news');
 }
 
 /* ---------------- 뉴스 ---------------- */
+let lastChipHtml = '';
 function renderChips(){
-  const total = allArticles().length;
+  const total = issueAll().length;
   let html = `<button class="chip" data-theme="all" aria-pressed="${state.theme==='all'}">전체 <span class="n">${total}</span></button>`;
-  for(const t of themes()){
+  for(const t of themesList()){
     html += `<button class="chip" data-theme="${esc(t.id)}" aria-pressed="${state.theme===t.id}"
       style="${state.theme===t.id?'':`color:${t.color}`}">${esc(t.label)} <span class="n">${t.count}</span></button>`;
   }
-  $('#chips').innerHTML = html;
-  $('#chips').querySelectorAll('.chip').forEach(b => b.onclick = () => {
-    state.theme = b.dataset.theme; state.rendered = 0; renderChips(); renderList(); window.scrollTo({top:0,behavior:'smooth'});
+  if(html === lastChipHtml) return;
+  lastChipHtml = html;
+  const box = $('#chips');
+  box.innerHTML = html;
+  box.querySelectorAll('.chip').forEach(b => b.onclick = () => {
+    state.theme = b.dataset.theme; state.more = false;
+    renderChips(); renderNews(true);
   });
 }
 
-function filtered(){
-  const q = state.q.trim().toLowerCase();
-  return allArticles().filter(a => {
-    if(state.theme !== 'all' && a.theme !== state.theme) return false;
-    if(!q) return true;
-    const rel = (a.related||[]).map(x => x.title + ' ' + (x.press||'')).join(' ');
-    const hay = (a.title + ' ' + (a.summary||'') + ' ' + (a.tags||[]).join(' ') + ' ' +
-                 (a.press||'') + ' ' + (a.leaders||[]).join(' ') + ' ' + rel).toLowerCase();
-    return hay.includes(q);
-  });
+function leadBadge(leaders){
+  const names = (leaders||[]).filter(Boolean).slice(0,2);
+  if(!names.length) return '';
+  return `<span class="lead"><b>🏢</b>${names.map(esc).join(' · ')}</span>`;
 }
 
-function cardHtml(a, i){
-  const color = a.color || themeColor(a.theme);
-  const tags = (a.tags||[]).slice(0,3).map(t => `<span class="tag">${esc(t)}</span>`).join('');
+function flashHtml(a){
+  return `<a class="fcard" href="${esc(a.url)}" target="_blank" rel="noopener noreferrer">
+    <div class="frow"><span class="fb">⚡ 속보</span><span class="ft">${esc(a.title)}</span></div>
+    <div class="fmeta">${leadBadge(a.leaders)}
+      <span class="src">${hm(a.time)||relTime(a.time)} <span class="p">· ${esc(a.press||'')}</span></span>
+    </div>
+  </a>`;
+}
+
+function issueHtml(a, i){
+  const color = themeColor(a.theme);
   const rank = a.issue_rank || (i + 1);
   const pressN = a.presses || 1;
   const pressBadge = pressN >= 2
     ? `<button class="presses" type="button" aria-label="다른 매체 기사 펼치기">${pressN}개 매체</button>`
     : (a.main_rank ? `<span class="presses" style="cursor:default">메인 ${a.main_rank}위</span>` : '');
-  const brk = a.breaking ? '<span class="break">⚡ 속보</span>' : '';
-  const leaders = (a.leaders||[]).length
-    ? `<div class="leaders"><span class="lb">🏢 대장주</span>${(a.leaders||[]).map(esc).join(' · ')}</div>` : '';
+  const brk = a.breaking ? '<span class="brk">속보</span>' : '';
+  const open = state.open.has(a.id);
   const related = (a.related||[]);
   const relHtml = related.length
-    ? `<details class="relm"><summary>다른 매체 기사 ${related.length}건</summary>` +
-      related.map(r => `<a href="${esc(r.url)}" target="_blank" rel="noopener noreferrer">${esc(r.title)} <span class="rp">· ${esc(r.press||'')}</span></a>`).join('') +
-      `</details>` : '';
-  return `<article class="card" style="--c:${color}">
-    <div class="row1">${brk}<span class="issue-no${rank<=3?' top3':''}">${rank}</span>
-      <span class="badge" style="--c:${color};background:${color}22;border-color:${color}55">${esc(a.theme_label||'기타')}</span>${tags}${pressBadge}</div>
-    <a class="title" href="${esc(a.url)}" target="_blank" rel="noopener noreferrer">${esc(a.title)}</a>
-    ${a.summary ? `<p class="sum">${esc(a.summary)}</p>` : ''}
-    ${leaders}
+    ? `<div class="relm">` + related.map(r =>
+        `<a href="${esc(r.url)}" target="_blank" rel="noopener noreferrer">${esc(r.title)} <span class="rp">· ${esc(r.press||'')}</span></a>`).join('') + `</div>`
+    : '';
+  return `<article class="icard${open?' open':''}" style="--c:${color}" data-id="${esc(a.id)}">
+    <div class="irow">
+      <span class="rankb${rank<=3?' top3':''}">${rank}</span>
+      <a class="ititle" href="${esc(a.url)}" target="_blank" rel="noopener noreferrer">${esc(a.title)}</a>
+    </div>
+    ${a.summary ? `<div class="isum">${esc(a.summary)}</div>` : ''}
+    <div class="ifoot">${brk}${leadBadge(a.leaders)}${pressBadge}
+      <span class="src" style="margin-left:auto">${hm(a.time)||relTime(a.time)} · ${esc(a.press||'')}</span>
+      <button class="exp" type="button" aria-label="요약과 다른 매체 기사 펼치기">${open?'▴':'▾'}</button>
+    </div>
     ${relHtml}
-    <div class="foot"><span class="press">${esc(a.press||'')}</span>${a.section?`<span class="sep"></span><span>${esc(a.section)}</span>`:''}<span class="sep"></span><span>${relTime(a.time)}</span><a class="go" href="${esc(a.url)}" target="_blank" rel="noopener noreferrer">원문 →</a></div>
   </article>`;
 }
 
-function themeColor(id){
-  const t = themes().find(x => x.id === id);
-  return (t && t.color) || '#8f9bb3';
-}
+let lastKey = '';
+let lastFlashHtml = '';
+let lastIssueHtml = '';
+function renderNews(force){
+  if(!state.data) return;
+  const key = [state.data.generated_at, state.theme, state.q, state.more?1:0].join('|');
+  if(!force && key === lastKey) return;
+  lastKey = key;
 
-function renderList(reset){
-  const items = filtered();
-  const list = $('#list');
-  if(reset) { list.innerHTML = ''; state.rendered = 0; }
-  if(!items.length){
-    list.innerHTML = `<div class="empty">조건에 맞는 이슈가 없습니다.<br>검색어나 테마를 바꿔 보세요.</div>`;
-    return;
-  }
-  const start = state.rendered;
-  const slice = items.slice(start, start + BATCH);
-  let html = '';
-  for(let i = 0; i < slice.length; i++){
-    html += cardHtml(slice[i], start + i);
-  }
-  if(start === 0) list.innerHTML = html;
-  else list.insertAdjacentHTML('beforeend', html);
-  state.rendered = start + slice.length;
-  if(state.rendered < items.length){
-    list.insertAdjacentHTML('beforeend', `<div id="more" style="text-align:center;padding:14px;color:#6b778f;font-size:12.5px">불러오는 중…</div>`);
-  }
-  watchSentinel();
-}
+  const fl = flashList();
+  const iss = issueList();
 
-/* 무한 스크롤 */
-let loading = false;
-const sentinelObserver = new IntersectionObserver(entries => {
-  if(entries.some(e => e.isIntersecting) && !loading){
-    const more = $('#more');
-    if(!more) return;
-    loading = true; more.remove();
-    renderList(false); loading = false;
+  const fh = fl.length
+    ? fl.map(flashHtml).join('')
+    : `<div class="mini-empty">${state.q||state.theme!=='all'?'조건에 맞는 속보가 없습니다.':'수집된 속보가 없습니다.'}</div>`;
+  if(fh !== lastFlashHtml){
+    lastFlashHtml = fh;
+    $('#flashList').innerHTML = fh;
   }
-}, {rootMargin:'500px'});
-function watchSentinel(){
-  sentinelObserver.disconnect();
-  const more = $('#more');
-  if(more) sentinelObserver.observe(more);
+  $('#flashCnt').textContent = fl.length + '건';
+
+  const shown = state.more ? iss : iss.slice(0, FIRST_ISSUES);
+  const ih = shown.length
+    ? shown.map(issueHtml).join('')
+    : `<div class="mini-empty">${state.q||state.theme!=='all'?'조건에 맞는 이슈가 없습니다.':'수집된 이슈가 없습니다.'}</div>`;
+  if(ih !== lastIssueHtml){
+    lastIssueHtml = ih;
+    $('#issueList').innerHTML = ih;
+  }
+  $('#issueCnt').textContent = shown.length + '건';
+  const more = $('#moreIssues');
+  more.hidden = iss.length <= FIRST_ISSUES;
+  more.textContent = state.more ? '이슈 접기' : `이슈 ${iss.length - FIRST_ISSUES}건 더 보기`;
 }
 
 /* ---------------- 테마 순위 ---------------- */
 function renderThemes(){
   const box = $('#themesList');
-  if(!box) return;
-  const rows = (state.data && state.data.themes_rank) || [];
+  if(!box || !state.data) return;
+  const rows = state.data.themes_rank || [];
   if(!rows.length){
-    box.innerHTML = `<div class="empty">테마 순위를 계산할 기사가 아직 없습니다.<br>다음 갱신(30분) 뒤 다시 확인해 주세요.</div>`;
+    box.innerHTML = `<div class="empty">테마 순위를 계산할 기사가 아직 없습니다.<br>다음 갱신(5분) 뒤 다시 확인해 주세요.</div>`;
+    $('#themesSub').textContent = '';
     return;
   }
-  $('#themesSub').textContent = `이슈 ${(state.data.count||0)}건 · 테마 ${rows.length}개`;
+  $('#themesSub').textContent = `이슈 ${state.data.count||0}건 · 테마 ${rows.length}개`;
   let html = '';
   for(const r of rows){
     const h = r.hint || {};
@@ -498,8 +567,8 @@ function renderThemes(){
 /* ---------------- 일정 뉴스 ---------------- */
 function renderSchedules(){
   const box = $('#schedList');
-  if(!box) return;
-  const rows = (state.data && state.data.schedules) || [];
+  if(!box || !state.data) return;
+  const rows = state.data.schedules || [];
   if(!rows.length){
     box.innerHTML = `<div class="empty">지금 수집된 기사에는 일정 단서가 없습니다.<br>일정 기사가 잡히면 여기에 시점별로 묶여 표시됩니다.</div>`;
     $('#schedSub').textContent = '';
@@ -511,7 +580,7 @@ function renderSchedules(){
     const arts = (s.articles||[]).map(a => `<a class="sch-art" href="${esc(a.url)}" target="_blank" rel="noopener noreferrer">
         <div class="sch-t">${esc(a.title)}</div>
         ${a.summary ? `<div class="sch-s">${esc(a.summary)}</div>` : ''}
-        <div class="sch-f"><span class="press">${esc(a.press||'')}</span>${a.time?`<span class="sep"></span><span>${relTime(a.time)}</span>`:''}<span class="go">원문 →</span></div>
+        <div class="sch-f"><span class="press">${esc(a.press||'')}</span>${a.time?`<span>· ${relTime(a.time)}</span>`:''}</div>
       </a>`).join('');
     const th = (s.themes||[]).map(t =>
       `<span class="tag2" style="color:${t.color};border-color:${t.color}55;background:${t.color}18">${esc(t.label)}</span>`).join('');
@@ -528,7 +597,7 @@ function renderSchedules(){
 /* ---------------- 데이터 ---------------- */
 async function load(manual){
   const btn = $('#btnRefresh');
-  if(manual){ btn.classList.add('spinning'); }
+  if(manual) btn.classList.add('spinning');
   try{
     const res = await fetch('data/news.json?_=' + Date.now(), {cache:'no-store'});
     if(!res.ok) throw new Error('HTTP ' + res.status);
@@ -540,9 +609,10 @@ async function load(manual){
   }catch(err){
     let cached = null;
     try{ cached = JSON.parse(localStorage.getItem('newsradar_last')||'null'); }catch(e){}
-    if(cached){ applyData(cached); $('#liveTxt').textContent = '저장본'; }
-    else {
-      $('#list').innerHTML = `<div class="empty">뉴스를 불러오지 못했습니다.<br>잠시 후 새로고침(⟳)을 눌러 주세요.</div>`;
+    if(cached && !state.data){ state.data = cached; applyData(cached); $('#liveTxt').textContent = '저장본'; }
+    else if(!state.data){
+      $('#flashList').innerHTML = `<div class="empty">뉴스를 불러오지 못했습니다.<br>잠시 후 새로고침(⟳)을 눌러 주세요.</div>`;
+      $('#issueList').innerHTML = '';
     }
   }finally{
     btn.classList.remove('spinning');
@@ -551,23 +621,32 @@ async function load(manual){
 
 function applyData(data){
   $('#updated').textContent = data.generated_at_kst || '–';
-  const n = ((data.issues || data.articles)||[]).length;
-  $('#total').textContent = '이슈 ' + n + '건' + (data.article_count ? ' · 기사 ' + data.article_count + '건' : '');
+  const nf = (data.flash||[]).length;
+  const ni = (data.issues || data.articles || []).length;
+  $('#total').textContent = `속보 ${nf} · 이슈 ${ni}`;
   if(state.theme !== 'all' && !(data.themes||[]).some(t => t.id === state.theme)) state.theme = 'all';
   renderChips();
-  renderList(true);
+  renderNews(false);
   if(state.tab === 'themes') renderThemes();
   if(state.tab === 'schedules') renderSchedules();
 }
 
-$('#q').addEventListener('input', e => { state.q = e.target.value; state.rendered = 0; renderList(true); });
-/* 카드의 'N개 매체'를 누르면 같은 이슈의 다른 매체 기사가 펼쳐진다 */
-document.addEventListener('click', e => {
-  const btn = e.target.closest('.presses');
-  if(!btn || btn.tagName !== 'BUTTON') return;
-  const card = btn.closest('.card');
-  const box = card && card.querySelector('.relm');
-  if(box){ box.open = !box.open; }
+$('#q').addEventListener('input', e => { state.q = e.target.value; renderNews(true); });
+$('#moreIssues').addEventListener('click', () => { state.more = !state.more; renderNews(true); });
+/* 카드 펼치기: 요약 전체 + 같은 이슈의 다른 매체 기사 */
+$('#issueList').addEventListener('click', e => {
+  const card = e.target.closest('.icard');
+  if(!card) return;
+  const btn = e.target.closest('.exp, .presses');
+  if(!btn) return;
+  if(btn.tagName === 'A') return;
+  e.preventDefault();
+  const id = card.dataset.id;
+  const open = !card.classList.contains('open');
+  card.classList.toggle('open', open);
+  if(open) state.open.add(id); else state.open.delete(id);
+  const ex = card.querySelector('.exp');
+  if(ex) ex.textContent = open ? '▴' : '▾';
 });
 $('#btnRefresh').addEventListener('click', () => load(true));
 document.querySelectorAll('.tab').forEach(b => b.onclick = () => switchTab(b.dataset.tab));
@@ -576,7 +655,7 @@ addEventListener('hashchange', () => {
   if(TABS.includes(name) && name !== state.tab) switchTab(name, true);
 });
 
-/* 자동 새로고침: 5분마다, 화면이 보일 때만 */
+/* 자동 새로고침: 5분마다, 화면이 보일 때만 (바뀐 내용이 없으면 화면을 다시 그리지 않는다) */
 setInterval(() => { if(document.visibilityState === 'visible') load(false); }, 5*60*1000);
 document.addEventListener('visibilitychange', () => {
   if(document.visibilityState === 'visible' && state.data){
@@ -587,7 +666,7 @@ document.addEventListener('visibilitychange', () => {
 
 /* 맨 위로 */
 const topBtn = $('#top');
-addEventListener('scroll', () => topBtn.classList.toggle('show', scrollY > 700), {passive:true});
+addEventListener('scroll', () => topBtn.classList.toggle('show', scrollY > 600), {passive:true});
 topBtn.onclick = () => scrollTo({top:0, behavior:'smooth'});
 
 /* PWA */
