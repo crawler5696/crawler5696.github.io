@@ -340,7 +340,7 @@
     font-size:9px;font-weight:900;letter-spacing:-.2px;vertical-align:1px;
     color:#5be0b0;background:rgba(40,210,150,.14);border:1px solid rgba(40,210,150,.42)}
   .hb-row.bot{box-shadow:inset 2px 0 0 rgba(40,210,150,.55)}
-  /* 앞/뒤 자리 표시 — 앞은 빨간 배지, 중은 흐린 배지. 뒤는 실리지 않는다 */
+  /* 앞/뒤 자리 표시 — 앞은 빨간 배지, 중은 흐린 배지, 뒤는 더 흐린 회색(일봉 카드에만 실린다) */
   .hb-pos{display:inline-block;margin-left:5px;padding:0 4px;border-radius:5px;white-space:nowrap;
     font-size:9px;font-weight:900;letter-spacing:-.2px;vertical-align:1px}
   .hb-pos.front{color:#ff9aa8;background:rgba(255,60,80,.16);border:1px solid rgba(255,60,80,.46)}
@@ -1009,14 +1009,27 @@ function hotEvtBadge(s){
   return e ? `<span class="hb-evt">📅 ${esc(e.badge || e.dtext || '')}</span>` : '';
 }
 
-/* 앞/뒤 자리 배지 — vr_all = ① 봉 거래량이 그 앞 10년 최대의 몇 배였나(1을 넘으면 역대 최고)
-   0.90 이상 '앞'(빨강) · 0.50~0.90 '중'(흐림) · 0.50 미만 '뒤'는 자료에 실리지 않는다 */
+/* 앞/뒤 자리 배지 — vr_all = 그 자리 봉 거래량이 그 앞 10년 최대의 몇 배였나(1을 넘으면 역대 최고)
+   0.90 이상 '앞'(빨강) · 0.50~0.90 '중'(흐림) · 0.50 미만 '뒤'(회색) — 주봉·월봉 카드에는 '뒤'가 실리지 않는다.
+   일봉 카드는 그 상한가 봉이 속한 주봉·월봉 거래량으로 잰 값(pos_src)이라 툴팁에 둘 다 적는다. */
 function hotPosBadge(s){
   const p = s.pos;
   if(!p) return '';
   const cls = p === '앞' ? 'front' : (p === '중' ? 'mid' : 'back');
   const v = (typeof s.vr_all === 'number') ? s.vr_all : null;
-  const t = v === null ? '' : ` title="상한가 봉 거래량 = 앞선 10년 최대의 ${v.toFixed(2)}배${v >= 1 ? ' (역대 최고)' : ''}"`;
+  let t = '';
+  if(v !== null){
+    const best = `${v.toFixed(2)}배${v >= 1 ? ' (역대 최고)' : ''}`;
+    if(s.pos_src){
+      const w = (typeof s.vr_week === 'number') ? `주봉 ${s.vr_week.toFixed(2)}배` : '';
+      const m = (typeof s.vr_month === 'number') ? `월봉 ${s.vr_month.toFixed(2)}배` : '';
+      const pw = s.pos_paced === '주' ? '주' : (s.pos_paced === '월' ? '달' : '');
+      const pace = pw ? ` (이번 ${pw} 환산)` : '';
+      t = ` title="${esc(s.pos_src)} 거래량 = 앞선 10년 최대의 ${best} — ${esc([w, m].filter(Boolean).join(' · '))}${pace} (일봉 상한가 자리를 주·월봉으로 잰 것)"`;
+    }else{
+      t = ` title="상한가 봉 거래량 = 앞선 10년 최대의 ${best}"`;
+    }
+  }
   return `<span class="hb-pos ${cls}"${t}>${esc(p)}</span>`;
 }
 
