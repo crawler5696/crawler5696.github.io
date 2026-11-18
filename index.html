@@ -660,7 +660,7 @@ function renderNews(force){
   }
   const more = $('#moreIssues');
   more.hidden = iss.length <= FIRST_ISSUES;
-  more.textContent = state.more ? '이슈 접기' : `이슈 ${iss.length - FIRST_ISSUES}건 더 보기`;
+  more.textContent = state.more ? '이슈 접기' : '이슈 더 보기';
 }
 
 /* ---------------- 오늘 상한가 ---------------- */
