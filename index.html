@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>증시 뉴스 레이더 · 실시간 속보 / 이슈 순위</title>
-<meta property="description" content="네이버 금융 실시간 속보와 네이버 뉴스 메인(언론사별 랭킹)을 5분마다 모아, 최근 1시간 속보 6건과 매체 수로 묶은 이슈 14건을 3:7로 보여주는 대시보드">
+<title>증시 뉴스 레이더 · 실시간 속보 / 오늘 상한가 / 테마달력</title>
+<meta property="description" content="네이버 금융 실시간 속보·이슈 순위에 더해, 오늘 상한가 종목과 그 이유 요약, 최근 12개월 상한가 테마 달력까지 한 화면에 보여주는 무료 증시 뉴스 대시보드">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="증시 뉴스 레이더">
-<meta property="og:title" content="증시 뉴스 레이더 · 실시간 속보 + 이슈 순위">
-<meta property="og:description" content="5분마다 갱신 — 최근 1시간 실시간 속보 6건 + 매체 수로 묶은 이슈 순위 14건, 대장주 배지">
+<meta property="og:title" content="증시 뉴스 레이더 · 실시간 속보 + 오늘 상한가 + 테마달력">
+<meta property="og:description" content="5분마다 갱신 — 실시간 속보·이슈 순위, 오늘 상한가 종목과 이슈 요약, 최근 12개월 상한가 테마 달력">
 <meta property="og:url" content="https://crawler5696.github.io/">
 <meta property="og:image" content="https://crawler5696.github.io/icons/icon-512.png">
 <meta name="twitter:card" content="summary">
@@ -245,7 +245,7 @@
   .up-tags{display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin-top:4px}
   .up-theme{font-size:10px;font-weight:800;color:#c9a2ff;background:rgba(201,162,255,.13);
     border:1px solid rgba(201,162,255,.32);padding:1px 6px;border-radius:5px;white-space:nowrap}
-  .up-val{font-size:10px;color:var(--dim2)}
+  .up-val{font-size:10px;color:var(--dim)}
   .up-sum{font-size:11.8px;color:#c8d2e4;line-height:1.5;margin:5px 0 0;
     display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
   .up-card.open .up-sum{-webkit-line-clamp:unset;display:block}
@@ -667,7 +667,7 @@ function renderUpper(){
     dateEl.className = 'badge-d' + (u && u.is_today ? '' : ' prev');
   }
   if($('#upperCnt')) $('#upperCnt').textContent = items.length ? items.length + '종목' : '0종목';
-  if($('#upperSub')) $('#upperSub').textContent = items.length ? `상한가 ${items.length}건` : '';
+  if($('#upperSub')) $('#upperSub').textContent = '';
   if($('#upperNote')) $('#upperNote').textContent = (u && u.note) || '';
   if(!items.length){
     box.innerHTML = `<div class="empty">${esc((u && u.note) || '오늘 상한가 종목이 아직 없습니다.')}<br>장중에 다시 확인해 주세요.</div>`;
