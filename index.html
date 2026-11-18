@@ -325,9 +325,16 @@
     color:#fff;background:rgba(255,90,110,.2);border:1px solid rgba(255,90,110,.45);
     border-radius:6px;padding:1px 5px;font-variant-numeric:tabular-nums}
   .rd-warn{font-size:10.5px;color:#ffb27a;margin:6px 0 0}
+  .rd-dot{width:7px;height:7px;border-radius:50%;flex:none}
+  .rd-dot.on{background:#ff2d44;box-shadow:0 0 6px rgba(255,45,68,.9);animation:rdpulse 1s ease-out infinite}
+  .rd-dot.off{background:transparent;border:1.5px solid #4a5570}
   .rd-hit{flex:none;font-size:9.5px;font-weight:800;color:#ff8b9c;
     background:rgba(255,90,110,.13);border:1px solid rgba(255,90,110,.34);
     padding:1px 5px;border-radius:5px;white-space:nowrap}
+  .rd-wait{flex:none;font-size:9.5px;font-weight:800;color:#8f9bb3;
+    background:rgba(255,255,255,.04);border:1px solid var(--line);
+    padding:1px 5px;border-radius:5px;white-space:nowrap}
+  .radar-how{font-size:10.5px;color:var(--dim2);line-height:1.5;margin:-3px 2px 8px}
 
   .empty{text-align:center;color:var(--dim2);padding:40px 16px;font-size:12px;line-height:1.7}
   .skeleton{height:56px;border-radius:10px;background:linear-gradient(90deg,#141d33,#1b2743,#141d33);
@@ -431,6 +438,7 @@
   <section class="view" data-view="radar" id="view-radar" hidden>
     <div class="viewhead"><b>레이더</b><span class="rdot big" id="radarDotBig" aria-hidden="true"></span><span id="radarSub"></span></div>
     <div class="radar-note" id="radarNote">종목 옆 숫자 = 고점 대비 하락 % (예: 67 → -67%)</div>
+    <p class="radar-how">뉴스가 붙은 테마부터 위로 · 불이 꺼진 순차는 뉴스가 나오길 기다리는 자리입니다.</p>
     <div id="radarList">
       <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
     </div>
@@ -790,13 +798,16 @@ function radarStockHtml(s){
     `</div>`;
 }
 
-function radarTierHtml(t, hitN){
+function radarTierHtml(t, matched){
   const stocks = (t.stocks || []);
   return `<article class="rd-card" style="--c:${esc(t.color || '#4f8cff')}">
     <div class="rd-top">
       <span class="rd-rank">${esc(String(t.rank))}순위</span>
+      <span class="rd-dot ${matched ? 'on' : 'off'}" aria-hidden="true"></span>
       <span class="rd-theme">${esc(t.theme || '')}</span>
-      ${hitN ? `<span class="rd-hit" title="오늘 모은 뉴스에서 이 테마·종목 키워드가 나온 기사 수">뉴스 ${hitN}</span>` : ''}
+      ${matched
+        ? `<span class="rd-hit" title="오늘 모은 뉴스에서 이 테마·종목 키워드가 나온 기사 수">뉴스 ${matched}건</span>`
+        : `<span class="rd-wait" title="미리 뽑아 둔 자리 — 뉴스가 나오길 기다리는 중">대기</span>`}
       <span class="rd-cnt">${stocks.length}종목</span>
     </div>
     ${t.why ? `<p class="rd-why">${esc(t.why)}</p>` : ''}
@@ -807,57 +818,66 @@ function radarTierHtml(t, hitN){
 
 let radarRendered = '';
 
-/* 레이더 등 켜기 — radar.json의 active 순차가 있으면 은은하게, 오늘 모은 뉴스가
-   그 테마·종목 키워드와 맞닿으면 더 밝게 깜박인다. */
-function radarHitCounts(r){
-  const hits = {};
-  const tiers = ((r && r.tiers) || []).filter(t => t.active !== false);
-  if(!tiers.length || !state.data) return hits;
-  const texts = flashAll().concat(issueAll()).map(a =>
+/* 레이더 등 켜기·정렬 — 미리 뽑아 둔 테마(radar.json)에 오늘 모은 뉴스가 몇 건 붙었는지
+   세어서, 뉴스가 많이 붙은 테마를 위로 올리고 불을 켜다. */
+function radarNewsTexts(){
+  const news = flashAll().concat(issueAll()).map(a =>
     [a.title, a.summary, (a.leaders || []).join(' ')].filter(Boolean).join(' ').toLowerCase()
-  ).filter(Boolean);
-  if(!texts.length) return hits;
-  for(const t of tiers){
+  );
+  const up = (upperData() && upperData().items) || [];
+  const ups = up.map(it =>
+    [it.name, it.theme, it.issue_summary, it.article_title].filter(Boolean).join(' ').toLowerCase()
+  );
+  return news.concat(ups).filter(Boolean);
+}
+
+function radarRows(r){
+  const tiers = ((r && r.tiers) || []).filter(t => t.active !== false);
+  const texts = tiers.length ? radarNewsTexts() : [];
+  const rows = tiers.map(t => {
     const kws = (t.keywords || []).map(k => String(k).toLowerCase()).filter(k => k.length > 1);
-    if(!kws.length) continue;
-    let n = 0;
-    for(const txt of texts) if(kws.some(k => txt.includes(k))) n++;
-    if(n) hits[t.rank] = n;
-  }
-  return hits;
+    let matched = 0;
+    if(kws.length && texts.length){
+      for(const txt of texts) if(kws.some(k => txt.includes(k))) matched++;
+    }
+    return { tier: t, matched };
+  });
+  /* 뉴스가 많이 붙은 테마가 위로, 붙은 뉴스가 없는 순차는 원래 순차대로 아래에 대기 */
+  rows.sort((a, b) => (b.matched - a.matched) || ((a.tier.rank || 0) - (b.tier.rank || 0)));
+  return rows;
 }
 
 function updateRadarDot(){
   const r = state.radar;
-  const tiers = (r && r.tiers) || [];
-  const activeN = tiers.filter(t => t.active !== false).length;
-  const hits = radarHitCounts(r);
-  const hitN = Object.keys(hits).length;
-  const cls = hitN ? 'rdot hot' : (activeN ? 'rdot on' : 'rdot');
+  const rows = radarRows(r);
+  const activeN = rows.length;
+  const matchedRows = rows.filter(x => x.matched > 0);
+  const hitN = matchedRows.length;
+  const newsN = matchedRows.reduce((s, x) => s + x.matched, 0);
+  const cls = hitN ? 'rdot hot' : 'rdot';
   const tip = !activeN ? '레이더 대기 중'
-    : (hitN ? `오늘 뉴스가 닿은 순차 ${hitN}개` : `${activeN}개 순차 대기`);
+    : (hitN ? `${hitN}개 테마에 뉴스 ${newsN}건이 붙어 있음` : '아직 뉴스가 붙은 테마 없음');
   document.querySelectorAll('#radarDot, #radarDotBig').forEach(el => {
     el.className = cls + (el.id === 'radarDotBig' ? ' big' : '');
     el.title = tip;
   });
   const tab = document.querySelector('.tab.radar');
   if(tab) tab.setAttribute('aria-label', '레이더 — ' + tip);
-  return hits;
+  return rows;
 }
 
 async function renderRadar(force){
   const box = $('#radarList');
   if(!box) return;
   const r = await ensureRadar();
-  const tiers = (r && r.tiers) || [];
-  const hits = updateRadarDot();
+  const rows = updateRadarDot();
   if($('#radarSub')) $('#radarSub').textContent = (r && r.base_date_text) ? r.base_date_text : '';
   if($('#radarNote')) $('#radarNote').textContent = (r && r.drop_note) ? r.drop_note : '종목 옆 숫자 = 고점 대비 하락 % (예: 67 → -67%)';
-  if(!tiers.length){
+  if(!rows.length){
     box.innerHTML = `<div class="empty">레이더 자료를 불러오지 못했습니다.<br>잠시 후 다시 열어 주세요.</div>`;
     return;
   }
-  const html = tiers.map(t => radarTierHtml(t, hits[t.rank])).join('');
+  const html = rows.map(x => radarTierHtml(x.tier, x.matched)).join('');
   if(!force && html === radarRendered) return;
   radarRendered = html;
   box.innerHTML = html;
