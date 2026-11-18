@@ -1025,7 +1025,7 @@ function hotPosBadge(s){
       const m = (typeof s.vr_month === 'number') ? `월봉 ${s.vr_month.toFixed(2)}배` : '';
       const pw = s.pos_paced === '주' ? '주' : (s.pos_paced === '월' ? '달' : '');
       const pace = pw ? ` (이번 ${pw} 환산)` : '';
-      t = ` title="${esc(s.pos_src)} 거래량 = 앞선 10년 최대의 ${best} — ${esc([w, m].filter(Boolean).join(' · '))}${pace} (일봉 상한가 자리를 주·월봉으로 잰 것)"`;
+      t = ` title="${esc(s.pos_src)} 거래량 = 앞선 10년 최대의 ${best} — ${esc([w, m].filter(Boolean).join(' · '))}${pace}"`;
     }else{
       t = ` title="상한가 봉 거래량 = 앞선 10년 최대의 ${best}"`;
     }
