@@ -1,17 +1,17 @@
 {
- "generated_at": "2026-11-19T06:01:06.378195+09:00",
- "generated_at_kst": "2026.11.19 06:01",
+ "generated_at": "2026-11-19T06:38:45.593214+09:00",
+ "generated_at_kst": "2026.11.19 06:38",
  "flash_count": 6,
  "flash_fresh_min": 60,
  "flash_fresh_count": 6,
- "flash_updated": "2026-11-19T06:01:37+09:00",
- "count": 26,
- "article_count": 42,
+ "flash_updated": "2026-11-19T06:36:55+09:00",
+ "count": 30,
+ "article_count": 71,
  "main_source": {
   "presses": 83,
-  "collected": 413,
-  "dropped": 320,
-  "cards": 22,
+  "collected": 415,
+  "dropped": 322,
+  "cards": 26,
   "sections": 180
  },
  "themes": [
@@ -19,6 +19,12 @@
    "id": "semiconductor",
    "label": "반도체·AI",
    "color": "#5b8cff",
+   "count": 3
+  },
+  {
+   "id": "robot",
+   "label": "로봇·자율주행",
+   "color": "#38d6a8",
    "count": 3
   },
   {
@@ -64,16 +70,16 @@
    "count": 3
   },
   {
-   "id": "robot",
-   "label": "로봇·자율주행",
-   "color": "#38d6a8",
+   "id": "disaster",
+   "label": "재난·안전",
+   "color": "#ffb27a",
    "count": 1
   },
   {
    "id": "etc",
    "label": "기타",
    "color": "#9aa4b2",
-   "count": 1
+   "count": 2
   }
  ],
  "themes_rank": [
@@ -82,30 +88,30 @@
    "label": "AI·보안",
    "color": "#6fd0ff",
    "count": 3,
-   "recent_6h": 0,
-   "recent_6h_ratio": 0,
-   "day_count": 33,
-   "hot": 26,
-   "presses": 28,
-   "span_hours": 2.2,
+   "recent_6h": 1,
+   "recent_6h_ratio": 3,
+   "day_count": 36,
+   "hot": 28,
+   "presses": 30,
+   "span_hours": 9.5,
    "keywords": [
     "수능",
     "시험",
     "부정행위",
-    "스마트안경"
+    "재난문자"
    ],
    "headlines": [
     {
-     "title": "수능 D-day, 개인 사인펜 못 쓴다…단추엔 스티커, 안경은 매 교시 점검",
-     "url": "https://n.news.naver.com/article/586/0000142581",
-     "press": "시사저널",
-     "time": "2026-11-19T00:15:08+09:00"
+     "title": "재난문자 논란에… 李 “2~3분이면 끝나, 방해됐다면 시험 연장”",
+     "url": "https://n.news.naver.com/article/020/0003763585",
+     "press": "동아일보",
+     "time": "2026-11-19T04:35:19+09:00"
     },
     {
-     "title": "수능 필기구 지침 변경...시험 하루 전까지 '우왕좌왕'",
-     "url": "https://n.news.naver.com/article/052/0002434843",
-     "press": "YTN",
-     "time": "2026-11-18T23:04:05+09:00"
+     "title": "내일 수능부터 부정행위 제보 시 포상금 1억 원",
+     "url": "https://n.news.naver.com/article/656/0000192860",
+     "press": "대전일보",
+     "time": "2026-11-18T21:02:11+09:00"
     }
    ],
    "leaders": [
@@ -116,7 +122,7 @@
    "hint": {
     "type": "medium",
     "label": "중기 흐름",
-    "reason": "보도 폭 20.0시간 · 14개 시간대 · 매체 28곳 · 24시간 33건 · 최근 6시간 0건(0%) · 업황·정책 표현 2건"
+    "reason": "보도 폭 24.0시간 · 16개 시간대 · 매체 30곳 · 24시간 36건 · 최근 6시간 1건(3%) · 업황·정책 표현 2건"
    },
    "rank": 1
   },
@@ -164,24 +170,24 @@
    "label": "거시·환율·금리",
    "color": "#7fd3e8",
    "count": 3,
-   "recent_6h": 1,
-   "recent_6h_ratio": 4,
-   "day_count": 25,
+   "recent_6h": 2,
+   "recent_6h_ratio": 8,
+   "day_count": 26,
    "hot": 15,
    "presses": 18,
-   "span_hours": 13.2,
+   "span_hours": 22.0,
    "keywords": [
-    "코스피",
     "증시",
-    "외국인",
-    "금리"
+    "연준",
+    "지수",
+    "외국인"
    ],
    "headlines": [
     {
-     "title": "금융지주가 전망한 연말 증시…\"기술적 반등 그칠 가능성\"",
-     "url": "https://n.news.naver.com/mnews/article/001/0016450443",
-     "press": "연합뉴스",
-     "time": "2026-11-19T05:55:00+09:00"
+     "title": "연준 10월 동결은 ‘숨고르기’였다…월가, 12월 인상 폭에 주목",
+     "url": "https://n.news.naver.com/article/018/0006412146",
+     "press": "이데일리",
+     "time": "2026-11-19T04:38:13+09:00"
     },
     {
      "title": "“오르든 내리든 무조건 판다”…외국인 올 들어 222조 ‘매도 폭탄’, 85%가 삼전닉스 [투자360]",
@@ -199,7 +205,7 @@
    "hint": {
     "type": "medium",
     "label": "중기 흐름",
-    "reason": "보도 폭 25.0시간 · 15개 시간대 · 매체 18곳 · 24시간 25건 · 최근 6시간 1건(4%) · 업황·정책 표현 4건"
+    "reason": "보도 폭 25.0시간 · 16개 시간대 · 매체 18곳 · 24시간 26건 · 최근 6시간 2건(8%) · 업황·정책 표현 4건"
    },
    "rank": 3
   },
@@ -208,30 +214,30 @@
    "label": "반도체·AI",
    "color": "#5b8cff",
    "count": 3,
-   "recent_6h": 0,
-   "recent_6h_ratio": 0,
-   "day_count": 28,
+   "recent_6h": 2,
+   "recent_6h_ratio": 6,
+   "day_count": 31,
    "hot": 15,
-   "presses": 20,
-   "span_hours": 5.5,
+   "presses": 21,
+   "span_hours": 10.9,
    "keywords": [
-    "AI",
-    "반도체",
     "엔비디아",
-    "데이터센터"
+    "AI",
+    "GPU",
+    "반도체"
    ],
    "headlines": [
     {
-     "title": "앨리스 황, 日에도 데이터센터 업체 설립…칩 수출 우회로 노렸나",
-     "url": "https://n.news.naver.com/article/422/0000927577",
-     "press": "연합뉴스TV",
-     "time": "2026-11-18T20:54:11+09:00"
+     "title": "엔비디아 생태계 파고드는 한국산 AI 칩",
+     "url": "https://n.news.naver.com/article/417/0001164837",
+     "press": "동행미디어 시대",
+     "time": "2026-11-19T05:20:00+09:00"
     },
     {
-     "title": "\"속성 과외\" 요청한 그 문제 그대로 AI에…결과는 '오답'",
-     "url": "https://n.news.naver.com/article/437/0000521358",
-     "press": "JTBC",
-     "time": "2026-11-18T19:33:14+09:00"
+     "title": "엔비디아, 경영 공백에도 매출 전망 상향…시장 우려 완화될까",
+     "url": "https://n.news.naver.com/article/293/0000093484",
+     "press": "블로터",
+     "time": "2026-11-19T01:03:10+09:00"
     }
    ],
    "leaders": [
@@ -242,7 +248,7 @@
    "hint": {
     "type": "medium",
     "label": "중기 흐름",
-    "reason": "보도 폭 16.0시간 · 14개 시간대 · 매체 20곳 · 24시간 28건 · 최근 6시간 0건(0%) · 업황·정책 표현 9건"
+    "reason": "보도 폭 25.0시간 · 17개 시간대 · 매체 21곳 · 24시간 31건 · 최근 6시간 2건(6%) · 업황·정책 표현 10건"
    },
    "rank": 4
   },
@@ -253,28 +259,27 @@
    "count": 3,
    "recent_6h": 0,
    "recent_6h_ratio": 0,
-   "day_count": 18,
+   "day_count": 19,
    "hot": 11,
-   "presses": 14,
-   "span_hours": 0.9,
+   "presses": 15,
+   "span_hours": 4.5,
    "keywords": [
     "바이오",
-    "의료",
-    "임상",
-    "CDMO"
+    "신약",
+    "의료"
    ],
    "headlines": [
-    {
-     "title": "신동빈 \"롯데바이오, 그룹의 미래\"…송도 공장 내년 가동 [현장영상]",
-     "url": "https://n.news.naver.com/article/374/0000544570",
-     "press": "SBS Biz",
-     "time": "2026-11-18T18:40:09+09:00"
-    },
     {
      "title": "[의학바이오게시판] 서울아산병원서 배운 러시아 의료진, 현지서 첫 갑상선 고주파절제술 外",
      "url": "https://n.news.naver.com/article/584/0000040208",
      "press": "동아사이언스",
-     "time": "2026-11-18T18:01:06.378195+09:00"
+     "time": "2026-11-18T17:33:08+09:00"
+    },
+    {
+     "title": "공장 준공 넘어 수익화로…롯데바이오, 2027년 상업생산 본격화 [현장]",
+     "url": "https://n.news.naver.com/article/138/0002249106",
+     "press": "디지털데일리",
+     "time": "2026-11-18T17:10:06+09:00"
     }
    ],
    "leaders": [
@@ -285,7 +290,7 @@
    "hint": {
     "type": "medium",
     "label": "중기 흐름",
-    "reason": "보도 폭 13.0시간 · 10개 시간대 · 매체 14곳 · 24시간 18건 · 최근 6시간 0건(0%) · 업황·정책 표현 7건"
+    "reason": "보도 폭 13.0시간 · 10개 시간대 · 매체 15곳 · 24시간 19건 · 최근 6시간 0건(0%) · 업황·정책 표현 7건"
    },
    "rank": 5
   },
@@ -294,24 +299,24 @@
    "label": "2차전지·에너지",
    "color": "#8bd450",
    "count": 3,
-   "recent_6h": 1,
-   "recent_6h_ratio": 5,
-   "day_count": 19,
-   "hot": 7,
-   "presses": 13,
-   "span_hours": 20.6,
+   "recent_6h": 2,
+   "recent_6h_ratio": 10,
+   "day_count": 20,
+   "hot": 8,
+   "presses": 14,
+   "span_hours": 20.4,
    "keywords": [
-    "원전",
-    "ESS",
     "배터리",
-    "전력"
+    "리튬",
+    "원전",
+    "전기차"
    ],
    "headlines": [
     {
-     "title": "SK온 대만 1.2GWh ESS 수주전 뛰어든다…12월 입찰",
-     "url": "https://n.news.naver.com/mnews/article/008/0005443265",
-     "press": "머니투데이",
-     "time": "2026-11-19T05:50:00+09:00"
+     "title": "포스코그룹, 中 CATL에 3년간 리튬 공급",
+     "url": "https://n.news.naver.com/mnews/article/022/0004176391",
+     "press": "세계일보",
+     "time": "2026-11-19T06:05:23+09:00"
     },
     {
      "title": "술 취해 여직원 사택 창문으로 침입한 한울원전 20대 직원",
@@ -328,9 +333,52 @@
    "hint": {
     "type": "medium",
     "label": "중기 흐름",
-    "reason": "보도 폭 24.0시간 · 15개 시간대 · 매체 13곳 · 24시간 19건 · 최근 6시간 1건(5%) · 업황·정책 표현 9건"
+    "reason": "보도 폭 25.0시간 · 16개 시간대 · 매체 14곳 · 24시간 20건 · 최근 6시간 2건(10%) · 업황·정책 표현 10건"
    },
    "rank": 6
+  },
+  {
+   "id": "robot",
+   "label": "로봇·자율주행",
+   "color": "#38d6a8",
+   "count": 3,
+   "recent_6h": 2,
+   "recent_6h_ratio": 12,
+   "day_count": 17,
+   "hot": 7,
+   "presses": 12,
+   "span_hours": 13.2,
+   "keywords": [
+    "로봇",
+    "피지컬 AI",
+    "드론",
+    "자율주행"
+   ],
+   "headlines": [
+    {
+     "title": "현대차 ‘피지컬 AI’ 외부 고객 공략 본격화",
+     "url": "https://n.news.naver.com/mnews/article/022/0004176395",
+     "press": "세계일보",
+     "time": "2026-11-19T06:05:30+09:00"
+    },
+    {
+     "title": "한화시스템, 美에 단거리 레이다 첫 수출",
+     "url": "https://n.news.naver.com/mnews/article/022/0004176373",
+     "press": "세계일보",
+     "time": "2026-11-19T06:03:14+09:00"
+    }
+   ],
+   "leaders": [
+    "레인보우로보틱스",
+    "클로봇",
+    "유일로보틱스"
+   ],
+   "hint": {
+    "type": "medium",
+    "label": "중기 흐름",
+    "reason": "보도 폭 24.0시간 · 11개 시간대 · 매체 12곳 · 24시간 17건 · 최근 6시간 2건(12%) · 업황·정책 표현 7건"
+   },
+   "rank": 7
   },
   {
    "id": "geopolitics",
@@ -372,7 +420,7 @@
     "label": "중기 흐름",
     "reason": "보도 폭 23.0시간 · 9개 시간대 · 매체 9곳 · 24시간 11건 · 최근 6시간 1건(9%) · 업황·정책 표현 2건"
    },
-   "rank": 7
+   "rank": 8
   },
   {
    "id": "policy",
@@ -388,7 +436,8 @@
    "keywords": [
     "예산",
     "국토부",
-    "부동산"
+    "부동산",
+    "장관"
    ],
    "headlines": [
     {
@@ -401,7 +450,7 @@
      "title": "이혜훈, 반포 원펜타스 당첨 취소되나…국토부, 조합에 공문",
      "url": "https://n.news.naver.com/article/024/0000109727",
      "press": "매경이코노미",
-     "time": "2026-11-18T18:01:06.378195+09:00"
+     "time": "2026-11-18T17:17:11+09:00"
     }
    ],
    "leaders": [
@@ -413,41 +462,41 @@
     "label": "중기 흐름",
     "reason": "보도 폭 13.0시간 · 10개 시간대 · 매체 14곳 · 24시간 18건 · 최근 6시간 0건(0%) · 업황·정책 표현 10건"
    },
-   "rank": 8
+   "rank": 9
   },
   {
-   "id": "robot",
-   "label": "로봇·자율주행",
-   "color": "#38d6a8",
+   "id": "disaster",
+   "label": "재난·안전",
+   "color": "#ffb27a",
    "count": 1,
    "recent_6h": 0,
    "recent_6h_ratio": 0,
-   "day_count": 15,
-   "hot": 6,
-   "presses": 11,
+   "day_count": 7,
+   "hot": 0,
+   "presses": 7,
    "span_hours": 0.0,
    "keywords": [
-    "드론"
+    "한파"
    ],
    "headlines": [
     {
-     "title": "한화시스템, ‘드론 탐지’ 레이다 미국 첫 수출",
-     "url": "https://n.news.naver.com/mnews/article/005/0001886063",
-     "press": "국민일보",
-     "time": "2026-11-19T00:56:07+09:00"
+     "title": "충청권 수능 한파… 새벽 눈·비, 도로 살얼음",
+     "url": "https://n.news.naver.com/article/656/0000192855",
+     "press": "대전일보",
+     "time": "2026-11-18T19:51:11+09:00"
     }
    ],
    "leaders": [
-    "레인보우로보틱스",
-    "클로봇",
-    "유일로보틱스"
+    "삼영엠텍",
+    "파라텍",
+    "포메탈"
    ],
    "hint": {
     "type": "medium",
     "label": "중기 흐름",
-    "reason": "보도 폭 18.0시간 · 10개 시간대 · 매체 11곳 · 24시간 15건 · 최근 6시간 0건(0%) · 업황·정책 표현 6건"
+    "reason": "보도 폭 14.0시간 · 7개 시간대 · 매체 7곳 · 24시간 7건 · 최근 6시간 0건(0%) · 업황·정책 표현 1건"
    },
-   "rank": 9
+   "rank": 10
   }
  ],
  "upper_limits": {
@@ -911,6 +960,30 @@
     0,
     0,
     0
+   ],
+   [
+    "417/0001164837",
+    "2026-11-19T05",
+    "동행미디어 시대",
+    0,
+    1,
+    0
+   ],
+   [
+    "293/0000093484",
+    "2026-11-19T01",
+    "블로터",
+    0,
+    0,
+    0
+   ],
+   [
+    "014/0005606396",
+    "2026-11-18T18",
+    "파이낸셜뉴스",
+    0,
+    0,
+    0
    ]
   ],
   "earnings": [
@@ -1339,6 +1412,14 @@
     0,
     0,
     0
+   ],
+   [
+    "138/0002249106",
+    "2026-11-18T17",
+    "디지털데일리",
+    0,
+    0,
+    0
    ]
   ],
   "battery": [
@@ -1490,6 +1571,14 @@
     "008/0005443265",
     "2026-11-19T05",
     "머니투데이",
+    1,
+    1,
+    0
+   ],
+   [
+    "022/0004176391",
+    "2026-11-19T06",
+    "세계일보",
     1,
     1,
     0
@@ -1693,6 +1782,14 @@
     "2026-11-19T05",
     "연합뉴스",
     1,
+    0,
+    0
+   ],
+   [
+    "018/0006412146",
+    "2026-11-19T04",
+    "이데일리",
+    0,
     0,
     0
    ]
@@ -2107,6 +2204,30 @@
     0,
     0,
     0
+   ],
+   [
+    "656/0000192860",
+    "2026-11-18T21",
+    "대전일보",
+    1,
+    0,
+    0
+   ],
+   [
+    "437/0000521354",
+    "2026-11-18T19",
+    "JTBC",
+    1,
+    0,
+    0
+   ],
+   [
+    "020/0003763585",
+    "2026-11-19T04",
+    "동아일보",
+    0,
+    0,
+    0
    ]
   ],
   "disaster": [
@@ -2154,6 +2275,14 @@
     "088/0001041123",
     "2026-11-18T18",
     "매일신문",
+    0,
+    0,
+    0
+   ],
+   [
+    "656/0000192855",
+    "2026-11-18T19",
+    "대전일보",
     0,
     0,
     0
@@ -2276,6 +2405,22 @@
     "005/0001886063",
     "2026-11-19T00",
     "국민일보",
+    0,
+    1,
+    0
+   ],
+   [
+    "022/0004176395",
+    "2026-11-19T06",
+    "세계일보",
+    1,
+    0,
+    0
+   ],
+   [
+    "022/0004176373",
+    "2026-11-19T06",
+    "세계일보",
     0,
     1,
     0
@@ -2456,15 +2601,15 @@
  },
  "flash": [
   {
-   "id": "023/0004010493",
-   "title": "“AI 규제의 진짜 변수는 연방법 아닌 주정부… 미국 투자 늦어지면 한국 메모리까지 여파”",
-   "press": "조선일보",
-   "time": "2026-11-19T06:01:37+09:00",
-   "url": "https://n.news.naver.com/article/023/0004010493",
-   "summary": "이치카와 마사히로 스미토모미쓰이DS자산운용 수석 마켓 전략가 “AI 사이클 꺾이면 실물경제보다 주가가 먼저 맞아… 닛케이가 특히 취약” “미국 주 정부 차원의 독자적인 AI·데이터센터 규제는 한국·대만·일본 반도체 관련 기업에 영향을 줄 수 있다.” 이치카와…",
-   "theme": "semiconductor",
-   "theme_label": "반도체·AI",
-   "theme_color": "#5b8cff",
+   "id": "215/0001273210",
+   "title": "또 나온 '빅스텝' 가능성…엔비디아 실적도 분위기 못 살렸다",
+   "press": "한국경제TV",
+   "time": "2026-11-19T06:36:55+09:00",
+   "url": "https://n.news.naver.com/article/215/0001273210",
+   "summary": "엔비디아가 시장 예상치를 웃도는 실적을 내놓으며 투자심리가 되살아나는 듯 했지만 18일(현지시간) 뉴욕증시가 혼조세로 마감했다. 이날 뉴욕증시에서 다우지수는 전 거래일보다 669.71포인트(1.32%) 떨어진 5만89.71에 마감했다.",
+   "theme": "macro",
+   "theme_label": "거시·환율·금리",
+   "theme_color": "#7fd3e8",
    "leaders": [
     "한미반도체",
     "이수페타시스"
@@ -2473,77 +2618,86 @@
    "breaking": false
   },
   {
-   "id": "366/0001205801",
-   "title": "국민연금에 떨어진 숙제…“기금 감소기 韓주식 매각 충격 대비책 짜라”",
-   "press": "조선비즈",
-   "time": "2026-11-19T06:01:16+09:00",
-   "url": "https://n.news.naver.com/article/366/0001205801",
-   "summary": "2025년 경영실적 평가보고서 “기금 소진기 국내 주식 매각 대응 체계 로드맵 정비 필요” 주문 국민연금공단이 공공기관 경영실적 평가보고 과정에서 ‘기금 소진 국면에 대비한 국내주식 매각 충격 대응체계 로드맵을 보완하라’고 주문을 받은 것으로 나타났다.",
+   "id": "138/0002249134",
+   "title": "美 증시, 엔비디아 호실적에도 혼조…나스닥 0.4%↑·다우 1.1%↓",
+   "press": "디지털데일리",
+   "time": "2026-11-19T06:34:10+09:00",
+   "url": "https://n.news.naver.com/article/138/0002249134",
+   "summary": "미국 뉴욕증시가 18일(현지시간) 엔비디아의 시장 예상을 웃도는 실적에도 혼조로 마감했다. 엔비디아는 분기 매출을 두 배 이상 늘렸지만 경영진 공백과 인공지능(AI) 투자 지속성 우려를 씻지 못했다.",
+   "theme": "macro",
+   "theme_label": "거시·환율·금리",
+   "theme_color": "#7fd3e8",
+   "leaders": [
+    "한미반도체",
+    "이수페타시스"
+   ],
+   "fresh": true,
+   "breaking": false
+  },
+  {
+   "id": "015/0005355581",
+   "title": "\"드디어 반등했는데\"…삼전닉스 주주들 안심 못 하는 이유 [종목+]",
+   "press": "한국경제",
+   "time": "2026-11-19T06:31:20+09:00",
+   "url": "https://n.news.naver.com/article/015/0005355581",
+   "summary": "반도체 대장주 삼성전자와 SK하이닉스 주가가 엔비디아의 호실적에 힘입어 반등했다. 시장에서 인공지능(AI) 수요가 여전히 견조한 것으로 받아들였기 때문이다.",
+   "theme": "semiconductor",
+   "theme_label": "반도체·AI",
+   "theme_color": "#5b8cff",
+   "leaders": [
+    "삼성전자",
+    "한미반도체"
+   ],
+   "fresh": true,
+   "breaking": false
+  },
+  {
+   "id": "015/0005355580",
+   "title": "코스닥은 16% 빠졌는데…이 종목, 나 홀로 35% 뛰었다 [종목+]",
+   "press": "한국경제",
+   "time": "2026-11-19T06:31:17+09:00",
+   "url": "https://n.news.naver.com/article/015/0005355580",
+   "summary": "연성인쇄회로기판(FPCB) 기반 전자부품 업체인 디케이티 주가가 급등했다. 미 엔비디아가 호실적을 내놓자 로봇주가 일제히 강세를 보인 가운데, 3분기 깜짝 실적(어닝 서프라이즈)과 휴머노이드(인간형 로봇) 부품 공급 확대 기대가 부각된 결과다.",
    "theme": "earnings",
    "theme_label": "실적·공시·수급",
    "theme_color": "#f5d06b",
-   "leaders": [],
-   "fresh": true,
-   "breaking": false
-  },
-  {
-   "id": "023/0004010490",
-   "title": "AMD 출신 테크 애널리스트 “누군가 엔비디아 자리 차지해도 메모리 반도체는 필요하다”",
-   "press": "조선일보",
-   "time": "2026-11-19T06:01:10+09:00",
-   "url": "https://n.news.naver.com/article/023/0004010490",
-   "summary": "패트릭 무어헤드(Moorhead) ‘무어 인사이트 앤드 스트래티지’ 수석 애널리스트 “이건 한 회사의 리더십 위기이지 AI 위기 아냐” “이것은 한 회사의 리더십 위기입니다.",
-   "theme": "semiconductor",
-   "theme_label": "반도체·AI",
-   "theme_color": "#5b8cff",
    "leaders": [
-    "한미반도체",
-    "이수페타시스"
+    "레인보우로보틱스",
+    "클로봇"
    ],
    "fresh": true,
    "breaking": false
   },
   {
-   "id": "421/0009297494",
-   "title": "코스피 낙폭 역대 3위…바닥론 솔솔 \"12개월 뒤 평균 60% 상승\"",
-   "press": "뉴스1",
-   "time": "2026-11-19T06:01:00+09:00",
-   "url": "https://n.news.naver.com/article/421/0009297494",
-   "summary": "코스피가 2000년 이후 세 번째로 큰 최대 낙폭(MDD·Maximum Drawdown)을 기록하면서 증권가에서 바닥론이 고개를 들고 있다. 과거 급락장에서는 저점 이후 1년간 평균 60% 가까이 반등했다.",
-   "theme": "macro",
-   "theme_label": "거시·환율·금리",
-   "theme_color": "#7fd3e8",
-   "leaders": [],
+   "id": "015/0005355579",
+   "title": "\"중국 문 열리나\"…하루 만에 '30% 폭등' 불기둥 쏜 종목 [분석+]",
+   "press": "한국경제",
+   "time": "2026-11-19T06:31:15+09:00",
+   "url": "https://n.news.naver.com/article/015/0005355579",
+   "summary": "국내 엔터테인먼트 4사 주가가 18일 한·중 자유무역협정(FTA) 2단계 협상(서비스·투자 분야)이 사실상 타결되면서 한한령(限韓令·한류 콘텐츠 금지) 해제 기대로 동반 급등했다.",
+   "theme": "earnings",
+   "theme_label": "실적·공시·수급",
+   "theme_color": "#f5d06b",
+   "leaders": [
+    "하이브",
+    "에스엠"
+   ],
    "fresh": true,
    "breaking": false
   },
   {
-   "id": "119/0003156886",
-   "title": "수능날 주식시장도 늦게 문 연다…프리마켓은 쉬어요",
-   "press": "데일리안",
-   "time": "2026-11-19T06:00:16+09:00",
-   "url": "https://n.news.naver.com/article/119/0003156886",
-   "summary": "대학수학능력시험일인 19일, 국내 증시가 평소보다 1시간 늦게 열린다. 한국거래소에 따르면 이날 코스피·코스닥·코넥스 시장의 정규시장 거래 시작과 종료 시점이 1시간씩 늦춰진다.",
-   "theme": "macro",
-   "theme_label": "거시·환율·금리",
-   "theme_color": "#7fd3e8",
-   "leaders": [],
-   "fresh": true,
-   "breaking": false
-  },
-  {
-   "id": "011/0004683760",
-   "title": "한중 문화교류 확대 기대에 엔터주 급등…에스엠 애프터마켓 상한가 [이런국장 저런주식]",
+   "id": "011/0004683779",
+   "title": "‘성과급 파티’ 삼전닉스 인력 대체하나…아틀라스, 美 반도체 공장서 일 배운다 [biz-플러스]",
    "press": "서울경제",
-   "time": "2026-11-19T06:00:13+09:00",
-   "url": "https://n.news.naver.com/article/011/0004683760",
-   "summary": "한중 정상회담에서 양국이 문화·콘텐츠 교류를 단계적으로 확대하기로 하면서 18일 국내 엔터테인먼트주가 동반 급등했다. 한한령 완화 기대에 정규장에서 14% 넘게 오른 에스엠은 장 마감 후 넥스트레이드 애프터마켓에서 상한가까지 뛰었다.",
-   "theme": "earnings",
-   "theme_label": "실적·공시·수급",
-   "theme_color": "#f5d06b",
+   "time": "2026-11-19T06:30:17+09:00",
+   "url": "https://n.news.naver.com/article/011/0004683779",
+   "summary": "현대자동차그룹 계열사인 보스턴다이내믹스의 휴머노이드 아틀라스가 미국의 반도체 위탁 생산 업체인 글로벌파운드리 공장에 투입된다. 아틀라스의 작업 무대가 자동차에 이어 반도체로 확대돼 산업 현장 투입이 늘게 됐다.",
+   "theme": "semiconductor",
+   "theme_label": "반도체·AI",
+   "theme_color": "#5b8cff",
    "leaders": [
-    "에스엠",
-    "하이브"
+    "삼성전자",
+    "한미반도체"
    ],
    "fresh": true,
    "breaking": false
@@ -2551,127 +2705,291 @@
  ],
  "issues": [
   {
-   "id": "001/0016450359",
-   "title": "정부, 내일 수능부터 '부정행위 제보시 1억 포상금' 지급 추진(종합)",
-   "url": "https://n.news.naver.com/article/001/0016450359",
-   "press": "연합뉴스",
-   "time": "2026-11-18T22:02:17+09:00",
+   "id": "417/0001164691",
+   "title": "[속보] 엔비디아 실적 경계·잇단 전산장애에…뉴욕증시 3대 지수 모두 하락",
+   "url": "https://n.news.naver.com/article/417/0001164691",
+   "press": "동행미디어 시대",
+   "time": "2026-11-18T06:38:00+09:00",
    "section": "네이버 메인",
    "source": "main",
-   "main_rank": 3,
+   "main_rank": 1,
+   "theme": "macro",
+   "theme_label": "거시·환율·금리",
+   "tags": [
+    "증시",
+    "지수"
+   ],
+   "presses": 16,
+   "press_list": [
+    "동행미디어 시대",
+    "디지털데일리",
+    "조선비즈",
+    "강원도민일보",
+    "더스쿠프",
+    "이데일리"
+   ],
+   "related": [
+    {
+     "title": "앤트로픽 IPO 청약 수요 5000억달러 육박…공모가 상단 초과·규모 확대 검토",
+     "press": "디지털데일리",
+     "url": "https://n.news.naver.com/mnews/article/138/0002249129",
+     "time": ""
+    },
+    {
+     "title": "뉴욕증시, 앤트로픽 공모가 발표 앞두고 혼조 출발… 엔비디아 호실적에 기술주 강세",
+     "press": "조선비즈",
+     "url": "https://n.news.naver.com/article/366/0001205796",
+     "time": "2026-11-19T00:38:45.593214+09:00"
+    },
+    {
+     "title": "'20만전자'는 아직…삼성전자 2.31%·SK하이닉스 4.19% 상승 마감",
+     "press": "강원도민일보",
+     "url": "https://n.news.naver.com/article/654/0000212014",
+     "time": "2026-11-18T17:38:45.593214+09:00"
+    }
+   ],
+   "article_count": 29,
+   "breaking": false,
+   "relevance": 40,
+   "summary": "인공지능(AI) 기업 앤트로픽(Anthropic)이 나스닥 기업공개(IPO)를 앞두고 공모가를 희망 범위 상단인 78달러보다 높이는 방안을 검토하고 있다. 미국 CNBC는 소식통을 인용해 공모가가 80달러를 크게 웃",
+   "leaders": [
+    "한미반도체",
+    "이수페타시스",
+    "가온칩스",
+    "티엘비"
+   ],
+   "issue_rank": 1
+  },
+  {
+   "id": "656/0000192860",
+   "title": "내일 수능부터 부정행위 제보 시 포상금 1억 원",
+   "url": "https://n.news.naver.com/article/656/0000192860",
+   "press": "대전일보",
+   "time": "2026-11-18T21:02:11+09:00",
+   "section": "네이버 메인",
+   "source": "main",
+   "main_rank": 2,
    "theme": "aisec",
    "theme_label": "AI·보안",
    "tags": [
     "부정행위",
     "수능"
    ],
-   "presses": 5,
+   "presses": 7,
    "press_list": [
-    "연합뉴스",
     "대전일보",
+    "머니투데이",
+    "연합뉴스",
     "국민일보",
-    "SBS Biz",
-    "kbc광주방송"
+    "디지털타임스",
+    "KBS"
    ],
    "related": [
     {
-     "title": "내일 수능부터 부정행위 제보 시 포상금 1억 원",
-     "press": "대전일보",
-     "url": "https://n.news.naver.com/article/656/0000192860",
-     "time": "2026-11-18T22:01:06.378195+09:00"
+     "title": "\"부정행위 신고자에 최대 1억\" 진짜 준다…수능 직후 범정부 TF 가동",
+     "press": "머니투데이",
+     "url": "https://n.news.naver.com/article/008/0005443218",
+     "time": "2026-11-18T21:38:45.593214+09:00"
+    },
+    {
+     "title": "정부, 내일 수능부터 '부정행위 제보시 1억 포상금' 지급 추진(종합)",
+     "press": "연합뉴스",
+     "url": "https://n.news.naver.com/article/001/0016450359",
+     "time": "2026-11-18T22:38:45.593214+09:00"
     },
     {
      "title": "수능 부정행위 제보 ‘1억원 포상’ 올해부터 적용",
      "press": "국민일보",
      "url": "https://n.news.naver.com/article/005/0001886029",
-     "time": "2026-11-18T22:01:06.378195+09:00"
-    },
-    {
-     "title": "올해 수능부터 부정행위 걸리면 응시제한 '10년'",
-     "press": "SBS Biz",
-     "url": "https://n.news.naver.com/article/374/0000544439",
-     "time": "2026-11-18T12:01:06.378195+09:00"
+     "time": "2026-11-18T21:38:45.593214+09:00"
     }
    ],
-   "article_count": 5,
+   "article_count": 7,
    "breaking": false,
-   "relevance": 28,
-   "summary": "수능 직후 '범정부 부정행위 대응 TF' 가동…\"의심사례 조사·적발\" 수능시험 부정 행위 대응 대국민 담화문 발표 (서울=연합뉴스) 안정원 기자 = 한성숙 국무총리가 17일 서울 종로구 정부서울청사에서 수능시험 부정 행위 대응 관련 대국민 담화문을 발표하고 있다.",
+   "relevance": 34,
+   "summary": "한성숙 국무총리. 연합뉴스 정부가 2027학년도 대학수학능력시험부터 부정행위 신고·제보자에 대해 최대 1억 원의 포상급을 지급한다.",
    "leaders": [
     "지슨",
     "라온시큐어",
     "샌즈랩"
    ],
-   "issue_rank": 1
-  },
-  {
-   "id": "001/0016450443",
-   "title": "금융지주가 전망한 연말 증시…\"기술적 반등 그칠 가능성\"",
-   "url": "https://n.news.naver.com/mnews/article/001/0016450443",
-   "press": "연합뉴스",
-   "time": "2026-11-19T05:55:00+09:00",
-   "section": "증권",
-   "source": "section",
-   "main_rank": null,
-   "theme": "macro",
-   "theme_label": "거시·환율·금리",
-   "tags": [
-    "증시",
-    "환율",
-    "코스피"
-   ],
-   "presses": 2,
-   "press_list": [
-    "연합뉴스",
-    "이데일리"
-   ],
-   "related": [
-    {
-     "title": "엔비디아 호실적도 안 통하나…美증시 반등 ‘주춤’",
-     "press": "이데일리",
-     "url": "https://n.news.naver.com/mnews/article/018/0006412131",
-     "time": ""
-    }
-   ],
-   "article_count": 2,
-   "breaking": false,
-   "relevance": 26,
-   "summary": "하나금융 \"차별화 장세\"…KB금융은 내년말까지 환율 1,300원대 초반 전망 최근 코스피가 5,000선 사수 공방을 벌이며 연초 수준으로 후퇴한 가운데 연말까지 국내 증시의 본격적인 반등을 기대하기는 어렵다는 금융지",
-   "leaders": [],
    "issue_rank": 2
   },
   {
-   "id": "008/0005443265",
-   "title": "SK온 대만 1.2GWh ESS 수주전 뛰어든다…12월 입찰",
-   "url": "https://n.news.naver.com/mnews/article/008/0005443265",
-   "press": "머니투데이",
-   "time": "2026-11-19T05:50:00+09:00",
-   "section": "산업/재계",
+   "id": "437/0000521354",
+   "title": "\"개인 지우개 안 됩니다\"…'수능 D-1' 바뀐 규정 정리",
+   "url": "https://n.news.naver.com/article/437/0000521354",
+   "press": "JTBC",
+   "time": "2026-11-18T19:02:50+09:00",
+   "section": "네이버 메인",
+   "source": "main",
+   "main_rank": 4,
+   "theme": "aisec",
+   "theme_label": "AI·보안",
+   "tags": [
+    "수능"
+   ],
+   "presses": 5,
+   "press_list": [
+    "JTBC",
+    "데일리안",
+    "연합뉴스",
+    "뉴스1",
+    "뉴시스"
+   ],
+   "related": [
+    {
+     "title": "수능날 주식시장도 늦게 문 연다…프리마켓은 쉬어요",
+     "press": "데일리안",
+     "url": "https://n.news.naver.com/mnews/article/119/0003156886",
+     "time": ""
+    },
+    {
+     "title": "[수능] 주식시장 1시간 늦게 개장…정규장 오전 10시~오후 4시30분",
+     "press": "연합뉴스",
+     "url": "https://n.news.naver.com/mnews/article/001/0016450467",
+     "time": ""
+    },
+    {
+     "title": "\"개장은 10시, 프리마켓 휴무\"…수능 날 바뀐 증시 시간표",
+     "press": "뉴스1",
+     "url": "https://n.news.naver.com/mnews/article/421/0009297484",
+     "time": ""
+    }
+   ],
+   "article_count": 6,
+   "breaking": false,
+   "relevance": 19,
+   "summary": "대학수학능력시험일인 19일, 국내 증시가 평소보다 1시간 늦게 열린다. 한국거래소에 따르면 이날 코스피·코스닥·코넥스 시장의 정규시장 거래 시작과 종료 시점이 1시간씩 늦춰진다.",
+   "leaders": [],
+   "issue_rank": 3
+  },
+  {
+   "id": "022/0004176395",
+   "title": "현대차 ‘피지컬 AI’ 외부 고객 공략 본격화",
+   "url": "https://n.news.naver.com/mnews/article/022/0004176395",
+   "press": "세계일보",
+   "time": "2026-11-19T06:05:30+09:00",
+   "section": "경제 일반",
+   "source": "section",
+   "main_rank": null,
+   "theme": "robot",
+   "theme_label": "로봇·자율주행",
+   "tags": [
+    "피지컬 AI",
+    "휴머노이드",
+    "자율주행"
+   ],
+   "presses": 1,
+   "press_list": [
+    "세계일보"
+   ],
+   "related": [],
+   "article_count": 1,
+   "breaking": false,
+   "relevance": 22,
+   "summary": "웨이모엔 로보택시 차량 인도 반도체 공장엔 아틀라스 투입 미래 모빌리티·로보틱스 속도 현대자동차그룹이 자율주행차와 휴머노이드 로봇을 양대 축으로 미래 모빌리티·로보틱스 사업 확장에 속도를 내고 있다.",
+   "leaders": [
+    "현대차",
+    "레인보우로보틱스",
+    "클로봇",
+    "유일로보틱스"
+   ],
+   "issue_rank": 4
+  },
+  {
+   "id": "022/0004176391",
+   "title": "포스코그룹, 中 CATL에 3년간 리튬 공급",
+   "url": "https://n.news.naver.com/mnews/article/022/0004176391",
+   "press": "세계일보",
+   "time": "2026-11-19T06:05:23+09:00",
+   "section": "경제 일반",
    "source": "section",
    "main_rank": null,
    "theme": "battery",
    "theme_label": "2차전지·에너지",
    "tags": [
-    "ESS",
-    "전력",
-    "에너지"
+    "리튬",
+    "전기차",
+    "배터리"
    ],
    "presses": 1,
    "press_list": [
-    "머니투데이"
+    "세계일보"
    ],
    "related": [],
    "article_count": 1,
    "breaking": false,
-   "relevance": 16,
-   "summary": "SK온이 오는 12월 대만전력공사가 발주하는 ESS(에너지저장장치) 프로젝트 입찰에 나선다. 미국 에너지 기업 GE버노바(GE Vernova), 대만 ESS 기업 씨텔(Seetel)과의 첫 공동 사업을 통해 비중국산",
+   "relevance": 22,
+   "summary": "포스코그룹이 전기차 배터리 1위 기업인 중국 CATL과 리튬 장기공급계약을 체결했다. 세계 최대 전기차 배터리 시장인 중국 내 판매 기반을 더욱 공고히 하고 글로벌 리튬 시장에서 입지를 강화하겠다는 취지다.",
    "leaders": [
-    "HD현대일렉트릭",
-    "LS일렉트릭",
-    "산일전기",
-    "제룡전기"
+    "에코프로비엠",
+    "리튬포어스",
+    "하이드로리튬"
    ],
-   "issue_rank": 3
+   "issue_rank": 5
+  },
+  {
+   "id": "022/0004176373",
+   "title": "한화시스템, 美에 단거리 레이다 첫 수출",
+   "url": "https://n.news.naver.com/mnews/article/022/0004176373",
+   "press": "세계일보",
+   "time": "2026-11-19T06:03:14+09:00",
+   "section": "경제 일반",
+   "source": "section",
+   "main_rank": null,
+   "theme": "robot",
+   "theme_label": "로봇·자율주행",
+   "tags": [
+    "드론"
+   ],
+   "presses": 1,
+   "press_list": [
+    "세계일보"
+   ],
+   "related": [],
+   "article_count": 1,
+   "breaking": false,
+   "relevance": 7,
+   "summary": "드론·소형 무인기 등 탐지·추적 대규모 추가 공급 협의도 진행 한화시스템이 드론을 비롯한 소형 비행체를 탐지하는 단거리 레이다를 미국에 처음 수출한다. 한화시스템은 18일 미국 방산 기술기업 리벨리온 인더스트리즈와",
+   "leaders": [
+    "지슨",
+    "라온시큐어",
+    "샌즈랩"
+   ],
+   "issue_rank": 6
+  },
+  {
+   "id": "417/0001164837",
+   "title": "엔비디아 생태계 파고드는 한국산 AI 칩",
+   "url": "https://n.news.naver.com/article/417/0001164837",
+   "press": "동행미디어 시대",
+   "time": "2026-11-19T05:20:00+09:00",
+   "section": "네이버 메인",
+   "source": "main",
+   "main_rank": 2,
+   "theme": "semiconductor",
+   "theme_label": "반도체·AI",
+   "tags": [
+    "엔비디아",
+    "AI"
+   ],
+   "presses": 1,
+   "press_list": [
+    "동행미디어 시대"
+   ],
+   "related": [],
+   "article_count": 1,
+   "breaking": false,
+   "relevance": 13,
+   "summary": "[AI 풀스택, 시장 개척자들④] 에이닷 통화요약 국산 칩 적용 GPU와 결합·틈새시장 공략 고객 열곳 중 한곳만 구매로 반복 주문·수요처 확보가 관건 [편집자주] 인공지능(AI) 산업의 경쟁력은 기술만으로 완성되지 않는다.",
+   "leaders": [
+    "한미반도체",
+    "이수페타시스",
+    "가온칩스",
+    "티엘비"
+   ],
+   "issue_rank": 7
   },
   {
    "id": "421/0009297452",
@@ -2703,165 +3021,100 @@
     "스페코",
     "한일단조"
    ],
-   "issue_rank": 4
+   "issue_rank": 8
   },
   {
-   "id": "052/0002434843",
-   "title": "수능 필기구 지침 변경...시험 하루 전까지 '우왕좌왕'",
-   "url": "https://n.news.naver.com/article/052/0002434843",
-   "press": "YTN",
-   "time": "2026-11-18T23:04:05+09:00",
+   "id": "018/0006412146",
+   "title": "연준 10월 동결은 ‘숨고르기’였다…월가, 12월 인상 폭에 주목",
+   "url": "https://n.news.naver.com/article/018/0006412146",
+   "press": "이데일리",
+   "time": "2026-11-19T04:38:13+09:00",
    "section": "네이버 메인",
    "source": "main",
-   "main_rank": 1,
-   "theme": "aisec",
-   "theme_label": "AI·보안",
+   "main_rank": 3,
+   "theme": "macro",
+   "theme_label": "거시·환율·금리",
    "tags": [
-    "수능",
-    "시험"
+    "연준"
    ],
-   "presses": 3,
+   "presses": 1,
    "press_list": [
-    "YTN",
-    "이데일리",
-    "MBN"
+    "이데일리"
    ],
-   "related": [
-    {
-     "title": "“수능 하루 전 이게 무슨 일?”…다이소까지 뜻밖의 ‘품절 대란’",
-     "press": "이데일리",
-     "url": "https://n.news.naver.com/article/018/0006412090",
-     "time": "2026-11-18T21:01:06.378195+09:00"
-    },
-    {
-     "title": "수능 하루 전 또 바뀐 지침…시험장에선 흑색 연필만 지참 허용",
-     "press": "MBN",
-     "url": "https://n.news.naver.com/article/057/0001978849",
-     "time": "2026-11-18T21:01:06.378195+09:00"
-    }
-   ],
-   "article_count": 3,
+   "related": [],
+   "article_count": 1,
    "breaking": false,
-   "relevance": 16,
-   "summary": "[앵커] 정부가 대학수학능력시험을 하루 앞두고 개인 필기구 지침을 변경했습니다. 시험 전날까지 우왕좌왕하는 정부 대책에 현장에서는 혼란이 가중됐습니다.",
-   "leaders": [],
-   "issue_rank": 5
-  },
-  {
-   "id": "648/0000052753",
-   "title": "젠슨 황 없는 엔비디아, 매출 155조 '괴력'…K반도체엔 양날의 검?",
-   "url": "https://n.news.naver.com/article/648/0000052753",
-   "press": "비즈워치",
-   "time": "2026-11-18T15:22:15+09:00",
-   "section": "네이버 메인",
-   "source": "main",
-   "main_rank": 1,
-   "theme": "semiconductor",
-   "theme_label": "반도체·AI",
-   "tags": [
-    "엔비디아",
-    "반도체"
-   ],
-   "presses": 6,
-   "press_list": [
-    "비즈워치",
-    "디지털데일리",
-    "주간동아",
-    "지디넷코리아",
-    "뉴시스",
-    "한국경제"
-   ],
-   "related": [
-    {
-     "title": "무뇨스 현대차 사장 \"젠슨 황 사임, 업계에 큰 영향…엔비디아 협력은 계속\"",
-     "press": "디지털데일리",
-     "url": "https://n.news.naver.com/article/138/0002249101",
-     "time": "2026-11-18T17:01:06.378195+09:00"
-    },
-    {
-     "title": "젠슨 황 사임 후 흔들리던 엔비디아 안정화한 콜레트 크레스",
-     "press": "주간동아",
-     "url": "https://n.news.naver.com/article/037/0000039173",
-     "time": "2026-11-18T18:01:06.378195+09:00"
-    },
-    {
-     "title": "엔비디아 실적콜에 등장한 이 남자…젠슨 황 후계자 될까",
-     "press": "지디넷코리아",
-     "url": "https://n.news.naver.com/article/092/0002445874",
-     "time": "2026-11-18T17:01:06.378195+09:00"
-    }
-   ],
-   "article_count": 6,
-   "breaking": false,
-   "relevance": 34,
-   "summary": "김드보라 인턴 기자 = 엔비디아가 18일 시장 예상치를 웃도는 3분기 실적을 발표한 가운데, 대형 클라우드 기업들의 투자 확대와 차세대 AI 반도체 공급에 힘입어 실적 성장세가 지속될 것이라는 전문가 전망이 나왔다.",
+   "relevance": 10,
+   "summary": "의사록서 추가 인상 공감대 확인…쟁점은 속도·폭 AI 투자, 물가 압력·금융불안의 이중 위험 부각 시장, 12월 인상 기정사실화…0.5%p 확률 약 5% 공개 직후 증시 혼조…유가 하락·엔비디아 약세 교차 [뉴욕=이데일리 성주원 특파원] 미국 연방준비제도(Fed·연준)의 지난 10월 금리…",
    "leaders": [
     "한미반도체",
     "이수페타시스",
     "가온칩스",
     "티엘비"
    ],
-   "issue_rank": 6
+   "issue_rank": 9
   },
   {
-   "id": "005/0001886063",
-   "title": "한화시스템, ‘드론 탐지’ 레이다 미국 첫 수출",
-   "url": "https://n.news.naver.com/mnews/article/005/0001886063",
-   "press": "국민일보",
-   "time": "2026-11-19T00:56:07+09:00",
-   "section": "산업/재계",
-   "source": "section",
-   "main_rank": null,
-   "theme": "robot",
-   "theme_label": "로봇·자율주행",
+   "id": "020/0003763585",
+   "title": "재난문자 논란에… 李 “2~3분이면 끝나, 방해됐다면 시험 연장”",
+   "url": "https://n.news.naver.com/article/020/0003763585",
+   "press": "동아일보",
+   "time": "2026-11-19T04:35:19+09:00",
+   "section": "네이버 메인",
+   "source": "main",
+   "main_rank": 3,
+   "theme": "aisec",
+   "theme_label": "AI·보안",
    "tags": [
-    "드론"
+    "재난문자",
+    "시험"
    ],
    "presses": 1,
    "press_list": [
-    "국민일보"
+    "동아일보"
    ],
    "related": [],
    "article_count": 1,
    "breaking": false,
    "relevance": 10,
-   "summary": "한화시스템의 드론 탐지용 레이다가 미국 시장 진출에 성공했다. 한화시스템은 18일 미국 방산기업 리벨리온 인더스트리즈와 단거리 능동형위상배열(AESA) 레이다(사진) 수출 계약을 체결했다고 밝혔다.",
+   "summary": "[오늘 수능 ‘AI 커닝’ 비상] 수능 전날까지 우왕좌왕 대책 교육부 “돌발상황 땐 매뉴얼 따라 시험장 책임자 판단으로 연장 결정” 온라인엔 ‘재난문자 차단 가능’ 주장 시험장 100m내 공공와이파이 끊어 한성숙 국무총리(오른쪽)와 최인호 대통령정무수석비서관(가운데), 최교진 교육부 장관이…",
    "leaders": [
     "지슨",
     "라온시큐어",
     "샌즈랩"
    ],
-   "issue_rank": 7
+   "issue_rank": 10
   },
   {
-   "id": "586/0000142581",
-   "title": "수능 D-day, 개인 사인펜 못 쓴다…단추엔 스티커, 안경은 매 교시 점검",
-   "url": "https://n.news.naver.com/article/586/0000142581",
-   "press": "시사저널",
-   "time": "2026-11-19T00:15:08+09:00",
+   "id": "293/0000093484",
+   "title": "엔비디아, 경영 공백에도 매출 전망 상향…시장 우려 완화될까",
+   "url": "https://n.news.naver.com/article/293/0000093484",
+   "press": "블로터",
+   "time": "2026-11-19T01:03:10+09:00",
    "section": "네이버 메인",
    "source": "main",
-   "main_rank": 5,
-   "theme": "aisec",
-   "theme_label": "AI·보안",
+   "main_rank": 3,
+   "theme": "semiconductor",
+   "theme_label": "반도체·AI",
    "tags": [
-    "수능"
+    "엔비디아"
    ],
    "presses": 1,
    "press_list": [
-    "시사저널"
+    "블로터"
    ],
    "related": [],
    "article_count": 1,
    "breaking": false,
-   "relevance": 7,
-   "summary": "[이태준 기자 jun@sisajournal.com] 스마트안경 착용만으로 시험 무효…이듬해 응시 자격도 정지 개인 필기구는 흑색 연필만 허용…오전 8시10분까지 입실해야 대학수학능력시험(수능)이 이틀 앞으로 다가온 17일 서울 성북구 강북종로학원에서 수험생들이 공부를 하고 있다.",
+   "relevance": 10,
+   "summary": "미국 반도체기업 엔비디아가 시장 예상을 크게 웃도는 실적 전망을 내놓으며 젠슨 황 전 최고경영자(CEO)의 퇴임으로 경영 불확실성이 커졌지만 컴퓨팅 수요 급증세가 지속될 수 있음을 시사했다.",
    "leaders": [
-    "지슨",
-    "라온시큐어",
-    "샌즈랩"
+    "한미반도체",
+    "이수페타시스",
+    "가온칩스",
+    "티엘비"
    ],
-   "issue_rank": 8
+   "issue_rank": 11
   },
   {
    "id": "293/0000093483",
@@ -2871,7 +3124,7 @@
    "time": "2026-11-18T22:13:14+09:00",
    "section": "네이버 메인",
    "source": "main",
-   "main_rank": 4,
+   "main_rank": 5,
    "theme": "earnings",
    "theme_label": "실적·공시·수급",
    "tags": [
@@ -2887,7 +3140,7 @@
    "relevance": 7,
    "summary": "서울 중구에 위치한 SK텔레콤 T타워 전경과 CI/사진 제공=SK텔레콤 미국 인공지능(AI) 기업 앤트로픽의 나스닥 상장이 임박하면서 SK텔레콤(SKT)이 보유한 지분 활용 방안에 대한 이목이 집중되고 있다.",
    "leaders": [],
-   "issue_rank": 9
+   "issue_rank": 12
   },
   {
    "id": "421/0009297346",
@@ -2918,7 +3171,7 @@
     "한신기계",
     "보성파워텍"
    ],
-   "issue_rank": 10
+   "issue_rank": 13
   },
   {
    "id": "024/0000109729",
@@ -2928,7 +3181,7 @@
    "time": "2026-11-18T21:01:09+09:00",
    "section": "네이버 메인",
    "source": "main",
-   "main_rank": 4,
+   "main_rank": 2,
    "theme": "earnings",
    "theme_label": "실적·공시·수급",
    "tags": [
@@ -2944,154 +3197,61 @@
    "relevance": 10,
    "summary": "AI 폭락장 이후 투자 전략 코스피 변동성이 커지면서 투자자들의 고민도 깊어진다. 증권가는 코스피 5000 전후를 ‘비중 확대’ 기회로 보는 분위기다.",
    "leaders": [],
-   "issue_rank": 11
-  },
-  {
-   "id": "374/0000544570",
-   "title": "신동빈 \"롯데바이오, 그룹의 미래\"…송도 공장 내년 가동 [현장영상]",
-   "url": "https://n.news.naver.com/article/374/0000544570",
-   "press": "SBS Biz",
-   "time": "2026-11-18T18:40:09+09:00",
-   "section": "네이버 메인",
-   "source": "main",
-   "main_rank": 4,
-   "theme": "bio",
-   "theme_label": "바이오·헬스케어",
-   "tags": [
-    "바이오"
-   ],
-   "presses": 2,
-   "press_list": [
-    "SBS Biz",
-    "디지털데일리"
-   ],
-   "related": [
-    {
-     "title": "공장 준공 넘어 수익화로…롯데바이오, 2027년 상업생산 본격화 [현장]",
-     "press": "디지털데일리",
-     "url": "https://n.news.naver.com/article/138/0002249106",
-     "time": "2026-11-18T18:01:06.378195+09:00"
-    }
-   ],
-   "article_count": 2,
-   "breaking": false,
-   "relevance": 13,
-   "summary": "박제임스 롯데바이오로직스 대표이사는 \"송도 바이오 캠퍼스 제1공장 준공은 하나의 생산시설을 완성했다는 의미를 넘어 롯데바이오로직스가 새로운 도약을 준비하는 출발점\"이라며 \"글로벌 CDMO 무대 도약을 위한 견고한 초석이 될 것\"이라고 말했습니다.",
-   "leaders": [
-    "알테오젠",
-    "HLB",
-    "삼성바이오로직스"
-   ],
-   "issue_rank": 12
-  },
-  {
-   "id": "648/0000052759",
-   "title": "코스피 5000선 회복, 앤트로픽 IPO에 쏠리는 시선",
-   "url": "https://n.news.naver.com/article/648/0000052759",
-   "press": "비즈워치",
-   "time": "2026-11-18T16:44:13+09:00",
-   "section": "네이버 메인",
-   "source": "main",
-   "main_rank": 3,
-   "theme": "macro",
-   "theme_label": "거시·환율·금리",
-   "tags": [
-    "코스피"
-   ],
-   "presses": 4,
-   "press_list": [
-    "비즈워치",
-    "파이낸셜뉴스",
-    "디지털데일리",
-    "이데일리"
-   ],
-   "related": [
-    {
-     "title": "앤트로픽 IPO에 5천억달러 뭉칫돈…공모가 80달러 넘나",
-     "press": "파이낸셜뉴스",
-     "url": "https://n.news.naver.com/mnews/article/014/0005606476",
-     "time": ""
-    },
-    {
-     "title": "앤트로픽 IPO 청약 수요 5000억달러 육박…공모가 상단 초과·규모 확대 검토",
-     "press": "디지털데일리",
-     "url": "https://n.news.naver.com/mnews/article/138/0002249129",
-     "time": ""
-    },
-    {
-     "title": "앤스로픽, 공모가 최대 85달러 검토…사모 포함 960억달러 규모",
-     "press": "이데일리",
-     "url": "https://n.news.naver.com/mnews/article/018/0006412159",
-     "time": ""
-    }
-   ],
-   "article_count": 4,
-   "breaking": false,
-   "relevance": 19,
-   "summary": "인공지능(AI) 챗봇 '클로드' 개발사 앤트로픽의 기업공개(IPO)에 약 5000억달러(약 730조원)의 투자 수요가 몰렸다. AI 거품 논란과 금리 인상 우려에도 기관투자자와 개인투자자의 주문이 폭증하면서 앤트로픽",
-   "leaders": [],
-   "issue_rank": 13
-  },
-  {
-   "id": "422/0000927577",
-   "title": "앨리스 황, 日에도 데이터센터 업체 설립…칩 수출 우회로 노렸나",
-   "url": "https://n.news.naver.com/article/422/0000927577",
-   "press": "연합뉴스TV",
-   "time": "2026-11-18T20:54:11+09:00",
-   "section": "네이버 메인",
-   "source": "main",
-   "main_rank": 4,
-   "theme": "semiconductor",
-   "theme_label": "반도체·AI",
-   "tags": [
-    "데이터센터"
-   ],
-   "presses": 1,
-   "press_list": [
-    "연합뉴스TV"
-   ],
-   "related": [],
-   "article_count": 1,
-   "breaking": false,
-   "relevance": 7,
-   "summary": "앨리스 황과 젠슨 황 전 엔비디아 최고경영자(CEO) [로이터=연합뉴스 제공] 엔비디아 최첨단 반도체의 중국 반출 의혹에 연루된 앨리스 황이 일본에도 데이터센터 기업을 설립한 것으로 알려지며 일본을 '수출 우회로'로 삼으려 했던 것 아니냐는 해석이 나왔습니다.",
-   "leaders": [
-    "한미반도체",
-    "이수페타시스",
-    "가온칩스",
-    "티엘비"
-   ],
    "issue_rank": 14
   },
   {
-   "id": "437/0000521358",
-   "title": "\"속성 과외\" 요청한 그 문제 그대로 AI에…결과는 '오답'",
-   "url": "https://n.news.naver.com/article/437/0000521358",
-   "press": "JTBC",
-   "time": "2026-11-18T19:33:14+09:00",
+   "id": "215/0001273194",
+   "title": "6개월 새 반토막 났는데…\"왕이 되려는 자\" 평가 된 종목 [주식R]",
+   "url": "https://n.news.naver.com/article/215/0001273194",
+   "press": "한국경제TV",
+   "time": "2026-11-18T20:02:00+09:00",
    "section": "네이버 메인",
    "source": "main",
    "main_rank": 2,
-   "theme": "semiconductor",
-   "theme_label": "반도체·AI",
-   "tags": [
-    "AI"
-   ],
+   "theme": "etc",
+   "theme_label": "기타",
+   "tags": [],
    "presses": 1,
    "press_list": [
-    "JTBC"
+    "한국경제TV"
    ],
    "related": [],
    "article_count": 1,
    "breaking": false,
-   "relevance": 4,
-   "summary": "인식 어려운 그림 위주 문항 설명법만 속성 습득 [앵커] 특히 이 씨에게 직접 과외를 해줬다는 과외생이 나타나면서 지난해 딱 한 문제만 틀린 수능도 부정행위의 결과일 수 있다는 의혹이 커졌습니다.",
-   "leaders": [
-    "지슨",
-    "라온시큐어",
-    "샌즈랩"
-   ],
+   "relevance": 0,
+   "summary": "메리츠증권, 한화에어로스페이스 분석 개시 2028년 영업익 6조원·수주잔고 87.9조원 전망 메리츠증권은 18일 한화에어로스페이스에 대한 기업분석을 새로 개시하면서 투자의견 '매수'와 적정주가 90만원을 제시했다.",
+   "leaders": [],
    "issue_rank": 15
+  },
+  {
+   "id": "656/0000192855",
+   "title": "충청권 수능 한파… 새벽 눈·비, 도로 살얼음",
+   "url": "https://n.news.naver.com/article/656/0000192855",
+   "press": "대전일보",
+   "time": "2026-11-18T19:51:11+09:00",
+   "section": "네이버 메인",
+   "source": "main",
+   "main_rank": 5,
+   "theme": "disaster",
+   "theme_label": "재난·안전",
+   "tags": [
+    "한파"
+   ],
+   "presses": 1,
+   "press_list": [
+    "대전일보"
+   ],
+   "related": [],
+   "article_count": 1,
+   "breaking": false,
+   "relevance": 10,
+   "summary": "대전일보DB 대학수학능력시험이 치러지는 19일 아침 충청지역은 영하권으로 떨어지는 등 수능 한파가 찾아오겠다. 비 또는 눈도 예보됨에 따라 수험생들의 시험장 이동에 각별한 주의가 필요하다.",
+   "leaders": [
+    "삼영엠텍",
+    "파라텍",
+    "포메탈"
+   ],
+   "issue_rank": 16
   },
   {
    "id": "016/0002725338",
@@ -3101,7 +3261,7 @@
    "time": "2026-11-18T18:50:18+09:00",
    "section": "네이버 메인",
    "source": "main",
-   "main_rank": 5,
+   "main_rank": 3,
    "theme": "macro",
    "theme_label": "거시·환율·금리",
    "tags": [
@@ -3122,7 +3282,84 @@
     "이수페타시스",
     "가온칩스"
    ],
-   "issue_rank": 16
+   "issue_rank": 17
+  },
+  {
+   "id": "014/0005606396",
+   "title": "돌아오겠다는 젠슨 황… 엔비디아는 내·외부서 차기리더 물색",
+   "url": "https://n.news.naver.com/article/014/0005606396",
+   "press": "파이낸셜뉴스",
+   "time": "2026-11-18T18:24:19+09:00",
+   "section": "네이버 메인",
+   "source": "main",
+   "main_rank": 2,
+   "theme": "semiconductor",
+   "theme_label": "반도체·AI",
+   "tags": [
+    "엔비디아"
+   ],
+   "presses": 2,
+   "press_list": [
+    "파이낸셜뉴스",
+    "SBS Biz"
+   ],
+   "related": [
+    {
+     "title": "[글로벌 비즈 브리핑] 젠슨 황 돌아오고 싶다던데…엔비디아는 헤드헌터 통해 차기 물색 外",
+     "press": "SBS Biz",
+     "url": "https://n.news.naver.com/article/374/0000544348",
+     "time": "2026-11-18T06:38:45.593214+09:00"
+    }
+   ],
+   "article_count": 2,
+   "breaking": false,
+   "relevance": 13,
+   "summary": "후임 CEO 영입 본격화 英 ARM 르네 하스 CEO '물망' 헤드헌터 고용해 물밑 접촉나서 이언 벅 엔비디아 부사장도 거론 트럼프 \"팀쿡이 가장 적합\" 언급 젠슨 황 \"이사회 요청하면 복귀\" 엔비디아가 불륜으로 인한 물의로 사임한 젠슨 황 전 최고경영자(CEO)의 후임 찾기에 본격적으로…",
+   "leaders": [
+    "한미반도체",
+    "이수페타시스",
+    "가온칩스",
+    "티엘비"
+   ],
+   "issue_rank": 18
+  },
+  {
+   "id": "138/0002249106",
+   "title": "공장 준공 넘어 수익화로…롯데바이오, 2027년 상업생산 본격화 [현장]",
+   "url": "https://n.news.naver.com/article/138/0002249106",
+   "press": "디지털데일리",
+   "time": "2026-11-18T17:10:06+09:00",
+   "section": "네이버 메인",
+   "source": "main",
+   "main_rank": 2,
+   "theme": "bio",
+   "theme_label": "바이오·헬스케어",
+   "tags": [
+    "바이오"
+   ],
+   "presses": 2,
+   "press_list": [
+    "디지털데일리",
+    "SBS Biz"
+   ],
+   "related": [
+    {
+     "title": "신동빈 \"롯데바이오, 그룹의 미래\"…송도 공장 내년 가동 [현장영상]",
+     "press": "SBS Biz",
+     "url": "https://n.news.naver.com/article/374/0000544570",
+     "time": "2026-11-18T19:38:45.593214+09:00"
+    }
+   ],
+   "article_count": 2,
+   "breaking": false,
+   "relevance": 13,
+   "summary": "“한미 생산거점 통합 운영·고객 맞춤형 전략으로 후발주자 한계 극복” 박제임스 롯데바이오로직스 대표이사가 18일 인천 송도 바이오 캠퍼스에서 열린 제1공장 준공 기념 기자간담회에서 인사말을 하고 있다.",
+   "leaders": [
+    "알테오젠",
+    "HLB",
+    "삼성바이오로직스"
+   ],
+   "issue_rank": 19
   },
   {
    "id": "015/0005355514",
@@ -3153,7 +3390,7 @@
     "유일로보틱스",
     "계양전기"
    ],
-   "issue_rank": 17
+   "issue_rank": 20
   },
   {
    "id": "657/0000057595",
@@ -3179,40 +3416,14 @@
    "relevance": 7,
    "summary": "더불어민주당 대구시당은 국민의힘이 서울대 10개 만들기 사업에 경북대가 빠졌다며 비판하면서도 정작 관련 예산은 삭감을 주장했다고 비판했습니다.",
    "leaders": [],
-   "issue_rank": 18
-  },
-  {
-   "id": "024/0000109727",
-   "title": "이혜훈, 반포 원펜타스 당첨 취소되나…국토부, 조합에 공문",
-   "url": "https://n.news.naver.com/article/024/0000109727",
-   "press": "매경이코노미",
-   "time": "2026-11-18T18:01:06.378195+09:00",
-   "section": "네이버 메인",
-   "source": "main",
-   "main_rank": 5,
-   "theme": "policy",
-   "theme_label": "정책·건설",
-   "tags": [
-    "국토부"
-   ],
-   "presses": 1,
-   "press_list": [
-    "매경이코노미"
-   ],
-   "related": [],
-   "article_count": 1,
-   "breaking": false,
-   "relevance": 7,
-   "summary": "",
-   "leaders": [],
-   "issue_rank": 19
+   "issue_rank": 21
   },
   {
    "id": "584/0000040208",
    "title": "[의학바이오게시판] 서울아산병원서 배운 러시아 의료진, 현지서 첫 갑상선 고주파절제술 外",
    "url": "https://n.news.naver.com/article/584/0000040208",
    "press": "동아사이언스",
-   "time": "2026-11-18T18:01:06.378195+09:00",
+   "time": "2026-11-18T17:33:08+09:00",
    "section": "네이버 메인",
    "source": "main",
    "main_rank": 2,
@@ -3230,43 +3441,39 @@
    "article_count": 1,
    "breaking": false,
    "relevance": 16,
-   "summary": "",
+   "summary": "백정환 서울아산병원 영상의학과 교수(오른쪽)가 갑상선암 재발 환자에게 고주파 치료를 시행하고 있다. 서울아산병원 제공 ■ 서울아산병원은 러시아 세체노프 국립 의과대학 막심 살리바 교수와 현지 의료진이 지난 9월 환자 5명에게 갑상선 고주파절제술을 시행했다고 18일 밝혔다.",
    "leaders": [
     "알테오젠",
     "HLB",
     "삼성바이오로직스"
    ],
-   "issue_rank": 20
+   "issue_rank": 22
   },
   {
-   "id": "584/0000040211",
-   "title": "빛·소리로 알츠하이머 치료 임상 실패…\"인지 저하 못 늦춰\"",
-   "url": "https://n.news.naver.com/article/584/0000040211",
-   "press": "동아사이언스",
-   "time": "2026-11-18T17:47:08+09:00",
+   "id": "024/0000109727",
+   "title": "이혜훈, 반포 원펜타스 당첨 취소되나…국토부, 조합에 공문",
+   "url": "https://n.news.naver.com/article/024/0000109727",
+   "press": "매경이코노미",
+   "time": "2026-11-18T17:17:11+09:00",
    "section": "네이버 메인",
    "source": "main",
    "main_rank": 5,
-   "theme": "bio",
-   "theme_label": "바이오·헬스케어",
+   "theme": "policy",
+   "theme_label": "정책·건설",
    "tags": [
-    "임상"
+    "국토부"
    ],
    "presses": 1,
    "press_list": [
-    "동아사이언스"
+    "매경이코노미"
    ],
    "related": [],
    "article_count": 1,
    "breaking": false,
-   "relevance": 10,
-   "summary": "미국 의료기기 기업 '코그니토 테라퓨틱스'가 개발한 알츠하이머 치료기기 '스펙트리스 AD(Cognito Therapeutics)'. 약 1년간의 임상 시험 결과 알츠하이머 치료 효과가 확인되지 않았다.",
-   "leaders": [
-    "알테오젠",
-    "HLB",
-    "삼성바이오로직스"
-   ],
-   "issue_rank": 21
+   "relevance": 7,
+   "summary": "장남 부양가족 허위 등록 혐의 40억원 안팎 시세차익 기대 이혜훈 전 의원. (연합뉴스) 이혜훈 전 기획예산처 장관 후보자 부부가 당첨된 서울 서초구 반포동 ‘래미안 원펜타스’ 분양계약이 무효가 될 공산이 커졌다.",
+   "leaders": [],
+   "issue_rank": 23
   },
   {
    "id": "123/0002394332",
@@ -3290,7 +3497,38 @@
    "relevance": 0,
    "summary": "공모 주식의 약 7배에 이르는 주문이 몰렸고, 회사는 희망가 상단이나 그 이상에서 가격을 정할 것으로 알려졌다. 다만 일반투자자가 사는 주식의 조건은 흥행과 별개로 따져볼 필요가 있다.",
    "leaders": [],
-   "issue_rank": 22
+   "issue_rank": 24
+  },
+  {
+   "id": "353/0000057290",
+   "title": "스타플러스레전드·갤럭시, AI 로봇 엔터테인먼트 사업 공동 추진",
+   "url": "https://n.news.naver.com/article/353/0000057290",
+   "press": "중앙SUNDAY",
+   "time": "2026-11-18T16:51:09+09:00",
+   "section": "네이버 메인",
+   "source": "main",
+   "main_rank": 3,
+   "theme": "robot",
+   "theme_label": "로봇·자율주행",
+   "tags": [
+    "로봇"
+   ],
+   "presses": 1,
+   "press_list": [
+    "중앙SUNDAY"
+   ],
+   "related": [],
+   "article_count": 1,
+   "breaking": false,
+   "relevance": 10,
+   "summary": "스타플러스레전드·갤럭시, AI 로봇 엔터테인먼트 사업 공동 추진 스타플러스레전드 홀딩스(Star Plus Legend Holdings Limited, 이하 스타플러스레전드)와 갤럭시코퍼레이션(Galaxy Corporation Co., Ltd., 이하 갤럭시)이 AI와 로봇 엔터테인먼트 분야…",
+   "leaders": [
+    "레인보우로보틱스",
+    "클로봇",
+    "유일로보틱스",
+    "계양전기"
+   ],
+   "issue_rank": 25
   },
   {
    "id": "016/0002725266",
@@ -3300,7 +3538,7 @@
    "time": "2026-11-18T16:19:12+09:00",
    "section": "네이버 메인",
    "source": "main",
-   "main_rank": 3,
+   "main_rank": 4,
    "theme": "policy",
    "theme_label": "정책·건설",
    "tags": [
@@ -3316,14 +3554,45 @@
    "relevance": 7,
    "summary": "이촌 ‘래미안첼리투스’ 124㎡ 전액 현금 매입 매도인은 ‘87MM’ 창업자 박지운…19억 차익 2024년 산 강동구 아파트는 2년여 새 8억↑ 서울 용산구 이촌동 ‘래미안첼리투스’(왼쪽), 강동구 상일동 ‘고덕롯데캐슬베네루체’ 단지 전경과 밴드 데이식스(DAY6) 멤버 원필 모습.",
    "leaders": [],
-   "issue_rank": 23
+   "issue_rank": 26
+  },
+  {
+   "id": "262/0000019862",
+   "title": "뇌전증 신약이 바꾼 ‘삶의 가치’…SK바이오팜의 남다른 ESG 성과",
+   "url": "https://n.news.naver.com/article/262/0000019862",
+   "press": "신동아",
+   "time": "2026-11-18T13:01:07+09:00",
+   "section": "네이버 메인",
+   "source": "main",
+   "main_rank": 1,
+   "theme": "bio",
+   "theme_label": "바이오·헬스케어",
+   "tags": [
+    "신약",
+    "바이오"
+   ],
+   "presses": 1,
+   "press_list": [
+    "신동아"
+   ],
+   "related": [],
+   "article_count": 1,
+   "breaking": false,
+   "relevance": 19,
+   "summary": "[K사회적가치·ESG, 경제를 살리다] 매출은 처방으로, 사회적 가치는 환자·보호자의 일상으로 원종석 SK바이오팜 ESG·CSR 리더가 11월 3일 서울 여의도 FKI타워 컨퍼런스센터에서 열린 제10회 ‘K사회적가치·ESG, 경제를 살리다’ 포럼에서 SK바이오팜의 지속가능경영 전략을 소개하고…",
+   "leaders": [
+    "알테오젠",
+    "HLB",
+    "삼성바이오로직스"
+   ],
+   "issue_rank": 27
   },
   {
    "id": "648/0000052733",
    "title": "SK온·현대차, 美 배터리 셀 합작 첫 매출 겨우 157억",
    "url": "https://n.news.naver.com/article/648/0000052733",
    "press": "비즈워치",
-   "time": "2026-11-18T09:16:17+09:00",
+   "time": "2026-11-18T09:38:45.593214+09:00",
    "section": "네이버 메인",
    "source": "main",
    "main_rank": 5,
@@ -3340,14 +3609,14 @@
    "article_count": 1,
    "breaking": false,
    "relevance": 10,
-   "summary": "SK온·현대차 3.2조 투자 HSBMA 7월 가동 HSBMA, 3분기 매출 157억 영업손실 1084억 초기 고정비 부담 높은데 美전기차 판매 감소 지난 6월 가동을 시작한 SK온·현대차 미국 합작 배터리 셀 법인(HSBMA)의 첫 성적표가 나왔다.",
+   "summary": "",
    "leaders": [
     "현대차",
     "에코프로비엠",
     "리튬포어스",
     "하이드로리튬"
    ],
-   "issue_rank": 24
+   "issue_rank": 28
   },
   {
    "id": "640/0000097033",
@@ -3379,7 +3648,7 @@
     "스페코",
     "한일단조"
    ],
-   "issue_rank": 25
+   "issue_rank": 29
   },
   {
    "id": "308/0000038992",
@@ -3408,17 +3677,41 @@
     "현대차",
     "기아"
    ],
-   "issue_rank": 26
+   "issue_rank": 30
   }
  ],
  "articles": [
   {
-   "id": "001/0016450359",
-   "title": "정부, 내일 수능부터 '부정행위 제보시 1억 포상금' 지급 추진(종합)",
-   "summary": "수능 직후 '범정부 부정행위 대응 TF' 가동…\"의심사례 조사·적발\" 수능시험 부정 행위 대응 대국민 담화문 발표 (서울=연합뉴스) 안정원 기자 = 한성숙 국무총리가 17일 서울 종로구 정부서울청사에서 수능시험 부정 행위 대응 관련 대국민 담화문을 발표하고 있다.",
-   "press": "연합뉴스",
-   "time": "2026-11-18T22:02:17+09:00",
-   "url": "https://n.news.naver.com/article/001/0016450359",
+   "id": "417/0001164691",
+   "title": "[속보] 엔비디아 실적 경계·잇단 전산장애에…뉴욕증시 3대 지수 모두 하락",
+   "summary": "인공지능(AI) 기업 앤트로픽(Anthropic)이 나스닥 기업공개(IPO)를 앞두고 공모가를 희망 범위 상단인 78달러보다 높이는 방안을 검토하고 있다. 미국 CNBC는 소식통을 인용해 공모가가 80달러를 크게 웃",
+   "press": "동행미디어 시대",
+   "time": "2026-11-18T06:38:00+09:00",
+   "url": "https://n.news.naver.com/article/417/0001164691",
+   "theme": "macro",
+   "theme_label": "거시·환율·금리",
+   "tags": [
+    "증시",
+    "지수"
+   ],
+   "section": "네이버 메인",
+   "relevance": 40,
+   "source": "main",
+   "leaders": [
+    "한미반도체",
+    "이수페타시스",
+    "가온칩스",
+    "티엘비"
+   ],
+   "issue_rank": 1
+  },
+  {
+   "id": "656/0000192860",
+   "title": "내일 수능부터 부정행위 제보 시 포상금 1억 원",
+   "summary": "한성숙 국무총리. 연합뉴스 정부가 2027학년도 대학수학능력시험부터 부정행위 신고·제보자에 대해 최대 1억 원의 포상급을 지급한다.",
+   "press": "대전일보",
+   "time": "2026-11-18T21:02:11+09:00",
+   "url": "https://n.news.naver.com/article/656/0000192860",
    "theme": "aisec",
    "theme_label": "AI·보안",
    "tags": [
@@ -3426,59 +3719,127 @@
     "수능"
    ],
    "section": "네이버 메인",
-   "relevance": 28,
+   "relevance": 34,
    "source": "main",
    "leaders": [
     "지슨",
     "라온시큐어",
     "샌즈랩"
    ],
-   "issue_rank": 1
-  },
-  {
-   "id": "001/0016450443",
-   "title": "금융지주가 전망한 연말 증시…\"기술적 반등 그칠 가능성\"",
-   "summary": "하나금융 \"차별화 장세\"…KB금융은 내년말까지 환율 1,300원대 초반 전망 최근 코스피가 5,000선 사수 공방을 벌이며 연초 수준으로 후퇴한 가운데 연말까지 국내 증시의 본격적인 반등을 기대하기는 어렵다는 금융지",
-   "press": "연합뉴스",
-   "time": "2026-11-19T05:55:00+09:00",
-   "url": "https://n.news.naver.com/mnews/article/001/0016450443",
-   "theme": "macro",
-   "theme_label": "거시·환율·금리",
-   "tags": [
-    "증시",
-    "환율",
-    "코스피"
-   ],
-   "section": "증권",
-   "relevance": 26,
-   "source": "section",
-   "leaders": [],
    "issue_rank": 2
   },
   {
-   "id": "008/0005443265",
-   "title": "SK온 대만 1.2GWh ESS 수주전 뛰어든다…12월 입찰",
-   "summary": "SK온이 오는 12월 대만전력공사가 발주하는 ESS(에너지저장장치) 프로젝트 입찰에 나선다. 미국 에너지 기업 GE버노바(GE Vernova), 대만 ESS 기업 씨텔(Seetel)과의 첫 공동 사업을 통해 비중국산",
-   "press": "머니투데이",
-   "time": "2026-11-19T05:50:00+09:00",
-   "url": "https://n.news.naver.com/mnews/article/008/0005443265",
+   "id": "437/0000521354",
+   "title": "\"개인 지우개 안 됩니다\"…'수능 D-1' 바뀐 규정 정리",
+   "summary": "대학수학능력시험일인 19일, 국내 증시가 평소보다 1시간 늦게 열린다. 한국거래소에 따르면 이날 코스피·코스닥·코넥스 시장의 정규시장 거래 시작과 종료 시점이 1시간씩 늦춰진다.",
+   "press": "JTBC",
+   "time": "2026-11-18T19:02:50+09:00",
+   "url": "https://n.news.naver.com/article/437/0000521354",
+   "theme": "aisec",
+   "theme_label": "AI·보안",
+   "tags": [
+    "수능"
+   ],
+   "section": "네이버 메인",
+   "relevance": 19,
+   "source": "main",
+   "leaders": [],
+   "issue_rank": 3
+  },
+  {
+   "id": "022/0004176395",
+   "title": "현대차 ‘피지컬 AI’ 외부 고객 공략 본격화",
+   "summary": "웨이모엔 로보택시 차량 인도 반도체 공장엔 아틀라스 투입 미래 모빌리티·로보틱스 속도 현대자동차그룹이 자율주행차와 휴머노이드 로봇을 양대 축으로 미래 모빌리티·로보틱스 사업 확장에 속도를 내고 있다.",
+   "press": "세계일보",
+   "time": "2026-11-19T06:05:30+09:00",
+   "url": "https://n.news.naver.com/mnews/article/022/0004176395",
+   "theme": "robot",
+   "theme_label": "로봇·자율주행",
+   "tags": [
+    "피지컬 AI",
+    "휴머노이드",
+    "자율주행"
+   ],
+   "section": "경제 일반",
+   "relevance": 22,
+   "source": "section",
+   "leaders": [
+    "현대차",
+    "레인보우로보틱스",
+    "클로봇",
+    "유일로보틱스"
+   ],
+   "issue_rank": 4
+  },
+  {
+   "id": "022/0004176391",
+   "title": "포스코그룹, 中 CATL에 3년간 리튬 공급",
+   "summary": "포스코그룹이 전기차 배터리 1위 기업인 중국 CATL과 리튬 장기공급계약을 체결했다. 세계 최대 전기차 배터리 시장인 중국 내 판매 기반을 더욱 공고히 하고 글로벌 리튬 시장에서 입지를 강화하겠다는 취지다.",
+   "press": "세계일보",
+   "time": "2026-11-19T06:05:23+09:00",
+   "url": "https://n.news.naver.com/mnews/article/022/0004176391",
    "theme": "battery",
    "theme_label": "2차전지·에너지",
    "tags": [
-    "ESS",
-    "전력",
-    "에너지"
+    "리튬",
+    "전기차",
+    "배터리"
    ],
-   "section": "산업/재계",
-   "relevance": 16,
+   "section": "경제 일반",
+   "relevance": 22,
    "source": "section",
    "leaders": [
-    "HD현대일렉트릭",
-    "LS일렉트릭",
-    "산일전기",
-    "제룡전기"
+    "에코프로비엠",
+    "리튬포어스",
+    "하이드로리튬"
    ],
-   "issue_rank": 3
+   "issue_rank": 5
+  },
+  {
+   "id": "022/0004176373",
+   "title": "한화시스템, 美에 단거리 레이다 첫 수출",
+   "summary": "드론·소형 무인기 등 탐지·추적 대규모 추가 공급 협의도 진행 한화시스템이 드론을 비롯한 소형 비행체를 탐지하는 단거리 레이다를 미국에 처음 수출한다. 한화시스템은 18일 미국 방산 기술기업 리벨리온 인더스트리즈와",
+   "press": "세계일보",
+   "time": "2026-11-19T06:03:14+09:00",
+   "url": "https://n.news.naver.com/mnews/article/022/0004176373",
+   "theme": "robot",
+   "theme_label": "로봇·자율주행",
+   "tags": [
+    "드론"
+   ],
+   "section": "경제 일반",
+   "relevance": 7,
+   "source": "section",
+   "leaders": [
+    "지슨",
+    "라온시큐어",
+    "샌즈랩"
+   ],
+   "issue_rank": 6
+  },
+  {
+   "id": "417/0001164837",
+   "title": "엔비디아 생태계 파고드는 한국산 AI 칩",
+   "summary": "[AI 풀스택, 시장 개척자들④] 에이닷 통화요약 국산 칩 적용 GPU와 결합·틈새시장 공략 고객 열곳 중 한곳만 구매로 반복 주문·수요처 확보가 관건 [편집자주] 인공지능(AI) 산업의 경쟁력은 기술만으로 완성되지 않는다.",
+   "press": "동행미디어 시대",
+   "time": "2026-11-19T05:20:00+09:00",
+   "url": "https://n.news.naver.com/article/417/0001164837",
+   "theme": "semiconductor",
+   "theme_label": "반도체·AI",
+   "tags": [
+    "엔비디아",
+    "AI"
+   ],
+   "section": "네이버 메인",
+   "relevance": 13,
+   "source": "main",
+   "leaders": [
+    "한미반도체",
+    "이수페타시스",
+    "가온칩스",
+    "티엘비"
+   ],
+   "issue_rank": 7
   },
   {
    "id": "421/0009297452",
@@ -3502,42 +3863,22 @@
     "스페코",
     "한일단조"
    ],
-   "issue_rank": 4
+   "issue_rank": 8
   },
   {
-   "id": "052/0002434843",
-   "title": "수능 필기구 지침 변경...시험 하루 전까지 '우왕좌왕'",
-   "summary": "[앵커] 정부가 대학수학능력시험을 하루 앞두고 개인 필기구 지침을 변경했습니다. 시험 전날까지 우왕좌왕하는 정부 대책에 현장에서는 혼란이 가중됐습니다.",
-   "press": "YTN",
-   "time": "2026-11-18T23:04:05+09:00",
-   "url": "https://n.news.naver.com/article/052/0002434843",
-   "theme": "aisec",
-   "theme_label": "AI·보안",
+   "id": "018/0006412146",
+   "title": "연준 10월 동결은 ‘숨고르기’였다…월가, 12월 인상 폭에 주목",
+   "summary": "의사록서 추가 인상 공감대 확인…쟁점은 속도·폭 AI 투자, 물가 압력·금융불안의 이중 위험 부각 시장, 12월 인상 기정사실화…0.5%p 확률 약 5% 공개 직후 증시 혼조…유가 하락·엔비디아 약세 교차 [뉴욕=이데일리 성주원 특파원] 미국 연방준비제도(Fed·연준)의 지난 10월 금리…",
+   "press": "이데일리",
+   "time": "2026-11-19T04:38:13+09:00",
+   "url": "https://n.news.naver.com/article/018/0006412146",
+   "theme": "macro",
+   "theme_label": "거시·환율·금리",
    "tags": [
-    "수능",
-    "시험"
+    "연준"
    ],
    "section": "네이버 메인",
-   "relevance": 16,
-   "source": "main",
-   "leaders": [],
-   "issue_rank": 5
-  },
-  {
-   "id": "648/0000052753",
-   "title": "젠슨 황 없는 엔비디아, 매출 155조 '괴력'…K반도체엔 양날의 검?",
-   "summary": "김드보라 인턴 기자 = 엔비디아가 18일 시장 예상치를 웃도는 3분기 실적을 발표한 가운데, 대형 클라우드 기업들의 투자 확대와 차세대 AI 반도체 공급에 힘입어 실적 성장세가 지속될 것이라는 전문가 전망이 나왔다.",
-   "press": "비즈워치",
-   "time": "2026-11-18T15:22:15+09:00",
-   "url": "https://n.news.naver.com/article/648/0000052753",
-   "theme": "semiconductor",
-   "theme_label": "반도체·AI",
-   "tags": [
-    "엔비디아",
-    "반도체"
-   ],
-   "section": "네이버 메인",
-   "relevance": 34,
+   "relevance": 10,
    "source": "main",
    "leaders": [
     "한미반도체",
@@ -3545,51 +3886,53 @@
     "가온칩스",
     "티엘비"
    ],
-   "issue_rank": 6
+   "issue_rank": 9
   },
   {
-   "id": "005/0001886063",
-   "title": "한화시스템, ‘드론 탐지’ 레이다 미국 첫 수출",
-   "summary": "한화시스템의 드론 탐지용 레이다가 미국 시장 진출에 성공했다. 한화시스템은 18일 미국 방산기업 리벨리온 인더스트리즈와 단거리 능동형위상배열(AESA) 레이다(사진) 수출 계약을 체결했다고 밝혔다.",
-   "press": "국민일보",
-   "time": "2026-11-19T00:56:07+09:00",
-   "url": "https://n.news.naver.com/mnews/article/005/0001886063",
-   "theme": "robot",
-   "theme_label": "로봇·자율주행",
-   "tags": [
-    "드론"
-   ],
-   "section": "산업/재계",
-   "relevance": 10,
-   "source": "section",
-   "leaders": [
-    "지슨",
-    "라온시큐어",
-    "샌즈랩"
-   ],
-   "issue_rank": 7
-  },
-  {
-   "id": "586/0000142581",
-   "title": "수능 D-day, 개인 사인펜 못 쓴다…단추엔 스티커, 안경은 매 교시 점검",
-   "summary": "[이태준 기자 jun@sisajournal.com] 스마트안경 착용만으로 시험 무효…이듬해 응시 자격도 정지 개인 필기구는 흑색 연필만 허용…오전 8시10분까지 입실해야 대학수학능력시험(수능)이 이틀 앞으로 다가온 17일 서울 성북구 강북종로학원에서 수험생들이 공부를 하고 있다.",
-   "press": "시사저널",
-   "time": "2026-11-19T00:15:08+09:00",
-   "url": "https://n.news.naver.com/article/586/0000142581",
+   "id": "020/0003763585",
+   "title": "재난문자 논란에… 李 “2~3분이면 끝나, 방해됐다면 시험 연장”",
+   "summary": "[오늘 수능 ‘AI 커닝’ 비상] 수능 전날까지 우왕좌왕 대책 교육부 “돌발상황 땐 매뉴얼 따라 시험장 책임자 판단으로 연장 결정” 온라인엔 ‘재난문자 차단 가능’ 주장 시험장 100m내 공공와이파이 끊어 한성숙 국무총리(오른쪽)와 최인호 대통령정무수석비서관(가운데), 최교진 교육부 장관이…",
+   "press": "동아일보",
+   "time": "2026-11-19T04:35:19+09:00",
+   "url": "https://n.news.naver.com/article/020/0003763585",
    "theme": "aisec",
    "theme_label": "AI·보안",
    "tags": [
-    "수능"
+    "재난문자",
+    "시험"
    ],
    "section": "네이버 메인",
-   "relevance": 7,
+   "relevance": 10,
    "source": "main",
    "leaders": [
     "지슨",
     "라온시큐어",
     "샌즈랩"
    ],
-   "issue_rank": 8
+   "issue_rank": 10
+  },
+  {
+   "id": "293/0000093484",
+   "title": "엔비디아, 경영 공백에도 매출 전망 상향…시장 우려 완화될까",
+   "summary": "미국 반도체기업 엔비디아가 시장 예상을 크게 웃도는 실적 전망을 내놓으며 젠슨 황 전 최고경영자(CEO)의 퇴임으로 경영 불확실성이 커졌지만 컴퓨팅 수요 급증세가 지속될 수 있음을 시사했다.",
+   "press": "블로터",
+   "time": "2026-11-19T01:03:10+09:00",
+   "url": "https://n.news.naver.com/article/293/0000093484",
+   "theme": "semiconductor",
+   "theme_label": "반도체·AI",
+   "tags": [
+    "엔비디아"
+   ],
+   "section": "네이버 메인",
+   "relevance": 10,
+   "source": "main",
+   "leaders": [
+    "한미반도체",
+    "이수페타시스",
+    "가온칩스",
+    "티엘비"
+   ],
+   "issue_rank": 11
   },
   {
    "id": "293/0000093483",
@@ -3607,7 +3950,7 @@
    "relevance": 7,
    "source": "main",
    "leaders": [],
-   "issue_rank": 9
+   "issue_rank": 12
   },
   {
    "id": "421/0009297346",
@@ -3630,7 +3973,7 @@
     "한신기계",
     "보성파워텍"
    ],
-   "issue_rank": 10
+   "issue_rank": 13
   },
   {
    "id": "024/0000109729",
@@ -3648,92 +3991,45 @@
    "relevance": 10,
    "source": "main",
    "leaders": [],
-   "issue_rank": 11
-  },
-  {
-   "id": "374/0000544570",
-   "title": "신동빈 \"롯데바이오, 그룹의 미래\"…송도 공장 내년 가동 [현장영상]",
-   "summary": "박제임스 롯데바이오로직스 대표이사는 \"송도 바이오 캠퍼스 제1공장 준공은 하나의 생산시설을 완성했다는 의미를 넘어 롯데바이오로직스가 새로운 도약을 준비하는 출발점\"이라며 \"글로벌 CDMO 무대 도약을 위한 견고한 초석이 될 것\"이라고 말했습니다.",
-   "press": "SBS Biz",
-   "time": "2026-11-18T18:40:09+09:00",
-   "url": "https://n.news.naver.com/article/374/0000544570",
-   "theme": "bio",
-   "theme_label": "바이오·헬스케어",
-   "tags": [
-    "바이오"
-   ],
-   "section": "네이버 메인",
-   "relevance": 13,
-   "source": "main",
-   "leaders": [
-    "알테오젠",
-    "HLB",
-    "삼성바이오로직스"
-   ],
-   "issue_rank": 12
-  },
-  {
-   "id": "648/0000052759",
-   "title": "코스피 5000선 회복, 앤트로픽 IPO에 쏠리는 시선",
-   "summary": "인공지능(AI) 챗봇 '클로드' 개발사 앤트로픽의 기업공개(IPO)에 약 5000억달러(약 730조원)의 투자 수요가 몰렸다. AI 거품 논란과 금리 인상 우려에도 기관투자자와 개인투자자의 주문이 폭증하면서 앤트로픽",
-   "press": "비즈워치",
-   "time": "2026-11-18T16:44:13+09:00",
-   "url": "https://n.news.naver.com/article/648/0000052759",
-   "theme": "macro",
-   "theme_label": "거시·환율·금리",
-   "tags": [
-    "코스피"
-   ],
-   "section": "네이버 메인",
-   "relevance": 19,
-   "source": "main",
-   "leaders": [],
-   "issue_rank": 13
-  },
-  {
-   "id": "422/0000927577",
-   "title": "앨리스 황, 日에도 데이터센터 업체 설립…칩 수출 우회로 노렸나",
-   "summary": "앨리스 황과 젠슨 황 전 엔비디아 최고경영자(CEO) [로이터=연합뉴스 제공] 엔비디아 최첨단 반도체의 중국 반출 의혹에 연루된 앨리스 황이 일본에도 데이터센터 기업을 설립한 것으로 알려지며 일본을 '수출 우회로'로 삼으려 했던 것 아니냐는 해석이 나왔습니다.",
-   "press": "연합뉴스TV",
-   "time": "2026-11-18T20:54:11+09:00",
-   "url": "https://n.news.naver.com/article/422/0000927577",
-   "theme": "semiconductor",
-   "theme_label": "반도체·AI",
-   "tags": [
-    "데이터센터"
-   ],
-   "section": "네이버 메인",
-   "relevance": 7,
-   "source": "main",
-   "leaders": [
-    "한미반도체",
-    "이수페타시스",
-    "가온칩스",
-    "티엘비"
-   ],
    "issue_rank": 14
   },
   {
-   "id": "437/0000521358",
-   "title": "\"속성 과외\" 요청한 그 문제 그대로 AI에…결과는 '오답'",
-   "summary": "인식 어려운 그림 위주 문항 설명법만 속성 습득 [앵커] 특히 이 씨에게 직접 과외를 해줬다는 과외생이 나타나면서 지난해 딱 한 문제만 틀린 수능도 부정행위의 결과일 수 있다는 의혹이 커졌습니다.",
-   "press": "JTBC",
-   "time": "2026-11-18T19:33:14+09:00",
-   "url": "https://n.news.naver.com/article/437/0000521358",
-   "theme": "semiconductor",
-   "theme_label": "반도체·AI",
+   "id": "215/0001273194",
+   "title": "6개월 새 반토막 났는데…\"왕이 되려는 자\" 평가 된 종목 [주식R]",
+   "summary": "메리츠증권, 한화에어로스페이스 분석 개시 2028년 영업익 6조원·수주잔고 87.9조원 전망 메리츠증권은 18일 한화에어로스페이스에 대한 기업분석을 새로 개시하면서 투자의견 '매수'와 적정주가 90만원을 제시했다.",
+   "press": "한국경제TV",
+   "time": "2026-11-18T20:02:00+09:00",
+   "url": "https://n.news.naver.com/article/215/0001273194",
+   "theme": "etc",
+   "theme_label": "기타",
+   "tags": [],
+   "section": "네이버 메인",
+   "relevance": 0,
+   "source": "main",
+   "leaders": [],
+   "issue_rank": 15
+  },
+  {
+   "id": "656/0000192855",
+   "title": "충청권 수능 한파… 새벽 눈·비, 도로 살얼음",
+   "summary": "대전일보DB 대학수학능력시험이 치러지는 19일 아침 충청지역은 영하권으로 떨어지는 등 수능 한파가 찾아오겠다. 비 또는 눈도 예보됨에 따라 수험생들의 시험장 이동에 각별한 주의가 필요하다.",
+   "press": "대전일보",
+   "time": "2026-11-18T19:51:11+09:00",
+   "url": "https://n.news.naver.com/article/656/0000192855",
+   "theme": "disaster",
+   "theme_label": "재난·안전",
    "tags": [
-    "AI"
+    "한파"
    ],
    "section": "네이버 메인",
-   "relevance": 4,
+   "relevance": 10,
    "source": "main",
    "leaders": [
-    "지슨",
-    "라온시큐어",
-    "샌즈랩"
+    "삼영엠텍",
+    "파라텍",
+    "포메탈"
    ],
-   "issue_rank": 15
+   "issue_rank": 16
   },
   {
    "id": "016/0002725338",
@@ -3756,7 +4052,52 @@
     "이수페타시스",
     "가온칩스"
    ],
-   "issue_rank": 16
+   "issue_rank": 17
+  },
+  {
+   "id": "014/0005606396",
+   "title": "돌아오겠다는 젠슨 황… 엔비디아는 내·외부서 차기리더 물색",
+   "summary": "후임 CEO 영입 본격화 英 ARM 르네 하스 CEO '물망' 헤드헌터 고용해 물밑 접촉나서 이언 벅 엔비디아 부사장도 거론 트럼프 \"팀쿡이 가장 적합\" 언급 젠슨 황 \"이사회 요청하면 복귀\" 엔비디아가 불륜으로 인한 물의로 사임한 젠슨 황 전 최고경영자(CEO)의 후임 찾기에 본격적으로…",
+   "press": "파이낸셜뉴스",
+   "time": "2026-11-18T18:24:19+09:00",
+   "url": "https://n.news.naver.com/article/014/0005606396",
+   "theme": "semiconductor",
+   "theme_label": "반도체·AI",
+   "tags": [
+    "엔비디아"
+   ],
+   "section": "네이버 메인",
+   "relevance": 13,
+   "source": "main",
+   "leaders": [
+    "한미반도체",
+    "이수페타시스",
+    "가온칩스",
+    "티엘비"
+   ],
+   "issue_rank": 18
+  },
+  {
+   "id": "138/0002249106",
+   "title": "공장 준공 넘어 수익화로…롯데바이오, 2027년 상업생산 본격화 [현장]",
+   "summary": "“한미 생산거점 통합 운영·고객 맞춤형 전략으로 후발주자 한계 극복” 박제임스 롯데바이오로직스 대표이사가 18일 인천 송도 바이오 캠퍼스에서 열린 제1공장 준공 기념 기자간담회에서 인사말을 하고 있다.",
+   "press": "디지털데일리",
+   "time": "2026-11-18T17:10:06+09:00",
+   "url": "https://n.news.naver.com/article/138/0002249106",
+   "theme": "bio",
+   "theme_label": "바이오·헬스케어",
+   "tags": [
+    "바이오"
+   ],
+   "section": "네이버 메인",
+   "relevance": 13,
+   "source": "main",
+   "leaders": [
+    "알테오젠",
+    "HLB",
+    "삼성바이오로직스"
+   ],
+   "issue_rank": 19
   },
   {
    "id": "015/0005355514",
@@ -3779,7 +4120,7 @@
     "유일로보틱스",
     "계양전기"
    ],
-   "issue_rank": 17
+   "issue_rank": 20
   },
   {
    "id": "657/0000057595",
@@ -3797,32 +4138,14 @@
    "relevance": 7,
    "source": "main",
    "leaders": [],
-   "issue_rank": 18
-  },
-  {
-   "id": "024/0000109727",
-   "title": "이혜훈, 반포 원펜타스 당첨 취소되나…국토부, 조합에 공문",
-   "summary": "",
-   "press": "매경이코노미",
-   "time": "2026-11-18T18:01:06.378195+09:00",
-   "url": "https://n.news.naver.com/article/024/0000109727",
-   "theme": "policy",
-   "theme_label": "정책·건설",
-   "tags": [
-    "국토부"
-   ],
-   "section": "네이버 메인",
-   "relevance": 7,
-   "source": "main",
-   "leaders": [],
-   "issue_rank": 19
+   "issue_rank": 21
   },
   {
    "id": "584/0000040208",
    "title": "[의학바이오게시판] 서울아산병원서 배운 러시아 의료진, 현지서 첫 갑상선 고주파절제술 外",
-   "summary": "",
+   "summary": "백정환 서울아산병원 영상의학과 교수(오른쪽)가 갑상선암 재발 환자에게 고주파 치료를 시행하고 있다. 서울아산병원 제공 ■ 서울아산병원은 러시아 세체노프 국립 의과대학 막심 살리바 교수와 현지 의료진이 지난 9월 환자 5명에게 갑상선 고주파절제술을 시행했다고 18일 밝혔다.",
    "press": "동아사이언스",
-   "time": "2026-11-18T18:01:06.378195+09:00",
+   "time": "2026-11-18T17:33:08+09:00",
    "url": "https://n.news.naver.com/article/584/0000040208",
    "theme": "bio",
    "theme_label": "바이오·헬스케어",
@@ -3838,29 +4161,25 @@
     "HLB",
     "삼성바이오로직스"
    ],
-   "issue_rank": 20
+   "issue_rank": 22
   },
   {
-   "id": "584/0000040211",
-   "title": "빛·소리로 알츠하이머 치료 임상 실패…\"인지 저하 못 늦춰\"",
-   "summary": "미국 의료기기 기업 '코그니토 테라퓨틱스'가 개발한 알츠하이머 치료기기 '스펙트리스 AD(Cognito Therapeutics)'. 약 1년간의 임상 시험 결과 알츠하이머 치료 효과가 확인되지 않았다.",
-   "press": "동아사이언스",
-   "time": "2026-11-18T17:47:08+09:00",
-   "url": "https://n.news.naver.com/article/584/0000040211",
-   "theme": "bio",
-   "theme_label": "바이오·헬스케어",
+   "id": "024/0000109727",
+   "title": "이혜훈, 반포 원펜타스 당첨 취소되나…국토부, 조합에 공문",
+   "summary": "장남 부양가족 허위 등록 혐의 40억원 안팎 시세차익 기대 이혜훈 전 의원. (연합뉴스) 이혜훈 전 기획예산처 장관 후보자 부부가 당첨된 서울 서초구 반포동 ‘래미안 원펜타스’ 분양계약이 무효가 될 공산이 커졌다.",
+   "press": "매경이코노미",
+   "time": "2026-11-18T17:17:11+09:00",
+   "url": "https://n.news.naver.com/article/024/0000109727",
+   "theme": "policy",
+   "theme_label": "정책·건설",
    "tags": [
-    "임상"
+    "국토부"
    ],
    "section": "네이버 메인",
-   "relevance": 10,
+   "relevance": 7,
    "source": "main",
-   "leaders": [
-    "알테오젠",
-    "HLB",
-    "삼성바이오로직스"
-   ],
-   "issue_rank": 21
+   "leaders": [],
+   "issue_rank": 23
   },
   {
    "id": "123/0002394332",
@@ -3876,7 +4195,30 @@
    "relevance": 0,
    "source": "main",
    "leaders": [],
-   "issue_rank": 22
+   "issue_rank": 24
+  },
+  {
+   "id": "353/0000057290",
+   "title": "스타플러스레전드·갤럭시, AI 로봇 엔터테인먼트 사업 공동 추진",
+   "summary": "스타플러스레전드·갤럭시, AI 로봇 엔터테인먼트 사업 공동 추진 스타플러스레전드 홀딩스(Star Plus Legend Holdings Limited, 이하 스타플러스레전드)와 갤럭시코퍼레이션(Galaxy Corporation Co., Ltd., 이하 갤럭시)이 AI와 로봇 엔터테인먼트 분야…",
+   "press": "중앙SUNDAY",
+   "time": "2026-11-18T16:51:09+09:00",
+   "url": "https://n.news.naver.com/article/353/0000057290",
+   "theme": "robot",
+   "theme_label": "로봇·자율주행",
+   "tags": [
+    "로봇"
+   ],
+   "section": "네이버 메인",
+   "relevance": 10,
+   "source": "main",
+   "leaders": [
+    "레인보우로보틱스",
+    "클로봇",
+    "유일로보틱스",
+    "계양전기"
+   ],
+   "issue_rank": 25
   },
   {
    "id": "016/0002725266",
@@ -3894,14 +4236,37 @@
    "relevance": 7,
    "source": "main",
    "leaders": [],
-   "issue_rank": 23
+   "issue_rank": 26
+  },
+  {
+   "id": "262/0000019862",
+   "title": "뇌전증 신약이 바꾼 ‘삶의 가치’…SK바이오팜의 남다른 ESG 성과",
+   "summary": "[K사회적가치·ESG, 경제를 살리다] 매출은 처방으로, 사회적 가치는 환자·보호자의 일상으로 원종석 SK바이오팜 ESG·CSR 리더가 11월 3일 서울 여의도 FKI타워 컨퍼런스센터에서 열린 제10회 ‘K사회적가치·ESG, 경제를 살리다’ 포럼에서 SK바이오팜의 지속가능경영 전략을 소개하고…",
+   "press": "신동아",
+   "time": "2026-11-18T13:01:07+09:00",
+   "url": "https://n.news.naver.com/article/262/0000019862",
+   "theme": "bio",
+   "theme_label": "바이오·헬스케어",
+   "tags": [
+    "신약",
+    "바이오"
+   ],
+   "section": "네이버 메인",
+   "relevance": 19,
+   "source": "main",
+   "leaders": [
+    "알테오젠",
+    "HLB",
+    "삼성바이오로직스"
+   ],
+   "issue_rank": 27
   },
   {
    "id": "648/0000052733",
    "title": "SK온·현대차, 美 배터리 셀 합작 첫 매출 겨우 157억",
-   "summary": "SK온·현대차 3.2조 투자 HSBMA 7월 가동 HSBMA, 3분기 매출 157억 영업손실 1084억 초기 고정비 부담 높은데 美전기차 판매 감소 지난 6월 가동을 시작한 SK온·현대차 미국 합작 배터리 셀 법인(HSBMA)의 첫 성적표가 나왔다.",
+   "summary": "",
    "press": "비즈워치",
-   "time": "2026-11-18T09:16:17+09:00",
+   "time": "2026-11-18T09:38:45.593214+09:00",
    "url": "https://n.news.naver.com/article/648/0000052733",
    "theme": "battery",
    "theme_label": "2차전지·에너지",
@@ -3917,7 +4282,7 @@
     "리튬포어스",
     "하이드로리튬"
    ],
-   "issue_rank": 24
+   "issue_rank": 28
   },
   {
    "id": "640/0000097033",
@@ -3941,7 +4306,7 @@
     "스페코",
     "한일단조"
    ],
-   "issue_rank": 25
+   "issue_rank": 29
   },
   {
    "id": "308/0000038992",
@@ -3962,7 +4327,7 @@
     "현대차",
     "기아"
    ],
-   "issue_rank": 26
+   "issue_rank": 30
   }
  ]
 }
