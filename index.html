@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>증시 뉴스 레이더 · 실시간 속보 / 오늘 상한가 / 테마달력</title>
+<title>뉴스레이더 · 실시간 속보 / 오늘 상한가 / 테마달력</title>
 <meta property="description" content="네이버 금융 실시간 속보·이슈 순위에 더해, 오늘 상한가 종목과 그 이유 요약, 최근 12개월 상한가 테마 달력까지 한 화면에 보여주는 무료 증시 뉴스 대시보드">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="증시 뉴스 레이더">
-<meta property="og:title" content="증시 뉴스 레이더 · 실시간 속보 + 오늘 상한가 + 테마달력">
+<meta property="og:site_name" content="뉴스레이더">
+<meta property="og:title" content="뉴스레이더 · 실시간 속보 + 오늘 상한가 + 테마달력">
 <meta property="og:description" content="5분마다 갱신 — 실시간 속보·이슈 순위, 오늘 상한가 종목과 이슈 요약, 최근 12개월 상한가 테마 달력">
 <meta property="og:url" content="https://crawler5696.github.io/">
 <meta property="og:image" content="https://crawler5696.github.io/icons/icon-512.png">
@@ -70,19 +70,26 @@
   .refresh.spinning{animation:spin .8s linear infinite}
   @keyframes spin{to{transform:rotate(360deg)}}
 
-  /* ---------- 3단 탭 ---------- */
-  .tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;padding:0 0 6px}
+  /* ---------- 4단 탭 ---------- */
+  .tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;padding:0 0 6px}
   .tab{
     appearance:none;border:1px solid var(--line);background:rgba(255,255,255,.03);
-    color:var(--dim);font-family:inherit;font-size:12.5px;font-weight:700;letter-spacing:-.2px;
-    padding:6px 3px;border-radius:9px;cursor:pointer;white-space:nowrap;transition:.15s;
-    display:flex;align-items:center;justify-content:center;gap:3px;
+    color:var(--dim);font-family:inherit;font-size:12px;font-weight:700;letter-spacing:-.3px;
+    padding:6px 2px;border-radius:9px;cursor:pointer;white-space:nowrap;transition:.15s;
+    display:flex;align-items:center;justify-content:center;gap:2px;
   }
   .tab:active{transform:scale(.97)}
   .tab[aria-selected="true"]{
     color:#fff;border-color:transparent;background:linear-gradient(135deg,#4f8cff,#7c5cff);
     box-shadow:0 3px 12px rgba(79,140,255,.32);
   }
+  /* 레이더 — 빨간 글씨로 따로 눈에 띄게 */
+  .tab.radar{color:#ff5c5c;border-color:rgba(255,92,92,.34);background:rgba(255,92,92,.08)}
+  .tab.radar[aria-selected="true"]{
+    color:#fff;border-color:transparent;background:linear-gradient(135deg,#ff3b4e,#ff7a5c);
+    box-shadow:0 3px 12px rgba(255,92,92,.34);
+  }
+  @media (max-width:410px){ .tab{font-size:11.2px;padding:6px 1px;gap:1px;letter-spacing:-.4px} }
 
   /* ---------- controls ---------- */
   .meta{display:flex;flex-wrap:wrap;row-gap:2px;align-items:center;gap:6px;font-size:11.5px;color:var(--dim2);padding:5px 1px 4px}
@@ -105,18 +112,6 @@
   }
   .search input:focus{border-color:rgba(79,140,255,.55);background:var(--card2)}
   .search .ic{position:absolute;left:9px;top:calc(50% - 13px);color:var(--dim2);font-size:11px}
-
-  .chips{display:flex;gap:5px;overflow-x:auto;padding:1px 0 6px;scrollbar-width:none;-ms-overflow-style:none}
-  .chips::-webkit-scrollbar{display:none}
-  .chip{
-    flex:none;border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--dim);
-    border-radius:20px;padding:5px 10px;font-size:11.5px;font-weight:600;cursor:pointer;
-    white-space:nowrap;transition:.15s;font-family:inherit;display:flex;align-items:center;gap:4px;
-  }
-  .chip .n{font-size:10px;color:var(--dim2);font-weight:700}
-  .chip[aria-pressed="true"]{color:#fff;border-color:transparent;background:linear-gradient(135deg,#4f8cff,#7c5cff);
-    box-shadow:0 3px 12px rgba(79,140,255,.32)}
-  .chip[aria-pressed="true"] .n{color:rgba(255,255,255,.8)}
 
   /* ---------- 구역 머리 ---------- */
   main{padding-top:1px}
@@ -298,6 +293,31 @@
   .stk b{font-size:11px;font-weight:700;color:#e8eefc}
   .stk i{font-style:normal;font-size:9.5px;color:#ff9aa8;font-weight:700;white-space:nowrap}
 
+  /* ---------- 레이더 ---------- */
+  .radar-note{display:flex;align-items:center;font-size:11px;color:#ffb3b3;
+    background:rgba(255,92,92,.08);border:1px solid rgba(255,92,92,.24);
+    border-radius:8px;padding:5px 8px;margin:0 1px 8px;line-height:1.4}
+  .rd-card{position:relative;background:var(--card);border:1px solid var(--line);
+    border-radius:11px;padding:9px 10px 8px 13px;margin-bottom:7px;overflow:hidden}
+  .rd-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--c,#4f8cff)}
+  .rd-top{display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+  .rd-rank{flex:none;font-size:10px;font-weight:800;color:#fff;background:var(--c,#4f8cff);
+    padding:1px 6px;border-radius:5px;letter-spacing:-.2px}
+  .rd-theme{font-size:13.5px;font-weight:800;letter-spacing:-.3px;line-height:1.25}
+  .rd-cnt{margin-left:auto;font-size:10px;font-weight:700;color:var(--dim);
+    background:rgba(255,255,255,.05);border:1px solid var(--line);padding:1px 6px;border-radius:6px}
+  .rd-why{font-size:11.5px;color:#c2cde0;line-height:1.5;margin:5px 0 7px;letter-spacing:-.1px}
+  .rd-stks{display:flex;flex-direction:column;gap:4px}
+  .rd-stk{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.035);
+    border:1px solid var(--line);border-radius:8px;padding:5px 8px;min-width:0}
+  .rd-stk b{font-size:12.5px;font-weight:700;color:#eef2fa;letter-spacing:-.2px;
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .rd-stk .px{font-size:10.5px;color:var(--dim2);font-weight:600;white-space:nowrap;flex:none}
+  .rd-stk .drp{margin-left:auto;flex:none;min-width:27px;text-align:center;font-size:11.5px;font-weight:800;
+    color:#fff;background:rgba(255,90,110,.2);border:1px solid rgba(255,90,110,.45);
+    border-radius:6px;padding:1px 5px;font-variant-numeric:tabular-nums}
+  .rd-warn{font-size:10.5px;color:#ffb27a;margin:6px 0 0}
+
   .empty{text-align:center;color:var(--dim2);padding:40px 16px;font-size:12px;line-height:1.7}
   .skeleton{height:56px;border-radius:10px;background:linear-gradient(90deg,#141d33,#1b2743,#141d33);
     background-size:200% 100%;animation:sk 1.4s infinite;margin-bottom:6px}
@@ -326,7 +346,7 @@
   <div class="wrap">
     <div class="top">
       <div class="logo" aria-hidden="true"><svg viewBox="0 0 64 64" width="19" height="19"><path d="M10 46 L22 33 L31 39 L44 23 L54 14 L54 49 L10 49 Z" fill="rgba(255,255,255,.22)"/><path d="M10 46 L22 33 L31 39 L44 23 L54 14" fill="none" stroke="#fff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="54" cy="14" r="3.6" fill="#fff"/></svg></div>
-      <div class="brand">증시 뉴스 레이더<small>실시간 속보 · 오늘 상한가 · 테마달력</small></div>
+      <div class="brand">뉴스레이더<small>실시간 속보 · 오늘 상한가 · 테마달력</small></div>
       <div class="spacer"></div>
       <div class="live" id="live"><span class="dot"></span><span id="liveTxt">LIVE</span></div>
       <button class="refresh" id="btnRefresh" aria-label="새로고침" title="새로고침 — 최신 뉴스를 지금 다시 받아옵니다">⟳</button>
@@ -335,6 +355,7 @@
       <button class="tab" role="tab" data-tab="news" aria-selected="true">📰 뉴스</button>
       <button class="tab" role="tab" data-tab="upper" aria-selected="false">🚀 상한가</button>
       <button class="tab" role="tab" data-tab="calendar" aria-selected="false">📅 테마달력</button>
+      <button class="tab radar" role="tab" data-tab="radar" aria-selected="false">레이더</button>
     </div>
   </div>
 </header>
@@ -351,7 +372,6 @@
       <span class="ic">🔍</span>
       <input id="q" type="search" inputmode="search" placeholder="종목·키워드 검색 (예: 반도체, 상한가)" autocomplete="off">
     </div>
-    <div class="chips" id="chips"></div>
 
     <div class="sechead"><span class="bar"></span>⚡ 실시간 속보
       <span class="cnt" id="flashCnt">–</span>
@@ -397,6 +417,19 @@
     </p>
   </section>
 
+  <section class="view" data-view="radar" id="view-radar" hidden>
+    <div class="viewhead"><b style="color:#ff5c5c">레이더</b><span id="radarSub"></span></div>
+    <div class="radar-note" id="radarNote">종목 옆 숫자 = 고점 대비 하락 % (예: 67 → -67%)</div>
+    <div id="radarList">
+      <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
+    </div>
+    <p class="note">
+      순서는 <b>공개 뉴스·일정</b>과 <b>공개 시세</b>로 정리한 참고 목록입니다.
+      종목 옆 숫자는 <b>고점 대비 하락 %</b>의 정수이고, 숫자 앞 가격은 기준일 종가입니다.
+      투자 권유가 아닙니다.
+    </p>
+  </section>
+
   <section class="view" data-view="calendar" id="view-calendar" hidden>
     <div class="viewhead"><b>📅 테마달력</b><span id="calSub"></span></div>
     <div class="mon-grid" id="monGrid"></div>
@@ -425,8 +458,8 @@
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
-const state = { data:null, calendar:null, month:null, theme:'all', q:'', tab:'news', more:false, open:new Set() };
-const TABS = ['news','upper','calendar'];
+const state = { data:null, calendar:null, radar:null, month:null, q:'', tab:'news', more:false, open:new Set() };
+const TABS = ['news','upper','calendar','radar'];
 const FIRST_ISSUES = 14;   // 이슈 순위 첫 화면 14건 (속보 6건과 3:7)
 
 const $ = s => document.querySelector(s);
@@ -481,18 +514,13 @@ function matches(a, q){
 
 function flashList(){
   const q = state.q.trim().toLowerCase();
-  const items = flashAll().filter(a => {
-    if(state.theme !== 'all' && a.theme !== state.theme) return false;
-    return matches(a, q);
-  });
-  return items;
+  return flashAll().filter(a => matches(a, q));
 }
 
 function issueList(){
   const q = state.q.trim().toLowerCase();
   const flashNorms = flashAll().map(a => normTitle(a.title));
   return issueAll().filter(a => {
-    if(state.theme !== 'all' && a.theme !== state.theme) return false;
     if(!q){
       const n = normTitle(a.title);
       if(flashNorms.some(f => sameStory(n, f))) return false;   // 속보와 중복되는 이슈는 이슈 목록에서 뺀다
@@ -511,27 +539,10 @@ function switchTab(name, keepScroll){
   if(!keepScroll) window.scrollTo({top:0});
   if(name === 'upper') renderUpper();
   if(name === 'calendar') renderCalendar();
+  if(name === 'radar') renderRadar();
 }
 
 /* ---------------- 뉴스 ---------------- */
-let lastChipHtml = '';
-function renderChips(){
-  const total = issueAll().length;
-  let html = `<button class="chip" data-theme="all" aria-pressed="${state.theme==='all'}">전체 <span class="n">${total}</span></button>`;
-  for(const t of themesList()){
-    html += `<button class="chip" data-theme="${esc(t.id)}" aria-pressed="${state.theme===t.id}"
-      style="${state.theme===t.id?'':`color:${t.color}`}">${esc(t.label)} <span class="n">${t.count}</span></button>`;
-  }
-  if(html === lastChipHtml) return;
-  lastChipHtml = html;
-  const box = $('#chips');
-  box.innerHTML = html;
-  box.querySelectorAll('.chip').forEach(b => b.onclick = () => {
-    state.theme = b.dataset.theme; state.more = false;
-    renderChips(); renderNews(true);
-  });
-}
-
 function leadBadge(leaders){
   const names = (leaders||[]).filter(Boolean).slice(0,2);
   if(!names.length) return '';
@@ -584,7 +595,7 @@ let lastFlashHtml = '';
 let lastIssueHtml = '';
 function renderNews(force){
   if(!state.data) return;
-  const key = [state.data.generated_at, state.theme, state.q, state.more?1:0].join('|');
+  const key = [state.data.generated_at, state.q, state.more?1:0].join('|');
   if(!force && key === lastKey) return;
   lastKey = key;
 
@@ -593,7 +604,7 @@ function renderNews(force){
 
   const fh = fl.length
     ? fl.map(flashHtml).join('')
-    : `<div class="mini-empty">${state.q||state.theme!=='all'?'조건에 맞는 속보가 없습니다.':'수집된 속보가 없습니다.'}</div>`;
+    : `<div class="mini-empty">${state.q?'조건에 맞는 속보가 없습니다.':'수집된 속보가 없습니다.'}</div>`;
   if(fh !== lastFlashHtml){
     lastFlashHtml = fh;
     $('#flashList').innerHTML = fh;
@@ -605,7 +616,7 @@ function renderNews(force){
   const shown = state.more ? iss : iss.slice(0, FIRST_ISSUES);
   const ih = shown.length
     ? shown.map(issueHtml).join('')
-    : `<div class="mini-empty">${state.q||state.theme!=='all'?'조건에 맞는 이슈가 없습니다.':'수집된 이슈가 없습니다.'}</div>`;
+    : `<div class="mini-empty">${state.q?'조건에 맞는 이슈가 없습니다.':'수집된 이슈가 없습니다.'}</div>`;
   if(ih !== lastIssueHtml){
     lastIssueHtml = ih;
     $('#issueList').innerHTML = ih;
@@ -746,6 +757,60 @@ async function renderCalendar(){
 }
 
 
+/* ---------------- 레이더 (순차별 테마·종목) ---------------- */
+async function ensureRadar(){
+  if(state.radar) return state.radar;
+  try{
+    const res = await fetch('data/radar.json?_=' + Date.now(), {cache:'no-store'});
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    state.radar = await res.json();
+    try{ localStorage.setItem('newsradar_radar', JSON.stringify(state.radar)); }catch(e){}
+  }catch(err){
+    try{ state.radar = JSON.parse(localStorage.getItem('newsradar_radar') || 'null'); }catch(e){}
+  }
+  return state.radar;
+}
+
+function radarStockHtml(s){
+  const drop = (s.drop === 0 || s.drop) ? String(s.drop) : '';
+  return `<div class="rd-stk"><b>${esc(s.name)}</b>` +
+    (s.price_text ? `<span class="px">${esc(s.price_text)}</span>` : '') +
+    (drop ? `<span class="drp" title="고점 대비 -${esc(drop)}%">${esc(drop)}</span>` : '') +
+    `</div>`;
+}
+
+function radarTierHtml(t){
+  const stocks = (t.stocks || []);
+  return `<article class="rd-card" style="--c:${esc(t.color || '#4f8cff')}">
+    <div class="rd-top">
+      <span class="rd-rank">${esc(String(t.rank))}순위</span>
+      <span class="rd-theme">${esc(t.theme || '')}</span>
+      <span class="rd-cnt">${stocks.length}종목</span>
+    </div>
+    ${t.why ? `<p class="rd-why">${esc(t.why)}</p>` : ''}
+    <div class="rd-stks">${stocks.map(radarStockHtml).join('')}</div>
+    ${t.watch ? `<p class="rd-warn">⚠ ${esc(t.watch)}</p>` : ''}
+  </article>`;
+}
+
+let radarRendered = '';
+async function renderRadar(force){
+  const box = $('#radarList');
+  if(!box) return;
+  const r = await ensureRadar();
+  const tiers = (r && r.tiers) || [];
+  if($('#radarSub')) $('#radarSub').textContent = (r && r.base_date_text) ? r.base_date_text : '';
+  if($('#radarNote')) $('#radarNote').textContent = (r && r.drop_note) ? r.drop_note : '종목 옆 숫자 = 고점 대비 하락 % (예: 67 → -67%)';
+  if(!tiers.length){
+    box.innerHTML = `<div class="empty">레이더 자료를 불러오지 못했습니다.<br>잠시 후 다시 열어 주세요.</div>`;
+    return;
+  }
+  const html = tiers.map(radarTierHtml).join('');
+  if(!force && html === radarRendered) return;
+  radarRendered = html;
+  box.innerHTML = html;
+}
+
 /* ---------------- 데이터 ---------------- */
 /* 새로고침 결과를 잠깐 띄우는 토스트 (1.8초 뒤 자동으로 사라진다) */
 let toastTimer = null;
@@ -821,11 +886,10 @@ function applyData(data){
   const nf = (data.flash||[]).length;
   const ni = (data.issues || data.articles || []).length;
   $('#total').textContent = `속보 ${nf} · 이슈 ${ni}`;
-  if(state.theme !== 'all' && !(data.themes||[]).some(t => t.id === state.theme)) state.theme = 'all';
-  renderChips();
   renderNews(false);
   if(state.tab === 'upper') renderUpper();
   if(state.tab === 'calendar') renderCalendar();
+  if(state.tab === 'radar') renderRadar();
 }
 
 $('#q').addEventListener('input', e => { state.q = e.target.value; renderNews(true); });

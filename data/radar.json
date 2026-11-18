@@ -1,0 +1,61 @@
+{
+  "generated_at": "2026-11-19T00:20:00+09:00",
+  "generated_at_kst": "2026.11.19 00:20",
+  "base_date": "2026-11-18",
+  "base_date_text": "2026.11.18 종가 기준",
+  "drop_note": "종목 옆 숫자 = 고점 대비 하락 % (예: 67 → -67%)",
+  "tiers": [
+    {
+      "rank": 1,
+      "theme": "반도체 장비·부품",
+      "color": "#4f8cff",
+      "why": "원익IPS 3분기 영업이익 667억(+142%) · 엔비디아 4분기 가이드 1,300억달러 · 11/18 첫 반등 양봉",
+      "stocks": [
+        { "name": "테스", "code": "095610", "drop": 67, "price_text": "79,200원" },
+        { "name": "삼화콘덴서", "code": "001820", "drop": 61, "price_text": "77,600원" }
+      ]
+    },
+    {
+      "rank": 2,
+      "theme": "방산",
+      "color": "#ff8a4c",
+      "why": "11/18 한화시스템 AESA 레이다 미국 첫 수출 · 12월 KF-21 유도탄 계약 대기",
+      "stocks": [
+        { "name": "한화시스템", "code": "272210", "drop": 73, "price_text": "49,600원" }
+      ]
+    },
+    {
+      "rank": 3,
+      "theme": "원전·전력기기",
+      "color": "#7c5cff",
+      "why": "11/25 원전 공론화 토론회 · 체코 원전 정상 추진",
+      "stocks": [
+        { "name": "한전기술", "code": "052690", "drop": 66, "price_text": "67,100원" },
+        { "name": "DL이앤씨", "code": "375500", "drop": 52, "price_text": "49,450원" },
+        { "name": "우리기술", "code": "032820", "drop": 70, "price_text": "8,570원" }
+      ]
+    },
+    {
+      "rank": 4,
+      "theme": "이차전지·ESS",
+      "color": "#3ddc97",
+      "why": "미국 ESS 2028년 완판·연말 추가 수주 · 포스코-CATL 리튬 공급",
+      "stocks": [
+        { "name": "SK아이이테크놀로지", "code": "361610", "drop": 64, "price_text": "12,100원" },
+        { "name": "솔루스첨단소재", "code": "336370", "drop": 60, "price_text": "6,160원" },
+        { "name": "엔켐", "code": "348370", "drop": 86, "price_text": "13,190원" }
+      ]
+    },
+    {
+      "rank": 5,
+      "theme": "정보보안 2군",
+      "color": "#c9a2ff",
+      "why": "11/30 전자금융감독규정 행정지도 · 연쇄 유출 사고",
+      "watch": "거래대금이 얇은 종목입니다",
+      "stocks": [
+        { "name": "드림시큐리티", "code": "203650", "drop": 57, "price_text": "2,050원" },
+        { "name": "아톤", "code": "158430", "drop": 63, "price_text": "4,265원" }
+      ]
+    }
+  ]
+}
