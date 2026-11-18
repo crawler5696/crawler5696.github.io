@@ -1023,9 +1023,8 @@ function hotPosBadge(s){
     if(s.pos_src){
       const w = (typeof s.vr_week === 'number') ? `주봉 ${s.vr_week.toFixed(2)}배` : '';
       const m = (typeof s.vr_month === 'number') ? `월봉 ${s.vr_month.toFixed(2)}배` : '';
-      const pw = s.pos_paced === '주' ? '주' : (s.pos_paced === '월' ? '달' : '');
-      const pace = pw ? ` (이번 ${pw} 환산)` : '';
-      t = ` title="${esc(s.pos_src)} 거래량 = 앞선 10년 최대의 ${best} — ${esc([w, m].filter(Boolean).join(' · '))}${pace}"`;
+      const part = s.pos_partial ? ` (${esc(s.pos_partial)}째 차는 중)` : '';
+      t = ` title="${esc(s.pos_src)} 거래량 = 앞선 10년 최대의 ${best} — ${esc([w, m].filter(Boolean).join(' · '))}${part}"`;
     }else{
       t = ` title="상한가 봉 거래량 = 앞선 10년 최대의 ${best}"`;
     }
