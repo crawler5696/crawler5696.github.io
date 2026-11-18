@@ -727,7 +727,8 @@ function visToggle(){
 }
 /* 주소에 ?me=5696 이 있으면 자동으로 켜 둔다 */
 try{
-  if(new URLSearchParams(location.search).get('me') === VIS_ID){ visSave(true); }
+  const m = /[?&]me=([^&#]*)/.exec(location.search || '');
+  if(m && decodeURIComponent(m[1]) === VIS_ID){ visSave(true); }
 }catch(e){}
 visPaint();
 /* LIVE 배지 1.5초 안 3연속 탭 → 토글 */
