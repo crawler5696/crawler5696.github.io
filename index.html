@@ -336,6 +336,46 @@
     padding:1px 5px;border-radius:5px;white-space:nowrap}
   .radar-how{font-size:10.5px;color:var(--dim2);line-height:1.5;margin:-3px 2px 8px}
 
+  /* ---------- 핫바 (비밀 모드에서만 보인다) ---------- */
+  .tabs.five{grid-template-columns:repeat(5,1fr)}
+  .tab[hidden]{display:none}
+  @media (max-width:410px){ .tabs.five .tab{font-size:10.4px;letter-spacing:-.5px} }
+  .hb-seg{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin:2px 0 6px}
+  .hb-seg button{appearance:none;border:1px solid var(--line);background:rgba(255,255,255,.03);
+    color:var(--dim);font-family:inherit;font-size:12px;font-weight:800;letter-spacing:-.3px;
+    padding:7px 2px;border-radius:9px;cursor:pointer;white-space:nowrap;transition:.15s}
+  .hb-seg button:active{transform:scale(.98)}
+  .hb-seg button .s{display:block;font-size:9px;font-weight:600;color:var(--dim2);letter-spacing:0}
+  .hb-seg button.on{color:#fff;border-color:transparent;background:linear-gradient(135deg,#4f8cff,#7c5cff);
+    box-shadow:0 3px 12px rgba(79,140,255,.3)}
+  .hb-seg button.on .s{color:rgba(255,255,255,.78)}
+  .hb-how{font-size:10.5px;color:var(--dim2);line-height:1.55;margin:0 2px 7px}
+  .hb-grp{margin-bottom:4px}
+  .hb-head{display:flex;align-items:center;gap:6px;margin:9px 1px 5px}
+  .hb-badge{width:21px;height:21px;border-radius:6px;display:grid;place-items:center;
+    font-size:10.5px;font-weight:900;flex:none}
+  .hb-badge.s1{background:rgba(79,140,255,.16);color:#9dbcff;border:1px solid rgba(79,140,255,.42)}
+  .hb-badge.s2{background:rgba(255,179,71,.14);color:#ffc477;border:1px solid rgba(255,179,71,.4)}
+  .hb-badge.s3{background:rgba(61,220,151,.14);color:#63e3ae;border:1px solid rgba(61,220,151,.4)}
+  .hb-desc{font-size:11.5px;font-weight:700;color:var(--dim)}
+  .hb-cnt{margin-left:auto;font-size:10px;font-weight:700;color:var(--dim2);
+    background:rgba(255,255,255,.04);border:1px solid var(--line);padding:1px 6px;border-radius:6px}
+  .hb-row{display:flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--line);
+    border-radius:9px;padding:6px 9px;margin-bottom:4px}
+  .hb-row:active{background:var(--card2)}
+  .hb-l{min-width:0;flex:1}
+  .hb-name{font-size:13px;font-weight:800;letter-spacing:-.3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .hb-note{font-size:9.5px;color:var(--dim2);letter-spacing:-.1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .hb-r{text-align:right;white-space:nowrap;flex:none}
+  .hb-px{font-size:12.5px;font-weight:800;letter-spacing:-.2px}
+  .hb-sub{font-size:10px;font-weight:700;color:var(--dim);display:flex;gap:5px;justify-content:flex-end}
+  .hb-sub .up{color:var(--up)}
+  .hb-sub .dn{color:#5a8cff}
+  .hb-sub .dd{color:var(--dim2);font-weight:600}
+  .hb-more{width:100%;margin:1px 0 4px;padding:6px;border-radius:8px;border:1px dashed var(--line);
+    background:transparent;color:var(--dim2);font-family:inherit;font-size:11px;font-weight:700;cursor:pointer}
+  .hb-empty{font-size:10.5px;color:var(--dim2);padding:4px 3px 6px}
+
   .empty{text-align:center;color:var(--dim2);padding:40px 16px;font-size:12px;line-height:1.7}
   .skeleton{height:56px;border-radius:10px;background:linear-gradient(90deg,#141d33,#1b2743,#141d33);
     background-size:200% 100%;animation:sk 1.4s infinite;margin-bottom:6px}
@@ -374,6 +414,7 @@
       <button class="tab" role="tab" data-tab="upper" aria-selected="false">🚀 상한가</button>
       <button class="tab" role="tab" data-tab="calendar" aria-selected="false">📅 테마달력</button>
       <button class="tab radar" role="tab" data-tab="radar" aria-selected="false" aria-label="레이더">레이더<span class="rdot" id="radarDot" aria-hidden="true"></span></button>
+      <button class="tab hot" role="tab" data-tab="hotbar" aria-selected="false" hidden>핫바</button>
     </div>
   </div>
 </header>
@@ -449,6 +490,24 @@
     </p>
   </section>
 
+  <section class="view" data-view="hotbar" id="view-hotbar" hidden>
+    <div class="viewhead"><b>핫바</b><span id="hotSub"></span></div>
+    <div class="hb-seg" id="hotSeg">
+      <button type="button" data-sec="day" class="on">일봉<span class="s">1·2·3</span></button>
+      <button type="button" data-sec="week">주봉<span class="s">48주 거래량</span></button>
+      <button type="button" data-sec="month">월봉<span class="s">12월 거래량</span></button>
+    </div>
+    <p class="hb-how" id="hotHow"></p>
+    <div id="hotBody">
+      <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
+    </div>
+    <p class="note">
+      <b>1번</b>은 첫 상한가(또는 48·12개월 최대 거래량 돌파) 뒤 고점 자리, <b>2번</b>은 거래량이 줄며 눌린 자리,
+      <b>3번</b>은 거래량이 늘며 첫 반등 양봉이 나온 자리입니다. 숫자 옆 <b>−</b>는 1년 고점 대비 하락 %입니다.
+      최근 3일 평균 거래대금 5억 미만은 뺐고, 투자 권유가 아닙니다.
+    </p>
+  </section>
+
   <section class="view" data-view="calendar" id="view-calendar" hidden>
     <div class="viewhead"><b>📅 테마달력</b><span id="calSub"></span></div>
     <div class="mon-grid" id="monGrid"></div>
@@ -477,8 +536,8 @@
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
-const state = { data:null, calendar:null, radar:null, month:null, q:'', tab:'news', more:false, open:new Set() };
-const TABS = ['news','upper','calendar','radar'];
+const state = { data:null, calendar:null, radar:null, month:null, q:'', tab:'news', more:false, open:new Set(), hotOpen:new Set() };
+const TABS = ['news','upper','calendar','radar','hotbar'];
 const FIRST_ISSUES = 14;   // 이슈 순위 첫 화면 14건 (속보 6건과 3:7)
 
 const $ = s => document.querySelector(s);
@@ -551,6 +610,7 @@ function issueList(){
 /* ---------------- 탭 ---------------- */
 function switchTab(name, keepScroll){
   if(!TABS.includes(name)) name = 'news';
+  if(name === 'hotbar' && !visOn()) name = 'news';   /* 핫바는 비밀 모드에서만 */
   state.tab = name;
   document.querySelectorAll('.tab').forEach(b => b.setAttribute('aria-selected', b.dataset.tab === name));
   document.querySelectorAll('.view').forEach(v => { v.hidden = v.dataset.view !== name; });
@@ -559,6 +619,7 @@ function switchTab(name, keepScroll){
   if(name === 'upper') renderUpper();
   if(name === 'calendar') renderCalendar();
   if(name === 'radar') renderRadar();
+  if(name === 'hotbar') renderHotbar();
 }
 
 /* ---------------- 뉴스 ---------------- */
@@ -883,6 +944,84 @@ async function renderRadar(force){
   box.innerHTML = html;
 }
 
+/* ---------------- 핫바 (비밀 모드에서만 열리는 1·2·3) ----------------
+   일봉 · 주봉(48주 거래량) · 월봉(12월 거래량)의 1번 / 2번 / 3번 자리를 data/hotbar.json 에서 받아 그린다. */
+let hotbarData = null, hotbarSec = 'day';
+const HOT_SHOW = 10;                      /* 단계마다 처음 보이는 종목 수 */
+
+async function ensureHotbar(){
+  if(hotbarData) return hotbarData;
+  try{
+    const res = await fetch('data/hotbar.json?_=' + Date.now(), {cache:'no-store'});
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    hotbarData = await res.json();
+    try{ localStorage.setItem('newsradar_hotbar', JSON.stringify(hotbarData)); }catch(e){}
+  }catch(err){
+    try{ hotbarData = JSON.parse(localStorage.getItem('newsradar_hotbar') || 'null'); }catch(e){}
+  }
+  return hotbarData;
+}
+
+function hotHow(sec){
+  if(sec === 'week') return '주간 거래량이 직전 48주봉 최대 거래량을 넘은 종목부터 · 이번 주는 진행 중이라 실제 누적 거래량으로 비교합니다.';
+  if(sec === 'month') return '월간 거래량이 직전 12개월 최대 거래량을 넘은 종목부터 · 이번 달은 진행 중이라 실제 누적 거래량으로 비교합니다.';
+  return '직전 60일 안에 첫 상한가가 나온 종목 · 첫 상한가 뒤 22거래일 안의 1번(고점) → 2번(눌림) → 3번(첫 반등).';
+}
+
+function hotRowHtml(s){
+  const chg = (s.chg === 0 || s.chg) ? Number(s.chg) : null;
+  const chgTxt = chg === null ? '' : (chg > 0 ? '+' : '') + chg.toFixed(1) + '%';
+  const dd = (s.dd === 0 || s.dd) ? String(s.dd) : '';
+  return `<div class="hb-row">
+    <div class="hb-l">
+      <div class="hb-name">${esc(s.name)}</div>
+      <div class="hb-note">${esc(s.note || '')}</div>
+    </div>
+    <div class="hb-r">
+      <div class="hb-px">${esc(s.price_text || '')}</div>
+      <div class="hb-sub"><span class="${chg !== null && chg < 0 ? 'dn' : 'up'}">${chgTxt}</span>${dd ? `<span class="dd" title="1년 고점 대비 ${esc(dd)}%">${esc(dd)}</span>` : ''}</div>
+    </div>
+  </div>`;
+}
+
+function hotStageHtml(st){
+  const stocks = st.stocks || [];
+  if(!stocks.length){
+    return `<div class="hb-grp">
+      <div class="hb-head"><span class="hb-badge s${st.stage}">${st.stage}</span>
+        <span class="hb-desc">${esc(st.desc)}</span><span class="hb-cnt">0</span></div>
+      <div class="hb-empty">지금은 해당 종목이 없습니다.</div>
+    </div>`;
+  }
+  const open = state.hotOpen && state.hotOpen.has(st.stage);
+  const show = open ? stocks : stocks.slice(0, HOT_SHOW);
+  const rest = stocks.length - show.length;
+  return `<div class="hb-grp">
+    <div class="hb-head"><span class="hb-badge s${st.stage}">${st.stage}</span>
+      <span class="hb-desc">${esc(st.desc)}</span><span class="hb-cnt">${stocks.length}</span></div>
+    ${show.map(hotRowHtml).join('')}
+    ${rest > 0 ? `<button class="hb-more" type="button" data-stage="${st.stage}">${rest}종목 더 보기 ▾</button>` : ''}
+    ${open && stocks.length > HOT_SHOW ? `<button class="hb-more" type="button" data-stage="${st.stage}">접기 ▴</button>` : ''}
+  </div>`;
+}
+
+async function renderHotbar(){
+  if(!visOn()) return;
+  const box = $('#hotBody');
+  if(!box) return;
+  const d = await ensureHotbar();
+  if(!d || !(d.sections || []).length){
+    box.innerHTML = `<div class="empty">핫바 자료를 불러오지 못했습니다.<br>잠시 후 다시 열어 주세요.</div>`;
+    return;
+  }
+  const sec = (d.sections || []).find(x => x.key === hotbarSec) || d.sections[0];
+  hotbarSec = sec.key;
+  if($('#hotSub')) $('#hotSub').textContent = (d.base_date_text || '') + (d.universe ? ` · ${d.universe}종목` : '');
+  if($('#hotHow')) $('#hotHow').textContent = hotHow(sec.key);
+  document.querySelectorAll('#hotSeg button').forEach(b => b.classList.toggle('on', b.dataset.sec === sec.key));
+  box.innerHTML = (sec.stages || []).map(hotStageHtml).join('');
+}
+
 /* ---------------- 데이터 ---------------- */
 /* 새로고침 결과를 잠깐 띄우는 토스트 (1.8초 뒤 자동으로 사라진다) */
 let toastTimer = null;
@@ -1013,6 +1152,23 @@ $('#calAll').addEventListener('click', () => {
   $('#calAll').textContent = allOpen ? '모두 펼치기' : '모두 접기';
 });
 document.querySelectorAll('.tab').forEach(b => b.onclick = () => switchTab(b.dataset.tab));
+/* 핫바: 일봉·주봉·월봉 전환 / 단계별 더 보기 */
+$('#hotSeg').addEventListener('click', e => {
+  const b = e.target.closest('button[data-sec]');
+  if(!b) return;
+  hotbarSec = b.dataset.sec;
+  state.hotOpen.clear();
+  renderHotbar();
+});
+$('#hotBody').addEventListener('click', e => {
+  const b = e.target.closest('.hb-more');
+  if(!b) return;
+  const s = Number(b.dataset.stage);
+  if(state.hotOpen.has(s)) state.hotOpen.delete(s); else state.hotOpen.add(s);
+  renderHotbar();
+  const again = document.querySelector(`#hotBody .hb-more[data-stage="${s}"]`);
+  if(again) again.scrollIntoView({block:'nearest'});
+});
 addEventListener('hashchange', () => {
   let name = (location.hash||'').replace('#','');
   if(name === 'schedules') name = 'upper';
@@ -1064,6 +1220,16 @@ function visPaint(){
   if(!visBadge) return;
   visBadge.hidden = !visOn();
   if(!visBadge.hidden) visNumber();
+  hotPaint();
+}
+/* 핫바도 같은 비밀 인증을 따른다 — 켜져 있을 때만 탭이 나타나고, 끄면 탭째로 사라진다 */
+function hotPaint(){
+  const on = visOn();
+  const tab = document.querySelector('.tab.hot');
+  if(tab) tab.hidden = !on;
+  const bar = document.querySelector('.tabs');
+  if(bar) bar.classList.toggle('five', on);
+  if(!on && state.tab === 'hotbar') switchTab('news');
 }
 function visToggle(){
   visSave(!visOn());
