@@ -612,7 +612,7 @@ function renderSchedules(){
     html += `<article class="sch-card">
       <div class="sch-top">
         <span class="when">${esc(s.when)}</span>${s.ongoing ? '<span class="ong">진행중</span>' : ''}
-        <span class="type">${esc(s.type_label||'')}</span>
+        ${s.type_label && s.type_label !== s.topic ? `<span class="type">${esc(s.type_label)}</span>` : ''}
         <span class="cnt">${list.length}건</span>
       </div>
       <h3 class="sch-topic">${esc(s.topic)}</h3>
