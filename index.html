@@ -110,21 +110,22 @@
   .vbadge:hover{color:var(--dim);border-color:rgba(79,140,255,.45)}
   .vbadge span{color:var(--dim);font-weight:700}
   .vbadge[hidden]{display:none}
-  /* 호재·혼조·악재 전광판 — 헤더의 '뉴스레이더' 제목 바로 옆에 붙는다 */
-  .mood{display:inline-flex;align-items:center;gap:4px;flex:none;white-space:nowrap;
-    font-size:10.5px;font-weight:800;letter-spacing:-.2px;
+  /* 호재·혼조·악재 전광판 — 헤더의 '뉴스레이더' 제목 바로 옆에 🇰🇷 · 🇺🇸 두 개 */
+  .mood{display:inline-flex;align-items:center;gap:3px;flex:none;white-space:nowrap;
+    font-size:10.5px;font-weight:800;letter-spacing:-.3px;
     border:1px solid var(--line);background:rgba(255,255,255,.03);
-    padding:1px 7px 1px 6px;border-radius:20px;transition:color .2s,border-color .2s;
-    margin-left:-2px}
+    padding:1px 6px 1px 4px;border-radius:20px;transition:color .2s,border-color .2s}
   .mood[hidden]{display:none}
-  .mood .mdot{width:5px;height:5px;border-radius:50%;background:currentColor;animation:pulse 1.8s infinite}
+  .mood .flag{font-size:11px;line-height:1;font-weight:400;letter-spacing:0}
   .mood.good{color:#3ddc97;border-color:rgba(61,220,151,.32);background:rgba(61,220,151,.1)}
   .mood.mid{color:#ffc477;border-color:rgba(255,196,119,.32);background:rgba(255,179,71,.1)}
   .mood.bad{color:#ff6b7d;border-color:rgba(255,90,110,.32);background:rgba(255,90,110,.1)}
-  @media (prefers-reduced-motion:reduce){ .mood .mdot{animation:none} }
+  /* 좌은 폰 폭에서는 헤더 간격까지 좀혀 한 줄을 지는다 */
+  @media (max-width:430px){ .top{gap:6px} }
   @media (max-width:380px){ .vbadge{font-size:10px;padding:1px 5px;gap:2px}
-    .mood{font-size:10px;padding:1px 5px 1px 4px;gap:3px}
-    .mood .mdot{width:4px;height:4px} }
+    .mood{font-size:10px;padding:1px 5px 1px 3px;gap:2px}
+    .mood .flag{font-size:10px}
+    .brand{font-size:14px} }
 
 
   /* ---------- 구역 머리 ---------- */
@@ -385,7 +386,8 @@
     <div class="top">
       <div class="logo" aria-hidden="true"><svg viewBox="0 0 64 64" width="19" height="19"><path d="M10 46 L22 33 L31 39 L44 23 L54 14 L54 49 L10 49 Z" fill="rgba(255,255,255,.22)"/><path d="M10 46 L22 33 L31 39 L44 23 L54 14" fill="none" stroke="#fff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="54" cy="14" r="3.6" fill="#fff"/></svg></div>
       <div class="brand">뉴스레이더<small>실시간 속보 · 오늘 상한가 · 테마달력</small></div>
-      <span class="mood" id="mood" hidden></span>
+      <span class="mood" id="moodKr" hidden></span>
+      <span class="mood" id="moodUs" hidden></span>
       <div class="spacer"></div>
       <div class="live" id="live"><span class="dot"></span><span id="liveTxt">LIVE</span></div>
       <button class="refresh" id="btnRefresh" aria-label="새로고침" title="새로고침 — 최신 뉴스를 지금 다시 받아옵니다">⟳</button>
@@ -651,50 +653,81 @@ function renderNews(force){
   more.textContent = state.more ? '이슈 접기' : '이슈 더 보기';
 }
 
-/* ---------------- 호재·혼조·악재 전광판 ----------------
-   오늘 모은 속보·이슈 제목/요약의 단어 점수로 시장 분위기를 한 칸으로 요약한다.
-   (나중에 news.json 에 코스피·코스닥 지수 필드가 생기면 그 값을 먼저 본다) */
+/* ---------------- 호재·혼조·악재 전광판 (🇰🇷 · 🇺🇸) -------------
+   오늘 모은 속보·이슈를 한국 관련 / 미국 관련으로 나누고,
+   각각의 제목·요약 단어 점수로 시장 분위기를 한 칸으로 요약한다.
+   (나중에 news.json 에 코스피·코스닥 / 나스닥·다우 등 등락률 필드가 생기면 그 값을 먼저 본다) */
 const MOOD_GOOD = ['급등','상승','반등','호실적','사상최대','수주','타결','강세','돌파','상한가','최고치','흑자','회복','기대감','신기록'];
 const MOOD_BAD = ['급락','하락','폭락','약세','충격','악재','금리인상','전쟁','우려','반토막','하한가','적자','유출','속락','불안','경고'];
 const MOOD_MID = ['혼조','눈치보기','보합','엇갈','관망','혼재'];
+/* 미국 쪽 기사로 보는 표지 — 미국 정규장이 닫힌 한국 낮에는 야간선물 기사가 미국 흐름을 대신한다 */
+const US_TAG = /뉴욕|미\s*증시|미증시|나스닥|다우|S&P|연준|엔비디아|FOMC|월가|트럼프|나스닥\s*선물|S&P\s*선물|미\s*선물|미증시\s*선물|야간선물|선물/i;
+/* 제목·요약에 코스피·코스닥이 있으면 회사 이름이 미국꺼라도 한국장 재료로 본다 */
+const KR_TAG = /코스피|코스닥|유가증권|한국거래소/;
 
-function moodOf(){
-  const d = state.data || {};
-  const idx = d.index || d.indices || null;      /* 지수 필드가 생기면 여기서 먼저 판단 */
-  if(idx){
-    const k = Number(idx.kospi_chg != null ? idx.kospi_chg : idx.kospi);
-    const q = Number(idx.kosdaq_chg != null ? idx.kosdaq_chg : idx.kosdaq);
-    if(!isNaN(k) || !isNaN(q)){
-      const avg = ((isNaN(k) ? 0 : k) + (isNaN(q) ? 0 : q)) / ((isNaN(k) ? 0 : 1) + (isNaN(q) ? 0 : 1));
-      if(avg >= 0.5) return { key:'good', label:'호재', why:`지수 평균 ${avg.toFixed(2)}%` };
-      if(avg <= -0.5) return { key:'bad', label:'악재', why:`지수 평균 ${avg.toFixed(2)}%` };
-      return { key:'mid', label:'혼조', why:`지수 평균 ${avg.toFixed(2)}%` };
-    }
-  }
-  const texts = flashAll().concat(issueAll()).slice(0, 25)
-    .map(a => ((a.title || '') + ' ' + (a.summary || '')).toLowerCase());
+/* 기사 한 건은 각 칸에 한 번만 센다 — 한 기사에서 '상승'을 다섯 번 써도 한 표 */
+function moodScore(texts){
   let g = 0, b = 0, n = 0;
   for(const t of texts){
-    for(const w of MOOD_GOOD) if(t.includes(w)) g++;
-    for(const w of MOOD_BAD) if(t.includes(w)) b++;
-    for(const w of MOOD_MID) if(t.includes(w)) n++;
+    if(MOOD_GOOD.some(w => t.includes(w))) g++;
+    if(MOOD_BAD.some(w => t.includes(w))) b++;
+    if(MOOD_MID.some(w => t.includes(w))) n++;
   }
-  const why = `호재 ${g} · 악재 ${b} · 혼조 ${n} (기사 ${texts.length}건)`;
-  if(!texts.length) return null;
-  if(n >= Math.max(g, b) || Math.abs(g - b) < 3) return { key:'mid', label:'혼조', why };
-  if(g > b) return { key:'good', label:'호재', why };
-  return { key:'bad', label:'악재', why };
+  return { g, b, n, count: texts.length };
 }
 
-function renderMood(){
-  const el = $('#mood');
+function moodJudge(s){
+  if(!s.count) return null;
+  const why = `호재 ${s.g} · 악재 ${s.b} · 혼조 ${s.n} (기사 ${s.count}건)`;
+  if(s.n >= Math.max(s.g, s.b)) return { key:'mid', label:'혼조', why };
+  const diff = s.g - s.b;
+  if(diff >= 2) return { key:'good', label:'호재', why };
+  if(diff <= -2) return { key:'bad', label:'악재', why };
+  return { key:'mid', label:'혼조', why };
+}
+
+/* 지수 등락률 필드가 들어오면 이쪽을 먼저 쓴다 (없으면 null) */
+function moodFromIndex(vals){
+  const nums = vals.filter(v => v != null && v !== '' && !isNaN(Number(v))).map(Number);
+  if(!nums.length) return null;
+  const avg = nums.reduce((a, b) => a + b, 0) / nums.length;
+  const why = `지수 평균 ${avg.toFixed(2)}% (${nums.length}개) — 등락률 직접 반입`;
+  if(avg >= 0.5) return { key:'good', label:'호재', why };
+  if(avg <= -0.5) return { key:'bad', label:'악재', why };
+  return { key:'mid', label:'혼조', why };
+}
+
+/* 헤더 전광판: { kr, us } — 한국·미국 따로 */
+function marketMoods(){
+  const d = state.data || {};
+  const idx = d.index || d.indices || {};
+  const arts = flashAll().concat(issueAll()).slice(0, 30);
+  const krTexts = [], usTexts = [];
+  for(const a of arts){
+    const raw = (a.title || '') + ' ' + (a.summary || '');
+    const to = (KR_TAG.test(raw) || !US_TAG.test(raw)) ? krTexts : usTexts;
+    to.push(raw.toLowerCase());
+  }
+  const kr = moodFromIndex([idx.kospi_chg, idx.kosdaq_chg]) || moodJudge(moodScore(krTexts));
+  const us = moodFromIndex([idx.nasdaq_chg, idx.dow_chg, idx.sp500_chg]) || moodJudge(moodScore(usTexts));
+  return { kr, us };
+}
+
+function paintMood(sel, m, flag, name){
+  const el = $(sel);
   if(!el) return;
-  const m = moodOf();
   if(!m){ el.hidden = true; return; }
   el.hidden = false;
   el.className = 'mood ' + m.key;
-  el.innerHTML = `<span class="mdot"></span>${esc(m.label)}`;
-  el.title = '오늘 뉴스 분위기 — ' + m.why;
+  el.innerHTML = `<span class="flag" aria-hidden="true">${flag}</span>${esc(m.label)}`;
+  el.title = `${name} 시장 분위기 — ${m.why}`;
+  el.setAttribute('aria-label', `${name} 시장 분위기 ${m.label}`);
+}
+
+function renderMood(){
+  const { kr, us } = marketMoods();
+  paintMood('#moodKr', kr, '🇰🇷', '한국');
+  paintMood('#moodUs', us, '🇺🇸', '미국');
 }
 
 /* ---------------- 오늘 상한가 ---------------- */
