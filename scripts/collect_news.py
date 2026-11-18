@@ -7,7 +7,8 @@
   · flash       — 네이버 금융 실시간 속보·증시 뉴스(최근 1시간, 최대 6건). 5분마다 갱신되는 속보 흐름으로,
     화면 뉴스 탭의 30%를 차지한다. 각 속보에는 증시 영향 여부 판별과 대장주 배지가 붙는다.
   · issues      — 같은 사건을 다룬 기사를 하나로 묶은 이슈 카드(대표 기사 + 관련 매체 링크).
-    매체 수가 많을수록 상위 순위, [속보]·긴급 기사는 최상단.
+    매체 수가 많을수록 상위 순위, [속보]·긴급 기사는 최근 3시간 안일 때만 최상단
+    (아침 속보가 저녁까지 위에 붙박이로 남지 않게 시각을 함께 본다). 연예·가십·개인사 기사는 제외.
   · leaders     — 기사에 직접 언급된 상장사 + 공개 테마별 상한가 주도 대장주 배지
   · themes_rank — 테마별 이슈 수·최근 6시간 비중·대표 키워드·대장주와,
     공개 뉴스 패턴만으로 계산한 '단기 불씨 / 중기 흐름' 힌트와 그 근거 수치
@@ -374,6 +375,10 @@ def parse_main_ranking(now: datetime | None = None):
 
 
 TIME_RE = re.compile(r'_ARTICLE_DATE_TIME[^>]*data-date-time="([^"]+)"')
+# 기사 페이지가 스스로 밝히는 분류 (연예=106, 스포츠=107 등) — 가십 기사 판별에 쓴다
+SITE_META_RE = re.compile(r'name="napp-site-analysis"[^>]*content="([^"]*)"', re.I)
+SITE_SEC_RE = re.compile(r'section=(\d+)')
+SITE_SVC_RE = re.compile(r'service=([a-zA-Z]+)')
 
 
 def extract_body(page: str) -> str:
@@ -407,6 +412,14 @@ def enrich(article: dict) -> dict:
             article["time"] = dt.isoformat()
         except ValueError:
             pass
+    m_site = SITE_META_RE.search(page)
+    if m_site:
+        m_sec = SITE_SEC_RE.search(m_site.group(1))
+        if m_sec:
+            article["naver_section"] = int(m_sec.group(1))
+        m_svc = SITE_SVC_RE.search(m_site.group(1))
+        if m_svc:
+            article["naver_service"] = m_svc.group(1).lower()
     if not article.get("lede") or len(article["lede"]) < 25:
         body = extract_body(page)
         if body:
@@ -483,11 +496,49 @@ def has_hangul(text: str) -> bool:
     return any("\uac00" <= ch <= "\ud7a3" for ch in (text or ""))
 
 
+# --------------------------------------------------------------------------- 연예·가십 차단
+# 연예·방송·개인사 기사에만 나오는 말. 증시·산업 기사라면 아래 MARKET_ANCHOR가 함께 나오므로
+# (한한령 해제·엔터주 실적·드라마 제작사 수주 등) 산업 기사는 그대로 남는다.
+GOSSIP_MARK = (
+    # 연예·방송·문화
+    "배우", "가수", "아이돌", "걸그룹", "보이그룹", "연예인", "코미디언", "개그맨", "방송인",
+    "예능", "드라마", "영화", "시청률", "컴백", "앨범", "신곡", "콘서트", "팬미팅", "화보",
+    "열애", "이혼", "스캔들", "근황", "활동 중단", "자숙", "사과문", "소속사", "누리꾼",
+    "인스타그램", "OST", "뮤지컬", "시상식", "팬들", "전속계약",
+    # 개인사·수사
+    "음주운전", "마약", "성폭행", "불법촬영", "스토킹", "상간",
+)
+
+# 증시·산업 기사임을 확실히 말해 주는 말 — 가십 표현이 있어도 이것이 있으면 남긴다
+MARKET_ANCHOR = (
+    "주가", "주식", "증시", "코스피", "코스닥", "상한가", "급등", "급락", "실적", "영업이익",
+    "영업익", "매출", "수주", "공급계약", "목표주가", "투자의견", "시가총액", "거래량",
+    "외국인", "기관", "공모주", "상장", "IPO", "인수", "합병", "지분", "배당", "공시",
+    "자사주", "유상증자", "무상증자", "엔터주", "한한령", "수출", "컨센서스", "어닝",
+    "특징주", "테마주", "주주", "공장", "증설", "임상", "신약", "FDA", "제약", "바이오",
+    "백신", "점유율", "투자 확대", "가이던스",
+)
+
+
+def has_market_anchor(text: str) -> bool:
+    return any(a in (text or "") for a in MARKET_ANCHOR)
+
+
+def is_gossip(text: str) -> bool:
+    """제목·도입부가 연예·가십·개인사인지. 증시·산업 단서가 함께 있으면 기사로 남긴다."""
+    text = text or ""
+    if not text or has_market_anchor(text):
+        return False
+    return any(g in text for g in GOSSIP_MARK)
+
+
 def is_market_relevant(a: dict) -> bool:
     """증시와 무관한 생활·지역 뉴스를 걸러낸다."""
     title = a["title"]
     lede = a.get("lede", "") or ""
     if not has_hangul(title):
+        return False
+    if is_gossip(title + " " + lede):
         return False
     if any(t in title for t in STRONG_MARKET):
         return True
@@ -604,6 +655,7 @@ HARD_DROP = (
 MATCH_FIX = (
     ("견주가", "견주"), ("유가족", "유족"), ("은행나무", "나무"), ("TV조선", "TV방송"),
     ("조선일보", "일간지"), ("조선비즈", "경제지"), ("주간조선", "주간지"), ("조선뉴스", "뉴스"),
+    ("정유라", "정씨"),   # 인물 정유라를 '정유(정제유)' 기사로 오인하지 않게
 )
 
 
@@ -628,6 +680,8 @@ def is_main_relevant(a: dict) -> bool:
     if not has_hangul(title):
         return False
     if any(w in title for w in HARD_DROP):
+        return False
+    if is_gossip(title + " " + (a.get("lede", "") or "") + " " + (a.get("summary", "") or "")):
         return False
     if case_only(title) and not any(w in title for w in ("코스피", "증시", "주가", "환율", "금리")):
         return False
@@ -1259,7 +1313,12 @@ ISSUE_STOP = {
 MAX_ISSUES = 30          # 대시보드에 남길 이슈 카드 수(화면에는 앞 14건을 3:7 비율로 먼저 보여준다)
 MAX_PER_THEME = 3        # 한 테마가 목록을 독점하지 않도록 하는 상한
 MAX_RELATED = 3          # 카드에 접어 넣을 다른 매체 기사 수
-BREAKING_HOURS = 14      # 이 시간 안의 [속보]만 최상단으로 올린다
+MAX_ENRICH = 60          # 대표 기사 원문(시각·요약·분류)을 확인할 후보 수
+BREAKING_HOURS = 3       # 이 시간 안에 나온 [속보]만 최상단·속보 배지 (아침 속보가 저녁까지 붙박이되는 것을 막는다)
+GOSSIP_SECTIONS = (106, 107)   # 네이버 기사 분류: 연예·스포츠
+
+# 이슈 묶음에서 너무 흔해 서로 다른 사건을 붙이는 말 ("AI" 하나로 연예 가십과 수능 기사가 붙었다)
+CLUSTER_STOP = {"AI", "인공지능"}
 
 
 def issue_tokens(title: str) -> set:
@@ -1282,7 +1341,7 @@ def cluster_news(items: list, max_df: int = 30):
     for it in items:
         for t in it["tok"]:
             freq[t] = freq.get(t, 0) + 1
-    sigs = [{t for t in it["tok"] if 2 <= freq[t] <= max_df} for it in items]
+    sigs = [{t for t in it["tok"] if 2 <= freq[t] <= max_df and t not in CLUSTER_STOP} for it in items]
 
     parent = list(range(len(items)))
 
@@ -1328,6 +1387,48 @@ def cluster_news(items: list, max_df: int = 30):
 def _fresh(a: dict, now: datetime, hours: int = BREAKING_HOURS) -> bool:
     t = to_dt(a.get("time"))
     return bool(t) and (now - t).total_seconds() <= hours * 3600
+
+
+def _age_penalty(age_h: float) -> int:
+    """오래된 이슈는 매체 수에서 깎아 내려 자연스럽게 아래로 내려가게 한다."""
+    if age_h <= BREAKING_HOURS:
+        return 0
+    if age_h <= 6:
+        return 1
+    if age_h <= 9:
+        return 2
+    if age_h <= 12:
+        return 3
+    return 5
+
+
+def _card_breaking(card: dict, now: datetime) -> bool:
+    """최근 BREAKING_HOURS 안에 나온 [속보] 기사가 있을 때만 속보 배지를 단다.
+
+    원문에서 확인한 정확한 시각을 쓰므로 '14시간 전' 같은 상대 표기 반올림으로
+    아침 속보가 저녁에 속보 배지를 다시 달지 않는다.
+    """
+    members = card.get("_members") or [card]
+    if is_breaking(card.get("title") or "") and _fresh(card, now):
+        return True
+    return any(is_breaking(a.get("title") or "") and _fresh(a, now) for a in members)
+
+
+def is_gossip_card(card: dict) -> bool:
+    """연예·가십·개인사 카드인지 판단한다.
+
+    ① 제목·원문 요약에 연예·개인사 말이 있고 증시·산업 단서가 없는 경우
+    ② 발행처가 기사를 연예·스포츠로 분류한 경우(증시·산업 단서가 없을 때만)
+    """
+    text = ((card.get("title") or "") + " " +
+            (card.get("summary") or card.get("_lede") or ""))
+    if is_gossip(text):
+        return True
+    if has_market_anchor(text):
+        return False
+    if card.get("_naver_section") in GOSSIP_SECTIONS:
+        return True
+    return card.get("_naver_service") == "entertain"
 
 
 def build_issues(cands: list, now: datetime):
@@ -1393,21 +1494,18 @@ def build_issues(cands: list, now: datetime):
         t = to_dt(c.get("time"))
         return t.timestamp() if t else 0
 
-    cards.sort(key=lambda c: (0 if c["breaking"] else 1, -c["presses"], -ts(c)))
-    per_theme, picked = {}, []
-    for c in cards:
-        n = per_theme.get(c["theme"], 0)
-        if n >= MAX_PER_THEME:
-            continue
-        per_theme[c["theme"]] = n + 1
-        picked.append(c)
-        if len(picked) >= MAX_ISSUES:
-            break
-    cards = picked
+    def order(c):
+        """최근 3시간 속보를 먼저, 그 다음은 매체 수 − 오래된 만큼의 감점, 마지막은 최신성."""
+        t = to_dt(c.get("time"))
+        age_h = ((now - t).total_seconds() / 3600.0) if t else 24.0
+        return (0 if c.get("breaking") else 1,
+                -(c.get("presses", 0) - _age_penalty(age_h)), -ts(c))
 
-    # 대표 기사 원문에서 정확한 시각·본문 리드 보강
+    cards.sort(key=order)
+
+    # 대표 기사 원문에서 정확한 시각·발행처 분류·본문 리드 보강 (상위 후보부터)
     targets = []
-    for c in cards:
+    for c in cards[:MAX_ENRICH]:
         t = {"id": c["id"], "url": c["url"], "lede": c.get("_lede") or "", "time": c.get("time", "")}
         if c.get("source") == "main":
             t["source"] = "main"
@@ -1425,9 +1523,38 @@ def build_issues(cands: list, now: datetime):
         c["summary"] = make_summary(t.get("lede") or t.get("body_lead") or c.get("_lede") or "")
         c["leaders"] = leaders_for(c["title"] + " " + c["summary"], c["theme"],
                                    named_text=c["title"] + " " + " ".join(c["tags"]))
+        c["_naver_section"] = t.get("naver_section")
+        c["_naver_service"] = t.get("naver_service")
 
-    # 시각 보강으로 순서가 흔들리지 않도록 한 번 더 정렬하고 순위를 매긴다
-    cards.sort(key=lambda c: (0 if c["breaking"] else 1, -c["presses"], -ts(c)))
+    # 연예·가십·개인사 카드는 이슈 순위에서 빼고(요약까지 본 뒤), 속보 배지를 정확한 시각으로 다시 판단
+    kept_cards, gossip_dropped = [], []
+    for c in cards:
+        if is_gossip_card(c):
+            gossip_dropped.append(c["title"])
+            continue
+        if "summary" not in c:
+            c["summary"] = make_summary(c.get("_lede") or "")
+            c["leaders"] = leaders_for(c["title"] + " " + c["summary"], c["theme"],
+                                       named_text=c["title"] + " " + " ".join(c["tags"]))
+        c["breaking"] = _card_breaking(c, now)
+        kept_cards.append(c)
+    cards = kept_cards
+    if gossip_dropped:
+        print(f"[info] gossip dropped: {len(gossip_dropped)} → {gossip_dropped[:2]}", file=sys.stderr)
+
+    # 시각 보강·가십 제외 뒤 순서를 다시 잡고, 테마 상한과 카드 수 상한을 적용한다
+    cards.sort(key=order)
+    per_theme, picked = {}, []
+    for c in cards:
+        n = per_theme.get(c["theme"], 0)
+        if n >= MAX_PER_THEME:
+            continue
+        per_theme[c["theme"]] = n + 1
+        picked.append(c)
+        if len(picked) >= MAX_ISSUES:
+            break
+    cards = picked
+
     for i, c in enumerate(cards):
         c["issue_rank"] = i + 1
         c.pop("_members", None)
