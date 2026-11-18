@@ -255,6 +255,15 @@
     border-radius:50%;border:1px solid var(--line);background:rgba(20,29,51,.9);color:var(--dim);
     display:none;place-items:center;font-size:14px;backdrop-filter:blur(8px);cursor:pointer;z-index:15}
   #top.show{display:grid}
+  /* 새로고침 결과 토스트 — 손가락 밑(맨 위로 버튼 위쪽)에 잠깐 떴다 사라진다 */
+  .toast{position:fixed;left:50%;bottom:calc(58px + env(safe-area-inset-bottom));transform:translate(-50%,10px);
+    max-width:calc(100vw - 32px);padding:9px 14px;border-radius:12px;
+    background:rgba(16,24,42,.97);border:1px solid var(--line);color:#e8eefc;
+    font-size:12.5px;font-weight:700;letter-spacing:-.2px;line-height:1.35;text-align:center;
+    box-shadow:0 8px 26px rgba(0,0,0,.48);backdrop-filter:blur(10px);
+    opacity:0;pointer-events:none;z-index:30;transition:opacity .16s ease,transform .16s ease}
+  .toast.show{opacity:1;transform:translate(-50%,0)}
+  @media (prefers-reduced-motion:reduce){ .toast{transition:none} }
 </style>
 </head>
 <body>
@@ -265,7 +274,7 @@
       <div class="brand">증시 뉴스 레이더<small>실시간 속보 · 이슈 순위 · 테마</small></div>
       <div class="spacer"></div>
       <div class="live" id="live"><span class="dot"></span><span id="liveTxt">LIVE</span></div>
-      <button class="refresh" id="btnRefresh" aria-label="새로고침">⟳</button>
+      <button class="refresh" id="btnRefresh" aria-label="새로고침" title="새로고침 — 최신 뉴스를 지금 다시 받아옵니다">⟳</button>
     </div>
     <div class="tabs" role="tablist" aria-label="화면 전환">
       <button class="tab" role="tab" data-tab="news" aria-selected="true">📰 뉴스/이슈</button>
@@ -349,6 +358,7 @@
   저작권은 각 언론사에 있으며 모든 기사는 원문 링크로 연결됩니다.
 </footer>
 <button id="top" aria-label="맨 위로">↑</button>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
 const state = { data:null, theme:'all', q:'', tab:'news', more:false, open:new Set() };
@@ -623,17 +633,50 @@ function renderSchedules(){
 }
 
 /* ---------------- 데이터 ---------------- */
+/* 새로고침 결과를 잠깐 띄우는 토스트 (1.8초 뒤 자동으로 사라진다) */
+let toastTimer = null;
+function toast(msg){
+  const el = $('#toast');
+  if(!el){ return; }
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove('show'), 1800);
+}
+/* 데이터가 만들어진 시각을 HH:MM 으로 */
+function dataHm(data){
+  const m = /(\d{1,2}):(\d{2})/.exec((data && data.generated_at_kst) || '');
+  if(m) return m[1].padStart(2,'0') + ':' + m[2];
+  return hm(data && data.generated_at);
+}
+
+let loading = 0;   // 진행 중인 요청 수 — 자동 갱신과 수동 새로고침이 겹쳐도 회전이 끊기지 않게
 async function load(manual){
   const btn = $('#btnRefresh');
-  if(manual) btn.classList.add('spinning');
+  if(manual){
+    loading++;
+    btn.classList.add('spinning');
+    btn.setAttribute('aria-busy', 'true');
+  }
+  const prevGen = state.data && state.data.generated_at;
   try{
     const res = await fetch('data/news.json?_=' + Date.now(), {cache:'no-store'});
     if(!res.ok) throw new Error('HTTP ' + res.status);
+    if(res.headers.get('x-news-cache') === '1') throw new Error('offline: saved copy');
     const data = await res.json();
     state.data = data;
     try{ localStorage.setItem('newsradar_last', JSON.stringify(data)); }catch(e){}
     applyData(data);
     $('#liveTxt').textContent = 'LIVE';
+    if(manual){
+      const t = dataHm(data);
+      const prevT = prevGen ? new Date(prevGen).getTime() : NaN;
+      const nextT = data.generated_at ? new Date(data.generated_at).getTime() : NaN;
+      const changed = !isNaN(nextT) && (isNaN(prevT) || nextT > prevT);
+      toast(changed
+        ? `✅ 최신 뉴스 반영됨${t ? ' (' + t + ')' : ''}`
+        : `ℹ️ 현재 최신 상태${t ? ' (' + t + ' 기준)' : ''}`);
+    }
   }catch(err){
     let cached = null;
     try{ cached = JSON.parse(localStorage.getItem('newsradar_last')||'null'); }catch(e){}
@@ -642,8 +685,15 @@ async function load(manual){
       $('#flashList').innerHTML = `<div class="empty">뉴스를 불러오지 못했습니다.<br>잠시 후 새로고침(⟳)을 눌러 주세요.</div>`;
       $('#issueList').innerHTML = '';
     }
+    if(manual) toast('⚠️ 새로고침 실패 — 잠시 후 다시 시도');
   }finally{
-    btn.classList.remove('spinning');
+    if(manual){
+      loading--;
+      if(loading <= 0){ loading = 0; btn.classList.remove('spinning'); btn.removeAttribute('aria-busy'); }
+      /* 비밀 방문자 수를 켜 둔 경우에는 숫자도 함께 새로 받는다 */
+      visDone = false;
+      if(!visBadge.hidden) visNumber();
+    }
   }
 }
 
