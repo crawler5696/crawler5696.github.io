@@ -333,6 +333,11 @@
   .hb-l{min-width:0;flex:1}
   .hb-name{font-size:13px;font-weight:800;letter-spacing:-.3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .hb-note{font-size:9.5px;color:var(--dim2);letter-spacing:-.1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  /* 앞/뒤 자리 표시 — 앞은 빨간 배지, 중은 흐린 배지. 뒤는 실리지 않는다 */
+  .hb-pos{display:inline-block;margin-left:5px;padding:0 4px;border-radius:5px;white-space:nowrap;
+    font-size:9px;font-weight:900;letter-spacing:-.2px;vertical-align:1px}
+  .hb-pos.front{color:#ff9aa8;background:rgba(255,60,80,.16);border:1px solid rgba(255,60,80,.46)}
+  .hb-pos.mid{color:#9fb0c9;background:rgba(255,255,255,.04);border:1px solid var(--line)}
   .hb-r{text-align:right;white-space:nowrap;flex:none}
   .hb-px{font-size:12.5px;font-weight:800;letter-spacing:-.2px}
   .hb-sub{font-size:10px;font-weight:700;color:var(--dim);display:flex;gap:5px;justify-content:flex-end}
@@ -877,12 +882,12 @@ function radarStockHtml(s){
     `</div>`;
 }
 
-function radarTierHtml(t, matched, evts){
+function radarTierHtml(t, matched, evts, rankNo){
   const stocks = (t.stocks || []);
   const evtsHtml = (evts || []).map(e => `<span class="rd-evt">📅 ${esc(e.dtext || '')} ${esc(e.label || '')}</span>`).join('');
   return `<article class="rd-card" style="--c:${esc(t.color || '#4f8cff')}">
     <div class="rd-top">
-      <span class="rd-rank">${esc(String(t.rank))}순위</span>
+      <span class="rd-rank">${esc(String(rankNo || t.rank))}순위</span>
       <span class="rd-dot ${matched ? 'on' : 'off'}" aria-hidden="true"></span>
       <span class="rd-theme">${esc(t.theme || '')}</span>
       ${matched
@@ -966,8 +971,8 @@ async function renderRadar(force){
     box.innerHTML = `<div class="empty">레이더 자료를 불러오지 못했습니다.<br>잠시 후 다시 열어 주세요.</div>`;
     return;
   }
-  const html = rows.map(x => radarTierHtml(x.tier, x.matched,
-    schedFor([x.tier.theme].concat(x.tier.keywords || []), 2))).join('');
+  const html = rows.map((x, i) => radarTierHtml(x.tier, x.matched,
+    schedFor([x.tier.theme].concat(x.tier.keywords || []), 2), i + 1)).join('');
   if(!force && html === radarRendered) return;
   radarRendered = html;
   box.innerHTML = html;
@@ -996,13 +1001,24 @@ function hotEvtBadge(s){
   return e ? `<span class="hb-evt">📅 ${esc(e.badge || e.dtext || '')}</span>` : '';
 }
 
+/* 앞/뒤 자리 배지 — vr_all = ① 봉 거래량이 그 앞 10년 최대의 몇 배였나(1을 넘으면 역대 최고)
+   0.90 이상 '앞'(빨강) · 0.50~0.90 '중'(흐림) · 0.50 미만 '뒤'는 자료에 실리지 않는다 */
+function hotPosBadge(s){
+  const p = s.pos;
+  if(!p || p === '뒤') return '';
+  const cls = p === '앞' ? 'front' : 'mid';
+  const v = (typeof s.vr_all === 'number') ? s.vr_all : null;
+  const t = v === null ? '' : ` title="① 봉 거래량 = 앞선 10년 최대의 ${v.toFixed(2)}배${v >= 1 ? ' (역대 최고)' : ''}"`;
+  return `<span class="hb-pos ${cls}"${t}>${esc(p)}</span>`;
+}
+
 function hotRowHtml(s){
   const chg = (s.chg === 0 || s.chg) ? Number(s.chg) : null;
   const chgTxt = chg === null ? '' : (chg > 0 ? '+' : '') + chg.toFixed(1) + '%';
   const dd = (s.dd === 0 || s.dd) ? String(s.dd) : '';
   return `<div class="hb-row">
     <div class="hb-l">
-      <div class="hb-name">${esc(s.name)}${hotEvtBadge(s)}</div>
+      <div class="hb-name">${esc(s.name)}${hotPosBadge(s)}${hotEvtBadge(s)}</div>
       <div class="hb-note">${esc(s.note || '')}</div>
     </div>
     <div class="hb-r">
