@@ -8,7 +8,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="뉴스레이더">
 <meta property="og:title" content="뉴스레이더 · 실시간 속보 + 오늘 상한가 + 테마달력">
-<meta property="og:description" content="5분마다 갱신 — 실시간 속보·이슈 순위, 오늘 상한가 종목과 이슈 요약, 최근 12개월 상한가 테마 달력">
+<meta property="og:description" content="실시간 속보·이슈 순위, 오늘 상한가 종목과 이슈 요약, 최근 12개월 상한가 테마 달력">
 <meta property="og:url" content="https://crawler5696.github.io/">
 <meta property="og:image" content="https://crawler5696.github.io/icons/icon-512.png">
 <meta name="twitter:card" content="summary">
@@ -70,7 +70,7 @@
   .refresh.spinning{animation:spin .8s linear infinite}
   @keyframes spin{to{transform:rotate(360deg)}}
 
-  /* ---------- 4단 탭 ---------- */
+  /* ---------- 탭 (비밀 모드에서만 핫바가 더 붙는다) ---------- */
   .tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;padding:0 0 6px}
   .tab{
     appearance:none;border:1px solid var(--line);background:rgba(255,255,255,.03);
@@ -194,35 +194,6 @@
   .note{font-size:11px;color:var(--dim2);line-height:1.6;margin:12px 2px 0;padding-top:9px;
     border-top:1px solid var(--line)}
 
-  /* ---------- 테마 순위 ---------- */
-  .rank-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
-    padding:9px 10px 8px;margin-bottom:6px;position:relative;overflow:hidden}
-  .rank-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:2.5px;background:var(--c,#4f8cff);opacity:.9}
-  .rk-top{display:flex;align-items:center;gap:5px;margin-bottom:5px;flex-wrap:wrap}
-  .rk-no{width:18px;height:18px;border-radius:6px;display:grid;place-items:center;flex:none;
-    font-size:10px;font-weight:800;color:var(--c,#4f8cff);
-    background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16)}
-  .rk-name{font-size:13px;font-weight:800;letter-spacing:-.3px}
-  .rk-cnt{font-size:10px;font-weight:700;color:var(--dim);background:rgba(255,255,255,.05);
-    border:1px solid var(--line);padding:1px 6px;border-radius:6px}
-  .hint{margin-left:auto;font-size:9.5px;font-weight:800;padding:2px 7px;border-radius:7px;white-space:nowrap}
-  .hint.short{color:#ffb27a;background:rgba(255,138,76,.14);border:1px solid rgba(255,138,76,.38)}
-  .hint.medium{color:#7fd3e8;background:rgba(127,211,232,.12);border:1px solid rgba(127,211,232,.34)}
-  .rk-kws{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:5px}
-  .kw{font-size:9.8px;color:var(--dim);background:rgba(255,255,255,.04);border:1px solid var(--line);
-    padding:1px 5px;border-radius:5px}
-  .rk-hds{display:flex;flex-direction:column;gap:2px;margin-bottom:5px}
-  .rk-hd{font-size:11.5px;color:#c8d2e4;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;
-    -webkit-box-orient:vertical;overflow:hidden}
-  .rk-hd::before{content:"· ";color:var(--dim2)}
-  .rk-metrics{font-size:10px;color:var(--dim2);margin-bottom:2px}
-  .rk-reason{font-size:10px;color:#7d8aa3;line-height:1.45;margin-bottom:7px}
-  .rk-go{width:100%;appearance:none;border:1px solid rgba(79,140,255,.35);background:rgba(79,140,255,.1);
-    color:#9fc0ff;font-family:inherit;font-size:11px;font-weight:700;padding:6px;border-radius:8px;cursor:pointer}
-  .rk-go:active{background:rgba(79,140,255,.2)}
-  .rk-leaders{font-size:10px;color:#9fb4d8;background:rgba(79,140,255,.07);border:1px solid rgba(79,140,255,.2);
-    border-radius:7px;padding:3px 6px;margin-bottom:5px;line-height:1.45}
-
   /* ---------- 오늘 상한가 ---------- */
   .upper-bar{display:flex;align-items:center;gap:5px;flex-wrap:wrap;padding:0 1px 7px}
   .badge-d{display:inline-flex;align-items:center;gap:3px;font-size:10.5px;font-weight:800;
@@ -302,9 +273,6 @@
   .stk i{font-style:normal;font-size:9.5px;color:#ff9aa8;font-weight:700;white-space:nowrap}
 
   /* ---------- 레이더 ---------- */
-  .radar-note{display:flex;align-items:center;font-size:11px;color:#ffb3b3;
-    background:rgba(255,92,92,.08);border:1px solid rgba(255,92,92,.24);
-    border-radius:8px;padding:5px 8px;margin:0 1px 8px;line-height:1.4}
   .rd-card{position:relative;background:var(--card);border:1px solid var(--line);
     border-radius:11px;padding:9px 10px 8px 13px;margin-bottom:7px;overflow:hidden}
   .rd-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--c,#4f8cff)}
@@ -334,7 +302,6 @@
   .rd-wait{flex:none;font-size:9.5px;font-weight:800;color:#8f9bb3;
     background:rgba(255,255,255,.04);border:1px solid var(--line);
     padding:1px 5px;border-radius:5px;white-space:nowrap}
-  .radar-how{font-size:10.5px;color:var(--dim2);line-height:1.5;margin:-3px 2px 8px}
 
   /* ---------- 핫바 (비밀 모드에서만 보인다) ---------- */
   .tabs.five{grid-template-columns:repeat(5,1fr)}
@@ -450,7 +417,7 @@
     <button class="more" id="moreIssues" hidden>이슈 더 보기</button>
 
     <p class="note">
-      네이버 금융 <b>실시간 속보·증시 뉴스</b>와 네이버 뉴스 메인 랭킹·경제 섹션을 5분마다 모아,
+      네이버 금융 <b>실시간 속보·증시 뉴스</b>와 네이버 뉴스 메인 랭킹·경제 섹션에서 모아,
       증시·산업·정책에 닿는 기사만 남깁니다.
       위쪽 <b>실시간 속보</b>는 <b>최근 60분 안에 나온 기사</b>만 올리고, 60~90분을 넘긴 기사는 아래 <b>이슈 순위</b>로 내려 보냅니다.
       새벽처럼 새 소식이 적을 때만 최신순으로 몇 건을 채우고, 그때는 <b>🕘 최신</b>으로 표시합니다.
@@ -1162,7 +1129,6 @@ $('#hotBody').addEventListener('click', e => {
 });
 addEventListener('hashchange', () => {
   let name = (location.hash||'').replace('#','');
-  if(name === 'schedules') name = 'upper';
   if(TABS.includes(name) && name !== state.tab) switchTab(name, true);
 });
 
@@ -1248,9 +1214,8 @@ visPaint();
 /* PWA */
 if('serviceWorker' in navigator){ navigator.serviceWorker.register('sw.js').catch(()=>{}); }
 
-/* 시작 탭 (주소 #themes / #schedules 로 바로 열 수 있다) */
+/* 시작 탭 (주소 끝에 #radar 처럼 붙이면 그 탭으로 열린다) */
 let startTab = (location.hash||'').replace('#','');
-if(startTab === 'schedules') startTab = 'upper';
 switchTab(TABS.includes(startTab) ? startTab : 'news', true);
 load(false);
 /* 레이더 등은 뉴스와 별개로 먼저 받아 두고, 뉴스가 갱신될 때마다 다시 켜짐을 살펴본다 */

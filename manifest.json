@@ -1,7 +1,7 @@
 {
   "name": "뉴스레이더",
   "short_name": "뉴스레이더",
-  "description": "국내 증시 관련 뉴스를 30분마다 자동 수집해 테마 태그와 요약으로 보여줍니다.",
+  "description": "국내 증시 실시간 속보·이슈 순위와 오늘 상한가, 최근 12개월 상한가 테마 달력을 한 화면에 보여주는 무료 뉴스 대시보드입니다.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
@@ -10,8 +10,23 @@
   "theme_color": "#0b1120",
   "lang": "ko-KR",
   "icons": [
-    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
-    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
-    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
   ]
 }
