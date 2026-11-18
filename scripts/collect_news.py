@@ -1206,7 +1206,7 @@ def collect_daum_news(now: datetime):
             seen.add(key)
             out.append({"id": "d:" + key[:28], "title": title, "summary": make_summary(desc, 140),
                         "press": press, "url": link, "source": "daum",
-                        "time": (dt or now).isoformat()})
+                        "time": (dt or now).isoformat(), "time_est": dt is None})
     print(f"[info] daum search: {len(out)} items", file=sys.stderr)
     return out
 
@@ -1397,7 +1397,8 @@ def build_schedules(kept: list, now: datetime):
                                    "ends": when.get("ends")})
         if len(g["articles"]) < 4 and all(x["title"] != title for x in g["articles"]):
             g["articles"].append({"title": title, "summary": summ, "press": a.get("press", ""),
-                                  "time": a.get("time", ""), "url": a["url"]})
+                                  "time": a.get("time", ""), "url": a["url"],
+                                  "time_est": bool(a.get("time_est"))})
 
     cards = []
     for g in groups.values():

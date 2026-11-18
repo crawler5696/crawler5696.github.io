@@ -605,7 +605,7 @@ function renderSchedules(){
     const list = s.articles || [];
     const arts = list.map((a,i) => `<a class="sch-art${i > 1 ? ' sch-hidden' : ''}" href="${esc(a.url)}" target="_blank" rel="noopener noreferrer">
         <div class="sch-t">${esc(a.title)}</div>
-        <div class="sch-f"><span class="press">${esc(a.press||'')}</span>${a.time?`<span>· ${relTime(a.time)}</span>`:''}</div>
+        <div class="sch-f"><span class="press">${esc(a.press||'')}</span>${a.time && !a.time_est ? `<span>· ${relTime(a.time)}</span>` : ''}</div>
       </a>`).join('');
     const more = list.length > 2
       ? `<button class="sch-more" type="button">기사 ${list.length-2}건 더 보기</button>` : '';
