@@ -87,6 +87,14 @@
   /* ---------- controls ---------- */
   .meta{display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--dim2);padding:5px 1px 4px}
   .meta b{color:var(--dim);font-weight:600}
+  /* 비밀 방문자 수 배지 — 관리자가 켰을 때만 보인다 */
+  .vbadge{display:inline-flex;align-items:center;gap:3px;margin-left:auto;flex:none;white-space:nowrap;
+    font-size:10.5px;font-weight:600;color:var(--dim2);text-decoration:none;
+    border:1px solid var(--line);background:rgba(255,255,255,.02);
+    padding:1px 6px;border-radius:20px;transition:color .15s,border-color .15s}
+  .vbadge:hover{color:var(--dim);border-color:rgba(79,140,255,.45)}
+  .vbadge span{color:var(--dim);font-weight:700}
+  .vbadge[hidden]{display:none}
 
   .search{position:relative;padding-bottom:5px}
   .search input{
@@ -269,6 +277,7 @@
       <span>업데이트 <b id="updated">불러오는 중…</b></span>
       <span class="sep"></span>
       <span id="total">–</span>
+      <a class="vbadge" id="visitors" href="https://crawler5696.goatcounter.com/" target="_blank" rel="noopener noreferrer" title="GoatCounter 방문자 대시보드" hidden>👥 총 <span id="visitorN">–</span>명</a>
     </div>
     <div class="search">
       <span class="ic">🔍</span>
@@ -679,6 +688,60 @@ document.addEventListener('visibilitychange', () => {
 const topBtn = $('#top');
 addEventListener('scroll', () => topBtn.classList.toggle('show', scrollY > 600), {passive:true});
 topBtn.onclick = () => scrollTo({top:0, behavior:'smooth'});
+
+/* ---------------- 비밀 방문자 수 (관리자 전용) ----------------
+   켜기: 상단 LIVE 배지를 1.5초 안에 3번 연속 탭  또는  주소 끝에 ?me=5696
+   끄기: 같은 방법으로 다시 3번 탭. 상태는 localStorage(nr_show_visitors)에 남는다. */
+const VIS_KEY = 'nr_show_visitors', VIS_ID = '5696';
+const visBadge = $('#visitors');
+let visDone = false;
+
+function visOn(){
+  try{ return localStorage.getItem(VIS_KEY) === '1'; }catch(e){ return false; }
+}
+function visSave(on){
+  try{ on ? localStorage.setItem(VIS_KEY,'1') : localStorage.removeItem(VIS_KEY); }catch(e){}
+}
+/* 화면을 건드리지 않고, 켜져 있을 때만 조용히 숫자만 채운다 */
+async function visNumber(){
+  if(visDone || !visBadge || visBadge.hidden) return;
+  try{
+    const res = await fetch('https://crawler5696.goatcounter.com/counter/TOTAL.json?_=' + Date.now(), {cache:'no-store'});
+    if(!res.ok) return;
+    const j = await res.json();
+    const v = (j && (j.count_unique != null ? j.count_unique : j.count));
+    if(v === undefined || v === null || v === '') return;
+    const n = Number(v);
+    $('#visitorN').textContent = isNaN(n) ? String(v) : n.toLocaleString('ko-KR');
+    visDone = true;
+  }catch(e){}
+}
+function visPaint(){
+  if(!visBadge) return;
+  visBadge.hidden = !visOn();
+  if(!visBadge.hidden) visNumber();
+}
+function visToggle(){
+  visSave(!visOn());
+  visPaint();
+}
+/* 주소에 ?me=5696 이 있으면 자동으로 켜 둔다 */
+try{
+  if(new URLSearchParams(location.search).get('me') === VIS_ID){ visSave(true); }
+}catch(e){}
+visPaint();
+/* LIVE 배지 1.5초 안 3연속 탭 → 토글 */
+(function(){
+  const live = $('#live');
+  if(!live) return;
+  let taps = [];
+  live.addEventListener('click', () => {
+    const now = Date.now();
+    taps = taps.filter(t => now - t < 1500);
+    taps.push(now);
+    if(taps.length >= 3){ taps = []; visToggle(); }
+  });
+})();
 
 /* PWA */
 if('serviceWorker' in navigator){ navigator.serviceWorker.register('sw.js').catch(()=>{}); }
