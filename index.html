@@ -195,8 +195,6 @@
   .viewhead{display:flex;align-items:baseline;gap:7px;padding:10px 2px 7px}
   .viewhead b{font-size:14px;letter-spacing:-.2px}
   .viewhead span{font-size:11px;color:var(--dim2)}
-  .note{font-size:11px;color:var(--dim2);line-height:1.6;margin:12px 2px 0;padding-top:9px;
-    border-top:1px solid var(--line)}
 
   /* ---------- 오늘 상한가 ---------- */
   .upper-bar{display:flex;align-items:center;gap:5px;flex-wrap:wrap;padding:0 1px 7px}
@@ -205,7 +203,6 @@
     padding:2px 7px;border-radius:7px;white-space:nowrap}
   .badge-d.prev{color:#ffb27a;background:rgba(255,138,76,.13);border-color:rgba(255,138,76,.34)}
   .badge-d.cnt{color:#9fc0ff;background:rgba(79,140,255,.12);border-color:rgba(79,140,255,.32)}
-  .up-note{flex:1 1 100%;font-size:10.5px;color:var(--dim2);line-height:1.45}
   .up-card{position:relative;background:var(--card);border:1px solid var(--line);border-radius:11px;
     padding:8px 9px 7px 12px;margin-bottom:6px;overflow:hidden}
   .up-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;
@@ -320,7 +317,6 @@
   .hb-seg button.on{color:#fff;border-color:transparent;background:linear-gradient(135deg,#4f8cff,#7c5cff);
     box-shadow:0 3px 12px rgba(79,140,255,.3)}
   .hb-seg button.on .s{color:rgba(255,255,255,.78)}
-  .hb-how{font-size:10.5px;color:var(--dim2);line-height:1.55;margin:0 2px 7px}
   .hb-grp{margin-bottom:4px}
   .hb-head{display:flex;align-items:center;gap:6px;margin:9px 1px 5px}
   .hb-badge{width:21px;height:21px;border-radius:6px;display:grid;place-items:center;
@@ -362,9 +358,6 @@
     background-size:200% 100%;animation:sk 1.4s infinite;margin-bottom:6px}
   @keyframes sk{0%{background-position:200% 0}100%{background-position:-200% 0}}
 
-  footer{margin-top:16px;padding:12px 4px 6px;border-top:1px solid var(--line);
-    font-size:11px;color:var(--dim2);line-height:1.65;text-align:center}
-  footer b{color:var(--dim)}
   #top{position:fixed;right:12px;bottom:calc(14px + env(safe-area-inset-bottom));width:36px;height:36px;
     border-radius:50%;border:1px solid var(--line);background:rgba(20,29,51,.9);color:var(--dim);
     display:none;place-items:center;font-size:14px;backdrop-filter:blur(8px);cursor:pointer;z-index:15}
@@ -421,14 +414,6 @@
       <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
     </div>
     <button class="more" id="moreIssues" hidden>이슈 더 보기</button>
-
-    <p class="note">
-      네이버 금융 <b>실시간 속보·증시 뉴스</b>와 네이버 뉴스 메인 랭킹·경제 섹션에서 모아,
-      증시·산업·정책에 닿는 기사만 남깁니다.
-      위쪽 <b>실시간 속보</b>는 <b>최근 60분 안에 나온 기사</b>만 올리고, 60~90분을 넘긴 기사는 아래 <b>이슈 순위</b>로 내려 보냅니다.
-      새벽처럼 새 소식이 적을 때만 최신순으로 몇 건을 채우고, 그때는 <b>🕘 최신</b>으로 표시합니다.
-      카드를 누르면 <b>요약·다른 매체 기사</b>가 펼쳐집니다.
-    </p>
   </section>
 
   <section class="view" data-view="upper" id="view-upper" hidden>
@@ -436,17 +421,10 @@
     <div class="upper-bar">
       <span class="badge-d" id="upperDate">–</span>
       <span class="badge-d cnt" id="upperCnt">–</span>
-      <span class="up-note" id="upperNote"></span>
     </div>
     <div id="upperList">
       <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
     </div>
-    <p class="note">
-      상한가 종목과 <b>그날 상한가로 간 이유</b>를 네이버 증권 랭킹·종목 뉴스와 공개 기사에서 모아 보여줍니다.
-      이슈 요약은 <b>기사 도입부</b>가 있으면 그 문장을, 없으면 <b>기사 제목</b>을 그대로 짧게 줄인 것입니다.
-      카드를 누르면 요약 전문과 기사 제목이 펼쳐집니다. 장 시작 전·휴장일에는 <b>직전 거래일</b> 기준으로 표시합니다.
-      투자 권유가 아닙니다.
-    </p>
   </section>
 
   <section class="view" data-view="radar" id="view-radar" hidden>
@@ -455,9 +433,6 @@
     <div id="radarList">
       <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
     </div>
-    <p class="note">
-      종목 옆 숫자는 <b>고점 대비 하락 %</b>, 숫자 앞은 기준일 종가입니다. 투자 권유가 아닙니다.
-    </p>
   </section>
 
   <section class="view" data-view="hotbar" id="view-hotbar" hidden>
@@ -467,13 +442,9 @@
       <button type="button" data-sec="week">주봉<span class="s">48주 거래량</span></button>
       <button type="button" data-sec="month">월봉<span class="s">12월 거래량</span></button>
     </div>
-    <p class="hb-how" id="hotHow"></p>
     <div id="hotBody">
       <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
     </div>
-    <p class="note">
-      <b>1번</b> 고점 → <b>2번</b> 눌림 → <b>3번</b> 첫 반등 · 숫자는 1년 고점 대비 % · 투자 권유가 아닙니다.
-    </p>
   </section>
 
   <section class="view" data-view="calendar" id="view-calendar" hidden>
@@ -485,18 +456,9 @@
     <div id="calThemes">
       <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
     </div>
-    <p class="note">
-      월별로 <b>상한가가 나온 테마</b>를 모은 기록입니다. 테마를 누르면 그 테마에서 상한가를 기록한
-      <b>종목과 상한가 날짜</b>, 당시 <b>이슈 요약</b>이 열립니다.
-      숫자는 그 달 테마 안에서 상한가를 기록한 종목 수이고, 날짜는 공개 시세 기록입니다.
-      과거 기록이며 투자 권유가 아닙니다.
-    </p>
   </section>
 </main>
 
-<footer>
-  <b>네이버 금융</b> 공개 뉴스·시세로 만든 참고 화면 · 투자 권유가 아닙니다.
-</footer>
 <button id="top" aria-label="맨 위로">↑</button>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
@@ -782,7 +744,6 @@ function renderUpper(){
   }
   if($('#upperCnt')) $('#upperCnt').textContent = items.length ? items.length + '종목' : '0종목';
   if($('#upperSub')) $('#upperSub').textContent = '';
-  if($('#upperNote')) $('#upperNote').textContent = (u && u.note) || '';
   if(!items.length){
     box.innerHTML = `<div class="empty">${esc((u && u.note) || '오늘 상한가 종목이 아직 없습니다.')}<br>장중에 다시 확인해 주세요.</div>`;
     return;
@@ -1030,12 +991,6 @@ async function ensureHotbar(){
   return hotbarData;
 }
 
-function hotHow(sec){
-  if(sec === 'week') return '주간 거래량 > 직전 48주 최대 · 이번 주는 진행 중(누적 거래량)';
-  if(sec === 'month') return '월간 거래량 > 직전 12월 최대 · 이번 달은 진행 중(누적 거래량)';
-  return '첫 상한가 뒤 22거래일 안 · 1번 고점 → 2번 눌림 → 3번 반등';
-}
-
 function hotEvtBadge(s){
   const e = schedFor(s.themes || [], 1)[0];
   return e ? `<span class="hb-evt">📅 ${esc(e.badge || e.dtext || '')}</span>` : '';
@@ -1090,7 +1045,6 @@ async function renderHotbar(){
   const sec = (d.sections || []).find(x => x.key === hotbarSec) || d.sections[0];
   hotbarSec = sec.key;
   if($('#hotSub')) $('#hotSub').textContent = (d.base_date_text || '') + (d.universe ? ` · ${d.universe}종목` : '');
-  if($('#hotHow')) $('#hotHow').textContent = hotHow(sec.key);
   document.querySelectorAll('#hotSeg button').forEach(b => b.classList.toggle('on', b.dataset.sec === sec.key));
   box.innerHTML = (sec.stages || []).map(hotStageHtml).join('');
 }
