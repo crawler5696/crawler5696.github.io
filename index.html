@@ -126,11 +126,8 @@
   .sechead{display:flex;align-items:center;gap:5px;margin:6px 1px 4px;font-size:13px;font-weight:800;letter-spacing:-.2px}
   .sechead .bar{width:3px;height:12px;border-radius:2px;background:#ff5a6e}
   .sechead.issue .bar{background:linear-gradient(180deg,#4f8cff,#7c5cff)}
-  .sechead .cnt{font-size:11px;font-weight:700;color:var(--dim);background:rgba(255,255,255,.05);
-    border:1px solid var(--line);padding:1px 6px;border-radius:6px}
-  .sechead .gt{margin-left:auto;font-size:10.5px;font-weight:600;color:var(--dim2)}
   .sechead .livechip{display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:800;color:#ff8b9c;
-    background:rgba(255,90,110,.12);border:1px solid rgba(255,90,110,.3);padding:1px 6px;border-radius:6px}
+    background:rgba(255,90,110,.12);border:1px solid rgba(255,90,110,.3);padding:1px 6px;border-radius:6px;margin-left:auto}
 
   /* ---------- 속보 초슬림 카드 ---------- */
   .fcard{
@@ -400,8 +397,6 @@
   <section class="view" data-view="news" id="view-news">
     <div class="meta">
       <span>업데이트 <b id="updated">불러오는 중…</b></span>
-      <span class="sep"></span>
-      <span id="total">–</span>
       <a class="vbadge" id="visitors" href="https://crawler5696.goatcounter.com/" target="_blank" rel="noopener noreferrer" title="GoatCounter 방문자 대시보드" hidden>👥 총 <span id="visitorN">–</span>명</a>
     </div>
     <div class="search">
@@ -410,17 +405,13 @@
     </div>
 
     <div class="sechead"><span class="bar"></span>⚡ 실시간 속보
-      <span class="cnt" id="flashCnt">–</span>
-      <span class="livechip"><span class="dot"></span><span id="flashFresh">최근 60분</span></span>
+      <span class="livechip"><span class="dot"></span>최근 60분</span>
     </div>
     <div id="flashList">
       <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
     </div>
 
-    <div class="sechead issue" style="margin-top:10px"><span class="bar"></span>🔥 이슈 순위
-      <span class="cnt" id="issueCnt">–</span>
-      <span class="gt">매체 수 순</span>
-    </div>
+    <div class="sechead issue" style="margin-top:10px"><span class="bar"></span>🔥 이슈 순위</div>
     <div id="issueList">
       <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
     </div>
@@ -658,9 +649,6 @@ function renderNews(force){
     lastFlashHtml = fh;
     $('#flashList').innerHTML = fh;
   }
-  $('#flashCnt').textContent = fl.length + '건';
-  const freshN = fl.filter(a => a.fresh !== false).length;
-  $('#flashFresh').textContent = freshN ? `최근 60분 ${freshN}건` : '최근 60분 새 소식 없음';
 
   const shown = state.more ? iss : iss.slice(0, FIRST_ISSUES);
   const ih = shown.length
@@ -670,7 +658,6 @@ function renderNews(force){
     lastIssueHtml = ih;
     $('#issueList').innerHTML = ih;
   }
-  $('#issueCnt').textContent = shown.length + '건';
   const more = $('#moreIssues');
   more.hidden = iss.length <= FIRST_ISSUES;
   more.textContent = state.more ? '이슈 접기' : `이슈 ${iss.length - FIRST_ISSUES}건 더 보기`;
@@ -1113,9 +1100,6 @@ async function load(manual){
 function applyData(data){
   const age = relTime(data.generated_at);
   $('#updated').textContent = (data.generated_at_kst || '–') + (age ? ` (${age})` : '');
-  const nf = (data.flash||[]).length;
-  const ni = (data.issues || data.articles || []).length;
-  $('#total').textContent = `속보 ${nf} · 이슈 ${ni}`;
   renderNews(false);
   if(state.tab === 'upper') renderUpper();
   if(state.tab === 'calendar') renderCalendar();
