@@ -83,11 +83,19 @@
     color:#fff;border-color:transparent;background:linear-gradient(135deg,#4f8cff,#7c5cff);
     box-shadow:0 3px 12px rgba(79,140,255,.32);
   }
-  /* 레이더 — 빨간 글씨로 따로 눈에 띄게 */
-  .tab.radar{color:#ff5c5c;border-color:rgba(255,92,92,.34);background:rgba(255,92,92,.08)}
-  .tab.radar[aria-selected="true"]{
-    color:#fff;border-color:transparent;background:linear-gradient(135deg,#ff3b4e,#ff7a5c);
-    box-shadow:0 3px 12px rgba(255,92,92,.34);
+  /* 레이더 — 글씨는 다른 탭과 같게 두고, 옆의 작은 빨간 등이 켜진다 */
+  .rdot{width:6px;height:6px;border-radius:50%;flex:none;background:#46506a;
+    transition:background .25s ease;box-shadow:none}
+  .rdot.on{background:#ff3b4e;animation:rdpulse 1.8s ease-out infinite}
+  .rdot.hot{background:#ff2d44;box-shadow:0 0 6px rgba(255,45,68,.85);animation:rdpulse 1s ease-out infinite}
+  .rdot.big{width:7px;height:7px;margin-left:1px}
+  @keyframes rdpulse{
+    0%{box-shadow:0 0 0 0 rgba(255,59,78,.7)}
+    70%{box-shadow:0 0 0 5px rgba(255,59,78,0)}
+    100%{box-shadow:0 0 0 0 rgba(255,59,78,0)}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .rdot.on,.rdot.hot{animation:none;box-shadow:0 0 5px rgba(255,45,68,.8)}
   }
   @media (max-width:410px){ .tab{font-size:11.2px;padding:6px 1px;gap:1px;letter-spacing:-.4px} }
 
@@ -317,6 +325,9 @@
     color:#fff;background:rgba(255,90,110,.2);border:1px solid rgba(255,90,110,.45);
     border-radius:6px;padding:1px 5px;font-variant-numeric:tabular-nums}
   .rd-warn{font-size:10.5px;color:#ffb27a;margin:6px 0 0}
+  .rd-hit{flex:none;font-size:9.5px;font-weight:800;color:#ff8b9c;
+    background:rgba(255,90,110,.13);border:1px solid rgba(255,90,110,.34);
+    padding:1px 5px;border-radius:5px;white-space:nowrap}
 
   .empty{text-align:center;color:var(--dim2);padding:40px 16px;font-size:12px;line-height:1.7}
   .skeleton{height:56px;border-radius:10px;background:linear-gradient(90deg,#141d33,#1b2743,#141d33);
@@ -355,7 +366,7 @@
       <button class="tab" role="tab" data-tab="news" aria-selected="true">📰 뉴스</button>
       <button class="tab" role="tab" data-tab="upper" aria-selected="false">🚀 상한가</button>
       <button class="tab" role="tab" data-tab="calendar" aria-selected="false">📅 테마달력</button>
-      <button class="tab radar" role="tab" data-tab="radar" aria-selected="false">레이더</button>
+      <button class="tab radar" role="tab" data-tab="radar" aria-selected="false" aria-label="레이더">레이더<span class="rdot" id="radarDot" aria-hidden="true"></span></button>
     </div>
   </div>
 </header>
@@ -418,7 +429,7 @@
   </section>
 
   <section class="view" data-view="radar" id="view-radar" hidden>
-    <div class="viewhead"><b style="color:#ff5c5c">레이더</b><span id="radarSub"></span></div>
+    <div class="viewhead"><b>레이더</b><span class="rdot big" id="radarDotBig" aria-hidden="true"></span><span id="radarSub"></span></div>
     <div class="radar-note" id="radarNote">종목 옆 숫자 = 고점 대비 하락 % (예: 67 → -67%)</div>
     <div id="radarList">
       <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
@@ -779,12 +790,13 @@ function radarStockHtml(s){
     `</div>`;
 }
 
-function radarTierHtml(t){
+function radarTierHtml(t, hitN){
   const stocks = (t.stocks || []);
   return `<article class="rd-card" style="--c:${esc(t.color || '#4f8cff')}">
     <div class="rd-top">
       <span class="rd-rank">${esc(String(t.rank))}순위</span>
       <span class="rd-theme">${esc(t.theme || '')}</span>
+      ${hitN ? `<span class="rd-hit" title="오늘 모은 뉴스에서 이 테마·종목 키워드가 나온 기사 수">뉴스 ${hitN}</span>` : ''}
       <span class="rd-cnt">${stocks.length}종목</span>
     </div>
     ${t.why ? `<p class="rd-why">${esc(t.why)}</p>` : ''}
@@ -794,18 +806,58 @@ function radarTierHtml(t){
 }
 
 let radarRendered = '';
+
+/* 레이더 등 켜기 — radar.json의 active 순차가 있으면 은은하게, 오늘 모은 뉴스가
+   그 테마·종목 키워드와 맞닿으면 더 밝게 깜박인다. */
+function radarHitCounts(r){
+  const hits = {};
+  const tiers = ((r && r.tiers) || []).filter(t => t.active !== false);
+  if(!tiers.length || !state.data) return hits;
+  const texts = flashAll().concat(issueAll()).map(a =>
+    [a.title, a.summary, (a.leaders || []).join(' ')].filter(Boolean).join(' ').toLowerCase()
+  ).filter(Boolean);
+  if(!texts.length) return hits;
+  for(const t of tiers){
+    const kws = (t.keywords || []).map(k => String(k).toLowerCase()).filter(k => k.length > 1);
+    if(!kws.length) continue;
+    let n = 0;
+    for(const txt of texts) if(kws.some(k => txt.includes(k))) n++;
+    if(n) hits[t.rank] = n;
+  }
+  return hits;
+}
+
+function updateRadarDot(){
+  const r = state.radar;
+  const tiers = (r && r.tiers) || [];
+  const activeN = tiers.filter(t => t.active !== false).length;
+  const hits = radarHitCounts(r);
+  const hitN = Object.keys(hits).length;
+  const cls = hitN ? 'rdot hot' : (activeN ? 'rdot on' : 'rdot');
+  const tip = !activeN ? '레이더 대기 중'
+    : (hitN ? `오늘 뉴스가 닿은 순차 ${hitN}개` : `${activeN}개 순차 대기`);
+  document.querySelectorAll('#radarDot, #radarDotBig').forEach(el => {
+    el.className = cls + (el.id === 'radarDotBig' ? ' big' : '');
+    el.title = tip;
+  });
+  const tab = document.querySelector('.tab.radar');
+  if(tab) tab.setAttribute('aria-label', '레이더 — ' + tip);
+  return hits;
+}
+
 async function renderRadar(force){
   const box = $('#radarList');
   if(!box) return;
   const r = await ensureRadar();
   const tiers = (r && r.tiers) || [];
+  const hits = updateRadarDot();
   if($('#radarSub')) $('#radarSub').textContent = (r && r.base_date_text) ? r.base_date_text : '';
   if($('#radarNote')) $('#radarNote').textContent = (r && r.drop_note) ? r.drop_note : '종목 옆 숫자 = 고점 대비 하락 % (예: 67 → -67%)';
   if(!tiers.length){
     box.innerHTML = `<div class="empty">레이더 자료를 불러오지 못했습니다.<br>잠시 후 다시 열어 주세요.</div>`;
     return;
   }
-  const html = tiers.map(radarTierHtml).join('');
+  const html = tiers.map(t => radarTierHtml(t, hits[t.rank])).join('');
   if(!force && html === radarRendered) return;
   radarRendered = html;
   box.innerHTML = html;
@@ -890,6 +942,7 @@ function applyData(data){
   if(state.tab === 'upper') renderUpper();
   if(state.tab === 'calendar') renderCalendar();
   if(state.tab === 'radar') renderRadar();
+  updateRadarDot();
 }
 
 $('#q').addEventListener('input', e => { state.q = e.target.value; renderNews(true); });
@@ -1023,6 +1076,8 @@ let startTab = (location.hash||'').replace('#','');
 if(startTab === 'schedules') startTab = 'upper';
 switchTab(TABS.includes(startTab) ? startTab : 'news', true);
 load(false);
+/* 레이더 등은 뉴스와 별개로 먼저 받아 두고, 뉴스가 갱신될 때마다 다시 켜짐을 살펴본다 */
+ensureRadar().then(() => updateRadarDot());
 </script>
 <script data-goatcounter="https://crawler5696.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
