@@ -24,8 +24,11 @@ import argparse
 import html as html_lib
 import json
 import os
+import random
 import re
 import sys
+import threading
+import time
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -52,9 +55,16 @@ SECTIONS = [
     (263, "경제 일반", 0.75),
 ]
 
-MAX_ARTICLES = 60          # 대시보드에 남길 최대 기사 수
-ARTICLE_LIMIT = 100        # 원문 조회까지 할 후보 기사 수
-ARTICLE_FETCH_WORKERS = 12  # 본문/시각 조회 동시 요청 수
+MAX_ARTICLES = 50          # 대시보드에 남길 최대 기사 수
+ARTICLE_LIMIT = 35         # 원문 조회까지 할 후보 기사 수
+ARTICLE_FETCH_WORKERS = 3  # 본문/시각 조회 동시 요청 수
+
+# 네이버 차단 방지용 요청 간격(초). 동시 요청 수를 줄이는 것만으로는 부족해
+# 요청 자체를 최소 간격으로 벌린다. 두 값 모두 '최소' 간격이고, 고정 패턴을 피하려고
+# 위로만 조금(최대 JITTER) 흔든다.
+SECTION_DELAY = 0.8        # 섹션·목록 요청(fetch_section, popularDay, FLASHNEWS 등) 사이 간격
+ARTICLE_DELAY = 0.35       # 기사 원문 요청(fetch_article_detail 역할의 enrich)마다 대기
+JITTER = 0.12              # 간격에 더하는 최대 여유(초)
 
 # 실시간 속보(네이버 금융) — 화면 뉴스 탭의 절반(50%)을 차지하는 영역
 FLASH_MAX = 6              # 화면에 올릴 속보 수(뉴스 탭 3:7 구성의 30%)
@@ -166,10 +176,32 @@ STOP_RE = re.compile(r"[\u200b\xa0]+")
 
 
 # --------------------------------------------------------------------------- 유틸
-def fetch(url: str, encoding: str = "utf-8", timeout: int = 12, retries: int = 1) -> str:
+# 요청 간격 장치 — 여러 스레드가 함께 쓰므로 잠금 하나로 줄을 세운다.
+# kind="article"은 기사 원문(ARTICLE_DELAY), 그 밖의 목록·API 요청은 SECTION_DELAY.
+_rate_lock = threading.Lock()
+_rate_last = {"section": 0.0, "article": 0.0}
+_rate_delay = {"article": ARTICLE_DELAY}
+
+
+def _wait_turn(kind: str = "section") -> None:
+    """이전 같은 종류 요청과 최소 간격이 벌어질 때까지 기다린다."""
+    delay = _rate_delay.get(kind, SECTION_DELAY)
+    with _rate_lock:
+        now = time.monotonic()
+        if _rate_last[kind]:
+            wait = _rate_last[kind] + delay + random.uniform(0, JITTER) - now
+            if wait > 0:
+                time.sleep(wait)
+                now = time.monotonic()
+        _rate_last[kind] = now
+
+
+def fetch(url: str, encoding: str = "utf-8", timeout: int = 12, retries: int = 1,
+          kind: str = "section") -> str:
     last = None
     for _ in range(retries + 1):
         try:
+            _wait_turn(kind)
             req = urllib.request.Request(url, headers=HEADERS)
             with urllib.request.urlopen(req, timeout=timeout) as r:
                 return r.read().decode(encoding, "ignore")
@@ -402,7 +434,7 @@ def enrich(article: dict) -> dict:
     if article.get("source") == "google":
         return article
     try:
-        page = fetch(article["url"])
+        page = fetch(article["url"], kind="article")
     except Exception:  # noqa: BLE001
         return article
     m_time = TIME_RE.search(page)
@@ -1136,6 +1168,7 @@ def fetch_json(url: str, referer: str = FLASH_REFERER, timeout: int = 15, retrie
     last = None
     for _ in range(retries + 1):
         try:
+            _wait_turn("section")
             req = urllib.request.Request(url, headers={
                 "User-Agent": UA,
                 "Accept": "application/json, text/plain, */*",
@@ -1313,7 +1346,6 @@ ISSUE_STOP = {
 MAX_ISSUES = 30          # 대시보드에 남길 이슈 카드 수(화면에는 앞 14건을 3:7 비율로 먼저 보여준다)
 MAX_PER_THEME = 3        # 한 테마가 목록을 독점하지 않도록 하는 상한
 MAX_RELATED = 3          # 카드에 접어 넣을 다른 매체 기사 수
-MAX_ENRICH = 60          # 대표 기사 원문(시각·요약·분류)을 확인할 후보 수
 BREAKING_HOURS = 3       # 이 시간 안에 나온 [속보]만 최상단·속보 배지 (아침 속보가 저녁까지 붙박이되는 것을 막는다)
 GOSSIP_SECTIONS = (106, 107)   # 네이버 기사 분류: 연예·스포츠
 
@@ -1508,28 +1540,48 @@ def build_issues(cands: list, now: datetime):
 
     cards.sort(key=order)
 
-    # 대표 기사 원문에서 정확한 시각·발행처 분류·본문 리드 보강 (상위 후보부터)
-    targets = []
-    for c in cards[:MAX_ENRICH]:
-        t = {"id": c["id"], "url": c["url"], "lede": c.get("_lede") or "", "time": c.get("time", "")}
-        if c.get("source") == "main":
-            t["source"] = "main"
-        targets.append((c, t))
-    with ThreadPoolExecutor(max_workers=ARTICLE_FETCH_WORKERS) as pool:
-        list(pool.map(lambda p: enrich(p[1]), targets))
-    missing = [p for p in targets if not p[1].get("lede") and not p[1].get("body_lead")]
-    if missing:
-        with ThreadPoolExecutor(max_workers=3) as pool:
-            list(pool.map(lambda p: enrich(p[1]), missing))
+    # 원문 조회는 실제로 화면에 남을 카드 위주로 하고, 총 ARTICLE_LIMIT건을 넘기지 않는다
+    limit = min(MAX_ISSUES, MAX_ARTICLES)
+    enriched_ids: set[str] = set()
 
-    for c, t in targets:
-        if t.get("time"):
-            c["time"] = t["time"]
-        c["summary"] = make_summary(t.get("lede") or t.get("body_lead") or c.get("_lede") or "")
-        c["leaders"] = leaders_for(c["title"] + " " + c["summary"], c["theme"],
-                                   named_text=c["title"] + " " + " ".join(c["tags"]))
-        c["_naver_section"] = t.get("naver_section")
-        c["_naver_service"] = t.get("naver_service")
+    def pick_limited(items: list) -> list:
+        """테마별 상한과 전체 카드 수 상한을 적용해 화면에 남길 카드를 고른다."""
+        per_theme, out = {}, []
+        for c in items:
+            n = per_theme.get(c["theme"], 0)
+            if n >= MAX_PER_THEME:
+                continue
+            per_theme[c["theme"]] = n + 1
+            out.append(c)
+            if len(out) >= limit:
+                break
+        return out
+
+    def enrich_selected(items: list) -> None:
+        """고른 카드의 대표 기사 원문(시각·본문 리드·분류)을 보강한다. 총 ARTICLE_LIMIT건까지."""
+        budget = ARTICLE_LIMIT - len(enriched_ids)
+        todo = [c for c in items if c["id"] not in enriched_ids][:max(0, budget)]
+        if not todo:
+            return
+        targets = []
+        for c in todo:
+            enriched_ids.add(c["id"])
+            t = {"id": c["id"], "url": c["url"], "lede": c.get("_lede") or "", "time": c.get("time", "")}
+            if c.get("source") == "main":
+                t["source"] = "main"
+            targets.append((c, t))
+        with ThreadPoolExecutor(max_workers=ARTICLE_FETCH_WORKERS) as pool:
+            list(pool.map(lambda p: enrich(p[1]), targets))
+        for c, t in targets:
+            if t.get("time"):
+                c["time"] = t["time"]
+            c["summary"] = make_summary(t.get("lede") or t.get("body_lead") or c.get("_lede") or "")
+            c["leaders"] = leaders_for(c["title"] + " " + c["summary"], c["theme"],
+                                       named_text=c["title"] + " " + " ".join(c["tags"]))
+            c["_naver_section"] = t.get("naver_section")
+            c["_naver_service"] = t.get("naver_service")
+
+    enrich_selected(pick_limited(cards))
 
     # 연예·가십·개인사 카드는 이슈 순위에서 빼고(요약까지 본 뒤), 속보 배지를 정확한 시각으로 다시 판단
     kept_cards, gossip_dropped = [], []
@@ -1537,7 +1589,7 @@ def build_issues(cands: list, now: datetime):
         if is_gossip_card(c):
             gossip_dropped.append(c["title"])
             continue
-        if "summary" not in c:
+        if not c.get("summary"):
             c["summary"] = make_summary(c.get("_lede") or "")
             c["leaders"] = leaders_for(c["title"] + " " + c["summary"], c["theme"],
                                        named_text=c["title"] + " " + " ".join(c["tags"]))
@@ -1549,22 +1601,21 @@ def build_issues(cands: list, now: datetime):
 
     # 시각 보강·가십 제외 뒤 순서를 다시 잡고, 테마 상한과 카드 수 상한을 적용한다
     cards.sort(key=order)
-    per_theme, picked = {}, []
-    for c in cards:
-        n = per_theme.get(c["theme"], 0)
-        if n >= MAX_PER_THEME:
-            continue
-        per_theme[c["theme"]] = n + 1
-        picked.append(c)
-        if len(picked) >= MAX_ISSUES:
-            break
-    cards = picked
+    cards = pick_limited(cards)
+
+    # 원문을 못 받아 요약이 빈 카드는 남은 원문 조회 예산 안에서 한 번 더 보강한다
+    need = [c for c in cards if not c.get("summary")]
+    if need:
+        enrich_selected(need)
+        for c in need:
+            c["breaking"] = _card_breaking(c, now)
+        cards.sort(key=order)
 
     for i, c in enumerate(cards):
         c["issue_rank"] = i + 1
         c.pop("_members", None)
         c.pop("_lede", None)
-    print(f"[info] issues: {len(cards)} cards (max {MAX_ISSUES})", file=sys.stderr)
+    print(f"[info] issues: {len(cards)} cards (max {limit})", file=sys.stderr)
     return cards
 
 
@@ -1952,6 +2003,9 @@ def build_upper_limits(now: datetime, pool: list | None = None) -> dict:
 # --------------------------------------------------------------------------- 메인
 def build(out_path: str):
     now = datetime.now(KST)
+    print(f"[info] settings: ARTICLE_LIMIT={ARTICLE_LIMIT} ARTICLE_FETCH_WORKERS={ARTICLE_FETCH_WORKERS} "
+          f"MAX_ARTICLES={MAX_ARTICLES} SECTION_DELAY={SECTION_DELAY}s ARTICLE_DELAY={ARTICLE_DELAY}s",
+          file=sys.stderr)
     raw = []
     for sid, name, weight in SECTIONS:
         raw.extend(parse_section(sid, name, weight))
@@ -2008,7 +2062,7 @@ def build(out_path: str):
             candidates.append(g)
 
     issues = build_issues(candidates, now)
-    kept = issues
+    kept = issues[:MAX_ARTICLES]
     flash = collect_flash_news(now, extra=candidates)
 
     history = update_history(load_history(out_path), kept, now)
