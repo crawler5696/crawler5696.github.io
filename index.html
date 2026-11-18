@@ -1024,7 +1024,7 @@ function hotRowHtml(s){
   const chg = (s.chg === 0 || s.chg) ? Number(s.chg) : null;
   const chgTxt = chg === null ? '' : (chg > 0 ? '+' : '') + chg.toFixed(1) + '%';
   const dd = (s.dd === 0 || s.dd) ? Number(s.dd) : null;
-  const ddTxt = dd === null ? '' : `고점 ${dd > 0 ? '+' : ''}${dd}%`;
+  const ddTxt = dd === null ? '' : (dd >= 0 ? '1년 최고' : `고점 ${dd}%`);
   const bot = s.bottom ? `<span class="hb-bot" title="1년 고점 대비 ${esc(String(dd))}% — 바닥권에서 나온 1·2·3">바닥</span>` : '';
   const reason = s.reason ? `<div class="hb-reason">${esc(s.reason)}</div>` : '';
   return `<div class="hb-row${s.bottom ? ' bot' : ''}">
