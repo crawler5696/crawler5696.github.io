@@ -112,14 +112,6 @@
   .vbadge[hidden]{display:none}
   @media (max-width:380px){ .vbadge{font-size:10px;padding:1px 5px;gap:2px} }
 
-  .search{position:relative;padding-bottom:5px}
-  .search input{
-    width:100%;border:1px solid var(--line);background:var(--card);color:var(--txt);
-    border-radius:9px;padding:8px 10px 8px 30px;font-size:13px;outline:none;font-family:inherit;
-    transition:border-color .2s;
-  }
-  .search input:focus{border-color:rgba(79,140,255,.55);background:var(--card2)}
-  .search .ic{position:absolute;left:9px;top:calc(50% - 13px);color:var(--dim2);font-size:11px}
 
   /* ---------- 구역 머리 ---------- */
   main{padding-top:1px}
@@ -399,10 +391,6 @@
       <span>업데이트 <b id="updated">불러오는 중…</b></span>
       <a class="vbadge" id="visitors" href="https://crawler5696.goatcounter.com/" target="_blank" rel="noopener noreferrer" title="GoatCounter 방문자 대시보드" hidden>👥 총 <span id="visitorN">–</span>명</a>
     </div>
-    <div class="search">
-      <span class="ic">🔍</span>
-      <input id="q" type="search" inputmode="search" placeholder="종목·키워드 검색 (예: 반도체, 상한가)" autocomplete="off">
-    </div>
 
     <div class="sechead"><span class="bar"></span>⚡ 실시간 속보
       <span class="livechip"><span class="dot"></span>최근 60분</span>
@@ -496,7 +484,7 @@
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
-const state = { data:null, calendar:null, radar:null, month:null, q:'', tab:'news', more:false, open:new Set(), hotOpen:new Set() };
+const state = { data:null, calendar:null, radar:null, month:null, tab:'news', more:false, open:new Set(), hotOpen:new Set() };
 const TABS = ['news','upper','calendar','radar','hotbar'];
 const FIRST_ISSUES = 14;   // 이슈 순위 첫 화면 14건 (속보 6건과 3:7)
 
@@ -542,29 +530,14 @@ function sameStory(a, b){
   return k >= 11 && a.slice(0, k) === b.slice(0, k);
 }
 
-function matches(a, q){
-  if(!q) return true;
-  const hay = (a.title + ' ' + (a.summary||'') + ' ' + (a.theme_label||'') + ' ' +
-               (a.press||'') + ' ' + (a.leaders||[]).join(' ') + ' ' +
-               (a.related||[]).map(x => x.title + ' ' + (x.press||'')).join(' ')).toLowerCase();
-  return hay.includes(q);
-}
-
 function flashList(){
-  const q = state.q.trim().toLowerCase();
-  return flashAll().filter(a => matches(a, q));
+  return flashAll();
 }
 
 function issueList(){
-  const q = state.q.trim().toLowerCase();
   const flashNorms = flashAll().map(a => normTitle(a.title));
-  return issueAll().filter(a => {
-    if(!q){
-      const n = normTitle(a.title);
-      if(flashNorms.some(f => sameStory(n, f))) return false;   // 속보와 중복되는 이슈는 이슈 목록에서 뺀다
-    }
-    return matches(a, q);
-  });
+  /* 위 속보와 같은 사건을 다룬 이슈는 이슈 목록에서 뺀다 */
+  return issueAll().filter(a => !flashNorms.some(f => sameStory(normTitle(a.title), f)));
 }
 
 /* ---------------- 탭 ---------------- */
@@ -635,7 +608,7 @@ let lastFlashHtml = '';
 let lastIssueHtml = '';
 function renderNews(force){
   if(!state.data) return;
-  const key = [state.data.generated_at, state.q, state.more?1:0].join('|');
+  const key = [state.data.generated_at, state.more?1:0].join('|');
   if(!force && key === lastKey) return;
   lastKey = key;
 
@@ -644,7 +617,7 @@ function renderNews(force){
 
   const fh = fl.length
     ? fl.map(flashHtml).join('')
-    : `<div class="mini-empty">${state.q?'조건에 맞는 속보가 없습니다.':'수집된 속보가 없습니다.'}</div>`;
+    : `<div class="mini-empty">수집된 속보가 없습니다.</div>`;
   if(fh !== lastFlashHtml){
     lastFlashHtml = fh;
     $('#flashList').innerHTML = fh;
@@ -653,7 +626,7 @@ function renderNews(force){
   const shown = state.more ? iss : iss.slice(0, FIRST_ISSUES);
   const ih = shown.length
     ? shown.map(issueHtml).join('')
-    : `<div class="mini-empty">${state.q?'조건에 맞는 이슈가 없습니다.':'수집된 이슈가 없습니다.'}</div>`;
+    : `<div class="mini-empty">수집된 이슈가 없습니다.</div>`;
   if(ih !== lastIssueHtml){
     lastIssueHtml = ih;
     $('#issueList').innerHTML = ih;
@@ -1107,7 +1080,6 @@ function applyData(data){
   updateRadarDot();
 }
 
-$('#q').addEventListener('input', e => { state.q = e.target.value; renderNews(true); });
 $('#moreIssues').addEventListener('click', () => { state.more = !state.more; renderNews(true); });
 /* 카드 펼치기: 요약 전체 + 같은 이슈의 다른 매체 기사 */
 $('#issueList').addEventListener('click', e => {
