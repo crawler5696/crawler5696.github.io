@@ -478,15 +478,11 @@
 
   <section class="view" data-view="radar" id="view-radar" hidden>
     <div class="viewhead"><b>레이더</b><span class="rdot big" id="radarDotBig" aria-hidden="true"></span><span id="radarSub"></span></div>
-    <div class="radar-note" id="radarNote">종목 옆 숫자 = 고점 대비 하락 % (예: 67 → -67%)</div>
-    <p class="radar-how">뉴스가 붙은 테마부터 위로 · 불이 꺼진 순차는 뉴스가 나오길 기다리는 자리입니다.</p>
     <div id="radarList">
       <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
     </div>
     <p class="note">
-      순서는 <b>공개 뉴스·일정</b>과 <b>공개 시세</b>로 정리한 참고 목록입니다.
-      종목 옆 숫자는 <b>고점 대비 하락 %</b>의 정수이고, 숫자 앞 가격은 기준일 종가입니다.
-      투자 권유가 아닙니다.
+      종목 옆 숫자는 <b>고점 대비 하락 %</b>, 숫자 앞은 기준일 종가입니다. 투자 권유가 아닙니다.
     </p>
   </section>
 
@@ -502,9 +498,7 @@
       <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
     </div>
     <p class="note">
-      <b>1번</b>은 첫 상한가(또는 48·12개월 최대 거래량 돌파) 뒤 고점 자리, <b>2번</b>은 거래량이 줄며 눌린 자리,
-      <b>3번</b>은 거래량이 늘며 첫 반등 양봉이 나온 자리입니다. 숫자 옆 <b>−</b>는 1년 고점 대비 하락 %입니다.
-      최근 3일 평균 거래대금 5억 미만은 뺐고, 투자 권유가 아닙니다.
+      <b>1번</b> 고점 → <b>2번</b> 눌림 → <b>3번</b> 첫 반등 · 숫자는 1년 고점 대비 % · 투자 권유가 아닙니다.
     </p>
   </section>
 
@@ -527,10 +521,7 @@
 </main>
 
 <footer>
-  <b>네이버 금융 실시간 속보</b>와 <b>네이버 뉴스 메인(언론사별 많이 본 뉴스)</b>·경제 섹션을 5분마다 자동 수집합니다.<br>
-  연예·스포츠·건강·지역 행사·개인 사건은 걸러내고, 증시·산업·거시·정책 이슈만 남깁니다.<br>
-  대장주 배지는 공개 테마 정보로 붙인 것으로 투자 권유가 아닙니다.<br>
-  저작권은 각 언론사에 있으며 모든 기사는 원문 링크로 연결됩니다.
+  <b>네이버 금융</b> 공개 뉴스·시세로 만든 참고 화면 · 투자 권유가 아닙니다.
 </footer>
 <button id="top" aria-label="맨 위로">↑</button>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
@@ -963,9 +954,9 @@ async function ensureHotbar(){
 }
 
 function hotHow(sec){
-  if(sec === 'week') return '주간 거래량이 직전 48주봉 최대 거래량을 넘은 종목부터 · 이번 주는 진행 중이라 실제 누적 거래량으로 비교합니다.';
-  if(sec === 'month') return '월간 거래량이 직전 12개월 최대 거래량을 넘은 종목부터 · 이번 달은 진행 중이라 실제 누적 거래량으로 비교합니다.';
-  return '직전 60일 안에 첫 상한가가 나온 종목 · 첫 상한가 뒤 22거래일 안의 1번(고점) → 2번(눌림) → 3번(첫 반등).';
+  if(sec === 'week') return '주간 거래량 > 직전 48주 최대 · 이번 주는 진행 중(누적 거래량)';
+  if(sec === 'month') return '월간 거래량 > 직전 12월 최대 · 이번 달은 진행 중(누적 거래량)';
+  return '첫 상한가 뒤 22거래일 안 · 1번 고점 → 2번 눌림 → 3번 반등';
 }
 
 function hotRowHtml(s){
