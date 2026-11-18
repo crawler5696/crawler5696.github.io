@@ -905,6 +905,7 @@ def build_themes_rank(kept: list, now: datetime, history: dict | None = None):
 # --------------------------------------------------------------------------- 일정 뉴스
 # 일정 종류: (id, 화면 라벨, 단서 표현) — 위에서부터 먼저 맞는 것을 쓴다
 EVENT_TYPES = [
+    ("minutes", "의사록 공개", ("의사록",)),
     ("rate", "금리 결정", ("금통위", "기준금리", "FOMC", "연준", "금리 인상", "금리 인하", "통화정책")),
     ("inflation", "물가·고용 지표", ("CPI", "소비자물가", "PPI", "고용보고서", "비농업", "물가지수")),
     ("earnings", "실적 발표", ("실적 발표", "실적발표", "잠정실적", "컨퍼런스콜", "어닝", "분기 실적",
@@ -918,6 +919,11 @@ EVENT_TYPES = [
                            "지원책", "특별법", "공청회")),
     ("contract", "수주·계약", ("수주", "공급계약", "납품", "MOU", "협약", "계약 체결")),
 ]
+
+EVENT_PRIORITY = {"minutes": 4.2, "rate": 4.0, "earnings": 3.5, "ipo": 3.4, "inflation": 3.0,
+                  "shareholder": 2.5, "policy": 2.0, "contract": 1.5, "market": 1.0, "event": 1.0}
+SPECIFIC_EVENTS = {"minutes", "rate", "earnings", "ipo", "inflation", "shareholder"}
+
 
 # 일정 주제로 쓸 대상 이름 (제목에 나오면 '대상 + 일정명'으로 묶는다)
 SUBJECTS = {
@@ -941,6 +947,20 @@ PAST_MARKERS = ("철회", "취소", "무산", "불발", "연기됐", "연기된�
 
 WEEKDAY_KR = ("월", "화", "수", "목", "금", "토", "일")
 
+# 하루 안에서 일정이 끝나는 시각을 가늠하는 표현 — 이 시각을 넘기면 '이미 지난 일정'으로 본다
+DAY_TIME_WORDS = (
+    ("새벽", 7), ("자정", 7), ("개장 전", 10), ("장 시작 전", 10), ("아침", 10),
+    ("오전", 12), ("정오", 14), ("시간외", 16), ("오후", 18), ("장 마감 후", 19),
+    ("장마감 후", 19), ("저녁", 21), ("밤", 24),
+)
+# 미국장 일정(실적·금리·물가)은 한국시간 새벽~아침에 발표가 끝난다
+US_MARKERS = ("뉴욕", "나스닥", "다우", "미국", "美", "연준", "FOMC", "월가",
+              "엔비디아", "테슬라", "애플", "마이크로소프트", "아마존", "메타", "구글",
+              "알파벳", "인텔", "브로드컴", "퀄컴", "TSMC", "AMD", "넷플릭스")
+US_SUBJECTS = ("미 연준", "미국", "엔비디아", "테슬라", "애플", "마이크로소프트", "아마존",
+               "메타", "앤트로픽", "TSMC")
+US_EARLY_HOUR = 9          # 미장 발표는 이 시각(한국시간)까지만 '앞으로 올 일정'으로 본다
+
 
 def _mk(y: int, m: int, d: int):
     try:
@@ -949,31 +969,73 @@ def _mk(y: int, m: int, d: int):
         return None
 
 
-def _date_when(dt: datetime, ok_today: bool = False):
-    return {"key": dt.date().isoformat(), "label": f"{dt.month}월 {dt.day}일 ({WEEKDAY_KR[dt.weekday()]})",
+def _date_when(dt: datetime, now: datetime, ok_today: bool = False):
+    """날짜를 표시용 라벨로. 오늘·내일은 그 말로 먼저 보여 준다."""
+    diff = (dt.date() - now.date()).days
+    wd = WEEKDAY_KR[dt.weekday()]
+    if diff == 0:
+        label = f"오늘 {dt.month}.{dt.day}({wd})"
+    elif diff == 1:
+        label = f"내일 {dt.month}.{dt.day}({wd})"
+    else:
+        label = f"{dt.month}월 {dt.day}일 ({wd})"
+    return {"key": dt.date().isoformat(), "label": label,
             "sort": dt.isoformat(), "date": dt.date().isoformat(), "ok_today": ok_today}
 
 
-def resolve_when(text: str, pub: datetime, now: datetime):
-    """시점 단서를 찾아 (정렬값, 표시 라벨, 묶음 키)를 돌려준다. 지난 시점·단서 없음은 None."""
-    today = now.date()
+def day_cutoff(text: str, ev_id: str, subject: str):
+    """오늘 날짜 일정이 하루 중 언제 끝나는지 가늠한다 (지난 시점 일정 제외용).
 
-    m = re.search(r"(\d{1,2})월\s*(\d{1,2})\s*[~∼\-–]\s*(\d{1,2})일", text)
+    시각 표현(오후 3시·새벽 등)을 먼저 보고, 미국장 실적·금리·물가 일정이면
+    한국시간 새벽~아침에 이미 결과가 나온 것으로 본다. 가늠할 수 없으면 None.
+    """
+    m = re.search(r"(오전|오후|밤|새벽|낮)?\s*(\d{1,2})\s*시(?!\s*간)", text)
     if m:
-        mo, d1, d2 = int(m.group(1)), int(m.group(2)), int(m.group(3))
+        h = int(m.group(2))
+        word = m.group(1) or ""
+        if word in ("오후", "밤") and h < 12:
+            h += 12
+        if 0 <= h <= 24:
+            return min(24, h + 1), f"{m.group(0).strip()}"
+    # 미국장 실적·금리·물가 발표는 한국시간 새벽~아침에 결과가 나온다 ('오전' 같은 어림 표현보다 우선)
+    if ev_id in ("rate", "earnings", "inflation") and (
+            any(w in text for w in US_MARKERS) or subject in US_SUBJECTS):
+        return US_EARLY_HOUR, "미국장 일정"
+    for w, h in DAY_TIME_WORDS:
+        if w in text:
+            return h, w
+    return None, ""
+
+
+def resolve_when(text: str, pub: datetime, now: datetime):
+    """시점 단서를 찾아 정렬값·표시 라벨·묶음 키를 돌려준다. 지난 시점·단서 없음은 None."""
+    today = now.date()
+    day_end = now.replace(hour=23, minute=59, second=0, microsecond=0)
+
+    # 기간 일정: 11월 16~20일 / 11월 28일~12월 2일
+    m = re.search(r"(\d{1,2})월\s*(\d{1,2})일?\s*[~∼\-–]\s*(?:(\d{1,2})월\s*)?(\d{1,2})일", text)
+    if m:
+        mo, d1 = int(m.group(1)), int(m.group(2))
+        mo2 = int(m.group(3)) if m.group(3) else mo
+        d2 = int(m.group(4))
         y = pub.year if mo >= pub.month - 6 else pub.year + 1
-        start, end = _mk(y, mo, d1), _mk(y, mo, d2)
-        if start and end:
-            if end.date() < today:
+        y2 = y + 1 if mo2 < mo else y
+        start, end = _mk(y, mo, d1), _mk(y2, mo2, d2)
+        if start and end and end >= start:
+            if end.date() < today:      # 기간이 이미 끝난 일정은 뺀다
                 return None
-            return {"key": f"range-{start.date()}", "label": f"{mo}.{d1}~{d2}",
+            if start.date() <= today:   # 오늘을 끼고 진행 중인 기간 일정은 오늘 자리로 올린다
+                return {"key": f"range-{start.date()}", "label": f"{mo}.{d1}~{d2}" if mo2 == mo else f"{mo}.{d1}~{mo2}.{d2}",
+                        "sort": now.isoformat(), "date": today.isoformat(), "ongoing": True,
+                        "ends": end.date().isoformat()}
+            return {"key": f"range-{start.date()}", "label": f"{mo}.{d1}~{d2}" if mo2 == mo else f"{mo}.{d1}~{mo2}.{d2}",
                     "sort": start.isoformat(), "date": start.date().isoformat()}
 
     m = re.search(r"(\d{4})년\s*(\d{1,2})월\s*(\d{1,2})일", text)
     if m:
         dt = _mk(int(m.group(1)), int(m.group(2)), int(m.group(3)))
         if dt:
-            return _date_when(dt) if dt.date() >= today else None
+            return _date_when(dt, now) if dt.date() >= today else None
 
     m = re.search(r"(\d{1,2})월\s*(\d{1,2})일", text)
     if m:
@@ -981,7 +1043,7 @@ def resolve_when(text: str, pub: datetime, now: datetime):
         y = pub.year if mo >= pub.month - 6 else pub.year + 1
         dt = _mk(y, mo, d)
         if dt:
-            return _date_when(dt) if dt.date() >= today else None
+            return _date_when(dt, now) if dt.date() >= today else None
 
     m = re.search(r"(?<![0-9거래영업근로])(\d{1,2})일(?!\s*(?:연속|만에|째|동안|간|만|전|후|새|차|분))", text)
     if m and "지난" not in text[max(0, m.start() - 3):m.start()]:
@@ -993,65 +1055,73 @@ def resolve_when(text: str, pub: datetime, now: datetime):
                 nxt = (pub.replace(day=1) + timedelta(days=32)).replace(day=1)
                 dt = _mk(nxt.year, nxt.month, d)
             if dt and dt.date() >= today:
-                return _date_when(dt, ok_today=True)
+                return _date_when(dt, now, ok_today=True)
 
     m = re.search(r"D-(\d{1,2})", text)
     if m:
         dt = pub + timedelta(days=int(m.group(1)))
         if dt.date() >= today:
-            return _date_when(dt, ok_today=True)
+            return _date_when(dt, now, ok_today=True)
 
     for word, days in (("모레", 2), ("내일", 1)):
         if word in text:
-            return _date_when(pub + timedelta(days=days), ok_today=True)
+            return _date_when(pub + timedelta(days=days), now, ok_today=True)
 
     if re.search(r"이번\s*주|금주", text):
-        return {"key": f"week-{pub.isocalendar()[:2]}", "label": "이번 주", "sort": pub.isoformat(), "date": None}
+        # 이번 주 일정은 오늘 날짜 일정 다음, 내일 일정 앞에 놓는다
+        return {"key": f"week-{now.isocalendar()[:2]}", "label": "이번 주",
+                "sort": day_end.isoformat(), "date": None}
     if re.search(r"다음\s*주|차주", text):
-        nx = pub + timedelta(days=7)
-        return {"key": f"week-{nx.isocalendar()[:2]}", "label": "다음 주", "sort": nx.isoformat(), "date": None}
+        nx = now + timedelta(days=7 - now.weekday())
+        nx = nx.replace(hour=0, minute=0, second=0, microsecond=0)
+        return {"key": f"week-{nx.isocalendar()[:2]}", "label": "다음 주",
+                "sort": nx.isoformat(), "date": None}
 
-    if re.search(r"다음\s*달|월초|월말", text):
-        nx = (pub.replace(day=1) + timedelta(days=32)).replace(day=1)
-        return {"key": f"month-{nx.year}-{nx.month}", "label": "다음 달", "sort": nx.isoformat(), "date": None}
+    if re.search(r"다음\s*달|월초", text):
+        nx = (now.replace(day=1) + timedelta(days=32)).replace(day=1)
+        return {"key": f"month-{nx.year}-{nx.month}", "label": "다음 달",
+                "sort": nx.isoformat(), "date": None}
+    if "월말" in text:
+        nx = (now.replace(day=1) + timedelta(days=32)).replace(day=1) - timedelta(days=1)
+        return {"key": f"monthend-{nx.year}-{nx.month}", "label": "이달 말",
+                "sort": nx.replace(hour=0, minute=0).isoformat(), "date": None}
     if re.search(r"이번\s*달|이달", text):
-        return {"key": f"month-{pub.year}-{pub.month}", "label": f"{pub.month}월 중", "sort": pub.isoformat(), "date": None}
+        return {"key": f"month-{now.year}-{now.month}", "label": f"{now.month}월 중",
+                "sort": day_end.isoformat(), "date": None}
 
-    if "연내" in text:
-        return {"key": f"year-{pub.year}", "label": "연내", "sort": pub.replace(month=12, day=31).isoformat(), "date": None}
-    if "내년" in text:
-        m = re.search(r"내년\s*(\d{1,2})월", text)
-        mo = int(m.group(1)) if m else None
-        base = datetime(pub.year + 1, mo or 1, 1, tzinfo=KST)
-        label = f"내년 {mo}월" if mo else "내년"
-        return {"key": f"nextyear-{mo}", "label": label, "sort": base.isoformat(), "date": None}
     m = re.search(r"([1-4])분기", text)
     if m:
         q = int(m.group(1))
         cur_q = (now.month - 1) // 3 + 1
         if q < cur_q:  # 지나간 분기 실적 기사는 일정이 아니다
             return None
-        return {"key": f"q-{pub.year}-{q}", "label": f"{q}분기", "sort": pub.isoformat(), "date": None}
+        qstart = datetime(now.year, 3 * (q - 1) + 1, 1, tzinfo=KST)
+        start = max(qstart, now.replace(hour=0, minute=0, second=0, microsecond=0))
+        return {"key": f"q-{now.year}-{q}", "label": f"{q}분기", "sort": start.isoformat(), "date": None}
     return None
 
 
 def detect_event(text: str):
-    """일정 종류를 고른다. 앞쪽에 나온 표현일수록 우선하되, 구체적인 일정(금리·실적·IPO)을
-    '주간 증시'·'개최' 같은 ñ은 표현보다 먼저 본다."""
-    priority = {"rate": 4.0, "earnings": 3.5, "ipo": 3.0, "inflation": 3.0,
-                "shareholder": 2.5, "policy": 2.0, "contract": 1.5, "market": 1.0, "event": 1.0}
-    best = None
+    """일정 종류를 고른다.
+
+    금리·실적·IPO·물가·주총 같은 '구체적 일정'이 있으면 그것을 먼저 보고,
+    그중에서는 제목 앞쪽에 나온 표현을 쓴다. 구체적 일정이 없을 때만
+    '주간 증시'·'개최' 같은 넓은 표현을 쓴다.
+    """
+    hits = []
+    if "의사록" in text:   # 의사록 공개는 금리 결정과 다른 일정이다
+        return {"id": "minutes", "label": "의사록 공개", "kw": "의사록"}
     for eid, label, kws in EVENT_TYPES:
         for kw in kws:
             pos = text.find(kw)
-            if pos < 0:
-                continue
-            score = pos - 12 * priority.get(eid, 1.0)
-            if best is None or score < best[0]:
-                best = (score, pos, eid, label, kw)
-    if best is None:
+            if pos >= 0:
+                hits.append((pos, eid, label, kw))
+    if not hits:
         return None
-    return {"id": best[2], "label": best[3], "kw": best[4]}
+    specific = [h for h in hits if h[1] in SPECIFIC_EVENTS]
+    pool = specific or hits
+    pos, eid, label, kw = min(pool, key=lambda h: (h[0] - 2 * EVENT_PRIORITY.get(h[1], 1.0), h[0]))
+    return {"id": eid, "label": label, "kw": kw}
 
 
 SCHEDULE_QUERIES = (
@@ -1186,9 +1256,9 @@ def collect_schedule_news(now: datetime):
 def enrich_schedule_summaries(cards: list, now: datetime):
     """요약이 없는 일정 기사는 같은 제목의 다음 뉴스를 찾아 요약문을 붙인다 (최대 15건).
     제목이 사실상 같을 때만 쓰므로 다른 기사의 문장이 섞이지 않는다."""
-    budget = 15
+    budget = 8
     for card in cards:
-        for a in card["articles"]:
+        for a in card["articles"][:1]:
             if a.get("summary") or budget <= 0:
                 continue
             budget -= 1
@@ -1221,6 +1291,33 @@ def enrich_schedule_summaries(cards: list, now: datetime):
     return cards
 
 
+SCHED_ART_FRESH_HOURS = 24   # 일정 카드에 붙일 기사는 최근 24시간 안에 나온 것만
+SCHED_ART_MAX_HOURS = 72     # 그런 기사가 없을 때만 최대 사흘 전 기사 하나 (날짜가 잡힌 앞으로의 일정만)
+# 일정 카드에는 언론사 기사만 붙인다 (개인 칼럼·블로그성 글은 확인되지 않은 일정이 많다)
+LOW_TRUST_PRESS = ("프리미엄콘텐츠", "블로그", "브런치", "카페")
+
+
+def prune_card_articles(card: dict, now: datetime) -> bool:
+    """일정 카드의 기사를 최신순으로 추려 붙인다. 남길 기사가 없으면 카드를 버린다."""
+    arts = [a for a in card.get("articles") or [] if a.get("title")]
+
+    def age_h(a):
+        t = to_dt(a.get("time"))
+        return (now - t).total_seconds() / 3600.0 if t else 10 ** 9
+
+    arts.sort(key=lambda a: a.get("time") or "", reverse=True)
+    fresh = [a for a in arts if age_h(a) <= SCHED_ART_FRESH_HOURS]
+    if fresh:
+        kept = fresh[:3]
+    else:
+        # 오늘 새 기사가 없을 때는, 아직 오지 않은 날짜가 잡힌 일정에 한해 가장 최근 기사 하나만
+        dated = bool(card.get("date")) and not card.get("ongoing")
+        kept = [arts[0]] if dated and arts and age_h(arts[0]) <= SCHED_ART_MAX_HOURS else []
+    card["articles"] = kept
+    card["count"] = len(kept)
+    return bool(kept)
+
+
 def build_schedules(kept: list, now: datetime):
     """기사 제목·요약에서 일정 단서와 시점 단서가 함께 있는 것만 주제별로 묶는다."""
     pool = list(kept)
@@ -1247,6 +1344,8 @@ def build_schedules(kept: list, now: datetime):
         text = title + " " + summ
         if any(p in title for p in PAST_MARKERS):
             continue
+        if any(p in (a.get("press") or "") for p in LOW_TRUST_PRESS):
+            continue
         # 일정 종류는 제목에서만 판단한다 (요약문만 보고 종류를 정하면 기사와 무관한 일정이 생긴다)
         ev = detect_event(title)
         if not ev:
@@ -1267,10 +1366,6 @@ def build_schedules(kept: list, now: datetime):
                     continue
             except ValueError:
                 pass
-        # 오늘 날짜로 풀린 일정은 앞으로 할 일이라는 표현이 있을 때만 남긴다
-        if (when.get("date") == now.date().isoformat() and not when.get("ok_today")
-                and not any(v in text for v in FUTURE_VERBS)):
-            continue
         subject = ""
         ev_pos = title.find(ev["kw"])
         best_dist = 10 ** 9
@@ -1280,13 +1375,26 @@ def build_schedules(kept: list, now: datetime):
                 continue
             if abs(p - ev_pos) < best_dist:
                 best_dist, subject = abs(p - ev_pos), disp
+        # 오늘 날짜 일정이라도 하루 중 그 시각이 이미 지났으면 지난 일정으로 본다
+        # (예: 오전에 결과가 나온 미국장 실적 발표를 오후에 또 올리지 않는다)
+        if when.get("date") == now.date().isoformat() and not when.get("ongoing"):
+            cut, why = day_cutoff(text, ev["id"], subject)
+            if cut is not None and now.hour >= cut:
+                if os.environ.get("NEWS_DEBUG"):
+                    print(f"[debug] 지난 일정 제외 ({why} {cut}시) | {title[:60]}", file=sys.stderr)
+                continue
+            # 오늘 날짜로 풀린 일정은 앞으로 할 일이라는 표현이 있을 때만 남긴다
+            if not when.get("ok_today") and not any(v in text for v in FUTURE_VERBS):
+                continue
         topic = f"{subject} {ev['label']}".strip() if subject else ev["label"]
         key = f"{ev['id']}|{when['key']}|{subject}"
         if os.environ.get("NEWS_DEBUG"):
             print(f"[debug] {when['label']:>12} | {topic} | {a.get('source','naver')} | {title[:60]}", file=sys.stderr)
         g = groups.setdefault(key, {"topic": topic, "type": ev["id"], "type_label": ev["label"],
                                    "when": when["label"], "date": when.get("date"),
-                                   "sort": when["sort"], "articles": []})
+                                   "sort": when["sort"], "articles": [],
+                                   "ongoing": bool(when.get("ongoing")),
+                                   "ends": when.get("ends")})
         if len(g["articles"]) < 4 and all(x["title"] != title for x in g["articles"]):
             g["articles"].append({"title": title, "summary": summ, "press": a.get("press", ""),
                                   "time": a.get("time", ""), "url": a["url"]})
@@ -1341,6 +1449,8 @@ def build_schedules(kept: list, now: datetime):
         else:
             merge_into(prev, c)
 
+    # 카드에 붙는 기사는 최신 것만 남긴다 (2~3일 전 기사가 섞여 '언제 일정인지' 흐려지는 것을 막는다)
+    final = [c for c in final if prune_card_articles(c, now)]
     final.sort(key=lambda c: (c["sort"], -c["count"]))
     print(f"[info] schedules: {len(groups)} groups -> {len(final)} cards", file=sys.stderr)
     return enrich_schedule_summaries(final[:10], now)

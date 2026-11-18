@@ -221,24 +221,27 @@
     border-radius:7px;padding:3px 6px;margin-bottom:5px;line-height:1.45}
 
   /* ---------- 일정 뉴스 ---------- */
-  .sch-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
-    padding:9px 10px 7px;margin-bottom:6px}
-  .sch-top{display:flex;align-items:center;gap:5px;margin-bottom:4px;flex-wrap:wrap}
+  .sch-card{background:var(--card);border:1px solid var(--line);border-radius:10px;
+    padding:7px 9px 4px;margin-bottom:5px}
+  .sch-top{display:flex;align-items:center;gap:4px;flex-wrap:wrap}
   .when{font-size:10px;font-weight:800;color:#ffd166;background:rgba(255,209,102,.13);
-    border:1px solid rgba(255,209,102,.34);padding:2px 7px;border-radius:6px}
-  .type{font-size:9.8px;color:var(--dim);background:rgba(255,255,255,.05);border:1px solid var(--line);
-    padding:1px 6px;border-radius:5px}
+    border:1px solid rgba(255,209,102,.34);padding:1px 6px;border-radius:6px;white-space:nowrap}
+  .ong{font-size:9.5px;font-weight:800;color:#69e2b4;background:rgba(56,214,168,.13);
+    border:1px solid rgba(56,214,168,.38);padding:0 5px;border-radius:5px;white-space:nowrap}
+  .type{font-size:9.5px;color:var(--dim);background:rgba(255,255,255,.05);border:1px solid var(--line);
+    padding:0 5px;border-radius:5px;white-space:nowrap}
   .sch-card .cnt{margin-left:auto;font-size:9.8px;color:var(--dim2)}
-  .sch-topic{font-size:13px;font-weight:800;letter-spacing:-.3px;margin:0 0 4px;line-height:1.3}
-  .sch-themes{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:5px}
-  .tag2{font-size:9.5px;font-weight:700;padding:1px 6px;border-radius:5px;border:1px solid transparent}
-  .sch-art{display:block;padding:5px 0;border-top:1px solid var(--line)}
-  .sch-art:active{opacity:.75}
-  .sch-t{font-size:11.8px;font-weight:700;line-height:1.35;color:#dce4f2;
+  .sch-topic{font-size:12.8px;font-weight:800;letter-spacing:-.3px;margin:3px 0 1px;line-height:1.28;
     display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-  .sch-s{font-size:10.8px;color:#9aa7bd;line-height:1.4;margin-top:2px;
-    display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
-  .sch-f{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--dim2);margin-top:3px}
+  .sch-art{display:block;padding:4px 0 3px;border-top:1px solid var(--line);margin-top:3px}
+  .sch-art:active{opacity:.75}
+  .sch-t{font-size:11.5px;font-weight:600;line-height:1.32;color:#dce4f2;
+    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .sch-f{display:flex;align-items:center;gap:4px;font-size:9.8px;color:var(--dim2);margin-top:1px}
+  .sch-hidden{display:none}
+  .sch-card.open .sch-hidden{display:block}
+  .sch-more{width:100%;appearance:none;border:0;border-top:1px solid var(--line);background:transparent;
+    color:#7c8ba6;font-family:inherit;font-size:10.5px;font-weight:700;padding:4px 0 2px;cursor:pointer}
 
   .empty{text-align:center;color:var(--dim2);padding:40px 16px;font-size:12px;line-height:1.7}
   .skeleton{height:56px;border-radius:10px;background:linear-gradient(90deg,#141d33,#1b2743,#141d33);
@@ -331,8 +334,10 @@
       <div class="skeleton"></div><div class="skeleton"></div>
     </div>
     <p class="note">
-      수집된 기사 제목·요약에 드러난 일정 단서(실적 발표, 금리 결정, IPO·공모, 주주총회, 정책 시행 등)를
-      시점 표현(내일·이번 주·날짜)과 함께 묶었습니다. 시점은 기사에 적힌 표현을 그대로 따르므로 원문에서 한 번 더 확인하세요.
+      기사에 드러난 일정 단서(실적 발표, 금리 결정, IPO·공모, 주주총회, 정책 시행 등)를 시점별로 묶어
+      <b>오늘·내일·이번 주 → 다음 주 → 이달 말</b> 순으로 놓았습니다.
+      이미 지난 날짜·시각의 일정은 빼고, 카드에는 <b>최근 24시간 안에 나온 기사</b>만 붙입니다.
+      <b>진행중</b>은 오늘을 끼고 이어지는 기간 일정입니다. 시점은 기사에 적힌 표현을 따르므로 원문에서 한 번 더 확인하세요.
     </p>
   </section>
 </main>
@@ -590,25 +595,28 @@ function renderSchedules(){
   if(!box || !state.data) return;
   const rows = state.data.schedules || [];
   if(!rows.length){
-    box.innerHTML = `<div class="empty">지금 수집된 기사에는 일정 단서가 없습니다.<br>일정 기사가 잡히면 여기에 시점별로 묶여 표시됩니다.</div>`;
+    box.innerHTML = `<div class="empty">지금 수집된 기사에는 앞으로의 일정 단서가 없습니다.<br>일정 기사가 잡히면 여기에 시점별로 묶여 표시됩니다.</div>`;
     $('#schedSub').textContent = '';
     return;
   }
   $('#schedSub').textContent = `일정 ${rows.length}개`;
   let html = '';
   for(const s of rows){
-    const arts = (s.articles||[]).map(a => `<a class="sch-art" href="${esc(a.url)}" target="_blank" rel="noopener noreferrer">
+    const list = s.articles || [];
+    const arts = list.map((a,i) => `<a class="sch-art${i > 1 ? ' sch-hidden' : ''}" href="${esc(a.url)}" target="_blank" rel="noopener noreferrer">
         <div class="sch-t">${esc(a.title)}</div>
-        ${a.summary ? `<div class="sch-s">${esc(a.summary)}</div>` : ''}
         <div class="sch-f"><span class="press">${esc(a.press||'')}</span>${a.time?`<span>· ${relTime(a.time)}</span>`:''}</div>
       </a>`).join('');
-    const th = (s.themes||[]).map(t =>
-      `<span class="tag2" style="color:${t.color};border-color:${t.color}55;background:${t.color}18">${esc(t.label)}</span>`).join('');
+    const more = list.length > 2
+      ? `<button class="sch-more" type="button">기사 ${list.length-2}건 더 보기</button>` : '';
     html += `<article class="sch-card">
-      <div class="sch-top"><span class="when">${esc(s.when)}</span><span class="type">${esc(s.type_label||'')}</span><span class="cnt">${s.count||(s.articles||[]).length}건</span></div>
+      <div class="sch-top">
+        <span class="when">${esc(s.when)}</span>${s.ongoing ? '<span class="ong">진행중</span>' : ''}
+        <span class="type">${esc(s.type_label||'')}</span>
+        <span class="cnt">${list.length}건</span>
+      </div>
       <h3 class="sch-topic">${esc(s.topic)}</h3>
-      ${th ? `<div class="sch-themes">${th}</div>` : ''}
-      ${arts}
+      ${arts}${more}
     </article>`;
   }
   box.innerHTML = html;
@@ -670,6 +678,16 @@ $('#issueList').addEventListener('click', e => {
   if(ex) ex.textContent = open ? '▴' : '▾';
 });
 $('#btnRefresh').addEventListener('click', () => load(true));
+/* 일정 카드: 접힌 기사 펼치기 */
+$('#schedList').addEventListener('click', e => {
+  const btn = e.target.closest('.sch-more');
+  if(!btn) return;
+  const card = btn.closest('.sch-card');
+  if(!card) return;
+  if(!btn.dataset.more) btn.dataset.more = btn.textContent;
+  const open = card.classList.toggle('open');
+  btn.textContent = open ? '기사 접기' : btn.dataset.more;
+});
 document.querySelectorAll('.tab').forEach(b => b.onclick = () => switchTab(b.dataset.tab));
 addEventListener('hashchange', () => {
   const name = (location.hash||'').replace('#','');
