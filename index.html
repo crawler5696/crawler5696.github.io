@@ -342,6 +342,16 @@
   .hb-more{width:100%;margin:1px 0 4px;padding:6px;border-radius:8px;border:1px dashed var(--line);
     background:transparent;color:var(--dim2);font-family:inherit;font-size:11px;font-weight:700;cursor:pointer}
   .hb-empty{font-size:10.5px;color:var(--dim2);padding:4px 3px 6px}
+  /* 일정 배지 — 레이더 상단 바 · 카드 · 핫바 종목 */
+  .rd-sched{display:flex;flex-wrap:wrap;align-items:center;gap:2px 6px;margin:0 1px 7px;padding:4px 8px;
+    font-size:10.5px;font-weight:700;color:#cfe0ff;line-height:1.45;
+    background:rgba(79,140,255,.08);border:1px solid rgba(79,140,255,.22);border-radius:8px}
+  .rd-sched b{color:#8fb2ff;font-weight:800}
+  .rd-sched span{color:#5d6a86}
+  .rd-evt{display:block;font-size:10px;font-weight:700;color:#9fc0ff;margin:3px 0 0;letter-spacing:-.2px}
+  .hb-evt{display:inline-block;margin-left:5px;padding:0 4px;border-radius:5px;white-space:nowrap;
+    font-size:9px;font-weight:800;color:#9fc0ff;background:rgba(79,140,255,.14);
+    border:1px solid rgba(79,140,255,.32);vertical-align:1px}
 
   .empty{text-align:center;color:var(--dim2);padding:40px 16px;font-size:12px;line-height:1.7}
   .skeleton{height:56px;border-radius:10px;background:linear-gradient(90deg,#141d33,#1b2743,#141d33);
@@ -445,6 +455,7 @@
 
   <section class="view" data-view="radar" id="view-radar" hidden>
     <div class="viewhead"><b>레이더</b><span class="rdot big" id="radarDotBig" aria-hidden="true"></span><span id="radarSub"></span></div>
+    <div class="rd-sched" id="radarSched" hidden></div>
     <div id="radarList">
       <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
     </div>
@@ -795,6 +806,40 @@ async function renderCalendar(){
 }
 
 
+/* ---------------- 다가오는 일정 (data/schedule.json) ----------------
+   날짜가 지난 일정은 화면에서 자동으로 빠지고, 테마·종목 이름에 걸리는 일정만 배지로 붙는다. */
+let schedData = null;
+async function ensureSched(){
+  if(schedData) return schedData;
+  try{
+    const res = await fetch('data/schedule.json?_=' + Date.now(), {cache:'no-store'});
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    schedData = await res.json();
+    try{ localStorage.setItem('newsradar_sched', JSON.stringify(schedData)); }catch(e){}
+  }catch(err){
+    try{ schedData = JSON.parse(localStorage.getItem('newsradar_sched') || 'null'); }catch(e){}
+  }
+  return schedData;
+}
+function todayStr(){
+  const d = new Date();
+  return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+}
+/* 오늘 이후 일정만, 날짜 순으로 */
+function schedUpcoming(s){
+  const t = todayStr();
+  return (((s || schedData) || {}).events || []).filter(e => (e.date || '') >= t)
+    .sort((a, b) => (a.date || '').localeCompare(b.date || ''));
+}
+/* 이벤트 key가 넘긴 글자들(테마명·키워드·종목 테마)에 걸리는지 */
+function schedHit(e, texts){
+  const keys = (e.keys || []).map(k => String(k).toLowerCase());
+  return keys.some(k => (texts || []).some(x => String(x || '').toLowerCase().includes(k)));
+}
+function schedFor(texts, limit){
+  return schedUpcoming().filter(e => schedHit(e, texts)).slice(0, limit || 2);
+}
+
 /* ---------------- 레이더 (순차별 테마·종목) ---------------- */
 async function ensureRadar(){
   if(state.radar) return state.radar;
@@ -817,8 +862,9 @@ function radarStockHtml(s){
     `</div>`;
 }
 
-function radarTierHtml(t, matched){
+function radarTierHtml(t, matched, evts){
   const stocks = (t.stocks || []);
+  const evtsHtml = (evts || []).map(e => `<span class="rd-evt">📅 ${esc(e.dtext || '')} ${esc(e.label || '')}</span>`).join('');
   return `<article class="rd-card" style="--c:${esc(t.color || '#4f8cff')}">
     <div class="rd-top">
       <span class="rd-rank">${esc(String(t.rank))}순위</span>
@@ -829,6 +875,7 @@ function radarTierHtml(t, matched){
         : `<span class="rd-wait" title="미리 뽑아 둔 자리 — 뉴스가 나오길 기다리는 중">대기</span>`}
       <span class="rd-cnt">${stocks.length}종목</span>
     </div>
+    ${evtsHtml}
     ${t.why ? `<p class="rd-why">${esc(t.why)}</p>` : ''}
     <div class="rd-stks">${stocks.map(radarStockHtml).join('')}</div>
     ${t.watch ? `<p class="rd-warn">⚠ ${esc(t.watch)}</p>` : ''}
@@ -889,6 +936,14 @@ async function renderRadar(force){
   const box = $('#radarList');
   if(!box) return;
   const r = await ensureRadar();
+  const sc = await ensureSched();
+  const up = schedUpcoming(sc);
+  const bar = $('#radarSched');
+  if(bar){
+    const head = up.slice(0, 6).map(e => esc(e.short || e.label || ''));
+    bar.hidden = !head.length;
+    bar.innerHTML = head.length ? `<b>📅 일정</b>${head.join('<span>·</span>')}` : '';
+  }
   const rows = updateRadarDot();
   if($('#radarSub')) $('#radarSub').textContent = (r && r.base_date_text) ? r.base_date_text : '';
   if($('#radarNote')) $('#radarNote').textContent = (r && r.drop_note) ? r.drop_note : '종목 옆 숫자 = 고점 대비 하락 % (예: 67 → -67%)';
@@ -896,7 +951,8 @@ async function renderRadar(force){
     box.innerHTML = `<div class="empty">레이더 자료를 불러오지 못했습니다.<br>잠시 후 다시 열어 주세요.</div>`;
     return;
   }
-  const html = rows.map(x => radarTierHtml(x.tier, x.matched)).join('');
+  const html = rows.map(x => radarTierHtml(x.tier, x.matched,
+    schedFor([x.tier.theme].concat(x.tier.keywords || []), 2))).join('');
   if(!force && html === radarRendered) return;
   radarRendered = html;
   box.innerHTML = html;
@@ -926,13 +982,18 @@ function hotHow(sec){
   return '첫 상한가 뒤 22거래일 안 · 1번 고점 → 2번 눌림 → 3번 반등';
 }
 
+function hotEvtBadge(s){
+  const e = schedFor(s.themes || [], 1)[0];
+  return e ? `<span class="hb-evt">📅 ${esc(e.badge || e.dtext || '')}</span>` : '';
+}
+
 function hotRowHtml(s){
   const chg = (s.chg === 0 || s.chg) ? Number(s.chg) : null;
   const chgTxt = chg === null ? '' : (chg > 0 ? '+' : '') + chg.toFixed(1) + '%';
   const dd = (s.dd === 0 || s.dd) ? String(s.dd) : '';
   return `<div class="hb-row">
     <div class="hb-l">
-      <div class="hb-name">${esc(s.name)}</div>
+      <div class="hb-name">${esc(s.name)}${hotEvtBadge(s)}</div>
       <div class="hb-note">${esc(s.note || '')}</div>
     </div>
     <div class="hb-r">
