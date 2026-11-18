@@ -1411,7 +1411,12 @@ def _card_breaking(card: dict, now: datetime) -> bool:
     members = card.get("_members") or [card]
     if is_breaking(card.get("title") or "") and _fresh(card, now):
         return True
-    return any(is_breaking(a.get("title") or "") and _fresh(a, now) for a in members)
+    for a in members:
+        if a.get("id") == card.get("id"):
+            continue      # 대표 기사는 원문에서 확인한 정확한 시각으로만 본다
+        if is_breaking(a.get("title") or "") and _fresh(a, now):
+            return True
+    return False
 
 
 def is_gossip_card(card: dict) -> bool:
