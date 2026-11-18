@@ -641,7 +641,11 @@ function toast(msg){
   el.textContent = msg;
   el.classList.add('show');
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => el.classList.remove('show'), 1800);
+  toastTimer = setTimeout(() => {
+    el.classList.remove('show');
+    // 사라지는 동안은 글자를 남기고, 다 사라진 뒤에는 비운다(덮개 없이 떠 있는 글자처럼 읽히지 않게)
+    setTimeout(() => { if(!el.classList.contains('show')) el.textContent = ''; }, 220);
+  }, 1800);
 }
 /* 데이터가 만들어진 시각을 HH:MM 으로 */
 function dataHm(data){
