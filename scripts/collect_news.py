@@ -11,8 +11,8 @@
   · leaders     — 기사에 직접 언급된 상장사 + 공개 테마별 상한가 주도 대장주 배지
   · themes_rank — 테마별 이슈 수·최근 6시간 비중·대표 키워드·대장주와,
     공개 뉴스 패턴만으로 계산한 '단기 불씨 / 중기 흐름' 힌트와 그 근거 수치
-  · schedules   — 제목·요약에서 일정·이벤트 단서(실적 발표, 금리 결정, IPO, 정책 시행 등)와
-    시점 단서(내일/이번 주/날짜)를 함께 뽑아 주제별로 묶은 일정 카드
+  · upper_limits — 오늘(장 시작 전이면 직전 거래일) 상한가 종목과, 종목별로 '왜 상한가였는지'를
+    당일 보도에서 찾은 이슈 요약·대표 기사·테마 키워드
 
 외부 API 키 없이 표준 라이브러리만 사용한다 (GitHub Actions 러너에서 바로 실행 가능).
 """
@@ -221,6 +221,46 @@ def looks_like_caption(s: str) -> bool:
     if len(s) < 45 and any(h in s for h in CAPTION_HINT):
         return True
     return any(h in s for h in ("왼쪽부터", "사진=", "자료사진"))
+
+
+# 다음 뉴스의 'n일 전' 표기를 시각으로 바꿀 때 쓰는 날짜 생성기
+def _mk(y: int, m: int, d: int):
+    try:
+        return datetime(y, m, d, tzinfo=KST)
+    except ValueError:
+        return None
+
+
+def parse_kr_time(s: str, now: datetime):
+    """다음 뉴스의 '4시간 전' 같은 표기를 실제 시각으로 바꾼다."""
+    s = (s or "").strip()
+    if not s:
+        return None
+    m = re.match(r"(\d+)\s*분\s*전", s)
+    if m:
+        return now - timedelta(minutes=int(m.group(1)))
+    m = re.match(r"(\d+)\s*시간\s*전", s)
+    if m:
+        return now - timedelta(hours=int(m.group(1)))
+    m = re.match(r"(\d+)\s*일\s*전", s)
+    if m:
+        return now - timedelta(days=int(m.group(1)))
+    if s.startswith("어제"):
+        return now - timedelta(days=1)
+    if s.startswith("오늘") or "방금" in s:
+        return now
+    m = re.search(r"(\d{4})\.(\d{1,2})\.(\d{1,2})", s)
+    if m:
+        dt = _mk(int(m.group(1)), int(m.group(2)), int(m.group(3)))
+        if dt:
+            return dt
+    m = re.search(r"(\d{1,2})월\s*(\d{1,2})일", s)
+    if m:
+        dt = _mk(now.year, int(m.group(1)), int(m.group(2)))
+        if dt and dt.date() > now.date():
+            dt = _mk(now.year - 1, int(m.group(1)), int(m.group(2)))
+        return dt
+    return None
 
 
 # --------------------------------------------------------------------------- 수집
@@ -902,562 +942,6 @@ def build_themes_rank(kept: list, now: datetime, history: dict | None = None):
     return rows
 
 
-# --------------------------------------------------------------------------- 일정 뉴스
-# 일정 종류: (id, 화면 라벨, 단서 표현) — 위에서부터 먼저 맞는 것을 쓴다
-EVENT_TYPES = [
-    ("minutes", "의사록 공개", ("의사록",)),
-    ("rate", "금리 결정", ("금통위", "기준금리", "FOMC", "연준", "금리 인상", "금리 인하", "통화정책")),
-    ("inflation", "물가·고용 지표", ("CPI", "소비자물가", "PPI", "고용보고서", "비농업", "물가지수")),
-    ("earnings", "실적 발표", ("실적 발표", "실적발표", "잠정실적", "컨퍼런스콜", "어닝", "분기 실적",
-                             "실적을 발표", "실적 시즌")),
-    ("ipo", "IPO·공모", ("수요예측", "청약", "공모주", "IPO", "상장 예정", "상장을 앞", "입성",
-                        "증권신고서")),
-    ("shareholder", "주주총회·주주환원", ("주주총회", "임시주총", "사내이사", "배당락", "주주환원", "주총")),
-    ("market", "증시 이벤트", ("동시만기", "옵션 만기", "MSCI", "리밸런싱", "주간 증시", "선물옵션")),
-    ("event", "행사·시험", ("수능", "개최", "학회", "전시", "포럼", "박람회", "컨퍼런스", "개막")),
-    ("policy", "정책·규제", ("시행령", "시행", "국무회의", "국회 통과", "법안", "예산안", "규제",
-                           "지원책", "특별법", "공청회")),
-    ("contract", "수주·계약", ("수주", "공급계약", "납품", "MOU", "협약", "계약 체결")),
-]
-
-EVENT_PRIORITY = {"minutes": 4.2, "rate": 4.0, "earnings": 3.5, "ipo": 3.4, "inflation": 3.0,
-                  "shareholder": 2.5, "policy": 2.0, "contract": 1.5, "market": 1.0, "event": 1.0}
-SPECIFIC_EVENTS = {"minutes", "rate", "earnings", "ipo", "inflation", "shareholder"}
-
-
-# 일정 주제로 쓸 대상 이름 (제목에 나오면 '대상 + 일정명'으로 묶는다)
-SUBJECTS = {
-    "엔비디아": "엔비디아", "삼성전자": "삼성전자", "SK하이닉스": "SK하이닉스", "삼전닉스": "삼성전자·SK하이닉스",
-    "삼성": "삼성", "한국은행": "한국은행", "한은": "한국은행", "금통위": "한국은행 금통위",
-    "연준": "미 연준", "FOMC": "미 연준", "미국": "미국", "중국": "중국", "국회": "국회", "정부": "정부",
-    "금융위": "금융위", "MSCI": "MSCI", "코스피": "코스피", "코스닥": "코스닥",
-    "TSMC": "TSMC", "애플": "애플", "테슬라": "테슬라", "마이크로소프트": "마이크로소프트",
-    "아마존": "아마존", "메타": "메타", "앤트로픽": "앤트로픽", "오픈AI": "오픈AI",
-    "현대차": "현대차", "한화": "한화", "두산": "두산", "LG": "LG", "셀트리온": "셀트리온",
-    "에코프로": "에코프로", "포스코": "포스코", "네이버": "네이버", "카카오": "카카오",
-}
-
-FUTURE_VERBS = ("예정", "예정이다", "개최된다", "개최될", "발표한다", "발표될", "열린다", "공개한다",
-                "출시한다", "시행된다", "나선다", "앞두", "예고", "계획이다", "추진한다")
-# 날짜 뒤에 붙어야 일정 날짜로 인정하는 말 (기사 작성일과 일정일을 가르기 위해)
-DATE_CONTEXT = FUTURE_VERBS + ("발표", "개최", "만기", "청약", "수요예측", "상장", "출범", "시행",
-                               "열리", "공개", "회의", "결정", "계약", "점검", "선고", "투표",
-                               "총회", "모집", "입찰", "시험")
-PAST_MARKERS = ("철회", "취소", "무산", "불발", "연기됐", "연기된다", "마감", "종료")
-
-WEEKDAY_KR = ("월", "화", "수", "목", "금", "토", "일")
-
-# 하루 안에서 일정이 끝나는 시각을 가늠하는 표현 — 이 시각을 넘기면 '이미 지난 일정'으로 본다
-DAY_TIME_WORDS = (
-    ("새벽", 7), ("자정", 7), ("개장 전", 10), ("장 시작 전", 10), ("아침", 10),
-    ("오전", 12), ("정오", 14), ("시간외", 16), ("오후", 18), ("장 마감 후", 19),
-    ("장마감 후", 19), ("저녁", 21), ("밤", 24),
-)
-# 미국장 일정(실적·금리·물가)은 한국시간 새벽~아침에 발표가 끝난다
-US_MARKERS = ("뉴욕", "나스닥", "다우", "미국", "美", "연준", "FOMC", "월가",
-              "엔비디아", "테슬라", "애플", "마이크로소프트", "아마존", "메타", "구글",
-              "알파벳", "인텔", "브로드컴", "퀄컴", "TSMC", "AMD", "넷플릭스")
-US_SUBJECTS = ("미 연준", "미국", "엔비디아", "테슬라", "애플", "마이크로소프트", "아마존",
-               "메타", "앤트로픽", "TSMC")
-US_EARLY_HOUR = 9          # 미장 발표는 이 시각(한국시간)까지만 '앞으로 올 일정'으로 본다
-
-
-def _mk(y: int, m: int, d: int):
-    try:
-        return datetime(y, m, d, tzinfo=KST)
-    except ValueError:
-        return None
-
-
-def _date_when(dt: datetime, now: datetime, ok_today: bool = False):
-    """날짜를 표시용 라벨로. 오늘·내일은 그 말로 먼저 보여 준다."""
-    diff = (dt.date() - now.date()).days
-    wd = WEEKDAY_KR[dt.weekday()]
-    if diff == 0:
-        label = f"오늘 {dt.month}.{dt.day}({wd})"
-    elif diff == 1:
-        label = f"내일 {dt.month}.{dt.day}({wd})"
-    else:
-        label = f"{dt.month}월 {dt.day}일 ({wd})"
-    return {"key": dt.date().isoformat(), "label": label,
-            "sort": dt.isoformat(), "date": dt.date().isoformat(), "ok_today": ok_today}
-
-
-def day_cutoff(text: str, ev_id: str, subject: str):
-    """오늘 날짜 일정이 하루 중 언제 끝나는지 가늠한다 (지난 시점 일정 제외용).
-
-    시각 표현(오후 3시·새벽 등)을 먼저 보고, 미국장 실적·금리·물가 일정이면
-    한국시간 새벽~아침에 이미 결과가 나온 것으로 본다. 가늠할 수 없으면 None.
-    """
-    m = re.search(r"(오전|오후|밤|새벽|낮)?\s*(\d{1,2})\s*시(?!\s*간)", text)
-    if m:
-        h = int(m.group(2))
-        word = m.group(1) or ""
-        if word in ("오후", "밤") and h < 12:
-            h += 12
-        if 0 <= h <= 24:
-            return min(24, h + 1), f"{m.group(0).strip()}"
-    # 미국장 실적·금리·물가 발표는 한국시간 새벽~아침에 결과가 나온다 ('오전' 같은 어림 표현보다 우선)
-    if ev_id in ("rate", "earnings", "inflation") and (
-            any(w in text for w in US_MARKERS) or subject in US_SUBJECTS):
-        return US_EARLY_HOUR, "미국장 일정"
-    for w, h in DAY_TIME_WORDS:
-        if w in text:
-            return h, w
-    return None, ""
-
-
-def resolve_when(text: str, pub: datetime, now: datetime):
-    """시점 단서를 찾아 정렬값·표시 라벨·묶음 키를 돌려준다. 지난 시점·단서 없음은 None."""
-    today = now.date()
-    day_end = now.replace(hour=23, minute=59, second=0, microsecond=0)
-
-    # 기간 일정: 11월 16~20일 / 11월 28일~12월 2일
-    m = re.search(r"(\d{1,2})월\s*(\d{1,2})일?\s*[~∼\-–]\s*(?:(\d{1,2})월\s*)?(\d{1,2})일", text)
-    if m:
-        mo, d1 = int(m.group(1)), int(m.group(2))
-        mo2 = int(m.group(3)) if m.group(3) else mo
-        d2 = int(m.group(4))
-        y = pub.year if mo >= pub.month - 6 else pub.year + 1
-        y2 = y + 1 if mo2 < mo else y
-        start, end = _mk(y, mo, d1), _mk(y2, mo2, d2)
-        if start and end and end >= start:
-            if end.date() < today:      # 기간이 이미 끝난 일정은 뺀다
-                return None
-            if start.date() <= today:   # 오늘을 끼고 진행 중인 기간 일정은 오늘 자리로 올린다
-                return {"key": f"range-{start.date()}", "label": f"{mo}.{d1}~{d2}" if mo2 == mo else f"{mo}.{d1}~{mo2}.{d2}",
-                        "sort": now.isoformat(), "date": today.isoformat(), "ongoing": True,
-                        "ends": end.date().isoformat()}
-            return {"key": f"range-{start.date()}", "label": f"{mo}.{d1}~{d2}" if mo2 == mo else f"{mo}.{d1}~{mo2}.{d2}",
-                    "sort": start.isoformat(), "date": start.date().isoformat()}
-
-    m = re.search(r"(\d{4})년\s*(\d{1,2})월\s*(\d{1,2})일", text)
-    if m:
-        dt = _mk(int(m.group(1)), int(m.group(2)), int(m.group(3)))
-        if dt:
-            return _date_when(dt, now) if dt.date() >= today else None
-
-    m = re.search(r"(\d{1,2})월\s*(\d{1,2})일", text)
-    if m:
-        mo, d = int(m.group(1)), int(m.group(2))
-        y = pub.year if mo >= pub.month - 6 else pub.year + 1
-        dt = _mk(y, mo, d)
-        if dt:
-            return _date_when(dt, now) if dt.date() >= today else None
-
-    m = re.search(r"(?<![0-9거래영업근로])(\d{1,2})일(?!\s*(?:연속|만에|째|동안|간|만|전|후|새|차|분))", text)
-    if m and "지난" not in text[max(0, m.start() - 3):m.start()]:
-        tail = text[m.end():m.end() + 30]
-        d = int(m.group(1))
-        if any(w in tail for w in DATE_CONTEXT) and 1 <= d <= 31:
-            dt = _mk(pub.year, pub.month, d)
-            if dt is None or dt.date() < today - timedelta(days=15):
-                nxt = (pub.replace(day=1) + timedelta(days=32)).replace(day=1)
-                dt = _mk(nxt.year, nxt.month, d)
-            if dt and dt.date() >= today:
-                # '18일, ...'처럼 기사 당일을 가리키는 경우가 있어 오늘 날짜는 앞으로 할 일 표현을 함께 본다
-                return _date_when(dt, now)
-
-    m = re.search(r"D-(\d{1,2})", text)
-    if m:
-        dt = pub + timedelta(days=int(m.group(1)))
-        if dt.date() >= today:
-            return _date_when(dt, now, ok_today=True)
-
-    for word, days in (("모레", 2), ("내일", 1)):
-        if word in text:
-            return _date_when(pub + timedelta(days=days), now, ok_today=True)
-
-    if re.search(r"이번\s*주|금주", text):
-        # 이번 주 일정은 오늘 날짜 일정 다음, 내일 일정 앞에 놓는다
-        return {"key": f"week-{now.isocalendar()[:2]}", "label": "이번 주",
-                "sort": day_end.isoformat(), "date": None}
-    if re.search(r"다음\s*주|차주", text):
-        nx = now + timedelta(days=7 - now.weekday())
-        nx = nx.replace(hour=0, minute=0, second=0, microsecond=0)
-        return {"key": f"week-{nx.isocalendar()[:2]}", "label": "다음 주",
-                "sort": nx.isoformat(), "date": None}
-
-    if re.search(r"다음\s*달|월초", text):
-        nx = (now.replace(day=1) + timedelta(days=32)).replace(day=1)
-        return {"key": f"month-{nx.year}-{nx.month}", "label": "다음 달",
-                "sort": nx.isoformat(), "date": None}
-    if "월말" in text:
-        nx = (now.replace(day=1) + timedelta(days=32)).replace(day=1) - timedelta(days=1)
-        return {"key": f"monthend-{nx.year}-{nx.month}", "label": "이달 말",
-                "sort": nx.replace(hour=0, minute=0).isoformat(), "date": None}
-    if re.search(r"이번\s*달|이달", text):
-        return {"key": f"month-{now.year}-{now.month}", "label": f"{now.month}월 중",
-                "sort": day_end.isoformat(), "date": None}
-
-    m = re.search(r"([1-4])분기", text)
-    if m:
-        q = int(m.group(1))
-        cur_q = (now.month - 1) // 3 + 1
-        if q < cur_q:  # 지나간 분기 실적 기사는 일정이 아니다
-            return None
-        qstart = datetime(now.year, 3 * (q - 1) + 1, 1, tzinfo=KST)
-        start = max(qstart, now.replace(hour=0, minute=0, second=0, microsecond=0))
-        return {"key": f"q-{now.year}-{q}", "label": f"{q}분기", "sort": start.isoformat(), "date": None}
-    return None
-
-
-def detect_event(text: str):
-    """일정 종류를 고른다.
-
-    금리·실적·IPO·물가·주총 같은 '구체적 일정'이 있으면 그것을 먼저 보고,
-    그중에서는 제목 앞쪽에 나온 표현을 쓴다. 구체적 일정이 없을 때만
-    '주간 증시'·'개최' 같은 넓은 표현을 쓴다.
-    """
-    hits = []
-    if "의사록" in text:   # 의사록 공개는 금리 결정과 다른 일정이다
-        return {"id": "minutes", "label": "의사록 공개", "kw": "의사록"}
-    for eid, label, kws in EVENT_TYPES:
-        for kw in kws:
-            pos = text.find(kw)
-            if pos >= 0:
-                hits.append((pos, eid, label, kw))
-    if not hits:
-        return None
-    specific = [h for h in hits if h[1] in SPECIFIC_EVENTS]
-    pool = specific or hits
-    pos, eid, label, kw = min(pool, key=lambda h: (h[0] - 2 * EVENT_PRIORITY.get(h[1], 1.0), h[0]))
-    return {"id": eid, "label": label, "kw": kw}
-
-
-SCHEDULE_QUERIES = (
-    "금통위 기준금리 일정",
-    "FOMC CPI 물가 발표",
-    "실적 발표 일정",
-    "IPO 수요예측 청약 상장",
-    "공모주 청약 일정",
-    "주주총회 배당 일정",
-    "배당락 배당금 일정",
-    "주간 증시 일정 전망",
-    "코스피 주간 전망",
-    "옵션 만기 MSCI 리밸런싱",
-    "정책 시행 발표 증시",
-    "국회 본회의 법안 처리",
-)
-
-
-def parse_kr_time(s: str, now: datetime):
-    """다음 뉴스의 '4시간 전' 같은 표기를 실제 시각으로 바꾼다."""
-    s = (s or "").strip()
-    if not s:
-        return None
-    m = re.match(r"(\d+)\s*분\s*전", s)
-    if m:
-        return now - timedelta(minutes=int(m.group(1)))
-    m = re.match(r"(\d+)\s*시간\s*전", s)
-    if m:
-        return now - timedelta(hours=int(m.group(1)))
-    m = re.match(r"(\d+)\s*일\s*전", s)
-    if m:
-        return now - timedelta(days=int(m.group(1)))
-    if s.startswith("어제"):
-        return now - timedelta(days=1)
-    if s.startswith("오늘") or "방금" in s:
-        return now
-    m = re.search(r"(\d{4})\.(\d{1,2})\.(\d{1,2})", s)
-    if m:
-        dt = _mk(int(m.group(1)), int(m.group(2)), int(m.group(3)))
-        if dt:
-            return dt
-    m = re.search(r"(\d{1,2})월\s*(\d{1,2})일", s)
-    if m:
-        dt = _mk(now.year, int(m.group(1)), int(m.group(2)))
-        if dt and dt.date() > now.date():
-            dt = _mk(now.year - 1, int(m.group(1)), int(m.group(2)))
-        return dt
-    return None
-
-
-def collect_daum_news(now: datetime):
-    """일정 기사를 요약문까지 얻기 위한 다음 뉴스 검색 수집 (서버 렌더링 HTML)."""
-    out, seen = [], set()
-    for q in SCHEDULE_QUERIES:
-        url = ("https://search.daum.net/search?w=news&sort=recency&q=" + urllib.parse.quote(q))
-        try:
-            page = fetch(url, timeout=15)
-        except Exception as e:  # noqa: BLE001
-            print(f"[warn] daum search failed ({q}): {e}", file=sys.stderr)
-            continue
-        for chunk in page.split('<li data-docid="')[1:]:
-            mt = re.search(r'<a[^>]*class="tit_main[^"]*"[^>]*href="([^"]+)"[^>]*>(.*?)</a>', chunk, re.S)
-            if not mt:
-                continue
-            link = html_lib.unescape(mt.group(1))
-            title = " ".join(html_lib.unescape(re.sub(r"<[^>]+>", "", mt.group(2))).split())
-            if len(title) < 8:
-                continue
-            key = norm_title(title)
-            if key in seen or any(is_near_duplicate(title, [k], [title_tokens(k)]) for k in list(seen)[:80]):
-                continue
-            md = re.search(r'<a[^>]*class="desc[^"]*"[^>]*>(.*?)</a>', chunk, re.S)
-            desc = " ".join(html_lib.unescape(re.sub(r"<[^>]+>", "", md.group(1))).split()) if md else ""
-            desc = re.sub(r"\s*….*$", "…", desc)
-            mp = (re.search(r'<strong class="tit_item"[^>]*>\s*<span class="txt_info">(.*?)</span>', chunk, re.S)
-                  or re.search(r'<strong class="tit_item"[^>]*title="([^"]+)"', chunk))
-            press = html_lib.unescape(mp.group(1)).strip() if mp else ""
-            mtm = re.search(r'<span class="txt_docinfo">([^<]*(?:전|어제|오늘)[^<]*)</span>', chunk)
-            dt = parse_kr_time(mtm.group(1), now) if mtm else None
-            if dt and dt < now - timedelta(days=4):
-                continue
-            seen.add(key)
-            out.append({"id": "d:" + key[:28], "title": title, "summary": make_summary(desc, 140),
-                        "press": press, "url": link, "source": "daum",
-                        "time": (dt or now).isoformat(), "time_est": dt is None})
-    print(f"[info] daum search: {len(out)} items", file=sys.stderr)
-    return out
-
-
-def collect_schedule_news(now: datetime):
-    """일정 단서가 실린 기사를 넓게 모으기 위한 Google 뉴스 RSS 보조 수집 (API 키 불필요)."""
-    out, seen = [], set()
-    for q in SCHEDULE_QUERIES:
-        url = ("https://news.google.com/rss/search?q=" + urllib.parse.quote(q + " when:3d") +
-               "&hl=ko&gl=KR&ceid=KR:ko")
-        try:
-            xml = fetch(url, timeout=15)
-        except Exception as e:  # noqa: BLE001
-            print(f"[warn] schedule rss failed ({q}): {e}", file=sys.stderr)
-            continue
-        for m in re.finditer(r"<item>(.*?)</item>", xml, re.S):
-            block = m.group(1)
-            mt = re.search(r"<title>(?:<!\[CDATA\[)?(.*?)(?:\]\]>)?</title>", block, re.S)
-            ml = re.search(r"<link>(.*?)</link>", block, re.S)
-            mp = re.search(r"<pubDate>(.*?)</pubDate>", block, re.S)
-            ms = re.search(r"<source[^>]*>(.*?)</source>", block, re.S)
-            if not (mt and ml):
-                continue
-            title = html_lib.unescape(re.sub(r"<[^>]+>", "", mt.group(1))).strip()
-            press = html_lib.unescape(ms.group(1)).strip() if ms else ""
-            if " - " in title:
-                title, _, tail = title.rpartition(" - ")
-                press = press or tail.strip()
-            while press and title.endswith(" - " + press):
-                title = title[: -(len(press) + 3)].rstrip()
-            key = norm_title(title)
-            if not key or key in seen:
-                continue
-            seen.add(key)
-            item = {"id": "g:" + key[:30], "title": title, "summary": "", "press": press,
-                    "url": html_lib.unescape(ml.group(1)).strip(), "source": "google"}
-            if mp:
-                try:
-                    item["time"] = parsedate_to_datetime(mp.group(1).strip()).astimezone(KST).isoformat()
-                except Exception:  # noqa: BLE001
-                    pass
-            out.append(item)
-    print(f"[info] schedule rss: {len(out)} items", file=sys.stderr)
-    return out
-
-
-def enrich_schedule_summaries(cards: list, now: datetime):
-    """요약이 없는 일정 기사는 같은 제목의 다음 뉴스를 찾아 요약문을 붙인다 (최대 15건).
-    제목이 사실상 같을 때만 쓰므로 다른 기사의 문장이 섞이지 않는다."""
-    budget = 8
-    for card in cards:
-        for a in card["articles"][:1]:
-            if a.get("summary") or budget <= 0:
-                continue
-            budget -= 1
-            try:
-                page = fetch("https://search.daum.net/search?w=news&sort=recency&q=" +
-                             urllib.parse.quote(a["title"]), timeout=12)
-            except Exception:  # noqa: BLE001
-                continue
-            want = norm_title(a["title"])
-            want_tok = title_tokens(a["title"])
-            for chunk in page.split('<li data-docid="')[1:4]:
-                mt = re.search(r'<a[^>]*class="tit_main[^"]*"[^>]*>(.*?)</a>', chunk, re.S)
-                if not mt:
-                    continue
-                t2 = " ".join(html_lib.unescape(re.sub(r"<[^>]+>", "", mt.group(1))).split())
-                n2, tok2 = norm_title(t2), title_tokens(t2)
-                same = bool(n2) and (n2 == want or (want in n2 or n2 in want))
-                near = bool(tok2) and len(want_tok & tok2) / max(1, len(want_tok | tok2)) >= 0.7
-                if not (same or near):
-                    continue
-                md = re.search(r'<a[^>]*class="desc[^"]*"[^>]*>(.*?)</a>', chunk, re.S)
-                if md:
-                    desc = " ".join(html_lib.unescape(re.sub(r"<[^>]+>", "", md.group(1))).split())
-                    desc = re.sub(r"\s*….*$", "…", desc)
-                    sents = sentences(desc)
-                    if len(sents) > 1 and len(sents[0]) < 12:  # 검색 미리보기의 잘린 첫 조각은 버린다
-                        desc = " ".join(sents[1:-1] if len(sents) > 3 else sents[1:])
-                    a["summary"] = make_summary(desc, 140)
-                break
-    return cards
-
-
-SCHED_ART_FRESH_HOURS = 24   # 일정 카드에 붙일 기사는 최근 24시간 안에 나온 것만
-SCHED_ART_MAX_HOURS = 72     # 그런 기사가 없을 때만 최대 사흘 전 기사 하나 (날짜가 잡힌 앞으로의 일정만)
-# 일정 카드에는 언론사 기사만 붙인다 (개인 칼럼·블로그성 글은 확인되지 않은 일정이 많다)
-LOW_TRUST_PRESS = ("프리미엄콘텐츠", "블로그", "브런치", "카페")
-
-
-def prune_card_articles(card: dict, now: datetime) -> bool:
-    """일정 카드의 기사를 최신순으로 추려 붙인다. 남길 기사가 없으면 카드를 버린다."""
-    arts = [a for a in card.get("articles") or [] if a.get("title")]
-
-    def age_h(a):
-        t = to_dt(a.get("time"))
-        return (now - t).total_seconds() / 3600.0 if t else 10 ** 9
-
-    arts.sort(key=lambda a: a.get("time") or "", reverse=True)
-    fresh = [a for a in arts if age_h(a) <= SCHED_ART_FRESH_HOURS]
-    if fresh:
-        kept = fresh[:3]
-    else:
-        # 오늘 새 기사가 없을 때는, 아직 오지 않은 날짜가 잡힌 일정에 한해 가장 최근 기사 하나만
-        dated = bool(card.get("date")) and not card.get("ongoing")
-        kept = [arts[0]] if dated and arts and age_h(arts[0]) <= SCHED_ART_MAX_HOURS else []
-    card["articles"] = kept
-    card["count"] = len(kept)
-    return bool(kept)
-
-
-def build_schedules(kept: list, now: datetime):
-    """기사 제목·요약에서 일정 단서와 시점 단서가 함께 있는 것만 주제별로 묶는다."""
-    pool = list(kept)
-    try:
-        extra = collect_daum_news(now) + collect_schedule_news(now)
-    except Exception as e:  # noqa: BLE001
-        print(f"[warn] schedule collection failed: {e}", file=sys.stderr)
-        extra = []
-    have = {norm_title(a["title"]) for a in pool}
-    have_titles, have_tokens = [], []
-    for e in extra:
-        k = norm_title(e["title"])
-        if k in have or is_near_duplicate(e["title"], have_titles, have_tokens):
-            continue
-        have.add(k)
-        have_titles.append(k)
-        have_tokens.append(title_tokens(e["title"]))
-        pool.append(e)
-
-    groups = {}
-    for a in pool:
-        title = a["title"]
-        summ = a.get("summary") or ""
-        text = title + " " + summ
-        if any(p in title for p in PAST_MARKERS):
-            continue
-        if any(p in (a.get("press") or "") for p in LOW_TRUST_PRESS):
-            continue
-        # 일정 종류는 제목에서만 판단한다 (요약문만 보고 종류를 정하면 기사와 무관한 일정이 생긴다)
-        ev = detect_event(title)
-        if not ev:
-            continue
-        # 검색으로 넓게 모은 기사는 증시와 무관한 행사·정치 뉴스를 걸러낸다
-        if a.get("source") in ("daum", "google") and ev["id"] in ("event", "contract"):
-            continue
-        if a.get("source") == "daum" and not is_market_relevant({"title": title, "lede": summ}):
-            continue
-        pub = to_dt(a.get("time")) or now
-        when = resolve_when(title, pub, now) or resolve_when(summ, pub, now)
-        if not when:
-            continue
-        # 너무 먼 미래(30일 초과)는 단기 대시보드의 일정에서 빼둔다
-        if when.get("date"):
-            try:
-                if datetime.fromisoformat(when["date"]).date() > (now + timedelta(days=30)).date():
-                    continue
-            except ValueError:
-                pass
-        subject = ""
-        ev_pos = title.find(ev["kw"])
-        best_dist = 10 ** 9
-        for kw, disp in SUBJECTS.items():
-            p = title.find(kw)
-            if p < 0:
-                continue
-            if abs(p - ev_pos) < best_dist:
-                best_dist, subject = abs(p - ev_pos), disp
-        # 오늘 날짜 일정이라도 하루 중 그 시각이 이미 지났으면 지난 일정으로 본다
-        # (예: 오전에 결과가 나온 미국장 실적 발표를 오후에 또 올리지 않는다)
-        if when.get("date") == now.date().isoformat() and not when.get("ongoing"):
-            cut, why = day_cutoff(text, ev["id"], subject)
-            if cut is not None and now.hour >= cut:
-                if os.environ.get("NEWS_DEBUG"):
-                    print(f"[debug] 지난 일정 제외 ({why} {cut}시) | {title[:60]}", file=sys.stderr)
-                continue
-            # 오늘 날짜로 풀린 일정은 앞으로 할 일이라는 표현이 있을 때만 남긴다
-            if not when.get("ok_today") and not any(v in text for v in FUTURE_VERBS):
-                continue
-        topic = f"{subject} {ev['label']}".strip() if subject else ev["label"]
-        key = f"{ev['id']}|{when['key']}|{subject}"
-        if os.environ.get("NEWS_DEBUG"):
-            print(f"[debug] {when['label']:>12} | {topic} | {a.get('source','naver')} | {title[:60]}", file=sys.stderr)
-        g = groups.setdefault(key, {"topic": topic, "type": ev["id"], "type_label": ev["label"],
-                                   "when": when["label"], "date": when.get("date"),
-                                   "sort": when["sort"], "articles": [],
-                                   "ongoing": bool(when.get("ongoing")),
-                                   "ends": when.get("ends")})
-        if len(g["articles"]) < 4 and all(x["title"] != title for x in g["articles"]):
-            g["articles"].append({"title": title, "summary": summ, "press": a.get("press", ""),
-                                  "time": a.get("time", ""), "url": a["url"],
-                                  "time_est": bool(a.get("time_est"))})
-
-    cards = []
-    for g in groups.values():
-        if not g["articles"]:
-            continue
-        tid, _tags, _rel = classify({"title": g["articles"][0]["title"],
-                                    "lede": g["articles"][0].get("summary", ""), "weight": 0.8})
-        g["themes"] = [] if tid == "etc" else [{"id": tid, "label": THEME_LABEL[tid],
-                                                 "color": THEME_COLOR[tid]}]
-        g["count"] = len(g["articles"])
-        g["source"] = ("google" if all(a["url"].startswith("https://news.google.com/") for a in g["articles"])
-                       else "daum" if all(a["url"].startswith(("https://v.daum.net/", "http://v.daum.net/",
-                                                                "https://cp.news.search.daum.net/"))
-                                          for a in g["articles"]) else "naver")
-        cards.append(g)
-    cards.sort(key=lambda c: (c["sort"], -c["count"]))
-
-    # 같은 주제가 여러 시점 카드로 중복되면 하나로 정리한다.
-    # 구체적 날짜가 있는 카드를 우선하고, 날짜가 서로 다른 두 카드는 다른 일정으로 본다.
-    def compat(a: str, b: str) -> bool:
-        na, nb = re.sub(r"\s+", "", a), re.sub(r"\s+", "", b)
-        return na == nb or na in nb or nb in na
-
-    final = []
-
-    def merge_into(dst, src):
-        for a in src["articles"]:
-            if len(dst["articles"]) >= 4:
-                break
-            if all(x["title"] != a["title"] for x in dst["articles"]):
-                dst["articles"].append(a)
-        dst["count"] = len(dst["articles"])
-
-    for c in cards:
-        prev = next((f for f in final if compat(f["topic"], c["topic"])), None)
-        if prev is None:
-            final.append(c)
-            continue
-        if prev.get("date") and not c.get("date"):
-            merge_into(prev, c)
-        elif c.get("date") and not prev.get("date"):
-            final.remove(prev)
-            merge_into(c, prev)
-            final.append(c)
-            if os.environ.get("NEWS_DEBUG"):
-                print(f"[debug] replace {prev['when']} -> {c['when']} ({c['topic']})", file=sys.stderr)
-        elif c.get("date") and prev.get("date") and c["date"] != prev["date"]:
-            final.append(c)  # 서로 다른 날짜의 다른 일정
-        else:
-            merge_into(prev, c)
-
-    # 카드에 붙는 기사는 최신 것만 남긴다 (2~3일 전 기사가 섞여 '언제 일정인지' 흐려지는 것을 막는다)
-    final = [c for c in final if prune_card_articles(c, now)]
-    final.sort(key=lambda c: (c["sort"], -c["count"]))
-    print(f"[info] schedules: {len(groups)} groups -> {len(final)} cards", file=sys.stderr)
-    return enrich_schedule_summaries(final[:10], now)
-
-
 # --------------------------------------------------------------------------- 대장주 배지
 # 공개 시장에서 통상 쓰이는 테마별 '상한가 주도 대장주' 이름만 담는다(개인 DB·룰·매매 기준은 쓰지 않는다).
 # 종목명은 모두 국내 증시 상장사이며, 기사에 직접 언급된 회사를 먼저 보여준다.
@@ -1952,6 +1436,387 @@ def build_issues(cands: list, now: datetime):
     return cards
 
 
+# --------------------------------------------------------------------------- 오늘 상한가
+# 네이버 증권 '실시간 랭킹(상승 정렬)' API에서 현재가가 상한가 가격에 있는 종목만 골라 오늘의 상한가 목록을 만든다.
+# 종목마다 네이버 종목 뉴스와 구글 뉴스 검색에서 당일 보도를 찾아 '왜 상한가였는지' 이슈 요약·대표 기사·테마 키워드를 붙인다.
+# 공개 시장 데이터와 공개 기사만 쓰고, 개인 DB·매매 룰은 쓰지 않는다.
+UPPER_RANK_API = ("https://stock.naver.com/api/domestic/market/stock/default"
+                  "?tradeType=KRX&marketType={market}&orderType=up&startIdx=0&pageSize=100")
+UPPER_MARKETS = (("KOSPI", "코스피"), ("KOSDAQ", "코스닥"))
+UPPER_STATUS_API = "https://stock.naver.com/api/stockSecurity/exchanges/market-status?exchanges=krx"
+UPPER_REFERER = "https://stock.naver.com/market/stock/kr/stocklist/upper"
+STOCK_NEWS_API = "https://m.stock.naver.com/api/news/stock/{code}?pageSize=30&page=1"
+STOCK_NEWS_REFERER = "https://m.stock.naver.com/"
+GOOGLE_RSS_API = "https://news.google.com/rss/search?q={q}&hl=ko&gl=KR&ceid=KR:ko"
+UPPER_WORKERS = 6           # 종목별 뉴스 조회 동시 요청 수
+UPPER_MIN_RATE = 15.0       # 상한가는 가격대에 따라 29% 안팎 — 이보다 낮으면 상한가로 보지 않는다
+
+# 상한가 종목의 이슈를 한 단어 테마로 붙이기 위한 공개 키워드 사전.
+# 기사 제목·도입부에 실제로 나온 단어만 근거로 쓰고, 없으면 테마를 비워 둔다(추정 금지).
+UPPER_THEME_HINTS = (
+    ("엔터·K콘텐츠", ("한한령", "엔터", "K팝", "케이팝", "드라마", "콘텐츠", "방송", "연예", "아이돌")),
+    ("로봇·휴머노이드", ("휴머노이드", "로봇", "로보틱스", "피지컬 AI", "자율주행")),
+    ("바이오·임상", ("임상", "치매", "신약", "항암", "바이오", "FDA", "품목허가", "기술수출")),
+    ("스마트팜·농업", ("스마트팜", "농업", "온실", "농식품", "원예")),
+    ("게임", ("게임", "신작", "퍼블리싱")),
+    ("반도체·장비", ("반도체", "HBM", "D램", "파운드리", "웨이퍼", "노광", "장비")),
+    ("2차전지·배터리", ("2차전지", "배터리", "양극재", "음극재", "전고체")),
+    ("원전·전력", ("원전", "SMR", "전력", "송전", "태양광", "풍력")),
+    ("방산·조선", ("방산", "국방", "함정", "조선")),
+    ("화장품·뷰티", ("화장품", "뷰티")),
+    ("여행·유통", ("여행", "호텔", "면세", "카지노", "유통")),
+    ("AI·데이터센터", ("데이터센터", "클라우드", "GPU", "인공지능", "AI")),
+    ("상장 유지·관리종목", ("상장폐지", "상폐", "관리종목", "시총 미달", "퇴출", "유예")),
+    ("유상증자·공모", ("유상증자", "공모", "청약", "전환사채", "CB")),
+    ("정책·규제", ("정책", "규제", "법안", "국회", "정부 지원")),
+)
+
+
+def _won(n) -> str:
+    """거래대금을 폰 화면에 짧게 (예: 1조234억 → '1.2조', 7,223억)."""
+    try:
+        n = int(n)
+    except (TypeError, ValueError):
+        return ""
+    if n <= 0:
+        return ""
+    if n >= 1_000_000_000_000:
+        v = n / 1_000_000_000_000
+        return (f"{v:.1f}".rstrip("0").rstrip(".")) + "조"
+    if n >= 100_000_000:
+        return f"{round(n / 100_000_000):,}억"
+    if n >= 10_000:
+        return f"{round(n / 10_000):,}만"
+    return f"{n:,}"
+
+
+def _prev_weekday(d):
+    d = d - timedelta(days=1)
+    while d.weekday() >= 5:
+        d -= timedelta(days=1)
+    return d
+
+
+def upper_market_status(now: datetime) -> dict:
+    """네이버 증권 시장 상태 API에서 '이 상한가 목록이 어느 날짜 기준인지'를 확인한다."""
+    info = {"base_date": now.date().isoformat(), "session": "", "is_today": True,
+            "trading_day": True, "from_api": False}
+    try:
+        data = fetch_json(UPPER_STATUS_API, referer=UPPER_REFERER, timeout=12)
+        for ex in (data or {}).get("exchanges", []):
+            if str(ex.get("exchange", "")).lower() != "krx":
+                continue
+            for st in ex.get("statuses", []):
+                if st.get("marketType") not in ("KOSPI", "KOSDAQ"):
+                    continue
+                latest = st.get("latest") or {}
+                today = st.get("today") or {}
+                base = str(latest.get("tradeBaseAt") or today.get("date") or "")
+                if base:
+                    info["base_date"] = base
+                info["session"] = str((latest.get("session") or {}).get("displayLabel") or "")
+                info["trading_day"] = bool(today.get("isTradingDay", True))
+                info["is_today"] = (info["base_date"] == now.date().isoformat())
+                info["from_api"] = True
+                break
+            if info["from_api"]:
+                break
+    except Exception as e:  # noqa: BLE001
+        print(f"[warn] upper market status: {e}", file=sys.stderr)
+    if not info["from_api"]:
+        # 상태 API가 막히면 시각으로만 보정한다(장 시작 전이면 직전 평일 기준).
+        if now.hour < 9:
+            info["base_date"] = _prev_weekday(now.date()).isoformat()
+        info["is_today"] = (info["base_date"] == now.date().isoformat())
+    return info
+
+
+def fetch_upper_stocks() -> list:
+    """코스피·코스닥 상승 정렬 상위에서 '현재가 = 상한가'인 종목만 남긴다."""
+    rows, seen = [], set()
+    for market, label in UPPER_MARKETS:
+        try:
+            data = fetch_json(UPPER_RANK_API.format(market=market), referer=UPPER_REFERER, timeout=15)
+        except Exception as e:  # noqa: BLE001
+            print(f"[warn] upper rank {market}: {e}", file=sys.stderr)
+            continue
+        if not isinstance(data, list):
+            continue
+        for x in data:
+            if str(x.get("type") or "ST") == "DR":
+                continue
+            code = str(x.get("itemcode") or "")
+            try:
+                price = int(str(x.get("nowPrice") or "0").replace(",", ""))
+                limit = int(str(x.get("upperLimitPrice") or "0").replace(",", ""))
+                rate = float(str(x.get("prevChangeRate") or "0").replace(",", ""))
+            except ValueError:
+                continue
+            if not price or not limit or price != limit or rate < UPPER_MIN_RATE:
+                continue
+            if code in seen:
+                continue
+            seen.add(code)
+            try:
+                value = int(float(str(x.get("tradeAmount") or "0").replace(",", "")))
+                volume = int(float(str(x.get("tradeVolume") or "0").replace(",", "")))
+            except ValueError:
+                value, volume = 0, 0
+            rows.append({
+                "name": str(x.get("itemname") or "").strip(),
+                "code": code,
+                "market": "코넥스" if code.startswith("900") else label,
+                "price": price,
+                "change_rate": round(rate, 2),
+                "trading_value": value,
+                "volume": volume,
+                "session": str(x.get("tradingSessionType") or ""),
+            })
+    rows.sort(key=lambda r: -r["trading_value"])
+    return [r for r in rows if r["name"]]
+
+
+def naver_stock_news(code: str) -> list:
+    """네이버 증권 종목 뉴스(제목 + 도입부)."""
+    out = []
+    try:
+        blocks = fetch_json(STOCK_NEWS_API.format(code=code), referer=STOCK_NEWS_REFERER, timeout=12)
+    except Exception as e:  # noqa: BLE001
+        print(f"[warn] stock news {code}: {e}", file=sys.stderr)
+        return out
+    for b in blocks or []:
+        for it in (b or {}).get("items") or []:
+            try:
+                dt = datetime.strptime(str(it.get("datetime") or ""), "%Y%m%d%H%M").replace(tzinfo=KST)
+            except ValueError:
+                continue
+            out.append({
+                "source": "naver",
+                "title": html_lib.unescape(str(it.get("titleFull") or it.get("title") or "")).strip(),
+                "body": html_lib.unescape(str(it.get("body") or "")).strip(),
+                "press": str(it.get("officeName") or "").strip(),
+                "dt": dt,
+                "url": str(it.get("mobileNewsUrl") or ""),
+            })
+    return out
+
+
+def google_news_rss(query: str, when: str = "3d") -> list:
+    """구글 뉴스 RSS — 네이버 종목 뉴스에 없는 당일 보도를 보완한다."""
+    url = GOOGLE_RSS_API.format(q=urllib.parse.quote(f"{query} when:{when}"))
+    try:
+        xml = fetch(url, timeout=15)
+    except Exception as e:  # noqa: BLE001
+        print(f"[warn] google rss '{query}': {e}", file=sys.stderr)
+        return []
+    out = []
+    for raw in re.findall(r"<item>(.*?)</item>", xml, re.S):
+        t = re.search(r"<title>(.*?)</title>", raw, re.S)
+        link = re.search(r"<link>(.*?)</link>", raw, re.S)
+        pub = re.search(r"<pubDate>(.*?)</pubDate>", raw, re.S)
+        src = re.search(r'<source url="[^"]*">([^<]*)</source>', raw, re.S)
+        desc = re.search(r'<description>(.*?)</description>', raw, re.S)
+        press_font = re.search(r'color="#6f6f6f">([^<]*)</font>', html_lib.unescape(desc.group(1)) if desc else "")
+        if not (t and link and pub):
+            continue
+        try:
+            dt = parsedate_to_datetime(pub.group(1)).astimezone(KST)
+        except (TypeError, ValueError):
+            continue
+        title = html_lib.unescape(t.group(1)).strip()
+        press = html_lib.unescape(src.group(1)).strip() if src else ""
+        if not press and press_font:
+            press = press_font.group(1).strip()
+        if re.match(r"^https?://", press):   # 매체명 자리에 주소만 온 경우는 매체로 쓰지 않는다
+            press = ""
+        if " - " in title:   # 구글 RSS 제목은 '기사 제목 - 매체'
+            head, tail = title.rsplit(" - ", 1)
+            if not press or tail.strip() == press:
+                title = head.strip()
+        out.append({"source": "google", "title": title, "body": "", "press": press,
+                    "dt": dt, "url": html_lib.unescape(link.group(1)).strip()})
+    return out
+
+
+def _norm_name(s: str) -> str:
+    return re.sub(r"\s+", "", s or "")
+
+
+def _pick_upper_issue(cands: list, name: str, base_dt: datetime):
+    """당일 보도 중 '이 종목'이 제목·도입부에 실제로 나온 기사를 고른다."""
+    nn = _norm_name(name)
+    if not nn:
+        return None
+    scored = []
+    for c in cands:
+        if not c.get("dt") or c["dt"] < base_dt:
+            continue
+        title = c.get("title") or ""
+        body = c.get("body") or ""
+        in_title = nn in _norm_name(title)
+        in_body = nn in _norm_name(body)
+        if not (in_title or in_body):   # 종목 이름이 없는 기사는 근거로 쓰지 않는다
+            continue
+        score = 0
+        if in_title:
+            score += 6
+        if in_body:
+            score += 1
+        if "상한가" in title:
+            score += 8   # 이 화면의 목적은 '왜 상한가인지' — 제목에 상한가가 있는 기사를 먼저 본다
+        if any(k in title for k in ("급등", "폭등", "가격제한폭", "上")):
+            score += 2
+        if "특징주" in title:
+            score += 1
+        if re.match(r"^\s*\[[^\]]{1,12}\]\s*" + re.escape(name) + r"\s*[,，]", title):
+            score += 3   # '[특징주] OO, ...' 처럼 그 종목만 다룬 기사
+        if body:
+            score += 5   # 도입부(본문)가 있는 기사를 우선 — 이슈 요약이 훨씬 정확해진다
+        scored.append((score, c))
+    if not scored:
+        return None
+    scored.sort(key=lambda t: (-t[0], -t[1]["dt"].timestamp()))
+    best = scored[0][1]
+    best = dict(best)
+    best["score"] = scored[0][0]
+    return best
+
+
+def _headline_summary(title: str, name: str) -> str:
+    """도입부가 없을 때는 제목에서 군더더기만 덜어 1줄 이슈로 쓴다(내용을 지어내지 않는다)."""
+    s = re.sub(r"^\s*\[[^\]]{1,24}\]\s*", "", title or "")      # [특징주] 같은 머리표
+    s = re.sub(r"^(?:속보|단독|종합)\s*", "", s)
+    s = s.strip(" \"'‘’“”-—·,…")
+    if len(s) > 110:
+        s = s[:110].rstrip(" ,·-—") + "…"
+    return s
+
+
+def upper_theme(text: str):
+    """기사에 실제로 나온 키워드로만 테마를 붙인다."""
+    low = (text or "").lower()
+    if not low:
+        return "", []
+    hits = []
+    for idx, (label, keywords) in enumerate(UPPER_THEME_HINTS):
+        got = [k for k in keywords if k.lower() in low]
+        if got:
+            hits.append((len(got), idx, label, got))
+    if not hits:
+        return "", []
+    hits.sort(key=lambda t: (-t[0], t[1]))
+    return hits[0][2], hits[0][3][:3]
+
+
+def _pool_candidates(pool: list) -> list:
+    """오늘 수집한 뉴스 카드에서 종목 이름이 걸리는 기사를 후보로 바꾼다."""
+    out = []
+    for c in pool or []:
+        for r in [c] + list(c.get("related") or []):
+            iso = r.get("time") or ""
+            try:
+                dt = datetime.fromisoformat(str(iso))
+            except ValueError:
+                dt = None
+            if dt is None:
+                continue
+            if dt.tzinfo is None:
+                dt = dt.replace(tzinfo=KST)
+            out.append({"source": "pool", "title": str(r.get("title") or ""),
+                        "body": str(r.get("summary") or ""), "press": str(r.get("press") or ""),
+                        "dt": dt, "url": str(r.get("url") or "")})
+    return out
+
+
+def build_upper_limits(now: datetime, pool: list | None = None) -> dict:
+    """오늘(또는 직전 거래일) 상한가 종목 + 종목별 상한가 이슈 요약."""
+    status = upper_market_status(now)
+    stocks = fetch_upper_stocks()
+    try:
+        base_dt = datetime.strptime(status["base_date"], "%Y-%m-%d").replace(tzinfo=KST)
+    except (KeyError, ValueError):
+        base_dt = now.replace(hour=0, minute=0, second=0, microsecond=0)
+
+    pool_c = _pool_candidates(pool or [])
+
+    def work(stock):
+        cands = naver_stock_news(stock["code"]) + google_news_rss(f'"{stock["name"]}" 상한가', "3d")
+        best = _pick_upper_issue(cands, stock["name"], base_dt)
+        if best is None:
+            # 상한가 표현이 없는 날에는 종목 이름만으로 한 번 더 찾는다
+            cands += google_news_rss(f'"{stock["name"]}"', "2d")
+            best = _pick_upper_issue(cands, stock["name"], base_dt)
+        if best is None and pool_c:
+            best = _pick_upper_issue(pool_c, stock["name"], base_dt)
+        return best
+
+    issues = []
+    if stocks:
+        with ThreadPoolExecutor(max_workers=UPPER_WORKERS) as ex:
+            issues = list(ex.map(work, stocks))
+
+    items = []
+    for stock, best in zip(stocks, issues):
+        summary, from_where = "", ""
+        title = url = press = atime = ""
+        if best:
+            title = best.get("title") or ""
+            url = best.get("url") or ""
+            press = best.get("press") or ""
+            atime = best["dt"].isoformat() if best.get("dt") else ""
+            if best.get("body"):
+                summary = make_summary(best["body"], 130)
+                from_where = "본문"
+            if not summary:
+                summary = _headline_summary(title, stock["name"])
+                from_where = "제목" if summary else ""
+        theme, kws = upper_theme(" ".join([title, summary]))
+        items.append({
+            **stock,
+            "price_text": f"{stock['price']:,}",
+            "trading_value_text": _won(stock["trading_value"]),
+            "theme": theme,
+            "theme_keywords": kws,
+            "issue_summary": summary,
+            "summary_from": from_where,
+            "article_title": title,
+            "article_url": url,
+            "article_press": press,
+            "article_time": atime,
+        })
+
+    base = status["base_date"]
+    try:
+        bdt = datetime.strptime(base, "%Y-%m-%d")
+        base_text = f"{bdt.month}/{bdt.day}"
+    except ValueError:
+        base_text = base
+
+    if status["is_today"]:
+        label = f"오늘 {base_text}"
+        note = "" if items else "아직 당일 상한가가 집계되지 않았습니다. 장중에 다시 확인해 주세요."
+        if items:
+            note = "장중에는 현재 상한가 가격에 있는 종목만 표시됩니다."
+    else:
+        label = f"직전 거래일 {base_text}"
+        why = "휴장일" if not status.get("trading_day") else "장 시작 전"
+        note = f"{why}이라 직전 거래일 기준입니다."
+        if not items:
+            note += " 직전 거래일 상한가 종목은 없었습니다."
+
+    print(f"[info] upper limits: {base} {len(items)} stocks", file=sys.stderr)
+    return {
+        "base_date": base,
+        "base_date_text": base_text,
+        "label": label,
+        "is_today": bool(status["is_today"]),
+        "session_label": status.get("session") or "",
+        "count": len(items),
+        "note": note,
+        "items": items,
+    }
+
+
 # --------------------------------------------------------------------------- 메인
 def build(out_path: str):
     now = datetime.now(KST)
@@ -2027,12 +1892,8 @@ def build(out_path: str):
     if etc:
         themes.append({"id": "etc", "label": "기타", "color": "#9aa4b2", "count": etc})
 
-    # 일정 카드는 모든 매체의 기사 제목까지 참고한다
-    schedule_pool = list(kept)
-    for c in kept:
-        for r in c.get("related", []):
-            schedule_pool.append({"title": r["title"], "summary": "", "press": r.get("press", ""),
-                                  "url": r["url"], "time": r.get("time", "")})
+    # 오늘 상한가 — 종목별 당일 보도를 오늘 수집한 뉴스 카드에서도 한 번 더 찾는다
+    upper_limits = build_upper_limits(now, kept)
 
     payload = {
         "generated_at": now.isoformat(),
@@ -2052,7 +1913,7 @@ def build(out_path: str):
         },
         "themes": themes,
         "themes_rank": build_themes_rank(kept, now, history),
-        "schedules": build_schedules(schedule_pool, now),
+        "upper_limits": upper_limits,
         "history": history,
         "flash": flash,
         "issues": [{k: v for k, v in c.items() if not k.startswith("_")} for c in kept],

@@ -220,28 +220,83 @@
   .rk-leaders{font-size:10px;color:#9fb4d8;background:rgba(79,140,255,.07);border:1px solid rgba(79,140,255,.2);
     border-radius:7px;padding:3px 6px;margin-bottom:5px;line-height:1.45}
 
-  /* ---------- 일정 뉴스 ---------- */
-  .sch-card{background:var(--card);border:1px solid var(--line);border-radius:10px;
-    padding:7px 9px 4px;margin-bottom:5px}
-  .sch-top{display:flex;align-items:center;gap:4px;flex-wrap:wrap}
-  .when{font-size:10px;font-weight:800;color:#ffd166;background:rgba(255,209,102,.13);
-    border:1px solid rgba(255,209,102,.34);padding:1px 6px;border-radius:6px;white-space:nowrap}
-  .ong{font-size:9.5px;font-weight:800;color:#69e2b4;background:rgba(56,214,168,.13);
-    border:1px solid rgba(56,214,168,.38);padding:0 5px;border-radius:5px;white-space:nowrap}
-  .type{font-size:9.5px;color:var(--dim);background:rgba(255,255,255,.05);border:1px solid var(--line);
-    padding:0 5px;border-radius:5px;white-space:nowrap}
-  .sch-card .cnt{margin-left:auto;font-size:9.8px;color:var(--dim2)}
-  .sch-topic{font-size:12.8px;font-weight:800;letter-spacing:-.3px;margin:3px 0 1px;line-height:1.28;
+  /* ---------- 오늘 상한가 ---------- */
+  .upper-bar{display:flex;align-items:center;gap:5px;flex-wrap:wrap;padding:0 1px 7px}
+  .badge-d{display:inline-flex;align-items:center;gap:3px;font-size:10.5px;font-weight:800;
+    color:#ffd166;background:rgba(255,209,102,.12);border:1px solid rgba(255,209,102,.32);
+    padding:2px 7px;border-radius:7px;white-space:nowrap}
+  .badge-d.prev{color:#ffb27a;background:rgba(255,138,76,.13);border-color:rgba(255,138,76,.34)}
+  .badge-d.cnt{color:#9fc0ff;background:rgba(79,140,255,.12);border-color:rgba(79,140,255,.32)}
+  .up-note{flex:1 1 100%;font-size:10.5px;color:var(--dim2);line-height:1.45}
+  .up-card{position:relative;background:var(--card);border:1px solid var(--line);border-radius:11px;
+    padding:8px 9px 7px 12px;margin-bottom:6px;overflow:hidden}
+  .up-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;
+    background:linear-gradient(180deg,#ff5a6e,#ffb27a)}
+  .up-top{display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+  .up-no{flex:none;font-size:10px;font-weight:800;color:#7c8ba6;min-width:13px}
+  .up-name{font-size:14px;font-weight:800;letter-spacing:-.3px;color:#fff;line-height:1.2}
+  .up-mk{font-size:9.5px;font-weight:700;color:var(--dim);background:rgba(255,255,255,.06);
+    border:1px solid var(--line);padding:1px 5px;border-radius:5px;white-space:nowrap}
+  .up-price{margin-left:auto;font-size:13.5px;font-weight:800;color:#ff7285;white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  .up-rate{font-size:10.5px;font-weight:800;color:#fff;background:rgba(255,90,110,.2);
+    border:1px solid rgba(255,90,110,.38);padding:1px 5px;border-radius:5px;white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  .up-tags{display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin-top:4px}
+  .up-theme{font-size:10px;font-weight:800;color:#c9a2ff;background:rgba(201,162,255,.13);
+    border:1px solid rgba(201,162,255,.32);padding:1px 6px;border-radius:5px;white-space:nowrap}
+  .up-val{font-size:10px;color:var(--dim2)}
+  .up-sum{font-size:11.8px;color:#c8d2e4;line-height:1.5;margin:5px 0 0;
     display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-  .sch-art{display:block;padding:4px 0 3px;border-top:1px solid var(--line);margin-top:3px}
-  .sch-art:active{opacity:.75}
-  .sch-t{font-size:11.5px;font-weight:600;line-height:1.32;color:#dce4f2;
+  .up-card.open .up-sum{-webkit-line-clamp:unset;display:block}
+  .up-card .u-full{display:none;margin-top:5px;padding-top:5px;border-top:1px dashed var(--line)}
+  .up-card.open .u-full{display:block}
+  .u-full a{display:block;font-size:11px;color:#a9b7cd;line-height:1.4;text-decoration:none}
+  .up-src{display:flex;align-items:center;gap:4px;margin-top:6px;padding-top:5px;
+    border-top:1px solid var(--line);font-size:10.5px;color:var(--dim2)}
+  .up-src .p{color:var(--dim);font-weight:700}
+  .up-src a{margin-left:auto;color:#9fc0ff;font-weight:800;text-decoration:none;white-space:nowrap;
+    padding-left:6px}
+  .up-more{appearance:none;border:0;background:transparent;color:#7c8ba6;font-family:inherit;
+    font-size:10px;font-weight:800;padding:0 0 0 4px;cursor:pointer;white-space:nowrap}
+
+  /* ---------- 테마달력 ---------- */
+  .mon-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:4px;margin:1px 0 9px}
+  .mon{appearance:none;border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--dim);
+    font-family:inherit;border-radius:9px;padding:5px 0 4px;cursor:pointer;
+    display:flex;flex-direction:column;align-items:center;gap:1px;transition:.15s}
+  .mon .m{font-size:11px;font-weight:800;letter-spacing:-.3px;line-height:1.1}
+  .mon .n{font-size:9px;font-weight:700;color:var(--dim2)}
+  .mon:active{transform:scale(.96)}
+  .mon[aria-pressed="true"]{color:#fff;border-color:transparent;
+    background:linear-gradient(135deg,#4f8cff,#7c5cff);box-shadow:0 3px 12px rgba(79,140,255,.3)}
+  .mon[aria-pressed="true"] .n{color:rgba(255,255,255,.85)}
+  @media (max-width:360px){ .mon-grid{gap:3px} .mon .m{font-size:10.5px} .mon .n{font-size:8.5px} }
+
+  .cal-head{display:flex;align-items:center;gap:6px;margin:0 1px 5px}
+  .cal-head b{font-size:13px;font-weight:800;letter-spacing:-.2px}
+  .cal-head span{font-size:10.5px;color:var(--dim2)}
+  .cal-head .cal-all{margin-left:auto;font-size:10px;font-weight:700;color:#7c8ba6;
+    border:1px solid var(--line);background:rgba(255,255,255,.03);padding:2px 6px;border-radius:6px;
+    cursor:pointer;font-family:inherit}
+  .th-card{background:var(--card);border:1px solid var(--line);border-radius:10px;margin-bottom:5px;overflow:hidden}
+  .th-head{width:100%;appearance:none;border:0;background:transparent;color:inherit;font-family:inherit;
+    display:flex;align-items:center;gap:6px;padding:8px 9px;text-align:left;cursor:pointer}
+  .th-head:active{opacity:.8}
+  .th-name{flex:1;font-size:12.5px;font-weight:700;letter-spacing:-.2px;line-height:1.35;
     display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-  .sch-f{display:flex;align-items:center;gap:4px;font-size:9.8px;color:var(--dim2);margin-top:1px}
-  .sch-hidden{display:none}
-  .sch-card.open .sch-hidden{display:block}
-  .sch-more{width:100%;appearance:none;border:0;border-top:1px solid var(--line);background:transparent;
-    color:#7c8ba6;font-family:inherit;font-size:10.5px;font-weight:700;padding:4px 0 2px;cursor:pointer}
+  .th-cnt{flex:none;font-size:9.5px;font-weight:800;color:#9fc0ff;background:rgba(79,140,255,.12);
+    border:1px solid rgba(79,140,255,.28);padding:1px 5px;border-radius:5px}
+  .th-exp{flex:none;font-size:10px;color:#5f6f8c;transition:transform .15s}
+  .th-card.open .th-exp{transform:rotate(180deg)}
+  .th-body{display:none;padding:0 9px 8px;border-top:1px solid var(--line)}
+  .th-card.open .th-body{display:block}
+  .th-sum{font-size:11.5px;color:#b9c6da;line-height:1.55;margin:7px 0 7px;letter-spacing:-.1px}
+  .stk-grid{display:flex;flex-wrap:wrap;gap:4px}
+  .stk{display:inline-flex;align-items:baseline;gap:4px;background:rgba(255,255,255,.04);
+    border:1px solid var(--line);border-radius:7px;padding:3px 6px}
+  .stk b{font-size:11px;font-weight:700;color:#e8eefc}
+  .stk i{font-style:normal;font-size:9.5px;color:#ff9aa8;font-weight:700;white-space:nowrap}
 
   .empty{text-align:center;color:var(--dim2);padding:40px 16px;font-size:12px;line-height:1.7}
   .skeleton{height:56px;border-radius:10px;background:linear-gradient(90deg,#141d33,#1b2743,#141d33);
@@ -271,15 +326,15 @@
   <div class="wrap">
     <div class="top">
       <div class="logo" aria-hidden="true"><svg viewBox="0 0 64 64" width="19" height="19"><path d="M10 46 L22 33 L31 39 L44 23 L54 14 L54 49 L10 49 Z" fill="rgba(255,255,255,.22)"/><path d="M10 46 L22 33 L31 39 L44 23 L54 14" fill="none" stroke="#fff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="54" cy="14" r="3.6" fill="#fff"/></svg></div>
-      <div class="brand">증시 뉴스 레이더<small>실시간 속보 · 이슈 순위 · 테마</small></div>
+      <div class="brand">증시 뉴스 레이더<small>실시간 속보 · 오늘 상한가 · 테마달력</small></div>
       <div class="spacer"></div>
       <div class="live" id="live"><span class="dot"></span><span id="liveTxt">LIVE</span></div>
       <button class="refresh" id="btnRefresh" aria-label="새로고침" title="새로고침 — 최신 뉴스를 지금 다시 받아옵니다">⟳</button>
     </div>
     <div class="tabs" role="tablist" aria-label="화면 전환">
-      <button class="tab" role="tab" data-tab="news" aria-selected="true">📰 뉴스/이슈</button>
-      <button class="tab" role="tab" data-tab="themes" aria-selected="false">🔥 테마</button>
-      <button class="tab" role="tab" data-tab="schedules" aria-selected="false">📅 일정</button>
+      <button class="tab" role="tab" data-tab="news" aria-selected="true">📰 뉴스</button>
+      <button class="tab" role="tab" data-tab="upper" aria-selected="false">🚀 상한가</button>
+      <button class="tab" role="tab" data-tab="calendar" aria-selected="false">📅 테마달력</button>
     </div>
   </div>
 </header>
@@ -324,29 +379,38 @@
     </p>
   </section>
 
-  <section class="view" data-view="themes" id="view-themes" hidden>
-    <div class="viewhead"><b>🔥 테마 순위</b><span id="themesSub"></span></div>
-    <div id="themesList">
-      <div class="skeleton"></div><div class="skeleton"></div>
+  <section class="view" data-view="upper" id="view-upper" hidden>
+    <div class="viewhead"><b>🚀 오늘 상한가</b><span id="upperSub"></span></div>
+    <div class="upper-bar">
+      <span class="badge-d" id="upperDate">–</span>
+      <span class="badge-d cnt" id="upperCnt">–</span>
+      <span class="up-note" id="upperNote"></span>
+    </div>
+    <div id="upperList">
+      <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
     </div>
     <p class="note">
-      <b>단기 불씨</b>는 최근 몇 시간 안에 몰린 속보성 보도, <b>중기 흐름</b>은 여러 시간대와 다수 매체로 이어진 업황·정책 보도를 뜻합니다.
-      판정은 공개 뉴스의 보도 시각·매체 수·표현만으로 계산하며, 근거 수치를 카드마다 그대로 적었습니다.
-      건수는 같은 사건을 하나로 묶은 <b>이슈 카드 수</b>이고, 24시간 값은 하루 동안 이어받은 보도 기록입니다.
-      <b>🏢 대장주</b>는 기사에 직접 언급된 상장사와 공개된 테마별 상한가 주도 종목을 붙인 것으로, 투자 권유가 아닙니다.
+      상한가 종목과 <b>그날 상한가로 간 이유</b>를 네이버 증권 랭킹·종목 뉴스와 공개 기사에서 모아 보여줍니다.
+      이슈 요약은 <b>기사 도입부</b>가 있으면 그 문장을, 없으면 <b>기사 제목</b>을 그대로 짧게 줄인 것입니다.
+      카드를 누르면 요약 전문과 기사 제목이 펼쳐집니다. 장 시작 전·휴장일에는 <b>직전 거래일</b> 기준으로 표시합니다.
+      투자 권유가 아닙니다.
     </p>
   </section>
 
-  <section class="view" data-view="schedules" id="view-schedules" hidden>
-    <div class="viewhead"><b>📅 일정 뉴스</b><span id="schedSub"></span></div>
-    <div id="schedList">
-      <div class="skeleton"></div><div class="skeleton"></div>
+  <section class="view" data-view="calendar" id="view-calendar" hidden>
+    <div class="viewhead"><b>📅 테마달력</b><span id="calSub"></span></div>
+    <div class="mon-grid" id="monGrid"></div>
+    <div class="cal-head"><b id="calMonthTitle">–</b><span id="calMonthSub"></span>
+      <button class="cal-all" id="calAll" type="button">모두 펼치기</button>
+    </div>
+    <div id="calThemes">
+      <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
     </div>
     <p class="note">
-      기사에 드러난 일정 단서(실적 발표, 금리 결정, IPO·공모, 주주총회, 정책 시행 등)를 시점별로 묶어
-      <b>오늘·내일·이번 주 → 다음 주 → 이달 말</b> 순으로 놓았습니다.
-      이미 지난 날짜·시각의 일정은 빼고, 카드에는 <b>최근 24시간 안에 나온 기사</b>만 붙입니다.
-      <b>진행중</b>은 오늘을 끼고 이어지는 기간 일정입니다. 시점은 기사에 적힌 표현을 따르므로 원문에서 한 번 더 확인하세요.
+      월별로 <b>상한가가 나온 테마</b>를 모은 기록입니다. 테마를 누르면 그 테마에서 상한가를 기록한
+      <b>종목과 상한가 날짜</b>, 당시 <b>이슈 요약</b>이 열립니다.
+      숫자는 그 달 테마 안에서 상한가를 기록한 종목 수이고, 날짜는 공개 시세 기록입니다.
+      과거 기록이며 투자 권유가 아닙니다.
     </p>
   </section>
 </main>
@@ -361,8 +425,8 @@
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
-const state = { data:null, theme:'all', q:'', tab:'news', more:false, open:new Set() };
-const TABS = ['news','themes','schedules'];
+const state = { data:null, calendar:null, month:null, theme:'all', q:'', tab:'news', more:false, open:new Set() };
+const TABS = ['news','upper','calendar'];
 const FIRST_ISSUES = 14;   // 이슈 순위 첫 화면 14건 (속보 6건과 3:7)
 
 const $ = s => document.querySelector(s);
@@ -445,16 +509,8 @@ function switchTab(name, keepScroll){
   document.querySelectorAll('.view').forEach(v => { v.hidden = v.dataset.view !== name; });
   if(location.hash !== '#' + name) history.replaceState(null, '', '#' + name);
   if(!keepScroll) window.scrollTo({top:0});
-  if(name === 'themes') renderThemes();
-  if(name === 'schedules') renderSchedules();
-}
-
-function openTheme(id){
-  state.theme = id; state.q = ''; state.more = false;
-  const q = $('#q'); if(q) q.value = '';
-  lastKey = '';
-  renderChips(); renderNews(true);
-  switchTab('news');
+  if(name === 'upper') renderUpper();
+  if(name === 'calendar') renderCalendar();
 }
 
 /* ---------------- 뉴스 ---------------- */
@@ -560,77 +616,135 @@ function renderNews(force){
   more.textContent = state.more ? '이슈 접기' : `이슈 ${iss.length - FIRST_ISSUES}건 더 보기`;
 }
 
-/* ---------------- 테마 순위 ---------------- */
-function renderThemes(){
-  const box = $('#themesList');
-  if(!box || !state.data) return;
-  const rows = state.data.themes_rank || [];
-  if(!rows.length){
-    box.innerHTML = `<div class="empty">테마 순위를 계산할 기사가 아직 없습니다.<br>다음 갱신(5분) 뒤 다시 확인해 주세요.</div>`;
-    $('#themesSub').textContent = '';
-    return;
-  }
-  $('#themesSub').textContent = `이슈 ${state.data.count||0}건 · 테마 ${rows.length}개`;
-  let html = '';
-  for(const r of rows){
-    const h = r.hint || {};
-    const short = h.type !== 'medium';
-    const kws = (r.keywords||[]).map(k => `<span class="kw">${esc(k)}</span>`).join('');
-    const hds = (r.headlines||[]).map(x =>
-      `<a class="rk-hd" href="${esc(x.url)}" target="_blank" rel="noopener noreferrer">${esc(x.title)}</a>`).join('');
-    const lds = (r.leaders||[]).length
-      ? `<div class="rk-leaders">🏢 대장주 · ${(r.leaders||[]).map(esc).join(' · ')}</div>` : '';
-    html += `<article class="rank-card" style="--c:${r.color||'#4f8cff'}">
-      <div class="rk-top">
-        <span class="rk-no">${r.rank}</span>
-        <span class="rk-name">${esc(r.label)}</span>
-        <span class="rk-cnt">${r.count}건</span>
-        <span class="hint ${short?'short':'medium'}">${short?'🔥 단기 불씨':'🌊 중기 흐름'}</span>
-      </div>
-      ${kws ? `<div class="rk-kws">${kws}</div>` : ''}
-      ${hds ? `<div class="rk-hds">${hds}</div>` : ''}
-      ${lds}
-      <div class="rk-metrics">최근 6시간 ${r.recent_6h||0}건(${r.recent_6h_ratio||0}%) · 24시간 ${r.day_count||r.count}건 · 매체 ${r.presses||0}곳 · 화제 ${r.hot||0}건</div>
-      <div class="rk-reason">${esc(h.reason||'')}</div>
-      <button class="rk-go" data-theme="${esc(r.id)}">이 테마 뉴스 보기 →</button>
-    </article>`;
-  }
-  box.innerHTML = html;
-  box.querySelectorAll('.rk-go').forEach(b => b.onclick = () => openTheme(b.dataset.theme));
+/* ---------------- 오늘 상한가 ---------------- */
+function upperData(){ return (state.data && state.data.upper_limits) || null; }
+
+function upperCardHtml(it, i){
+  const theme = it.theme ? `<span class="up-theme">${esc(it.theme)}</span>` : '';
+  const tv = it.trading_value_text ? `<span class="up-val">거래대금 ${esc(it.trading_value_text)}</span>` : '';
+  const tags = (theme || tv) ? `<div class="up-tags">${theme}${tv}</div>` : '';
+  const sum = it.issue_summary
+    ? `<p class="up-sum">${esc(it.issue_summary)}</p>`
+    : `<p class="up-sum" style="color:#7d8aa3">관련 보도가 아직 확인되지 않았습니다.</p>`;
+  const when = it.article_time ? relTime(it.article_time) : '';
+  const srcLabel = [it.article_press, when].filter(Boolean).join(' · ');
+  const link = it.article_url
+    ? `<a href="${esc(it.article_url)}" target="_blank" rel="noopener noreferrer">원문 ↗</a>` : '';
+  const showTitle = it.article_title && it.summary_from === '본문';
+  const titleLine = showTitle
+    ? `<div class="u-full"><a href="${esc(it.article_url)}" target="_blank" rel="noopener noreferrer">${esc(it.article_title)}</a></div>`
+    : '';
+  const more = (showTitle || (it.issue_summary || '').length > 70)
+    ? `<button class="up-more" type="button">더 보기 ▾</button>` : '';
+  const rate = Number(it.change_rate || 0).toFixed(2);
+  return `<article class="up-card">
+    <div class="up-top">
+      <span class="up-no">${i + 1}</span>
+      <span class="up-name">${esc(it.name)}</span>
+      <span class="up-mk">${esc(it.market || '')}</span>
+      <span class="up-price">${esc(it.price_text || '')}원</span>
+      <span class="up-rate">+${rate}%</span>
+    </div>
+    ${tags}
+    ${sum}
+    <div class="up-src">
+      <span class="p">${srcLabel ? esc(srcLabel) : '관련 보도 확인 중'}</span>${more}${link}
+    </div>
+    ${titleLine}
+  </article>`;
 }
 
-/* ---------------- 일정 뉴스 ---------------- */
-function renderSchedules(){
-  const box = $('#schedList');
-  if(!box || !state.data) return;
-  const rows = state.data.schedules || [];
-  if(!rows.length){
-    box.innerHTML = `<div class="empty">지금 수집된 기사에는 앞으로의 일정 단서가 없습니다.<br>일정 기사가 잡히면 여기에 시점별로 묶여 표시됩니다.</div>`;
-    $('#schedSub').textContent = '';
+function renderUpper(){
+  const box = $('#upperList');
+  if(!box) return;
+  const u = upperData();
+  const items = (u && u.items) || [];
+  const label = (u && u.label) || '–';
+  const session = (u && u.session_label) || '';
+  const dateEl = $('#upperDate');
+  if(dateEl){
+    dateEl.textContent = label + (session ? ' · ' + session : '');
+    dateEl.className = 'badge-d' + (u && u.is_today ? '' : ' prev');
+  }
+  if($('#upperCnt')) $('#upperCnt').textContent = items.length ? items.length + '종목' : '0종목';
+  if($('#upperSub')) $('#upperSub').textContent = items.length ? `상한가 ${items.length}건` : '';
+  if($('#upperNote')) $('#upperNote').textContent = (u && u.note) || '';
+  if(!items.length){
+    box.innerHTML = `<div class="empty">${esc((u && u.note) || '오늘 상한가 종목이 아직 없습니다.')}<br>장중에 다시 확인해 주세요.</div>`;
     return;
   }
-  $('#schedSub').textContent = `일정 ${rows.length}개`;
-  let html = '';
-  for(const s of rows){
-    const list = s.articles || [];
-    const arts = list.map((a,i) => `<a class="sch-art${i > 1 ? ' sch-hidden' : ''}" href="${esc(a.url)}" target="_blank" rel="noopener noreferrer">
-        <div class="sch-t">${esc(a.title)}</div>
-        <div class="sch-f"><span class="press">${esc(a.press||'')}</span>${a.time && !a.time_est ? `<span>· ${relTime(a.time)}</span>` : ''}</div>
-      </a>`).join('');
-    const more = list.length > 2
-      ? `<button class="sch-more" type="button">기사 ${list.length-2}건 더 보기</button>` : '';
-    html += `<article class="sch-card">
-      <div class="sch-top">
-        <span class="when">${esc(s.when)}</span>${s.ongoing ? '<span class="ong">진행중</span>' : ''}
-        ${s.type_label && s.type_label !== s.topic ? `<span class="type">${esc(s.type_label)}</span>` : ''}
-        <span class="cnt">${list.length}건</span>
-      </div>
-      <h3 class="sch-topic">${esc(s.topic)}</h3>
-      ${arts}${more}
-    </article>`;
-  }
-  box.innerHTML = html;
+  box.innerHTML = items.map(upperCardHtml).join('');
 }
+
+/* ---------------- 테마달력 ---------------- */
+async function ensureCalendar(){
+  if(state.calendar) return state.calendar;
+  try{
+    const res = await fetch('data/calendar.json?_=' + Date.now(), {cache:'no-store'});
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    state.calendar = await res.json();
+    try{ localStorage.setItem('newsradar_cal', JSON.stringify(state.calendar)); }catch(e){}
+  }catch(err){
+    try{ state.calendar = JSON.parse(localStorage.getItem('newsradar_cal') || 'null'); }catch(e){}
+  }
+  return state.calendar;
+}
+
+function stkHtml(s){
+  const ds = s.dates || [];
+  const show = ds.slice(-4).map(d => { const p = String(d).split('-'); return (+p[1]) + '/' + (+p[2]); });
+  const more = ds.length > 4 ? ` +${ds.length - 4}` : '';
+  return `<span class="stk"><b>${esc(s.name)}</b><i>${show.join('·')}${more}</i></span>`;
+}
+
+async function renderCalendar(){
+  const box = $('#calThemes');
+  if(!box) return;
+  const cal = await ensureCalendar();
+  if(!cal || !(cal.months || []).length){
+    if($('#monGrid')) $('#monGrid').innerHTML = '';
+    box.innerHTML = `<div class="empty">테마달력 자료를 불러오지 못했습니다.<br>잠시 후 다시 열어 주세요.</div>`;
+    return;
+  }
+  const months = cal.months;
+  if(!state.month || !months.some(m => m.month === state.month)){
+    state.month = (cal.this_month && months.some(m => m.month === cal.this_month))
+      ? cal.this_month : months[months.length - 1].month;
+  }
+  const sel = state.month;
+  const r = cal.range || {};
+  if($('#calSub')){
+    const f = (r.from || '').slice(2).replace('-', '.');
+    const t = (r.to || '').slice(2).replace('-', '.');
+    $('#calSub').textContent = `${f}~${t} · 테마 ${cal.theme_total || 0}개`;
+  }
+  const grid = $('#monGrid');
+  if(grid){
+    grid.innerHTML = months.map(m =>
+      `<button class="mon" type="button" data-month="${m.month}" aria-pressed="${m.month === sel}">` +
+      `<span class="m">${esc(m.label)}</span><span class="n">${m.theme_count}</span></button>`).join('');
+  }
+  const mm = months.find(m => m.month === sel) || months[months.length - 1];
+  if($('#calMonthTitle')) $('#calMonthTitle').textContent = `${mm.month_name} 테마 ${mm.theme_count}개`;
+  if($('#calMonthSub')) $('#calMonthSub').textContent = `상한가 종목 ${mm.stock_count}건`;
+  if($('#calAll')) $('#calAll').textContent = '모두 펼치기';
+  if(!(mm.themes || []).length){
+    box.innerHTML = `<div class="empty">이 달에 기록된 상한가 테마가 없습니다.</div>`;
+    return;
+  }
+  box.innerHTML = mm.themes.map(t => `<article class="th-card">
+      <button class="th-head" type="button">
+        <span class="th-name">${esc(t.name)}</span>
+        <span class="th-cnt">${t.count}</span>
+        <span class="th-exp">▾</span>
+      </button>
+      <div class="th-body">
+        ${t.summary ? `<p class="th-sum">${esc(t.summary)}</p>` : ''}
+        <div class="stk-grid">${t.stocks.map(stkHtml).join('')}</div>
+      </div>
+    </article>`).join('');
+}
+
 
 /* ---------------- 데이터 ---------------- */
 /* 새로고침 결과를 잠깐 띄우는 토스트 (1.8초 뒤 자동으로 사라진다) */
@@ -710,8 +824,8 @@ function applyData(data){
   if(state.theme !== 'all' && !(data.themes||[]).some(t => t.id === state.theme)) state.theme = 'all';
   renderChips();
   renderNews(false);
-  if(state.tab === 'themes') renderThemes();
-  if(state.tab === 'schedules') renderSchedules();
+  if(state.tab === 'upper') renderUpper();
+  if(state.tab === 'calendar') renderCalendar();
 }
 
 $('#q').addEventListener('input', e => { state.q = e.target.value; renderNews(true); });
@@ -732,19 +846,39 @@ $('#issueList').addEventListener('click', e => {
   if(ex) ex.textContent = open ? '▴' : '▾';
 });
 $('#btnRefresh').addEventListener('click', () => load(true));
-/* 일정 카드: 접힌 기사 펼치기 */
-$('#schedList').addEventListener('click', e => {
-  const btn = e.target.closest('.sch-more');
+/* 상한가 카드: 요약 전문 + 기사 제목 펼치기 */
+$('#upperList').addEventListener('click', e => {
+  const btn = e.target.closest('.up-more');
   if(!btn) return;
-  const card = btn.closest('.sch-card');
+  const card = btn.closest('.up-card');
   if(!card) return;
-  if(!btn.dataset.more) btn.dataset.more = btn.textContent;
   const open = card.classList.toggle('open');
-  btn.textContent = open ? '기사 접기' : btn.dataset.more;
+  btn.textContent = open ? '접기 ▴' : '더 보기 ▾';
+});
+/* 테마달력: 달 선택 · 테마 아코디언 */
+$('#monGrid').addEventListener('click', e => {
+  const b = e.target.closest('.mon');
+  if(!b) return;
+  state.month = b.dataset.month;
+  renderCalendar();
+});
+$('#calThemes').addEventListener('click', e => {
+  const h = e.target.closest('.th-head');
+  if(!h) return;
+  const card = h.closest('.th-card');
+  if(card) card.classList.toggle('open');
+});
+$('#calAll').addEventListener('click', () => {
+  const cards = document.querySelectorAll('#calThemes .th-card');
+  if(!cards.length) return;
+  const allOpen = [...cards].every(c => c.classList.contains('open'));
+  cards.forEach(c => c.classList.toggle('open', !allOpen));
+  $('#calAll').textContent = allOpen ? '모두 펼치기' : '모두 접기';
 });
 document.querySelectorAll('.tab').forEach(b => b.onclick = () => switchTab(b.dataset.tab));
 addEventListener('hashchange', () => {
-  const name = (location.hash||'').replace('#','');
+  let name = (location.hash||'').replace('#','');
+  if(name === 'schedules') name = 'upper';
   if(TABS.includes(name) && name !== state.tab) switchTab(name, true);
 });
 
@@ -821,7 +955,8 @@ visPaint();
 if('serviceWorker' in navigator){ navigator.serviceWorker.register('sw.js').catch(()=>{}); }
 
 /* 시작 탭 (주소 #themes / #schedules 로 바로 열 수 있다) */
-const startTab = (location.hash||'').replace('#','');
+let startTab = (location.hash||'').replace('#','');
+if(startTab === 'schedules') startTab = 'upper';
 switchTab(TABS.includes(startTab) ? startTab : 'news', true);
 load(false);
 </script>
