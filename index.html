@@ -332,12 +332,20 @@
   .hb-row:active{background:var(--card2)}
   .hb-l{min-width:0;flex:1}
   .hb-name{font-size:13px;font-weight:800;letter-spacing:-.3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .hb-reason{font-size:9.8px;color:#8fb2ff;letter-spacing:-.1px;white-space:nowrap;overflow:hidden;
+    text-overflow:ellipsis;margin-top:1px}
   .hb-note{font-size:9.5px;color:var(--dim2);letter-spacing:-.1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  /* 바닥권 배지 — 1년 고점 대비 -45% 이하에서 나온 1·2·3 */
+  .hb-bot{display:inline-block;margin-left:5px;padding:0 4px;border-radius:5px;white-space:nowrap;
+    font-size:9px;font-weight:900;letter-spacing:-.2px;vertical-align:1px;
+    color:#5be0b0;background:rgba(40,210,150,.14);border:1px solid rgba(40,210,150,.42)}
+  .hb-row.bot{box-shadow:inset 2px 0 0 rgba(40,210,150,.55)}
   /* 앞/뒤 자리 표시 — 앞은 빨간 배지, 중은 흐린 배지. 뒤는 실리지 않는다 */
   .hb-pos{display:inline-block;margin-left:5px;padding:0 4px;border-radius:5px;white-space:nowrap;
     font-size:9px;font-weight:900;letter-spacing:-.2px;vertical-align:1px}
   .hb-pos.front{color:#ff9aa8;background:rgba(255,60,80,.16);border:1px solid rgba(255,60,80,.46)}
   .hb-pos.mid{color:#9fb0c9;background:rgba(255,255,255,.04);border:1px solid var(--line)}
+  .hb-pos.back{color:#6b7a94;background:rgba(255,255,255,.03);border:1px solid var(--line);opacity:.72}
   .hb-r{text-align:right;white-space:nowrap;flex:none}
   .hb-px{font-size:12.5px;font-weight:800;letter-spacing:-.2px}
   .hb-sub{font-size:10px;font-weight:700;color:var(--dim);display:flex;gap:5px;justify-content:flex-end}
@@ -1005,31 +1013,37 @@ function hotEvtBadge(s){
    0.90 이상 '앞'(빨강) · 0.50~0.90 '중'(흐림) · 0.50 미만 '뒤'는 자료에 실리지 않는다 */
 function hotPosBadge(s){
   const p = s.pos;
-  if(!p || p === '뒤') return '';
-  const cls = p === '앞' ? 'front' : 'mid';
+  if(!p) return '';
+  const cls = p === '앞' ? 'front' : (p === '중' ? 'mid' : 'back');
   const v = (typeof s.vr_all === 'number') ? s.vr_all : null;
-  const t = v === null ? '' : ` title="① 봉 거래량 = 앞선 10년 최대의 ${v.toFixed(2)}배${v >= 1 ? ' (역대 최고)' : ''}"`;
+  const t = v === null ? '' : ` title="상한가 봉 거래량 = 앞선 10년 최대의 ${v.toFixed(2)}배${v >= 1 ? ' (역대 최고)' : ''}"`;
   return `<span class="hb-pos ${cls}"${t}>${esc(p)}</span>`;
 }
 
 function hotRowHtml(s){
   const chg = (s.chg === 0 || s.chg) ? Number(s.chg) : null;
   const chgTxt = chg === null ? '' : (chg > 0 ? '+' : '') + chg.toFixed(1) + '%';
-  const dd = (s.dd === 0 || s.dd) ? String(s.dd) : '';
-  return `<div class="hb-row">
+  const dd = (s.dd === 0 || s.dd) ? Number(s.dd) : null;
+  const ddTxt = dd === null ? '' : `고점 ${dd > 0 ? '+' : ''}${dd}%`;
+  const bot = s.bottom ? `<span class="hb-bot" title="1년 고점 대비 ${esc(String(dd))}% — 바닥권에서 나온 1·2·3">바닥</span>` : '';
+  const reason = s.reason ? `<div class="hb-reason">${esc(s.reason)}</div>` : '';
+  return `<div class="hb-row${s.bottom ? ' bot' : ''}">
     <div class="hb-l">
-      <div class="hb-name">${esc(s.name)}${hotPosBadge(s)}${hotEvtBadge(s)}</div>
+      <div class="hb-name">${esc(s.name)}${bot}${hotPosBadge(s)}${hotEvtBadge(s)}</div>
+      ${reason}
       <div class="hb-note">${esc(s.note || '')}</div>
     </div>
     <div class="hb-r">
       <div class="hb-px">${esc(s.price_text || '')}</div>
-      <div class="hb-sub"><span class="${chg !== null && chg < 0 ? 'dn' : 'up'}">${chgTxt}</span>${dd ? `<span class="dd" title="1년 고점 대비 ${esc(dd)}%">${esc(dd)}</span>` : ''}</div>
+      <div class="hb-sub"><span class="${chg !== null && chg < 0 ? 'dn' : 'up'}">${chgTxt}</span>${ddTxt ? `<span class="dd" title="1년 고점 대비 위치">${ddTxt}</span>` : ''}</div>
     </div>
   </div>`;
 }
 
 function hotStageHtml(st){
   const stocks = st.stocks || [];
+  const botN = st.bottom_count || stocks.filter(s => s.bottom).length;
+  const cnt = `${stocks.length}${botN ? ` · 바닥 ${botN}` : ''}`;
   if(!stocks.length){
     return `<div class="hb-grp">
       <div class="hb-head"><span class="hb-badge s${st.stage}">${st.stage}</span>
@@ -1042,7 +1056,7 @@ function hotStageHtml(st){
   const rest = stocks.length - show.length;
   return `<div class="hb-grp">
     <div class="hb-head"><span class="hb-badge s${st.stage}">${st.stage}</span>
-      <span class="hb-desc">${esc(st.desc)}</span><span class="hb-cnt">${stocks.length}</span></div>
+      <span class="hb-desc">${esc(st.desc)}</span><span class="hb-cnt">${cnt}</span></div>
     ${show.map(hotRowHtml).join('')}
     ${rest > 0 ? `<button class="hb-more" type="button" data-stage="${st.stage}">${rest}종목 더 보기 ▾</button>` : ''}
     ${open && stocks.length > HOT_SHOW ? `<button class="hb-more" type="button" data-stage="${st.stage}">접기 ▴</button>` : ''}
@@ -1060,7 +1074,7 @@ async function renderHotbar(){
   }
   const sec = (d.sections || []).find(x => x.key === hotbarSec) || d.sections[0];
   hotbarSec = sec.key;
-  if($('#hotSub')) $('#hotSub').textContent = (d.base_date_text || '') + (d.universe ? ` · ${d.universe}종목` : '');
+  if($('#hotSub')) $('#hotSub').textContent = (sec.sub ? sec.sub + ' · ' : '') + (d.base_date_text || '') + (d.universe ? ` · ${d.universe}종목` : '');
   document.querySelectorAll('#hotSeg button').forEach(b => b.classList.toggle('on', b.dataset.sec === sec.key));
   box.innerHTML = (sec.stages || []).map(hotStageHtml).join('');
 }
