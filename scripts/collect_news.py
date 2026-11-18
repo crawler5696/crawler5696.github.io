@@ -1055,7 +1055,8 @@ def resolve_when(text: str, pub: datetime, now: datetime):
                 nxt = (pub.replace(day=1) + timedelta(days=32)).replace(day=1)
                 dt = _mk(nxt.year, nxt.month, d)
             if dt and dt.date() >= today:
-                return _date_when(dt, now, ok_today=True)
+                # '18일, ...'처럼 기사 당일을 가리키는 경우가 있어 오늘 날짜는 앞으로 할 일 표현을 함께 본다
+                return _date_when(dt, now)
 
     m = re.search(r"D-(\d{1,2})", text)
     if m:
