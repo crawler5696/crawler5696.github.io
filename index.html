@@ -110,6 +110,18 @@
   .vbadge:hover{color:var(--dim);border-color:rgba(79,140,255,.45)}
   .vbadge span{color:var(--dim);font-weight:700}
   .vbadge[hidden]{display:none}
+  /* 호재·혼조·악재 전광판 — 업데이트 줄 오른쪽에 작게 */
+  .meta-r{margin-left:auto;display:flex;align-items:center;gap:6px;flex-wrap:nowrap}
+  .mood{display:inline-flex;align-items:center;gap:4px;flex:none;white-space:nowrap;
+    font-size:10.5px;font-weight:800;letter-spacing:-.2px;
+    border:1px solid var(--line);background:rgba(255,255,255,.03);
+    padding:1px 7px 1px 6px;border-radius:20px;transition:color .2s,border-color .2s}
+  .mood[hidden]{display:none}
+  .mood .mdot{width:5px;height:5px;border-radius:50%;background:currentColor;animation:pulse 1.8s infinite}
+  .mood.good{color:#3ddc97;border-color:rgba(61,220,151,.32);background:rgba(61,220,151,.1)}
+  .mood.mid{color:#ffc477;border-color:rgba(255,196,119,.32);background:rgba(255,179,71,.1)}
+  .mood.bad{color:#ff6b7d;border-color:rgba(255,90,110,.32);background:rgba(255,90,110,.1)}
+  @media (prefers-reduced-motion:reduce){ .mood .mdot{animation:none} }
   @media (max-width:380px){ .vbadge{font-size:10px;padding:1px 5px;gap:2px} }
 
 
@@ -389,7 +401,10 @@
   <section class="view" data-view="news" id="view-news">
     <div class="meta">
       <span>업데이트 <b id="updated">불러오는 중…</b></span>
+      <span class="meta-r">
+      <span class="mood" id="mood" hidden></span>
       <a class="vbadge" id="visitors" href="https://crawler5696.goatcounter.com/" target="_blank" rel="noopener noreferrer" title="GoatCounter 방문자 대시보드" hidden>👥 총 <span id="visitorN">–</span>명</a>
+      </span>
     </div>
 
     <div class="sechead"><span class="bar"></span>⚡ 실시간 속보
@@ -634,6 +649,52 @@ function renderNews(force){
   const more = $('#moreIssues');
   more.hidden = iss.length <= FIRST_ISSUES;
   more.textContent = state.more ? '이슈 접기' : '이슈 더 보기';
+}
+
+/* ---------------- 호재·혼조·악재 전광판 ----------------
+   오늘 모은 속보·이슈 제목/요약의 단어 점수로 시장 분위기를 한 칸으로 요약한다.
+   (나중에 news.json 에 코스피·코스닥 지수 필드가 생기면 그 값을 먼저 본다) */
+const MOOD_GOOD = ['급등','상승','반등','호실적','사상최대','수주','타결','강세','돌파','상한가','최고치','흑자','회복','기대감','신기록'];
+const MOOD_BAD = ['급락','하락','폭락','약세','충격','악재','금리인상','전쟁','우려','반토막','하한가','적자','유출','속락','불안','경고'];
+const MOOD_MID = ['혼조','눈치보기','보합','엇갈','관망','혼재'];
+
+function moodOf(){
+  const d = state.data || {};
+  const idx = d.index || d.indices || null;      /* 지수 필드가 생기면 여기서 먼저 판단 */
+  if(idx){
+    const k = Number(idx.kospi_chg != null ? idx.kospi_chg : idx.kospi);
+    const q = Number(idx.kosdaq_chg != null ? idx.kosdaq_chg : idx.kosdaq);
+    if(!isNaN(k) || !isNaN(q)){
+      const avg = ((isNaN(k) ? 0 : k) + (isNaN(q) ? 0 : q)) / ((isNaN(k) ? 0 : 1) + (isNaN(q) ? 0 : 1));
+      if(avg >= 0.5) return { key:'good', label:'호재', why:`지수 평균 ${avg.toFixed(2)}%` };
+      if(avg <= -0.5) return { key:'bad', label:'악재', why:`지수 평균 ${avg.toFixed(2)}%` };
+      return { key:'mid', label:'혼조', why:`지수 평균 ${avg.toFixed(2)}%` };
+    }
+  }
+  const texts = flashAll().concat(issueAll()).slice(0, 25)
+    .map(a => ((a.title || '') + ' ' + (a.summary || '')).toLowerCase());
+  let g = 0, b = 0, n = 0;
+  for(const t of texts){
+    for(const w of MOOD_GOOD) if(t.includes(w)) g++;
+    for(const w of MOOD_BAD) if(t.includes(w)) b++;
+    for(const w of MOOD_MID) if(t.includes(w)) n++;
+  }
+  const why = `호재 ${g} · 악재 ${b} · 혼조 ${n} (기사 ${texts.length}건)`;
+  if(!texts.length) return null;
+  if(n >= Math.max(g, b) || Math.abs(g - b) < 3) return { key:'mid', label:'혼조', why };
+  if(g > b) return { key:'good', label:'호재', why };
+  return { key:'bad', label:'악재', why };
+}
+
+function renderMood(){
+  const el = $('#mood');
+  if(!el) return;
+  const m = moodOf();
+  if(!m){ el.hidden = true; return; }
+  el.hidden = false;
+  el.className = 'mood ' + m.key;
+  el.innerHTML = `<span class="mdot"></span>${esc(m.label)}`;
+  el.title = '오늘 뉴스 분위기 — ' + m.why;
 }
 
 /* ---------------- 오늘 상한가 ---------------- */
@@ -1074,6 +1135,7 @@ function applyData(data){
   const age = relTime(data.generated_at);
   $('#updated').textContent = (data.generated_at_kst || '–') + (age ? ` (${age})` : '');
   renderNews(false);
+  renderMood();
   if(state.tab === 'upper') renderUpper();
   if(state.tab === 'calendar') renderCalendar();
   if(state.tab === 'radar') renderRadar();
