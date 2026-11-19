@@ -2079,7 +2079,7 @@ def judge_kr_mood(rows) -> dict | None:
         key, label = "good", "호재"
     else:
         key, label = "mid", "혼조"
-    live = any(abs(c) >= 0.005 for c in chgs) or any((r.get("status") or "") == "OPEN" for r in rows)
+    live = any(abs(c) >= 0.005 for c in chgs)  # 오늘 등락이 아직 0이면(장 시작 전) 화면이 뉴스로 보조
     return _mood_out(rows, key, label, f"{_rows_text(rows)} (평균 {avg:+.2f}%)", avg, live)
 
 
