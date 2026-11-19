@@ -357,6 +357,11 @@
   .hb-th{flex:none;max-width:52%;font-size:11px;font-weight:600;letter-spacing:-.1px;
     color:#8fb2ff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:right}
   .hb-th.indiv{color:#7e8aa0;font-weight:600}
+  /* 앞쪽/뒤쪽 — 주봉·월봉 카드에서 자리를 구분(2026-11-19 지시: 빼지 말고 표시) */
+  .hb-pos{flex:none;font-size:9.5px;font-weight:900;letter-spacing:-.2px;padding:1px 5px;border-radius:5px;
+    white-space:nowrap}
+  .hb-pos.f{color:#63e3ae;background:rgba(61,220,151,.12);border:1px solid rgba(61,220,151,.34)}
+  .hb-pos.b{color:#ffa46b;background:rgba(255,140,70,.12);border:1px solid rgba(255,140,70,.34)}
   /* A++ — 직접 뉴스·차트를 검수해 손으로 찍은 도장만(최우수 자리, 금색) */
   .hb-aplus{display:inline-block;margin-left:5px;padding:0 5px;border-radius:5px;white-space:nowrap;
     font-size:9.5px;font-weight:900;letter-spacing:-.1px;vertical-align:1px;
@@ -516,8 +521,8 @@
     <div class="viewhead"><b>핫바</b><span id="hotSub"></span></div>
     <div class="hb-seg" id="hotSeg">
       <button type="button" data-sec="day" class="on">일봉<span class="s">1 → 2 → 3 → 4 → 5…</span></button>
-      <button type="button" data-sec="week">주봉<span class="s">48주 거래량</span></button>
-      <button type="button" data-sec="month">월봉<span class="s">12월 거래량</span></button>
+      <button type="button" data-sec="week">주봉<span class="s">6개월 시작 거래량</span></button>
+      <button type="button" data-sec="month">월봉<span class="s">6개월 시작 거래량</span></button>
     </div>
     <div id="hotBody">
       <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
@@ -1138,7 +1143,10 @@ function hotThemeName(s){
 
 /* 같은 테마끼리 나란히 — 테마 확실 종목 먼저(테마명 가나다순), 개별은 맨 아래(이름순) */
 function hotSortStocks(arr){
+  const pv = x => x.pos2 === '앞쪽' ? 0 : (x.pos2 === '뒤쪽' ? 1 : 2);
   return arr.slice().sort((a, b) => {
+    const pa = pv(a), pb = pv(b);
+    if(pa !== pb) return pa - pb;
     const ta = hotThemeName(a), tb = hotThemeName(b);
     if(!ta && tb) return 1;
     if(ta && !tb) return -1;
@@ -1158,8 +1166,11 @@ function hotRowHtml(s){
   const ap = s.aplus === 'A++'
     ? `<span class="hb-aplus" title="${esc('직접 검수한 A++' + (why ? ' — ' + why : ''))}">A++</span>` : '';
   const th = hotThemeName(s);
+  const pos = s.pos2 === '앞쪽' ? '<span class="hb-pos f" title="바닥 6개월 조용한 뒤 시작 거래량 · 20일선≥60일선">앞</span>'
+            : (s.pos2 === '뒤쪽' ? `<span class="hb-pos b" title="${esc('뒤쪽 — ' + ((s.pos2_why || []).join(' · ') || '장기선 위'))}">뒤</span>` : '');
   return `<div class="${cls}"${attrs}>
     <div class="hb-name">${esc(s.name)}${ap}</div>
+    ${pos}
     <div class="hb-th${th ? '' : ' indiv'}"${th ? ` title="${esc(s.theme)}"` : ''}>${esc(th || '개별')}</div>
   </div>`;
 }
@@ -1277,7 +1288,7 @@ function chartSvgHtml(s){
   /* 기준 거래량 — 주봉 48주 · 월봉 12개월 최대(돌파를 잰 자). 거래량 칸에 점선으로 */
   if(refVol > 0){
     const yv = CH_VY1 - refVol / vmax * vh;
-    const tv = `1번 거래량 ${fmtVolK(refVol)}주`, tw2 = textW(tv, 7.6) + 6;
+    const tv = `6개월 최대 ${fmtVolK(refVol)}주`, tw2 = textW(tv, 7.6) + 6;
     g += `<line x1="${CH_X0}" x2="${CH_X1}" y1="${yv.toFixed(1)}" y2="${yv.toFixed(1)}" stroke="#7fa8ff" stroke-width="1" stroke-dasharray="3 3" opacity=".85"/>`;
     g += `<rect x="${CH_X1 - tw2 - 1}" y="${(yv - 10.5).toFixed(1)}" width="${tw2.toFixed(1)}" height="9.5" rx="2" fill="rgba(11,17,32,.85)"/>`;
     g += `<text x="${CH_X1 - 2}" y="${(yv - 3).toFixed(1)}" font-size="7.6" font-weight="700" fill="#9fc0ff" text-anchor="end">${tv}</text>`;
@@ -1364,20 +1375,25 @@ function chartLegendHtml(s){
   const p = periodOf(s), pd = PERIOD[p];
   const parts = [];
   const sd = s.stage_dates || {};
-  const LAB = {1: p === 'day' ? '상한가' : (p === 'week' ? '48주 돌파' : '12개월 돌파'),
+  const LAB = {1: p === 'day' ? '상한가' : '시작 거래량',
                2: '눌림 줄', 3: p === 'day' ? '반등' : '반등 봉', 4: '사는 자리'};
   Object.keys(sd).sort((a, b) => (+a) - (+b)).forEach(k => {
     const cls = k === '1' ? 'c1' : (k === '3' ? 'c3' : 'cp');
     const extra = (+k >= 5) ? '' : (LAB[k] || '');
     parts.push(`<span><i class="${cls}">${k}</i>${esc(extra)} ${barName(s, sd[k])}${p === 'week' ? ' 주' : ''}</span>`);
   });
+  /* 기준선(2번 줄) — 2번 자리일 때만, 기준 봉이 확실한 양봉/음봉일 때만 그린다(2026-11-19 지시) */
   if(p === 'day' && s.line) parts.push(`<span><i class="cb">2번 줄</i>${fmtWon(s.line)}원</span>`);
-  else if(s.base_open) parts.push(`<span><i class="cb">1번</i>${fmtWon(s.base_open)}원</span>`);
-  if(s.ref_vol) parts.push(`<span><i class="cv">1번</i>거래량 ${fmtVolK(s.ref_vol)}주 = 앞 ${s.ref_bars || (p === 'week' ? 48 : 12)}${p === 'week' ? '주' : '개월'} 최대</span>`);
+  else if(s.base_open) parts.push(`<span><i class="cb">2번 줄</i>${fmtWon(s.base_open)}원</span>`);
+  else if(Number(s.stage) >= 3) parts.push(`<span style="color:#7e8aa0">기준선 거둠(3번 진행)</span>`);
+  else if(Number(s.stage) === 2) parts.push(`<span style="color:#7e8aa0">기준 봉이 도지 — 줄 안 그음</span>`);
+  else parts.push(`<span style="color:#7e8aa0">기준선은 2번 자리에서 긋는다</span>`);
+  if(s.ref_vol) parts.push(`<span><i class="cv">1번</i>거래량 ${fmtVolK(s.ref_vol)}주 = 앞 6개월 최대</span>`);
+  if(p !== 'day' && s.pos2) parts.push(`<span>${s.pos2 === '앞쪽' ? '앞쪽' : '뒤쪽'}${(s.pos2_why || []).length ? ' · ' + esc((s.pos2_why || []).join(' · ')) : ''}</span>`);
   if(s.ratio && p !== 'day'){
-    const x = Number(s.ratio).toFixed(1), ref = (p === 'week' ? '48주' : '12개월');
-    if(s.stage === 1) parts.push(`<span>${ref} 최대의 ${x}배 돌파</span>`);
-    else if(s.stage === 2) parts.push(`<span>1번 봉이 ${ref} 최대의 ${x}배</span>`);
+    const x = Number(s.ratio).toFixed(1);
+    if(s.stage === 1) parts.push(`<span>6개월 최대의 ${x}배${s.bar_partial ? ` (진행 중 환산 ${Number(s.ratio_pace || 0).toFixed(1)}배)` : ''}</span>`);
+    else if(s.stage === 2) parts.push(`<span>1번 봉이 6개월 최대의 ${x}배${s.bar_partial ? ` (진행 중 환산 ${Number(s.ratio_pace || 0).toFixed(1)}배)` : ''}</span>`);
     else parts.push(`<span>이번 ${p === 'week' ? '주' : '달'} 거래량 ${x}배</span>`);
   }
   parts.push(`<span style="color:#ff8a9a">■ 양봉</span><span style="color:#7fa8ff">■ 음봉</span>`);
