@@ -35,5 +35,5 @@ jobs:
             echo "변경 없음 - 커밋 생략"
           else
             git commit -m "chore: 뉴스 갱신 $(date -u '+%Y-%m-%d %H:%M UTC')"
-            git push
+            git pull --rebase origin main && git push
           fi
