@@ -2000,6 +2000,122 @@ def build_upper_limits(now: datetime, pool: list | None = None) -> dict:
     }
 
 
+# --------------------------------------------------------------------------- 전광판(시장 분위기)
+# 헤더의 🇰🇷·🇺🇸 호재/혼조/악재는 기사 제목 단어가 아니라 **실제 지수 등락률**로 판정한다.
+#   한국(kr): 코스피·코스닥 둘 다 하락이면 악재, 둘 다 상승이면 호재,
+#             방향이 엇갈리면 평균 -0.6% 이하 악재 / +0.6% 이상 호재 / 그 사이 혼조.
+#             (지수가 마이너스인데 뉴스 때문에 호재로 뒤집히지 않는다)
+#   미국(us): 나스닥·S&P500·다우 평균 +0.5% 이상 호재, -0.5% 이하 악재,
+#             그 사이이거나 방향이 엇갈리면 혼조.
+# 장 시작 전처럼 오늘 등락률이 아직 0인 때는 live=false 로 보내 화면이 뉴스 분위기로 보조하게 한다.
+KR_INDICES = (("KOSPI", "kospi", "코스피", "https://m.stock.naver.com/api/index/KOSPI/basic"),
+              ("KOSDAQ", "kosdaq", "코스닥", "https://m.stock.naver.com/api/index/KOSDAQ/basic"))
+US_INDICES = ((".IXIC", "nasdaq", "나스닥", "https://api.stock.naver.com/index/.IXIC/basic"),
+              (".INX", "sp500", "S&P500", "https://api.stock.naver.com/index/.INX/basic"),
+              (".DJI", "dow", "다우", "https://api.stock.naver.com/index/.DJI/basic"))
+INDEX_REFERER = "https://m.stock.naver.com/"
+
+
+def _num(s):
+    try:
+        return float(str(s).replace(",", "").strip())
+    except (TypeError, ValueError):
+        return None
+
+
+def _kst_hm(iso) -> str:
+    """지수 응답의 localTradedAt(현지 시각)을 한국 시각 'MM-DD HH:MM'으로 바꾼다."""
+    try:
+        dt = datetime.fromisoformat(str(iso))
+    except (TypeError, ValueError):
+        return ""
+    if dt.tzinfo is None:
+        dt = dt.replace(tzinfo=KST)
+    return dt.astimezone(KST).strftime("%m-%d %H:%M")
+
+
+def fetch_index(code: str, field: str, name: str, url: str):
+    """네이버 지수 API 한 곳에서 현재가·등락률·장 상태를 읽는다 (실패하면 None)."""
+    try:
+        d = fetch_json(url, referer=INDEX_REFERER, timeout=10, retries=2)
+    except Exception as e:  # noqa: BLE001
+        print(f"[warn] index {code}: {e}", file=sys.stderr)
+        return None
+    chg = _num(d.get("fluctuationsRatio"))
+    if chg is None:
+        print(f"[warn] index {code}: no fluctuationsRatio", file=sys.stderr)
+        return None
+    return {"code": code, "field": field, "name": name, "value": _num(d.get("closePrice")),
+            "chg": round(chg, 2), "status": (d.get("marketStatus") or "").upper() or None,
+            "as_of": d.get("localTradedAt"), "as_of_kst": _kst_hm(d.get("localTradedAt"))}
+
+
+def _rows_text(rows) -> str:
+    return " · ".join(f"{r['name']} {r['chg']:+.2f}%" for r in rows)
+
+
+def _mood_out(rows, key: str, label: str, why: str, avg: float, live: bool) -> dict:
+    newest = max(rows, key=lambda r: str(r.get("as_of") or ""))
+    out = {"key": key, "label": label, "why": why, "avg": round(avg, 2), "live": live,
+           "as_of_kst": newest.get("as_of_kst") or ""}
+    for r in rows:
+        out[r["field"]] = {"name": r["name"], "value": r.get("value"), "chg": r["chg"],
+                           "status": r.get("status"), "as_of": r.get("as_of")}
+    return out
+
+
+def judge_kr_mood(rows) -> dict | None:
+    if not rows:
+        return None
+    chgs = [r["chg"] for r in rows]
+    avg = sum(chgs) / len(chgs)
+    if all(c < 0 for c in chgs):
+        key, label = "bad", "악재"
+    elif all(c > 0 for c in chgs):
+        key, label = "good", "호재"
+    elif avg <= -0.6:
+        key, label = "bad", "악재"
+    elif avg >= 0.6:
+        key, label = "good", "호재"
+    else:
+        key, label = "mid", "혼조"
+    live = any(abs(c) >= 0.005 for c in chgs) or any((r.get("status") or "") == "OPEN" for r in rows)
+    return _mood_out(rows, key, label, f"{_rows_text(rows)} (평균 {avg:+.2f}%)", avg, live)
+
+
+def judge_us_mood(rows) -> dict | None:
+    if not rows:
+        return None
+    chgs = [r["chg"] for r in rows]
+    avg = sum(chgs) / len(chgs)
+    mixed = any(c > 0 for c in chgs) and any(c < 0 for c in chgs)
+    if mixed:
+        key, label = "mid", "혼조"
+    elif avg >= 0.5:
+        key, label = "good", "호재"
+    elif avg <= -0.5:
+        key, label = "bad", "악재"
+    else:
+        key, label = "mid", "혼조"
+    live = any(abs(c) >= 0.005 for c in chgs)
+    return _mood_out(rows, key, label, f"{_rows_text(rows)} (평균 {avg:+.2f}%)", avg, live)
+
+
+def build_market_mood(now: datetime) -> dict:
+    """코스피·코스닥 / 나스닥·S&P500·다우 실제 등락률로 전광판 판정을 만든다."""
+    kr_rows = [r for r in (fetch_index(*x) for x in KR_INDICES) if r]
+    us_rows = [r for r in (fetch_index(*x) for x in US_INDICES) if r]
+    kr = judge_kr_mood(kr_rows)
+    us = judge_us_mood(us_rows)
+    if kr:
+        print(f"[info] market mood KR={kr['label']} ({kr['why']})", file=sys.stderr)
+    else:
+        print("[warn] market mood KR: 지수 조회 실패 — 화면은 뉴스 분위기로 대체", file=sys.stderr)
+    if us:
+        print(f"[info] market mood US={us['label']} ({us['why']}, {us['as_of_kst']} 기준)", file=sys.stderr)
+    return {"generated_at": now.isoformat(), "kr": kr, "us": us}
+
+
 # --------------------------------------------------------------------------- 메인
 def build(out_path: str):
     now = datetime.now(KST)
@@ -2081,6 +2197,9 @@ def build(out_path: str):
     # 오늘 상한가 — 종목별 당일 보도를 오늘 수집한 뉴스 카드에서도 한 번 더 찾는다
     upper_limits = build_upper_limits(now, kept)
 
+    # 헤더 전광판 — 실제 지수 등락률 (실패해도 news.json 생성은 계속)
+    market_mood = build_market_mood(now)
+
     payload = {
         "generated_at": now.isoformat(),
         "generated_at_kst": now.strftime("%Y.%m.%d %H:%M"),
@@ -2100,6 +2219,7 @@ def build(out_path: str):
         "themes": themes,
         "themes_rank": build_themes_rank(kept, now, history),
         "upper_limits": upper_limits,
+        "market_mood": market_mood,
         "history": history,
         "flash": flash,
         "issues": [{k: v for k, v in c.items() if not k.startswith("_")} for c in kept],

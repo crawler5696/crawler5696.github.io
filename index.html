@@ -702,9 +702,10 @@ function renderNews(force){
 }
 
 /* ---------------- 호재·혼조·악재 전광판 (🇰🇷 · 🇺🇸) -------------
-   오늘 모은 속보·이슈를 한국 관련 / 미국 관련으로 나누고,
-   각각의 제목·요약 단어 점수로 시장 분위기를 한 칸으로 요약한다.
-   (나중에 news.json 에 코스피·코스닥 / 나스닥·다우 등 등락률 필드가 생기면 그 값을 먼저 본다) */
+   판정의 첫 기준은 실제 지수 등락률이다 — news.json 의 market_mood 에 수집기가
+   코스피·코스닥 / 나스닥·S&P500·다우 등락률을 직접 조회해 실어 준다.
+   그 값이 없거나(수집 실패) 장 시작 전이라 오늘 등락이 아직 0일 때만
+   예전처럼 기사 제목·요약 단어 점수로 대신 판정한다. */
 const MOOD_GOOD = ['급등','상승','반등','호실적','사상최대','수주','타결','강세','돌파','상한가','최고치','흑자','회복','기대감','신기록'];
 const MOOD_BAD = ['급락','하락','폭락','약세','충격','악재','금리인상','전쟁','우려','반토막','하한가','적자','유출','속락','불안','경고'];
 const MOOD_MID = ['혼조','눈치보기','보합','엇갈','관망','혼재'];
@@ -745,10 +746,19 @@ function moodFromIndex(vals){
   return { key:'mid', label:'혼조', why };
 }
 
+/* 수집기가 판정해 보낸 market_mood 한 칸을 화면 형식으로 바꾼다 */
+const MOOD_LABEL = { good:'호재', bad:'악재', mid:'혼조' };
+function moodFromServer(m){
+  if(!m || !m.key) return null;
+  return { key: m.key, label: MOOD_LABEL[m.key] || m.label || '혼조',
+           why: m.why || '지수 등락률 직접 반입', at: m.as_of_kst || '' };
+}
+
 /* 헤더 전광판: { kr, us } — 한국·미국 따로 */
 function marketMoods(){
   const d = state.data || {};
   const idx = d.index || d.indices || {};
+  const mm = d.market_mood || {};
   const arts = flashAll().concat(issueAll()).slice(0, 30);
   const krTexts = [], usTexts = [];
   for(const a of arts){
@@ -756,8 +766,11 @@ function marketMoods(){
     const to = (KR_TAG.test(raw) || !US_TAG.test(raw)) ? krTexts : usTexts;
     to.push(raw.toLowerCase());
   }
-  const kr = moodFromIndex([idx.kospi_chg, idx.kosdaq_chg]) || moodJudge(moodScore(krTexts));
-  const us = moodFromIndex([idx.nasdaq_chg, idx.dow_chg, idx.sp500_chg]) || moodJudge(moodScore(usTexts));
+  /* 장 시작 전(오늘 등락률이 아직 0)이면 live:false 로 오므로 그때만 뉴스 분위기로 보조한다 */
+  const krLive = (mm.kr && mm.kr.live !== false) ? moodFromServer(mm.kr) : null;
+  const usLive = (mm.us && mm.us.live !== false) ? moodFromServer(mm.us) : null;
+  const kr = krLive || moodFromIndex([idx.kospi_chg, idx.kosdaq_chg]) || moodJudge(moodScore(krTexts));
+  const us = usLive || moodFromIndex([idx.nasdaq_chg, idx.dow_chg, idx.sp500_chg]) || moodJudge(moodScore(usTexts));
   return { kr, us };
 }
 
@@ -768,7 +781,7 @@ function paintMood(sel, m, flag, name){
   el.hidden = false;
   el.className = 'mood ' + m.key;
   el.innerHTML = `<span class="flag" aria-hidden="true">${flag}</span>${esc(m.label)}`;
-  el.title = `${name} 시장 분위기 — ${m.why}`;
+  el.title = [`${name} 시장 분위기 — ${m.why}`, m.at ? `${m.at} 기준` : ''].filter(Boolean).join(' · ');
   el.setAttribute('aria-label', `${name} 시장 분위기 ${m.label}`);
 }
 
