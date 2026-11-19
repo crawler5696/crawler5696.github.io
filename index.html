@@ -57,7 +57,13 @@
     display:grid;place-items:center;font-size:14px;box-shadow:0 4px 12px rgba(79,140,255,.38);flex:none}
   .brand{font-size:15px;font-weight:800;letter-spacing:-.4px;white-space:nowrap;line-height:1.15}
   .brand small{display:block;font-size:9.5px;font-weight:600;color:var(--dim2);letter-spacing:0}
+  /* 제목 앞 이름 — 작은 폰에서도 한 줄에 들어가게 크기를 맞춘다 */
+  .brand .who{display:inline-block;font-weight:900;color:#fff;letter-spacing:-.5px;
+    margin-right:5px;padding:0 5px;border-radius:7px;vertical-align:1px;
+    background:linear-gradient(135deg,rgba(79,140,255,.34),rgba(124,92,255,.34));
+    border:1px solid rgba(150,170,255,.6);text-shadow:0 1px 6px rgba(120,150,255,.5)}
   @media (max-width:430px){ .brand small{display:none} .brand{font-size:14.5px} }
+  @media (max-width:400px){ .brand .who{font-size:12.5px;padding:0 4px;margin-right:4px} }
   .spacer{flex:1}
   .live{display:flex;align-items:center;gap:4px;font-size:10px;color:var(--ok);
     background:rgba(61,220,151,.1);border:1px solid rgba(61,220,151,.25);
@@ -455,7 +461,7 @@
   <div class="wrap">
     <div class="top">
       <div class="logo" aria-hidden="true"><svg viewBox="0 0 64 64" width="19" height="19"><path d="M10 46 L22 33 L31 39 L44 23 L54 14 L54 49 L10 49 Z" fill="rgba(255,255,255,.22)"/><path d="M10 46 L22 33 L31 39 L44 23 L54 14" fill="none" stroke="#fff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="54" cy="14" r="3.6" fill="#fff"/></svg></div>
-      <div class="brand">뉴스레이더<small>실시간 속보 · 오늘 상한가 · 테마달력</small></div>
+      <div class="brand"><span class="who">김재헌</span>뉴스레이더<small>실시간 속보 · 오늘 상한가 · 테마달력</small></div>
       <span class="mood" id="moodKr" hidden></span>
       <span class="mood" id="moodUs" hidden></span>
       <div class="spacer"></div>
@@ -1079,19 +1085,47 @@ async function renderRadar(force){
 
 /* ---------------- 핫바 (비밀 모드에서만 열리는 1·2·3) ----------------
    일봉 · 주봉(48주 거래량) · 월봉(12월 거래량)의 1번 / 2번 / 3번 자리를 data/hotbar.json 에서 받아 그린다. */
-let hotbarData = null, hotbarSec = 'day';
+let hotbarData = null, hotbarSec = 'day', sealedJson = null;
 const HOT_SHOW = 10;                      /* 단계마다 처음 보이는 종목 수 */
+
+/* ---------------- 잠긴 핫바 자료 풀기 (AES-256-GCM · PBKDF2-SHA256) ----------------
+   서버(data/hotbar.json)에는 {enc:1, salt, iv, ct} 만 있고, 기기에서 비밀코드로만 풀린다.
+   받은 암호문은 localStorage 에 그대로 저장해 두고(평문으로 남기지 않음) 다시 받아오지 않는다. */
+function b64d(s){
+  const b = atob(String(s || ''));
+  const u = new Uint8Array(b.length);
+  for(let i = 0; i < b.length; i++) u[i] = b.charCodeAt(i);
+  return u;
+}
+async function hotKey(code, salt){
+  const base = await crypto.subtle.importKey('raw', new TextEncoder().encode(code), 'PBKDF2', false, ['deriveKey']);
+  return crypto.subtle.deriveKey({name:'PBKDF2', salt, iterations:HOT_ITER, hash:'SHA-256'},
+    base, {name:'AES-GCM', length:256}, false, ['decrypt']);
+}
+async function hotDecrypt(sealed, code){
+  if(!crypto || !crypto.subtle) throw new Error('no webcrypto');
+  const key = await hotKey(code, b64d(sealed.salt));
+  const plain = await crypto.subtle.decrypt({name:'AES-GCM', iv:b64d(sealed.iv)}, key, b64d(sealed.ct));
+  return JSON.parse(new TextDecoder().decode(plain));
+}
+async function loadSealed(){
+  if(sealedJson) return sealedJson;
+  try{
+    const res = await fetch('data/hotbar.json?_=' + Date.now(), {cache:'no-store'});
+    if(res.ok){
+      sealedJson = await res.json();
+      try{ localStorage.setItem(HOT_CACHE_KEY, JSON.stringify(sealedJson)); }catch(e){}
+      return sealedJson;
+    }
+  }catch(e){}
+  try{ sealedJson = JSON.parse(localStorage.getItem(HOT_CACHE_KEY) || 'null'); }catch(e){}
+  return sealedJson;
+}
 
 async function ensureHotbar(){
   if(hotbarData) return hotbarData;
-  try{
-    const res = await fetch('data/hotbar.json?_=' + Date.now(), {cache:'no-store'});
-    if(!res.ok) throw new Error('HTTP ' + res.status);
-    hotbarData = await res.json();
-    try{ localStorage.setItem('newsradar_hotbar', JSON.stringify(hotbarData)); }catch(e){}
-  }catch(err){
-    try{ hotbarData = JSON.parse(localStorage.getItem('newsradar_hotbar') || 'null'); }catch(e){}
-  }
+  const code = savedCode();
+  if(code) await unlockHotbar(code);      /* 저장된 코드로 조용히 풀어 본다 */
   return hotbarData;
 }
 
@@ -1631,18 +1665,26 @@ const topBtn = $('#top');
 addEventListener('scroll', () => topBtn.classList.toggle('show', scrollY > 600), {passive:true});
 topBtn.onclick = () => scrollTo({top:0, behavior:'smooth'});
 
-/* ---------------- 비밀 방문자 수 (관리자 전용) ----------------
-   켜기: 상단 LIVE 배지를 1.5초 안에 3번 연속 탭  또는  주소 끝에 ?me=5696
-   끄기: 같은 방법으로 다시 3번 탭. 상태는 localStorage(nr_show_visitors)에 남는다. */
-const VIS_KEY = 'nr_show_visitors', VIS_ID = '5696';
+/* ---------------- 비밀 모드 (핫바 + 방문자 수, 관리자 전용) ----------------
+   2026-11-19: data/hotbar.json 을 AES-256-GCM(PBKDF2-SHA256)으로 잠갔다 — 공개 저장소를 열어도
+   종목·숫자가 보이지 않는다. 비밀코드는 이 파일(index.html)에 적지 않는다.
+   열기: 주소 끝에 ?me=비밀코드  또는  상단 LIVE 배지를 1.5초 안에 3번 연속 탭하면 코드를 묻는다.
+   한 번 열면 코드를 localStorage(nr_hot_code)에 남겨 다음부터 바로 열린다. 잠그려면 다시 3번 탭. */
+const VIS_KEY = 'nr_show_visitors', HOT_CODE_KEY = 'nr_hot_code', HOT_CACHE_KEY = 'newsradar_hotbar_sealed';
+const HOT_ITER = 100000;                 /* build_hotbar_radar.py 의 PBKDF2_ITER 와 같아야 한다 */
 const visBadge = $('#visitors');
 let visDone = false;
+let secretOn = false;                    /* 지금 비밀 모드가 열려 있나 — 복호화에 성공해야 true */
 
-function visOn(){
-  try{ return localStorage.getItem(VIS_KEY) === '1'; }catch(e){ return false; }
+function visOn(){ return secretOn; }
+function savedCode(){
+  try{ return localStorage.getItem(HOT_CODE_KEY) || ''; }catch(e){ return ''; }
 }
-function visSave(on){
-  try{ on ? localStorage.setItem(VIS_KEY,'1') : localStorage.removeItem(VIS_KEY); }catch(e){}
+function saveCode(code){
+  try{ localStorage.setItem(HOT_CODE_KEY, code); localStorage.setItem(VIS_KEY, '1'); }catch(e){}
+}
+function dropCode(){
+  try{ localStorage.removeItem(HOT_CODE_KEY); localStorage.removeItem(VIS_KEY); }catch(e){}
 }
 /* 화면을 건드리지 않고, 켜져 있을 때만 조용히 숫자만 채운다 */
 async function visNumber(){
@@ -1673,16 +1715,55 @@ function hotPaint(){
   if(bar) bar.classList.toggle('five', on);
   if(!on && state.tab === 'hotbar') switchTab('news');
 }
+/* 비밀코드를 묻고, 맞으면 풀어서 연다(틀리면 아무것도 열리지 않는다) */
 function visToggle(){
-  visSave(!visOn());
-  visPaint();
+  if(secretOn){
+    secretOn = false;
+    hotbarData = null;
+    dropCode();
+    visPaint();
+    return;
+  }
+  let code = '';
+  try{ code = (prompt('비밀코드') || '').trim(); }catch(e){ code = ''; }
+  if(!code) return;
+  unlockHotbar(code).then(ok => {
+    if(ok){ visPaint(); toast('비밀 모드'); }
+    else toast('비밀코드가 맞지 않습니다');
+  });
 }
-/* 주소에 ?me=5696 이 있으면 자동으로 켜 둔다 */
-try{
-  const m = /[?&]me=([^&#]*)/.exec(location.search || '');
-  if(m && decodeURIComponent(m[1]) === VIS_ID){ visSave(true); }
-}catch(e){}
+
+/* 열려 있으면(코드가 맞으면) 잠긴 자료를 풀어 hotbarData 에 담는다 */
+async function unlockHotbar(code){
+  code = String(code || '').trim();
+  if(!code) return false;
+  try{
+    const sealed = await loadSealed();
+    if(!sealed) return false;
+    const d = (Number(sealed.enc) === 1) ? await hotDecrypt(sealed, code) : sealed;
+    if(!d || !(d.sections || []).length) return false;
+    hotbarData = d;
+    secretOn = true;
+    saveCode(code);
+    return true;
+  }catch(e){ return false; }
+}
 visPaint();
+/* 주소에 ?me=비밀코드 가 있으면 그 코드로 연다. 저장된 코드가 있으면 그것으로 조용히 연다 */
+(async function(){
+  let code = '';
+  try{
+    const m = /[?&]me=([^&#]*)/.exec(location.search || '');
+    if(m) code = decodeURIComponent(m[1] || '').trim();
+  }catch(e){}
+  const fromUrl = !!code;
+  if(!code) code = savedCode();
+  if(!code) return;
+  const ok = await unlockHotbar(code);
+  if(!ok){ if(fromUrl) toast('비밀코드가 맞지 않습니다'); return; }
+  visPaint();
+  if((location.hash || '') === '#hotbar') switchTab('hotbar', true);
+})();
 /* LIVE 배지 1.5초 안 3연속 탭 → 토글 */
 (function(){
   const live = $('#live');
