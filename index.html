@@ -896,7 +896,7 @@ function radarStockHtml(s){
   const drop = (s.drop === 0 || s.drop) ? String(s.drop) : '';
   return `<div class="rd-stk"><b>${esc(s.name)}</b>` +
     (s.price_text ? `<span class="px">${esc(s.price_text)}</span>` : '') +
-    (drop ? `<span class="drp" title="고점에서 ${esc(drop)}% 내려온 자리">${esc(drop)}</span>` : '') +
+    (drop ? `<span class="drp" title="1년 고점 대비 ${esc(drop)} 내려온 자리">${esc(drop)}</span>` : '') +
     `</div>`;
 }
 
