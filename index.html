@@ -1180,7 +1180,7 @@ function hotStageHtml(st){
   const aplusN = stocks.filter(s => s.aplus === 'A++').length;
   const cnt = `${stocks.length}${aplusN ? ` · A++ ${aplusN}` : ''}`;
   if(!stocks.length){
-    return `<div class="hb-grp">
+    return `<div class="hb-grp" role="group" aria-label="${st.stage}번 ${esc(st.desc)} 0종목">
       <div class="hb-head"><span class="hb-badge s${st.stage}">${st.stage}</span>
         <span class="hb-desc">${esc(st.desc)}</span><span class="hb-cnt">0</span></div>
       <div class="hb-empty">지금은 해당 종목이 없습니다.</div>
@@ -1189,7 +1189,7 @@ function hotStageHtml(st){
   const open = state.hotOpen && state.hotOpen.has(st.stage);
   const show = open ? stocks : stocks.slice(0, HOT_SHOW);
   const rest = stocks.length - show.length;
-  return `<div class="hb-grp">
+  return `<div class="hb-grp" role="group" aria-label="${st.stage}번 ${esc(st.desc)} ${stocks.length}종목">
     <div class="hb-head${st.stage === 4 ? ' pick' : ''}"><span class="hb-badge s${st.stage}">${st.stage}</span>
       <span class="hb-desc">${esc(st.desc)}</span><span class="hb-cnt">${cnt}</span></div>
     ${show.map(s => hotRowHtml(s)).join('')}
