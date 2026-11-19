@@ -383,7 +383,7 @@
   .hb-tag.first{color:#9dbcff;background:rgba(79,140,255,.16);border:1px solid rgba(79,140,255,.44)}
   .hb-tag.re{color:#8b97ab;background:rgba(255,255,255,.03);border:1px solid var(--line)}
   .hb-tag.thin{color:#7e8aa0;background:transparent;border:1px dashed rgba(255,255,255,.14)}
-  /* A++ — 1·2·3·4 흐름이 깔끔하고 테마가 확실한 최우수 자리(금색) */
+  /* A++ — 직접 뉴스·차트를 검수해 손으로 찍은 도장만(최우수 자리, 금색) */
   .hb-aplus{display:inline-block;margin-left:5px;padding:0 5px;border-radius:5px;white-space:nowrap;
     font-size:9.5px;font-weight:900;letter-spacing:-.1px;vertical-align:1px;
     color:#1a1206;background:linear-gradient(135deg,#ffd76a,#ffb02e);
@@ -1229,11 +1229,11 @@ function hotThemeChip(s){
   return `<b class="hb-th" title="${esc(t)}">${esc(short.length > 18 ? short.slice(0, 18) + '…' : short)}</b>`;
 }
 
-/* A++ — 1·2·3·4 흐름이 깔끔하고 테마·재료가 확실해 1번 고점(전 상한가)을 넘볼 만한 자리 */
+/* A++ — 손으로 검수해 찍은 도장만(코드가 자동으로 판정하지 않는다). 0개면 배지도 숫자도 그리지 않는다 */
 function hotAPlus(s){
   if(s.aplus !== 'A++') return '';
   const why = (s.aplus_why || []).join(' · ');
-  return `<span class="hb-aplus" title="${esc('A++ 기준 — ' + why)}">A++</span>`;
+  return `<span class="hb-aplus" title="${esc('직접 검수한 A++' + (why ? ' — ' + why : ''))}">A++</span>`;
 }
 
 /* 첫 상한가 / 재상한가 — 180봉 안에 앞선 상한가가 있었으면 '재' */
