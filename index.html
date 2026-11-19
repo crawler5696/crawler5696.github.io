@@ -1205,7 +1205,7 @@ async function renderHotbar(){
 
 /* ---------------- 핫바 카드 → 차트 모달 (일봉 · 주봉 · 월봉) ----------------
    hotbar.json 의 candles 로 그린다 — 일봉 1·2·3·4는 45봉 안팎, 주봉 1·2·3은 52주봉,
-   월봉 1·2·3은 30개월봉. 이평선은 그리지 않고(2026-11-18 지시), 1번 봉 시가를 '기준선' 점선으로,
+   월봉 1·2·3은 30개월봉. 이평선은 그리지 않고(2026-11-18 지시), 1번 봉 시가를 '기준선' 선명한 실선으로,
    주봉·월봉은 돌파를 재는 기준 거래량(48주·12개월 최대)을 거래량 칸에 점선으로 같이 보여 준다.
    터치하면 그 봉의 시·고·저·종·등락률·거래량이 나온다. */
 const PERIOD = {day:{t:'일봉', n:'일'}, week:{t:'주봉', n:'주'}, month:{t:'월봉', n:'월'}};
@@ -1270,9 +1270,9 @@ function chartSvgHtml(s){
      왼쪽 끝에 그 줄 가격 숫자를 또렷하게 붙인다(점선 아님). */
   if(base > 0 && base <= hi && base >= lo){
     const y = Y(base), t = fmtWon(base), tw = textW(t, 9.2) + 12;
-    g += `<line x1="${CH_X0}" x2="${CH_X1}" y1="${y.toFixed(1)}" y2="${y.toFixed(1)}" stroke="#ffc44d" stroke-width="1.8" stroke-linecap="round"/>`;
-    g += `<rect x="${CH_X0}" y="${(y - 7.5).toFixed(1)}" width="${tw.toFixed(1)}" height="15" rx="4" fill="rgba(11,17,32,.96)" stroke="#ffc44d" stroke-width="1.2"/>`;
-    g += `<text x="${CH_X0 + 6}" y="${(y + 3.3).toFixed(1)}" font-size="9.2" font-weight="800" fill="#ffd88a">${t}</text>`;
+    g += `<line x1="${CH_X0}" x2="${CH_X1}" y1="${y.toFixed(1)}" y2="${y.toFixed(1)}" stroke="#ffd45c" stroke-width="2" stroke-linecap="round"/>`;
+    g += `<rect x="${CH_X0}" y="${(y - 7.5).toFixed(1)}" width="${tw.toFixed(1)}" height="15" rx="4" fill="rgba(11,17,32,.96)" stroke="#ffd45c" stroke-width="1.2"/>`;
+    g += `<text x="${CH_X0 + 6}" y="${(y + 3.3).toFixed(1)}" font-size="9.2" font-weight="800" fill="#ffe1a0">${t}</text>`;
   }
   /* 기준 거래량 — 주봉 48주 · 월봉 12개월 최대(돌파를 잰 자). 거래량 칸에 점선으로 */
   if(refVol > 0){
