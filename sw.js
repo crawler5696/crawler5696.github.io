@@ -3,7 +3,7 @@
    캐시가 먼저 나갔다가 네트워크로 덮어쓰는 방식이 아니므로 화면이 두 번 그려지지 않는다.
    data/news.json 은 쿼리스트링(?_=타임스탬프)까지 포함해 언제나 네트워크를 먼저 탄다 —
    새로고침(⟳) 때 캐시가 섞여 들어오지 않도록 cache:'no-store' 로 요청한다. */
-const CACHE = 'newsradar-v30';
+const CACHE = 'newsradar-v31';
 const SHELL = ['./', './index.html', './manifest.json', './icons/icon-192.png', './data/calendar.json', './data/radar.json'];
 const NEWS_KEY = './data/news.json';   // 쿼리스트링이 붙어도 캐시에는 이 한 자리에만 남긴다
 
