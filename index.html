@@ -1297,15 +1297,24 @@ function hotDayRosterHtml(sec, byCode){
   const themed = list(sec.roster || []);
   const indiv = list(sec.roster_indiv || []);
   const aplusN = themed.concat(indiv).filter(s => s.aplus === 'A++').length;
-  const head = (n, desc, cnt, cls) => `<div class="hb-head${cls ? ' ' + cls : ''}">
-      <span class="hb-badge s${n}">${n === 1 ? 1 : n}</span>
-      <span class="hb-desc">${esc(desc)}</span><span class="hb-cnt">${cnt}</span></div>`;
-  rows.push(`<div class="hb-grp">${head(1, sec.roster_desc || '상한가 · 테마별 전체',
-      `${themed.length + indiv.length}${aplusN ? ` · A++ ${aplusN}` : ''}`)}`);
-  rows.push(`<div class="hb-sub-head">테마·재료 확실 <b>${themed.length}</b></div>`);
-  rows.push(themed.map(s => hotRowHtml(s, {now: 1})).join(''));
-  rows.push(`<div class="hb-sub-head indiv">개별 · 테마 미확인 <b>${indiv.length}</b></div>`);
-  rows.push(indiv.map(s => hotRowHtml(s, {now: 1})).join(''));
+  const block = (key, title, arr, cls) => {
+    const open = state.hotOpen && state.hotOpen.has(key);
+    const show = open ? arr : arr.slice(0, HOT_SHOW);
+    const rest = arr.length - show.length;
+    return [
+      `<div class="hb-sub-head${cls ? ' ' + cls : ''}">${esc(title)} <b>${arr.length}</b></div>`,
+      show.map(s => hotRowHtml(s, {now: 1})).join(''),
+      rest > 0 ? `<button class="hb-more" type="button" data-stage="${key}">${rest}종목 더 보기 ▾</button>` : '',
+      open && arr.length > HOT_SHOW ? `<button class="hb-more" type="button" data-stage="${key}">접기 ▴</button>` : ''
+    ].join('');
+  };
+  const head = `<div class="hb-head">
+      <span class="hb-badge s1">1</span>
+      <span class="hb-desc">${esc(sec.roster_desc || '상한가 · 테마별 전체')}</span>
+      <span class="hb-cnt">${themed.length + indiv.length}${aplusN ? ` · A++ ${aplusN}` : ''}</span></div>`;
+  rows.push(`<div class="hb-grp">${head}`);
+  rows.push(block('R1', '테마·재료 확실', themed, ''));
+  rows.push(block('R2', '개별 · 테마 미확인', indiv, 'indiv'));
   rows.push(`</div>`);
   return rows.join('');
 }
@@ -1741,10 +1750,11 @@ $('#hotSeg').addEventListener('click', e => {
 $('#hotBody').addEventListener('click', e => {
   const b = e.target.closest('.hb-more');
   if(b){
-    const s = Number(b.dataset.stage);
+    const raw = b.dataset.stage;
+    const s = /^[0-9]+$/.test(raw) ? Number(raw) : raw;
     if(state.hotOpen.has(s)) state.hotOpen.delete(s); else state.hotOpen.add(s);
     renderHotbar();
-    const again = document.querySelector(`#hotBody .hb-more[data-stage="${s}"]`);
+    const again = document.querySelector(`#hotBody .hb-more[data-stage="${raw}"]`);
     if(again) again.scrollIntoView({block:'nearest'});
     return;
   }
