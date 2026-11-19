@@ -1,16 +1,16 @@
 {
- "generated_at": "2026-11-19T15:30:35.773416+09:00",
- "generated_at_kst": "2026.11.19 15:30",
+ "generated_at": "2026-11-19T16:00:34.108323+09:00",
+ "generated_at_kst": "2026.11.19 16:00",
  "flash_count": 6,
  "flash_fresh_min": 60,
  "flash_fresh_count": 6,
- "flash_updated": "2026-11-19T15:31:03+09:00",
- "count": 25,
- "article_count": 85,
+ "flash_updated": "2026-11-19T16:00:00+09:00",
+ "count": 27,
+ "article_count": 89,
  "main_source": {
   "presses": 84,
   "collected": 414,
-  "dropped": 277,
+  "dropped": 278,
   "cards": 22,
   "sections": 180
  },
@@ -31,6 +31,12 @@
    "id": "battery",
    "label": "2차전지·에너지",
    "color": "#8bd450",
+   "count": 3
+  },
+  {
+   "id": "policy",
+   "label": "정책·건설",
+   "color": "#c9a2ff",
    "count": 3
   },
   {
@@ -58,16 +64,10 @@
    "count": 3
   },
   {
-   "id": "policy",
-   "label": "정책·건설",
-   "color": "#c9a2ff",
-   "count": 2
-  },
-  {
    "id": "defense",
    "label": "방산·우주",
    "color": "#f0a35e",
-   "count": 1
+   "count": 2
   },
   {
    "id": "etc",
@@ -82,8 +82,8 @@
    "label": "AI·보안",
    "color": "#6fd0ff",
    "count": 3,
-   "recent_6h": 15,
-   "recent_6h_ratio": 34,
+   "recent_6h": 13,
+   "recent_6h_ratio": 30,
    "day_count": 44,
    "hot": 28,
    "presses": 30,
@@ -99,7 +99,7 @@
      "title": "[속보]“용인 수능 시험장서 초소형카메라·이어폰 발견”",
      "url": "https://n.news.naver.com/article/016/0002725801",
      "press": "헤럴드경제",
-     "time": "2026-11-19T14:51:35.773416+09:00"
+     "time": "2026-11-19T14:51:10+09:00"
     },
     {
      "title": "[속보] 수능 수학 \"작년 수능과 난이도 비슷\"... 21번 문제에서 갈린다",
@@ -116,7 +116,7 @@
    "hint": {
     "type": "medium",
     "label": "중기 흐름",
-    "reason": "보도 폭 22.0시간 · 20개 시간대 · 매체 30곳 · 24시간 44건 · 최근 6시간 15건(34%) · 업황·정책 표현 1건"
+    "reason": "보도 폭 22.0시간 · 20개 시간대 · 매체 30곳 · 24시간 44건 · 최근 6시간 13건(30%) · 업황·정책 표현 1건"
    },
    "rank": 1
   },
@@ -125,8 +125,8 @@
    "label": "거시·환율·금리",
    "color": "#7fd3e8",
    "count": 3,
-   "recent_6h": 8,
-   "recent_6h_ratio": 27,
+   "recent_6h": 6,
+   "recent_6h_ratio": 20,
    "day_count": 30,
    "hot": 19,
    "presses": 20,
@@ -134,7 +134,8 @@
    "keywords": [
     "달러",
     "증시",
-    "코스피"
+    "코스피",
+    "외국인"
    ],
    "headlines": [
     {
@@ -147,14 +148,14 @@
      "title": "코스피 하루 만에 5000선 붕괴…‘한한령 완화’ 기대에 콘텐츠주는 급등",
      "url": "https://n.news.naver.com/article/138/0002249172",
      "press": "디지털데일리",
-     "time": "2026-11-19T11:30:35.773416+09:00"
+     "time": "2026-11-19T10:51:07+09:00"
     }
    ],
    "leaders": [],
    "hint": {
     "type": "medium",
     "label": "중기 흐름",
-    "reason": "보도 폭 24.0시간 · 19개 시간대 · 매체 20곳 · 24시간 30건 · 최근 6시간 8건(27%) · 업황·정책 표현 3건"
+    "reason": "보도 폭 24.0시간 · 19개 시간대 · 매체 20곳 · 24시간 30건 · 최근 6시간 6건(20%) · 업황·정책 표현 3건"
    },
    "rank": 2
   },
@@ -163,12 +164,12 @@
    "label": "2차전지·에너지",
    "color": "#8bd450",
    "count": 3,
-   "recent_6h": 8,
-   "recent_6h_ratio": 26,
-   "day_count": 31,
+   "recent_6h": 6,
+   "recent_6h_ratio": 20,
+   "day_count": 30,
    "hot": 16,
    "presses": 23,
-   "span_hours": 2.0,
+   "span_hours": 2.7,
    "keywords": [
     "전력",
     "리튬",
@@ -180,13 +181,13 @@
      "title": "배터리 1위 ‘CATL’에 리튬 공급...포스코 ‘신났다’ [오늘, 이 종목]",
      "url": "https://n.news.naver.com/article/024/0000109739",
      "press": "매경이코노미",
-     "time": "2026-11-19T13:20:13+09:00"
+     "time": "2026-11-19T14:00:34.108323+09:00"
     },
     {
-     "title": "[LG엔솔 상장 5년]③ESS 수주잔고 '껑충'…AI 전력시장 新성장축",
-     "url": "https://n.news.naver.com/article/293/0000093507",
-     "press": "블로터",
-     "time": "2026-11-19T11:30:35.773416+09:00"
+     "title": "효성중공업, 中 수출·美 생산 강화…전력기기 호황 속 통상 리스크 대응",
+     "url": "https://n.news.naver.com/article/138/0002249185",
+     "press": "디지털데일리",
+     "time": "2026-11-19T12:00:34.108323+09:00"
     }
    ],
    "leaders": [
@@ -197,7 +198,7 @@
    "hint": {
     "type": "medium",
     "label": "중기 흐름",
-    "reason": "보도 폭 24.0시간 · 19개 시간대 · 매체 23곳 · 24시간 31건 · 최근 6시간 8건(26%) · 업황·정책 표현 17건"
+    "reason": "보도 폭 23.0시간 · 18개 시간대 · 매체 23곳 · 24시간 30건 · 최근 6시간 6건(20%) · 업황·정책 표현 16건"
    },
    "rank": 3
   },
@@ -207,34 +208,34 @@
    "color": "#f5d06b",
    "count": 3,
    "recent_6h": 6,
-   "recent_6h_ratio": 21,
-   "day_count": 28,
-   "hot": 14,
+   "recent_6h_ratio": 23,
+   "day_count": 26,
+   "hot": 13,
    "presses": 21,
-   "span_hours": 3.5,
+   "span_hours": 1.8,
    "keywords": [
     "IPO",
     "상장"
    ],
    "headlines": [
     {
-     "title": "'역대 최대 IPO' 앤트로픽 나스닥 데뷔 첫날…장외선 20%대 급등",
-     "url": "https://n.news.naver.com/mnews/article/008/0005443612",
-     "press": "머니투데이",
-     "time": "2026-11-19T15:01:34+09:00"
-    },
-    {
      "title": "윤석열 보좌 1급 벨트검사, 김건희 주가조작 주범 변호",
      "url": "https://n.news.naver.com/article/607/0000003611",
      "press": "뉴스타파",
      "time": "2026-11-19T13:50:11+09:00"
+    },
+    {
+     "title": "20대도 돌아섰다…李대통령 지지율 27.8% '급락'",
+     "url": "https://n.news.naver.com/article/448/0000652043",
+     "press": "TV조선",
+     "time": "2026-11-19T12:00:34.108323+09:00"
     }
    ],
    "leaders": [],
    "hint": {
     "type": "medium",
     "label": "중기 흐름",
-    "reason": "보도 폭 26.0시간 · 16개 시간대 · 매체 21곳 · 24시간 28건 · 최근 6시간 6건(21%) · 업황·정책 표현 7건"
+    "reason": "보도 폭 25.0시간 · 15개 시간대 · 매체 21곳 · 24시간 26건 · 최근 6시간 6건(23%) · 업황·정책 표현 6건"
    },
    "rank": 4
   },
@@ -244,10 +245,10 @@
    "color": "#e564b8",
    "count": 3,
    "recent_6h": 4,
-   "recent_6h_ratio": 31,
-   "day_count": 13,
-   "hot": 8,
-   "presses": 10,
+   "recent_6h_ratio": 36,
+   "day_count": 11,
+   "hot": 6,
+   "presses": 8,
    "span_hours": 20.9,
    "keywords": [
     "바이오",
@@ -266,7 +267,7 @@
      "title": "'월 1회 비만약' 대웅제약 \"국내 임상 1상 승인\"",
      "url": "https://n.news.naver.com/article/374/0000544672",
      "press": "SBS Biz",
-     "time": "2026-11-19T12:30:35.773416+09:00"
+     "time": "2026-11-19T11:34:07+09:00"
     }
    ],
    "leaders": [
@@ -277,7 +278,7 @@
    "hint": {
     "type": "medium",
     "label": "중기 흐름",
-    "reason": "보도 폭 25.0시간 · 9개 시간대 · 매체 10곳 · 24시간 13건 · 최근 6시간 4건(31%) · 업황·정책 표현 3건"
+    "reason": "보도 폭 23.0시간 · 8개 시간대 · 매체 8곳 · 24시간 11건 · 최근 6시간 4건(36%) · 업황·정책 표현 3건"
    },
    "rank": 5
   },
@@ -286,11 +287,11 @@
    "label": "반도체·AI",
    "color": "#5b8cff",
    "count": 3,
-   "recent_6h": 9,
-   "recent_6h_ratio": 23,
-   "day_count": 39,
-   "hot": 7,
-   "presses": 27,
+   "recent_6h": 8,
+   "recent_6h_ratio": 22,
+   "day_count": 37,
+   "hot": 5,
+   "presses": 26,
    "span_hours": 3.8,
    "keywords": [
     "AI",
@@ -320,69 +321,26 @@
    "hint": {
     "type": "medium",
     "label": "중기 흐름",
-    "reason": "보도 폭 25.0시간 · 17개 시간대 · 매체 27곳 · 24시간 39건 · 최근 6시간 9건(23%) · 업황·정책 표현 8건"
+    "reason": "보도 폭 23.0시간 · 16개 시간대 · 매체 26곳 · 24시간 37건 · 최근 6시간 8건(22%) · 업황·정책 표현 8건"
    },
    "rank": 6
-  },
-  {
-   "id": "geopolitics",
-   "label": "남북·지정학",
-   "color": "#ff8b8b",
-   "count": 3,
-   "recent_6h": 2,
-   "recent_6h_ratio": 17,
-   "day_count": 12,
-   "hot": 0,
-   "presses": 11,
-   "span_hours": 21.0,
-   "keywords": [
-    "관세",
-    "무역",
-    "중국",
-    "트럼프"
-   ],
-   "headlines": [
-    {
-     "title": "두바이 국제상공회의소, 무역·투자 협력 강화 위해 서울 사무소 개소",
-     "url": "https://n.news.naver.com/article/353/0000057292",
-     "press": "중앙SUNDAY",
-     "time": "2026-11-19T12:30:35.773416+09:00"
-    },
-    {
-     "title": "전기료·유가·관세 꺾인다…줄어드는 Fed의 금리 인상 부담",
-     "url": "https://n.news.naver.com/article/050/0000113490",
-     "press": "한경비즈니스",
-     "time": "2026-11-19T08:20:18+09:00"
-    }
-   ],
-   "leaders": [
-    "인디에프",
-    "좋은사람들",
-    "코데즈컴바인"
-   ],
-   "hint": {
-    "type": "medium",
-    "label": "중기 흐름",
-    "reason": "보도 폭 22.0시간 · 9개 시간대 · 매체 11곳 · 24시간 12건 · 최근 6시간 2건(17%) · 업황·정책 표현 3건"
-   },
-   "rank": 7
   },
   {
    "id": "policy",
    "label": "정책·건설",
    "color": "#c9a2ff",
-   "count": 2,
-   "recent_6h": 1,
-   "recent_6h_ratio": 7,
+   "count": 3,
+   "recent_6h": 2,
+   "recent_6h_ratio": 14,
    "day_count": 14,
-   "hot": 4,
-   "presses": 11,
+   "hot": 5,
+   "presses": 12,
    "span_hours": 42.5,
    "keywords": [
-    "정부",
-    "국토부",
     "재건축",
-    "국회"
+    "정부",
+    "건설",
+    "국토부"
    ],
    "headlines": [
     {
@@ -405,7 +363,50 @@
    "hint": {
     "type": "medium",
     "label": "중기 흐름",
-    "reason": "보도 폭 23.0시간 · 9개 시간대 · 매체 11곳 · 24시간 14건 · 최근 6시간 1건(7%) · 업황·정책 표현 7건"
+    "reason": "보도 폭 26.0시간 · 9개 시간대 · 매체 12곳 · 24시간 14건 · 최근 6시간 2건(14%) · 업황·정책 표현 8건"
+   },
+   "rank": 7
+  },
+  {
+   "id": "geopolitics",
+   "label": "남북·지정학",
+   "color": "#ff8b8b",
+   "count": 3,
+   "recent_6h": 2,
+   "recent_6h_ratio": 20,
+   "day_count": 10,
+   "hot": 0,
+   "presses": 9,
+   "span_hours": 28.6,
+   "keywords": [
+    "관세",
+    "무역",
+    "중국",
+    "지정학"
+   ],
+   "headlines": [
+    {
+     "title": "두바이 국제상공회의소, 무역·투자 협력 강화 위해 서울 사무소 개소",
+     "url": "https://n.news.naver.com/article/353/0000057292",
+     "press": "중앙SUNDAY",
+     "time": "2026-11-19T11:34:08+09:00"
+    },
+    {
+     "title": "전기료·유가·관세 꺾인다…줄어드는 Fed의 금리 인상 부담",
+     "url": "https://n.news.naver.com/article/050/0000113490",
+     "press": "한경비즈니스",
+     "time": "2026-11-19T08:20:18+09:00"
+    }
+   ],
+   "leaders": [
+    "인디에프",
+    "좋은사람들",
+    "코데즈컴바인"
+   ],
+   "hint": {
+    "type": "medium",
+    "label": "중기 흐름",
+    "reason": "보도 폭 21.0시간 · 8개 시간대 · 매체 9곳 · 24시간 10건 · 최근 6시간 2건(20%) · 업황·정책 표현 3건"
    },
    "rank": 8
   },
@@ -413,14 +414,15 @@
    "id": "defense",
    "label": "방산·우주",
    "color": "#f0a35e",
-   "count": 1,
+   "count": 2,
    "recent_6h": 3,
-   "recent_6h_ratio": 21,
-   "day_count": 14,
-   "hot": 9,
-   "presses": 11,
+   "recent_6h_ratio": 23,
+   "day_count": 13,
+   "hot": 10,
+   "presses": 10,
    "span_hours": 0.0,
    "keywords": [
+    "우주",
     "스페이스X"
    ],
    "headlines": [
@@ -429,6 +431,12 @@
      "url": "https://n.news.naver.com/mnews/article/018/0006412458",
      "press": "이데일리",
      "time": "2026-11-19T12:47:09+09:00"
+    },
+    {
+     "title": "KAI·한국기계연구원, 미래 항공우주 기술 개발 '맞손'…저피탐·AI 협력",
+     "url": "https://n.news.naver.com/mnews/article/138/0002249229",
+     "press": "디지털데일리",
+     "time": ""
     }
    ],
    "leaders": [
@@ -439,7 +447,7 @@
    "hint": {
     "type": "medium",
     "label": "중기 흐름",
-    "reason": "보도 폭 23.0시간 · 10개 시간대 · 매체 11곳 · 24시간 14건 · 최근 6시간 3건(21%) · 업황·정책 표현 8건"
+    "reason": "보도 폭 26.0시간 · 10개 시간대 · 매체 10곳 · 24시간 13건 · 최근 6시간 3건(23%) · 업황·정책 표현 8건"
    },
    "rank": 9
   }
@@ -459,17 +467,17 @@
     "market": "코스닥",
     "price": 2400,
     "change_rate": 29.8,
-    "trading_value": 31683412000,
-    "volume": 14805705,
+    "trading_value": 33112412000,
+    "volume": 15403169,
     "session": "REGULAR_MARKET",
     "price_text": "2,400",
-    "trading_value_text": "317억",
+    "trading_value_text": "331억",
     "theme": "",
     "theme_keywords": [],
     "issue_summary": "에스와이 29.80% 급등…거래량 1458만주",
     "summary_from": "제목",
     "article_title": "에스와이 29.80% 급등…거래량 1458만주",
-    "article_url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE5GdVp2R2Z4M3JBS0VSSXFMVnFMaEtGWnc4SkFKaXMxTXEyZlM4NFM2dzdDcGNzNG1HU3ZzZEpfMlkyRFdLUDg3VDNLVmxqa1dTWGNuVzFnUF9HbmowWW9hbnlPS3RqdWlLZ3F3aFVn0gFyQVVfeXFMUGR5VTlNWU1Rdmg0WTlJY3BmQnVRSHJSRTYtcHRocVVKdGEyYVJDYlB6OUVVOHdfajE2YWJXTzlIaWc5RXRZbU9lYVhid3VEX1dPcTd5QW02TEdLS2NzYmxJcE5ZbDZfZERmSW8zdUd3NFlB?oc=5",
+    "article_url": "https://news.google.com/rss/articles/CBMickFVX3lxTFBkeVU5TVlNUXZoNFk5SWNwZkJ1UUhyUkU2LXB0aHFVSnRhMmFSQ2JQejlFVTh3X2oxNmFiV085SGlnOUV0WW1PZWFYYnd1RF9XT3E3eUFtNkxHS0tjc2JsSXBOWWw2X2REZklvM3VHdzRZQdIBckFVX3lxTFBkeVU5TVlNUXZoNFk5SWNwZkJ1UUhyUkU2LXB0aHFVSnRhMmFSQ2JQejlFVTh3X2oxNmFiV085SGlnOUV0WW1PZWFYYnd1RF9XT3E3eUFtNkxHS0tjc2JsSXBOWWw2X2REZklvM3VHdzRZQQ?oc=5",
     "article_press": "잡포스트",
     "article_time": "2026-11-19T14:40:53+09:00"
    },
@@ -479,11 +487,11 @@
     "market": "코스닥",
     "price": 7090,
     "change_rate": 29.85,
-    "trading_value": 23968711000,
-    "volume": 3748293,
+    "trading_value": 24896799000,
+    "volume": 3879194,
     "session": "REGULAR_MARKET",
     "price_text": "7,090",
-    "trading_value_text": "240억",
+    "trading_value_text": "249억",
     "theme": "",
     "theme_keywords": [],
     "issue_summary": "수능 스마트폰 22대 적발 속 지슨 5%대 상승",
@@ -499,8 +507,8 @@
     "market": "코스피",
     "price": 6460,
     "change_rate": 29.98,
-    "trading_value": 9562000000,
-    "volume": 1496796,
+    "trading_value": 9571000000,
+    "volume": 1498314,
     "session": "REGULAR_MARKET",
     "price_text": "6,460",
     "trading_value_text": "96억",
@@ -521,8 +529,8 @@
     "market": "코스닥",
     "price": 30800,
     "change_rate": 29.96,
-    "trading_value": 6841336000,
-    "volume": 222353,
+    "trading_value": 6844539000,
+    "volume": 222457,
     "session": "REGULAR_MARKET",
     "price_text": "30,800",
     "trading_value_text": "68억",
@@ -544,8 +552,8 @@
     "market": "코스닥",
     "price": 4235,
     "change_rate": 29.91,
-    "trading_value": 6770463000,
-    "volume": 1674763,
+    "trading_value": 6770489000,
+    "volume": 1674769,
     "session": "REGULAR_MARKET",
     "price_text": "4,235",
     "trading_value_text": "68억",
@@ -564,8 +572,8 @@
     "market": "코스닥",
     "price": 4140,
     "change_rate": 29.98,
-    "trading_value": 2982704000,
-    "volume": 720460,
+    "trading_value": 2984658000,
+    "volume": 720932,
     "session": "REGULAR_MARKET",
     "price_text": "4,140",
     "trading_value_text": "30억",
@@ -586,8 +594,8 @@
     "market": "코스닥",
     "price": 1355,
     "change_rate": 29.91,
-    "trading_value": 2757551000,
-    "volume": 2089974,
+    "trading_value": 2758067000,
+    "volume": 2090355,
     "session": "REGULAR_MARKET",
     "price_text": "1,355",
     "trading_value_text": "28억",
@@ -606,8 +614,8 @@
     "market": "코스닥",
     "price": 2730,
     "change_rate": 30.0,
-    "trading_value": 2359530000,
-    "volume": 864297,
+    "trading_value": 2360355000,
+    "volume": 864599,
     "session": "REGULAR_MARKET",
     "price_text": "2,730",
     "trading_value_text": "24억",
@@ -626,8 +634,8 @@
     "market": "코스닥",
     "price": 1254,
     "change_rate": 29.95,
-    "trading_value": 1635786000,
-    "volume": 1329652,
+    "trading_value": 1642931000,
+    "volume": 1335349,
     "session": "REGULAR_MARKET",
     "price_text": "1,254",
     "trading_value_text": "16억",
@@ -646,8 +654,8 @@
     "market": "코스닥",
     "price": 872,
     "change_rate": 29.96,
-    "trading_value": 1576728000,
-    "volume": 1882714,
+    "trading_value": 1577715000,
+    "volume": 1883846,
     "session": "REGULAR_MARKET",
     "price_text": "872",
     "trading_value_text": "16억",
@@ -666,8 +674,8 @@
     "market": "코스닥",
     "price": 2005,
     "change_rate": 29.86,
-    "trading_value": 972103000,
-    "volume": 489802,
+    "trading_value": 972811000,
+    "volume": 490155,
     "session": "REGULAR_MARKET",
     "price_text": "2,005",
     "trading_value_text": "10억",
@@ -689,8 +697,8 @@
     "market": "코스닥",
     "price": 1851,
     "change_rate": 29.99,
-    "trading_value": 129509000,
-    "volume": 71204,
+    "trading_value": 129535000,
+    "volume": 71218,
     "session": "REGULAR_MARKET",
     "price_text": "1,851",
     "trading_value_text": "1억",
@@ -706,27 +714,27 @@
   ]
  },
  "market_mood": {
-  "generated_at": "2026-11-19T15:30:35.773416+09:00",
+  "generated_at": "2026-11-19T16:00:34.108323+09:00",
   "kr": {
    "key": "good",
    "label": "호재",
-   "why": "코스피 +0.61% · 코스닥 +1.69% (평균 +1.15%)",
-   "avg": 1.15,
+   "why": "코스피 +0.85% · 코스닥 +2.44% (평균 +1.65%)",
+   "avg": 1.65,
    "live": true,
-   "as_of_kst": "11-19 15:32",
+   "as_of_kst": "11-19 16:02",
    "kospi": {
     "name": "코스피",
-    "value": 5098.32,
-    "chg": 0.61,
+    "value": 5110.39,
+    "chg": 0.85,
     "status": "OPEN",
-    "as_of": "2026-11-19T15:32:00+09:00"
+    "as_of": "2026-11-19T16:01:00+09:00"
    },
    "kosdaq": {
     "name": "코스닥",
-    "value": 674.03,
-    "chg": 1.69,
+    "value": 678.96,
+    "chg": 2.44,
     "status": "OPEN",
-    "as_of": "2026-11-19T15:32:00+09:00"
+    "as_of": "2026-11-19T16:02:00+09:00"
    }
   },
   "us": {
@@ -761,22 +769,6 @@
  },
  "history": {
   "semiconductor": [
-   [
-    "366/0001205649",
-    "2026-11-18T13",
-    "조선비즈",
-    1,
-    0,
-    0
-   ],
-   [
-    "050/0000113454",
-    "2026-11-18T13",
-    "한경비즈니스",
-    1,
-    0,
-    0
-   ],
    [
     "008/0005442982",
     "2026-11-18T15",
@@ -1076,14 +1068,6 @@
   ],
   "earnings": [
    [
-    "366/0001205650",
-    "2026-11-18T13",
-    "조선비즈",
-    1,
-    0,
-    0
-   ],
-   [
     "003/0014330246",
     "2026-11-18T14",
     "뉴시스",
@@ -1096,14 +1080,6 @@
     "2026-11-18T14",
     "뉴시스",
     1,
-    1,
-    0
-   ],
-   [
-    "293/0000093443",
-    "2026-11-18T13",
-    "블로터",
-    0,
     1,
     0
    ],
@@ -1302,22 +1278,6 @@
   ],
   "bio": [
    [
-    "003/0014330090",
-    "2026-11-18T13",
-    "뉴시스",
-    1,
-    0,
-    0
-   ],
-   [
-    "262/0000019862",
-    "2026-11-18T13",
-    "신동아",
-    1,
-    0,
-    0
-   ],
-   [
     "018/0006411891",
     "2026-11-18T15",
     "이데일리",
@@ -1407,14 +1367,6 @@
    ]
   ],
   "battery": [
-   [
-    "018/0006411817",
-    "2026-11-18T13",
-    "이데일리",
-    0,
-    1,
-    0
-   ],
    [
     "003/0014330196",
     "2026-11-18T14",
@@ -1908,14 +1860,6 @@
     0
    ],
    [
-    "050/0000113457",
-    "2026-11-18T13",
-    "한경비즈니스",
-    0,
-    0,
-    0
-   ],
-   [
     "469/0000966330",
     "2026-11-18T15",
     "한국일보",
@@ -2009,6 +1953,14 @@
     "CJB청주방송",
     0,
     0,
+    0
+   ],
+   [
+    "081/0003701180",
+    "2026-11-19T16",
+    "서울신문",
+    1,
+    1,
     0
    ]
   ],
@@ -2410,22 +2362,6 @@
   ],
   "robot": [
    [
-    "293/0000093443",
-    "2026-11-18T13",
-    "블로터",
-    0,
-    1,
-    0
-   ],
-   [
-    "629/0000553184",
-    "2026-11-18T13",
-    "더팩트",
-    0,
-    0,
-    0
-   ],
-   [
     "138/0002249072",
     "2026-11-18T15",
     "디지털데일리",
@@ -2532,14 +2468,6 @@
   ],
   "geopolitics": [
    [
-    "119/0003156666",
-    "2026-11-18T13",
-    "데일리안",
-    0,
-    0,
-    0
-   ],
-   [
     "014/0005606127",
     "2026-11-18T14",
     "파이낸셜뉴스",
@@ -2612,14 +2540,6 @@
     0
    ],
    [
-    "640/0000097033",
-    "2026-11-18T13",
-    "코리아중앙데일리",
-    0,
-    0,
-    0
-   ],
-   [
     "308/0000038992",
     "2026-11-18T15",
     "시사IN",
@@ -2635,22 +2555,6 @@
     "중앙일보",
     1,
     1,
-    0
-   ],
-   [
-    "422/0000927413",
-    "2026-11-18T13",
-    "연합뉴스TV",
-    0,
-    1,
-    0
-   ],
-   [
-    "123/0002394307",
-    "2026-11-18T13",
-    "조세일보",
-    0,
-    0,
     0
    ],
    [
@@ -2740,20 +2644,70 @@
     0,
     0,
     0
+   ],
+   [
+    "138/0002249229",
+    "2026-11-19T16",
+    "디지털데일리",
+    1,
+    1,
+    0
    ]
   ]
  },
  "flash": [
   {
-   "id": "008/0005443636",
-   "title": "역대 최대 IPO 달성한 앤트로픽, 국내 수혜주는?",
+   "id": "277/0005845188",
+   "title": "'매출 42배 몸값' 앤스로픽, 1조5000억달러 가치 증명할까[앤스로픽 IPO]",
+   "press": "아시아경제",
+   "time": "2026-11-19T16:00:00+09:00",
+   "url": "https://n.news.naver.com/article/277/0005845188",
+   "summary": "인공지능(AI) 챗봇 '클로드' 개발사 앤스로픽이 19일(현지시간) 미국 나스닥 상장을 앞두고 희망 공모가 상단을 웃도는 주당 83달러에 공모가를 확정했다.",
+   "theme": "earnings",
+   "theme_label": "실적·공시·수급",
+   "theme_color": "#f5d06b",
+   "leaders": [],
+   "fresh": true,
+   "breaking": false
+  },
+  {
+   "id": "031/0001076679",
+   "title": "발행어음 후발주자 고금리 공세⋯NH투자·KB증권 '고전'",
+   "press": "아이뉴스24",
+   "time": "2026-11-19T15:58:18+09:00",
+   "url": "https://n.news.naver.com/article/031/0001076679",
+   "summary": "증권사들의 발행어음 경쟁이 격화하고 있다. 후발주자들이 연 5%대 특판 상품이 잇따라 출시하며 빠르고 잔고를 늘리고 있다. 반면 기존 사업자인 NH투자증권과 KB증권은 발행어음 잔고가 감소했다.",
+   "theme": "macro",
+   "theme_label": "거시·환율·금리",
+   "theme_color": "#7fd3e8",
+   "leaders": [],
+   "fresh": true,
+   "breaking": false
+  },
+  {
+   "id": "001/0016452586",
+   "title": "달러 또 최고치 경신인데…환율 4일 연속 하락해 1,330원선",
+   "press": "연합뉴스",
+   "time": "2026-11-19T15:57:38+09:00",
+   "url": "https://n.news.naver.com/article/001/0016452586",
+   "summary": "19일 원/달러 환율이 미국의 추가 긴축 우려에도 4일 연속 하락해 1,330원 선까지 내려왔다. 이날 서울 외환시장에서 미국 달러화 대비 원화 환율의 오후 3시 30분 기준가는 전 거래일 대비 3.0원 내린 1,330.0원이다.",
+   "theme": "macro",
+   "theme_label": "거시·환율·금리",
+   "theme_color": "#7fd3e8",
+   "leaders": [],
+   "fresh": true,
+   "breaking": false
+  },
+  {
+   "id": "008/0005443651",
+   "title": "수출 1조달러 달성에도 웃는 건 반도체뿐…증시 온기 확산이 과제",
    "press": "머니투데이",
-   "time": "2026-11-19T15:31:03+09:00",
-   "url": "https://n.news.naver.com/article/008/0005443636",
-   "summary": "SK텔레콤과 삼성전자·SK하이닉스, 삼성SDS·LG CNS 등이 AI(인공지능) 모델 '클로드' 개발사 앤트로픽의 상장 수혜주로 떠올랐다.",
-   "theme": "semiconductor",
-   "theme_label": "반도체·AI",
-   "theme_color": "#5b8cff",
+   "time": "2026-11-19T15:55:24+09:00",
+   "url": "https://n.news.naver.com/article/008/0005443651",
+   "summary": "한국이 사상 처음으로 연간 수출 1조달러 시대를 열면서 국내 증시의 추가 상승 기대감도 커진다. 수출 확대는 기업들의 매출과 이익 증가로 이어지는 만큼 주가 상승을 뒷받침하는 핵심 동력이다.",
+   "theme": "macro",
+   "theme_label": "거시·환율·금리",
+   "theme_color": "#7fd3e8",
    "leaders": [
     "한미반도체",
     "이수페타시스"
@@ -2762,74 +2716,26 @@
    "breaking": false
   },
   {
-   "id": "001/0016452512",
-   "title": "[IPO챗] 솔리스 \"북미 넘어 유럽 배터리·미국 반도체 시장 공략\"",
-   "press": "연합뉴스",
-   "time": "2026-11-19T15:29:39+09:00",
-   "url": "https://n.news.naver.com/article/001/0016452512",
-   "summary": "스팩합병 통해 내년 1월 코스닥 상장 \"북미 배터리 생산시설에서 쌓은 사업 경험을 바탕으로 유럽 이차전지와 미국 반도체 시장까지 사업 영역을 확대하겠습니다.\" 이종필 솔리스 대표는 19일 열린 기업공개(IPO) 기자간담회에서 향후 성장 전략에 대해 이같이 밝혔다.",
+   "id": "018/0006412596",
+   "title": "파라택시스이더리움, 10억원 규모 자사주 취득 신탁계약 체결",
+   "press": "이데일리",
+   "time": "2026-11-19T15:53:10+09:00",
+   "url": "https://n.news.naver.com/article/018/0006412596",
+   "summary": "파라택시스이더리움(290560)은 주주가치와 기업가치 제고를 위해 10억원 규모의 자기주식 취득 신탁계약을 체결하기로 결정했다고 19일 밝혔다. 계약기간은 이날부터 2027년 5월 19일까지 6개월이다.",
    "theme": "earnings",
    "theme_label": "실적·공시·수급",
    "theme_color": "#f5d06b",
-   "leaders": [
-    "인디에프",
-    "좋은사람들"
-   ],
-   "fresh": true,
-   "breaking": false
-  },
-  {
-   "id": "003/0014333499",
-   "title": "앤트로픽 IPO, 일본서 30억달러 조달…증시 향방 주목",
-   "press": "뉴시스",
-   "time": "2026-11-19T15:27:45+09:00",
-   "url": "https://n.news.naver.com/article/003/0014333499",
-   "summary": "생성형 인공지능(AI) '클로드' 개발사인 앤트로픽이 기업공개(IPO)를 통해 일본 시장에서 약 29억7900만 달러(약 4700억엔)를 조달한다고 19일 니혼게이자이신문이 보도했다.",
-   "theme": "macro",
-   "theme_label": "거시·환율·금리",
-   "theme_color": "#7fd3e8",
    "leaders": [],
    "fresh": true,
    "breaking": false
   },
   {
-   "id": "215/0001273269",
-   "title": "143조원 '메가 IPO'…코스피 반등 공식 통할까",
-   "press": "한국경제TV",
-   "time": "2026-11-19T15:26:55+09:00",
-   "url": "https://n.news.naver.com/article/215/0001273269",
-   "summary": "글로벌 인공지능(AI) 대장주로 꼽히는 앤트로픽이 오늘 밤 미국 나스닥 시장에서 첫 거래를 시작합니다. 확정 공모가가 예상 상단을 웃도는 83달러로 책정되면서 역대 최대 규모의 기업공개(IPO) 기록을 새로 썼습니다.",
-   "theme": "macro",
-   "theme_label": "거시·환율·금리",
-   "theme_color": "#7fd3e8",
-   "leaders": [],
-   "fresh": true,
-   "breaking": false
-  },
-  {
-   "id": "277/0005845161",
-   "title": "아고스, AI 시험 부정행위 탐지 장비 사업화 검토…실전 검증된 RF 기술 활용",
-   "press": "아시아경제",
-   "time": "2026-11-19T15:26:48+09:00",
-   "url": "https://n.news.naver.com/article/277/0005845161",
-   "summary": "코스닥 상장사 아고스가 국방·보안 현장에서 검증된 전파 탐지 기술을 바탕으로 대학수학능력시험(수능)과 국가고시 등 시험장 내 인공지능(AI) 기기를 활용한 부정행위 탐지 시장 진출을 검토한다.",
-   "theme": "aisec",
-   "theme_label": "AI·보안",
-   "theme_color": "#6fd0ff",
-   "leaders": [
-    "지슨",
-    "라온시큐어"
-   ],
-   "fresh": true,
-   "breaking": false
-  },
-  {
-   "id": "421/0009299436",
-   "title": "일본은 앤트로픽 4조 배정…'한국 개미' 상장후 '고위험 베팅'",
-   "press": "뉴스1",
-   "time": "2026-11-19T15:25:57+09:00",
-   "url": "https://n.news.naver.com/article/421/0009299436",
-   "summary": "'클로드' 개발사 앤트로픽이 스페이스X를 뛰어넘는 사상 최대 규모로 나스닥에 입성한다. 희망범위를 웃도는 83달러로 공모가를 확정 지으며 흥행이 예상되지만, 국내 투자자들은 이번에도 공모주 청약 기회를 얻지 못했다.",
+   "id": "001/0016452567",
+   "title": "증시 대기자금, 85조원 밑으로…다시 연중최저 수준으로 감소",
+   "press": "연합뉴스",
+   "time": "2026-11-19T15:46:35+09:00",
+   "url": "https://n.news.naver.com/article/001/0016452567",
+   "summary": "증시 대기 자금 성격의 투자자예탁금이 85조원을 하회하며 다시 연중 최저 수준으로 떨어졌다. 19일 금융투자협회에 따르면 지난 18일 기준 투자자예탁금은 전장보다 2조4천379억원 줄어든 84조1천848억원으로 집계됐다.",
    "theme": "macro",
    "theme_label": "거시·환율·금리",
    "theme_color": "#7fd3e8",
@@ -2844,7 +2750,7 @@
    "title": "[속보]“용인 수능 시험장서 초소형카메라·이어폰 발견”",
    "url": "https://n.news.naver.com/article/016/0002725801",
    "press": "헤럴드경제",
-   "time": "2026-11-19T14:51:35.773416+09:00",
+   "time": "2026-11-19T14:51:10+09:00",
    "section": "네이버 메인",
    "source": "main",
    "main_rank": 1,
@@ -2854,7 +2760,7 @@
     "수능",
     "시험"
    ],
-   "presses": 39,
+   "presses": 38,
    "press_list": [
     "헤럴드경제",
     "MBN",
@@ -2868,25 +2774,25 @@
      "title": "[단독] 경기도 용인 수능 시험장서 초소형 카메라 발견",
      "press": "MBN",
      "url": "https://n.news.naver.com/article/057/0001978931",
-     "time": "2026-11-19T14:30:35.773416+09:00"
+     "time": "2026-11-19T15:00:34.108323+09:00"
     },
     {
      "title": "수능 시험장에서 스마트폰 22개 적발…필기구 지급 등 운영 차질 없어",
      "press": "농민신문",
      "url": "https://n.news.naver.com/article/662/0000108832",
-     "time": "2026-11-19T11:30:35.773416+09:00"
+     "time": "2026-11-19T12:00:34.108323+09:00"
     },
     {
      "title": "[속보]‘기어코’ 용인 모 고교 수능 시험장서 초소형 카메라·이어폰 발견",
      "press": "국제신문",
      "url": "https://n.news.naver.com/article/658/0000161717",
-     "time": "2026-11-19T14:44:35.773416+09:00"
+     "time": "2026-11-19T15:00:34.108323+09:00"
     }
    ],
-   "article_count": 43,
+   "article_count": 42,
    "breaking": true,
    "relevance": 34,
-   "summary": "",
+   "summary": "[헤럴드경제=민상식 기자] 2027학년도 대학수학능력시험(수능)이 진행 중인 19일 경기 용인시의 한 수능 시험장에서 초소형카메라와 이어폰이 발견됐다. 교육당국이 이 사실을 인지해 경찰에 통보했고, 경찰은 관련 수사에 착수할 예정이다.",
    "leaders": [],
    "issue_rank": 1
   },
@@ -2910,8 +2816,8 @@
    "press_list": [
     "대전일보",
     "연합뉴스TV",
-    "조선일보",
     "SBS",
+    "조선일보",
     "국제신문",
     "더팩트"
    ],
@@ -2920,19 +2826,19 @@
      "title": "[속보] 한 총리, '지난해 수능 시험지 보관' 긴급 지시",
      "press": "연합뉴스TV",
      "url": "https://n.news.naver.com/article/422/0000927822",
-     "time": "2026-11-19T14:30:35.773416+09:00"
+     "time": "2026-11-19T14:00:34.108323+09:00"
+    },
+    {
+     "title": "한 총리, '폐기시한 도래' 지난해 수능 시험지 보관 긴급 지시",
+     "press": "SBS",
+     "url": "https://n.news.naver.com/article/055/0001404239",
+     "time": "2026-11-19T14:00:34.108323+09:00"
     },
     {
      "title": "한 총리, ‘지난해 수능 시험지 보관’ 긴급 지시",
      "press": "조선일보",
      "url": "https://n.news.naver.com/article/023/0004010554",
-     "time": "2026-11-19T14:30:35.773416+09:00"
-    },
-    {
-     "title": "한 총리, '폐기 시한 도래' 지난해 수능 시험지 보관 긴급 지시",
-     "press": "SBS",
-     "url": "https://n.news.naver.com/article/055/0001404239",
-     "time": "2026-11-19T14:30:35.773416+09:00"
+     "time": "2026-11-19T14:00:34.108323+09:00"
     }
    ],
    "article_count": 14,
@@ -2970,7 +2876,7 @@
      "title": "한국 수출 '꿈의 1조달러' 달성…세계 4번째",
      "press": "SBS Biz",
      "url": "https://n.news.naver.com/article/374/0000544717",
-     "time": "2026-11-19T14:32:35.773416+09:00"
+     "time": "2026-11-19T15:00:34.108323+09:00"
     }
    ],
    "article_count": 2,
@@ -3007,57 +2913,6 @@
    "issue_rank": 4
   },
   {
-   "id": "008/0005443612",
-   "title": "'역대 최대 IPO' 앤트로픽 나스닥 데뷔 첫날…장외선 20%대 급등",
-   "url": "https://n.news.naver.com/mnews/article/008/0005443612",
-   "press": "머니투데이",
-   "time": "2026-11-19T15:01:34+09:00",
-   "section": "글로벌 경제",
-   "source": "section",
-   "main_rank": null,
-   "theme": "earnings",
-   "theme_label": "실적·공시·수급",
-   "tags": [
-    "급등",
-    "IPO",
-    "상장"
-   ],
-   "presses": 5,
-   "press_list": [
-    "머니투데이",
-    "파이낸셜뉴스",
-    "뉴시스",
-    "연합뉴스",
-    "문화일보"
-   ],
-   "related": [
-    {
-     "title": "앤트로픽 공모가 83달러...역대 최대 IPO",
-     "press": "파이낸셜뉴스",
-     "url": "https://n.news.naver.com/mnews/article/014/0005606780",
-     "time": ""
-    },
-    {
-     "title": "앤트로픽 IPO, 일본서 30억달러 조달…증시 향방 주목",
-     "press": "뉴시스",
-     "url": "https://n.news.naver.com/mnews/article/003/0014333499",
-     "time": ""
-    },
-    {
-     "title": "앤트로픽, 일본 IPO서 30억달러 조달…목표 하단",
-     "press": "연합뉴스",
-     "url": "https://n.news.naver.com/mnews/article/001/0016451890",
-     "time": ""
-    }
-   ],
-   "article_count": 5,
-   "breaking": false,
-   "relevance": 35,
-   "summary": "인공지능(AI) 기업 앤트로픽 주식이 기업공개(IPO)를 앞두고 장외시장에서 공모가보다 20%대 높은 가격에 시초가가 형성될 것이라는 지표가 나왔다. 이번 상장이 글로벌 AI 산업에 대한 투자 수요를 가늠하는 시험대",
-   "leaders": [],
-   "issue_rank": 5
-  },
-  {
    "id": "119/0003157244",
    "title": "금투협, 유사투자자문업 신고 사전교육 개설…내년 1월 개강",
    "url": "https://n.news.naver.com/mnews/article/119/0003157244",
@@ -3079,7 +2934,7 @@
    "relevance": 0,
    "summary": "금융투자협회 금융투자교육원이 유사투자자문업 신고를 준비하는 법인 대표자를 대상으로 의무교육 과정을 개설한다. 19일 금융투자협회에 따르면, 금융투자교육원은 내년 1월 21일부터 '유사투자자문업 신고 사전교육' 집합과",
    "leaders": [],
-   "issue_rank": 6
+   "issue_rank": 5
   },
   {
    "id": "584/0000040221",
@@ -3110,7 +2965,7 @@
     "HLB",
     "삼성바이오로직스"
    ],
-   "issue_rank": 7
+   "issue_rank": 6
   },
   {
    "id": "123/0002394405",
@@ -3141,6 +2996,37 @@
     "이수페타시스",
     "가온칩스"
    ],
+   "issue_rank": 7
+  },
+  {
+   "id": "024/0000109739",
+   "title": "배터리 1위 ‘CATL’에 리튬 공급...포스코 ‘신났다’ [오늘, 이 종목]",
+   "url": "https://n.news.naver.com/article/024/0000109739",
+   "press": "매경이코노미",
+   "time": "2026-11-19T14:00:34.108323+09:00",
+   "section": "네이버 메인",
+   "source": "main",
+   "main_rank": 4,
+   "theme": "battery",
+   "theme_label": "2차전지·에너지",
+   "tags": [
+    "배터리",
+    "리튬"
+   ],
+   "presses": 1,
+   "press_list": [
+    "매경이코노미"
+   ],
+   "related": [],
+   "article_count": 1,
+   "breaking": false,
+   "relevance": 19,
+   "summary": "",
+   "leaders": [
+    "에코프로비엠",
+    "리튬포어스",
+    "하이드로리튬"
+   ],
    "issue_rank": 8
   },
   {
@@ -3170,37 +3056,6 @@
    "issue_rank": 9
   },
   {
-   "id": "024/0000109739",
-   "title": "배터리 1위 ‘CATL’에 리튬 공급...포스코 ‘신났다’ [오늘, 이 종목]",
-   "url": "https://n.news.naver.com/article/024/0000109739",
-   "press": "매경이코노미",
-   "time": "2026-11-19T13:20:13+09:00",
-   "section": "네이버 메인",
-   "source": "main",
-   "main_rank": 4,
-   "theme": "battery",
-   "theme_label": "2차전지·에너지",
-   "tags": [
-    "배터리",
-    "리튬"
-   ],
-   "presses": 1,
-   "press_list": [
-    "매경이코노미"
-   ],
-   "related": [],
-   "article_count": 1,
-   "breaking": false,
-   "relevance": 19,
-   "summary": "올해부터 2028년까지 3년간 공급 아르헨·호주 등 리튬 생산 투자 지속 “리튬 가격 반등·공장 가동률↑ 긍정적” 포스코의 아르헨티나 리튬 생산 데모플랜트 공장 및 염수저장시설.",
-   "leaders": [
-    "에코프로비엠",
-    "리튬포어스",
-    "하이드로리튬"
-   ],
-   "issue_rank": 10
-  },
-  {
    "id": "018/0006412458",
    "title": "머스크 \"운전대 없는 모델Y 낸다\"…스페이스X·테슬라 합병엔 \"아마도\"",
    "url": "https://n.news.naver.com/mnews/article/018/0006412458",
@@ -3214,14 +3069,22 @@
    "tags": [
     "스페이스X"
    ],
-   "presses": 1,
+   "presses": 2,
    "press_list": [
-    "이데일리"
+    "이데일리",
+    "파이낸셜뉴스"
    ],
-   "related": [],
-   "article_count": 1,
+   "related": [
+    {
+     "title": "머스크, '운전대 없는 테슬라 모델Y 내놓겠다'",
+     "press": "파이낸셜뉴스",
+     "url": "https://n.news.naver.com/mnews/article/014/0005606933",
+     "time": ""
+    }
+   ],
+   "article_count": 2,
    "breaking": false,
-   "relevance": 10,
+   "relevance": 13,
    "summary": "일론 머스크 테슬라·스페이스X 최고경영자(CEO)가 운전대와 페달이 없는 완전자율주행 ‘모델Y’를 내놓겠다고 밝혔다. 스페이스X와 테슬라의 합병에 대해선 “함께하면 아마 더 나을 것”이라며 가능성을 열어뒀다.",
    "leaders": [
     "레인보우로보틱스",
@@ -3229,64 +3092,59 @@
     "유일로보틱스",
     "계양전기"
    ],
-   "issue_rank": 11
+   "issue_rank": 10
   },
   {
-   "id": "374/0000544672",
-   "title": "'월 1회 비만약' 대웅제약 \"국내 임상 1상 승인\"",
-   "url": "https://n.news.naver.com/article/374/0000544672",
-   "press": "SBS Biz",
-   "time": "2026-11-19T12:30:35.773416+09:00",
-   "section": "네이버 메인",
-   "source": "main",
-   "main_rank": 4,
-   "theme": "bio",
-   "theme_label": "바이오·헬스케어",
+   "id": "008/0005443612",
+   "title": "'역대 최대 IPO' 앤트로픽 나스닥 데뷔 첫날…장외선 20%대 급등",
+   "url": "https://n.news.naver.com/mnews/article/008/0005443612",
+   "press": "머니투데이",
+   "time": "",
+   "section": "글로벌 경제",
+   "source": "section",
+   "main_rank": null,
+   "theme": "earnings",
+   "theme_label": "실적·공시·수급",
    "tags": [
-    "임상",
-    "제약"
+    "급등",
+    "IPO",
+    "상장"
    ],
-   "presses": 1,
+   "presses": 6,
    "press_list": [
-    "SBS Biz"
+    "머니투데이",
+    "파이낸셜뉴스",
+    "뉴시스",
+    "연합뉴스",
+    "한국일보",
+    "문화일보"
    ],
-   "related": [],
-   "article_count": 1,
+   "related": [
+    {
+     "title": "앤트로픽 공모가 83달러...역대 최대 IPO",
+     "press": "파이낸셜뉴스",
+     "url": "https://n.news.naver.com/mnews/article/014/0005606780",
+     "time": ""
+    },
+    {
+     "title": "앤트로픽 IPO, 일본서 30억달러 조달…증시 향방 주목",
+     "press": "뉴시스",
+     "url": "https://n.news.naver.com/mnews/article/003/0014333499",
+     "time": ""
+    },
+    {
+     "title": "앤트로픽, 일본 IPO서 30억달러 조달…목표 하단",
+     "press": "연합뉴스",
+     "url": "https://n.news.naver.com/mnews/article/001/0016451890",
+     "time": ""
+    }
+   ],
+   "article_count": 7,
    "breaking": false,
-   "relevance": 16,
-   "summary": "",
-   "leaders": [
-    "알테오젠",
-    "HLB",
-    "삼성바이오로직스"
-   ],
-   "issue_rank": 12
-  },
-  {
-   "id": "353/0000057292",
-   "title": "두바이 국제상공회의소, 무역·투자 협력 강화 위해 서울 사무소 개소",
-   "url": "https://n.news.naver.com/article/353/0000057292",
-   "press": "중앙SUNDAY",
-   "time": "2026-11-19T12:30:35.773416+09:00",
-   "section": "네이버 메인",
-   "source": "main",
-   "main_rank": 2,
-   "theme": "geopolitics",
-   "theme_label": "남북·지정학",
-   "tags": [
-    "무역"
-   ],
-   "presses": 1,
-   "press_list": [
-    "중앙SUNDAY"
-   ],
-   "related": [],
-   "article_count": 1,
-   "breaking": false,
-   "relevance": 7,
-   "summary": "",
+   "relevance": 38,
+   "summary": "인공지능(AI) 기업 앤트로픽 주식이 기업공개(IPO)를 앞두고 장외시장에서 공모가보다 20%대 높은 가격에 시초가가 형성될 것이라는 지표가 나왔다. 이번 상장이 글로벌 AI 산업에 대한 투자 수요를 가늠하는 시험대",
    "leaders": [],
-   "issue_rank": 13
+   "issue_rank": 11
   },
   {
    "id": "006/0000138832",
@@ -3316,7 +3174,7 @@
     "라온시큐어",
     "샌즈랩"
    ],
-   "issue_rank": 14
+   "issue_rank": 12
   },
   {
    "id": "087/0001231969",
@@ -3347,14 +3205,14 @@
     "대우건설",
     "DL이앤씨"
    ],
-   "issue_rank": 15
+   "issue_rank": 13
   },
   {
    "id": "448/0000652043",
    "title": "20대도 돌아섰다…李대통령 지지율 27.8% '급락'",
    "url": "https://n.news.naver.com/article/448/0000652043",
    "press": "TV조선",
-   "time": "2026-11-19T11:30:35.773416+09:00",
+   "time": "2026-11-19T12:00:34.108323+09:00",
    "section": "네이버 메인",
    "source": "main",
    "main_rank": 2,
@@ -3373,72 +3231,14 @@
    "relevance": 10,
    "summary": "",
    "leaders": [],
-   "issue_rank": 16
-  },
-  {
-   "id": "293/0000093507",
-   "title": "[LG엔솔 상장 5년]③ESS 수주잔고 '껑충'…AI 전력시장 新성장축",
-   "url": "https://n.news.naver.com/article/293/0000093507",
-   "press": "블로터",
-   "time": "2026-11-19T11:30:35.773416+09:00",
-   "section": "네이버 메인",
-   "source": "main",
-   "main_rank": 4,
-   "theme": "battery",
-   "theme_label": "2차전지·에너지",
-   "tags": [
-    "ESS",
-    "전력"
-   ],
-   "presses": 1,
-   "press_list": [
-    "블로터"
-   ],
-   "related": [],
-   "article_count": 1,
-   "breaking": false,
-   "relevance": 16,
-   "summary": "",
-   "leaders": [
-    "HD현대일렉트릭",
-    "LS일렉트릭",
-    "산일전기",
-    "제룡전기"
-   ],
-   "issue_rank": 17
-  },
-  {
-   "id": "138/0002249172",
-   "title": "코스피 하루 만에 5000선 붕괴…‘한한령 완화’ 기대에 콘텐츠주는 급등",
-   "url": "https://n.news.naver.com/article/138/0002249172",
-   "press": "디지털데일리",
-   "time": "2026-11-19T11:30:35.773416+09:00",
-   "section": "네이버 메인",
-   "source": "main",
-   "main_rank": 1,
-   "theme": "macro",
-   "theme_label": "거시·환율·금리",
-   "tags": [
-    "코스피"
-   ],
-   "presses": 1,
-   "press_list": [
-    "디지털데일리"
-   ],
-   "related": [],
-   "article_count": 1,
-   "breaking": false,
-   "relevance": 10,
-   "summary": "",
-   "leaders": [],
-   "issue_rank": 18
+   "issue_rank": 14
   },
   {
    "id": "138/0002249185",
    "title": "효성중공업, 中 수출·美 생산 강화…전력기기 호황 속 통상 리스크 대응",
    "url": "https://n.news.naver.com/article/138/0002249185",
    "press": "디지털데일리",
-   "time": "2026-11-19T11:22:07+09:00",
+   "time": "2026-11-19T12:00:34.108323+09:00",
    "section": "네이버 메인",
    "source": "main",
    "main_rank": 3,
@@ -3456,12 +3256,131 @@
    "article_count": 1,
    "breaking": false,
    "relevance": 16,
-   "summary": "미국 전력망에 설치된 효성중공업 초고압차단기 모습. 중국 난통공장은 직접수출 비중을 높이고 미국 멤피스공장은 현지 생산능력 확대에 투자를 집중하고 있다.",
+   "summary": "",
    "leaders": [
     "효성중공업",
     "HD현대일렉트릭",
     "LS일렉트릭",
     "산일전기"
+   ],
+   "issue_rank": 15
+  },
+  {
+   "id": "353/0000057292",
+   "title": "두바이 국제상공회의소, 무역·투자 협력 강화 위해 서울 사무소 개소",
+   "url": "https://n.news.naver.com/article/353/0000057292",
+   "press": "중앙SUNDAY",
+   "time": "2026-11-19T11:34:08+09:00",
+   "section": "네이버 메인",
+   "source": "main",
+   "main_rank": 2,
+   "theme": "geopolitics",
+   "theme_label": "남북·지정학",
+   "tags": [
+    "무역"
+   ],
+   "presses": 1,
+   "press_list": [
+    "중앙SUNDAY"
+   ],
+   "related": [],
+   "article_count": 1,
+   "breaking": false,
+   "relevance": 7,
+   "summary": "Jamal Abdulla Al Suwaidi) 주한 아랍에미리트(UAE) 대사, 마르완 알마리(Marwan AlMarri) 두바이 상공회의소 인터내셔널 아시아 지역 디렉터, 손휘원 두바이 상공회의소 아시아 지역 한국 사무소 대표, 이광희 SC제일은행 은행장, 김태형 코트라 인베스트코리아 대표.",
+   "leaders": [],
+   "issue_rank": 16
+  },
+  {
+   "id": "374/0000544672",
+   "title": "'월 1회 비만약' 대웅제약 \"국내 임상 1상 승인\"",
+   "url": "https://n.news.naver.com/article/374/0000544672",
+   "press": "SBS Biz",
+   "time": "2026-11-19T11:34:07+09:00",
+   "section": "네이버 메인",
+   "source": "main",
+   "main_rank": 4,
+   "theme": "bio",
+   "theme_label": "바이오·헬스케어",
+   "tags": [
+    "임상",
+    "제약"
+   ],
+   "presses": 1,
+   "press_list": [
+    "SBS Biz"
+   ],
+   "related": [],
+   "article_count": 1,
+   "breaking": false,
+   "relevance": 16,
+   "summary": "[대웅제약과 티온랩테라퓨틱스가 공동개발하는 세마글루타이드 월 1회 장기지속형 주사제. 이번 IND 승인으로 양사는 공동개발 협약 체결 이후 본격적인 임상 단계에 들어가게 됐습니다.",
+   "leaders": [
+    "알테오젠",
+    "HLB",
+    "삼성바이오로직스"
+   ],
+   "issue_rank": 17
+  },
+  {
+   "id": "293/0000093507",
+   "title": "[LG엔솔 상장 5년]③ESS 수주잔고 '껑충'…AI 전력시장 新성장축",
+   "url": "https://n.news.naver.com/article/293/0000093507",
+   "press": "블로터",
+   "time": "2026-11-19T11:20:14+09:00",
+   "section": "네이버 메인",
+   "source": "main",
+   "main_rank": 4,
+   "theme": "battery",
+   "theme_label": "2차전지·에너지",
+   "tags": [
+    "ESS",
+    "전력"
+   ],
+   "presses": 1,
+   "press_list": [
+    "블로터"
+   ],
+   "related": [],
+   "article_count": 1,
+   "breaking": false,
+   "relevance": 16,
+   "summary": "LG에너지솔루션 DC-LINK ESS 전력망 제품./사진 제공=LG에너지솔루션 LG에너지솔루션이 상장 이후 에너지저장장치(ESS) 사업을 새로운 성장축으로 키우며 글로벌 전력 인프라 시장에서 입지를 확대하고 있다.",
+   "leaders": [
+    "HD현대일렉트릭",
+    "LS일렉트릭",
+    "산일전기",
+    "제룡전기"
+   ],
+   "issue_rank": 18
+  },
+  {
+   "id": "138/0002249172",
+   "title": "코스피 하루 만에 5000선 붕괴…‘한한령 완화’ 기대에 콘텐츠주는 급등",
+   "url": "https://n.news.naver.com/article/138/0002249172",
+   "press": "디지털데일리",
+   "time": "2026-11-19T10:51:07+09:00",
+   "section": "네이버 메인",
+   "source": "main",
+   "main_rank": 1,
+   "theme": "macro",
+   "theme_label": "거시·환율·금리",
+   "tags": [
+    "코스피"
+   ],
+   "presses": 1,
+   "press_list": [
+    "디지털데일리"
+   ],
+   "related": [],
+   "article_count": 1,
+   "breaking": false,
+   "relevance": 10,
+   "summary": "외국인·기관 동반 매도에 코스피 1.82%↓…반도체·2차전지 약세 9일 서울 중구 하나은행 본점 딜링룸에서 직원들이 업무를 보고 있다. 장 초반 5100선을 넘어섰지만 외국인과 기관의 동반 매도에 하락세로 돌아섰다.",
+   "leaders": [
+    "에코프로비엠",
+    "리튬포어스",
+    "하이드로리튬"
    ],
    "issue_rank": 19
   },
@@ -3585,31 +3504,34 @@
    "issue_rank": 23
   },
   {
-   "id": "308/0000038992",
-   "title": "중국 제조업에 맞설 나라, 한국뿐이다 [산업지도 다시 그리기 ① 자동차]",
-   "url": "https://n.news.naver.com/article/308/0000038992",
-   "press": "시사IN",
-   "time": "2026-11-18T15:30:35.773416+09:00",
+   "id": "640/0000097033",
+   "title": "중국 견제할 인도의 새 지정학 카드, 한국 조선사 유치",
+   "url": "https://n.news.naver.com/article/640/0000097033",
+   "press": "코리아중앙데일리",
+   "time": "2026-11-18T07:00:00+09:00",
    "section": "네이버 메인",
    "source": "main",
-   "main_rank": 3,
+   "main_rank": 1,
    "theme": "geopolitics",
    "theme_label": "남북·지정학",
    "tags": [
+    "지정학",
     "중국"
    ],
    "presses": 1,
    "press_list": [
-    "시사IN"
+    "코리아중앙데일리"
    ],
    "related": [],
    "article_count": 1,
    "breaking": false,
-   "relevance": 4,
-   "summary": "",
+   "relevance": 13,
+   "summary": "The planned Tamil Nadu yard would expand Korean shipbuilding capacity while helping India pursue its maritime and strategic ambitions.",
    "leaders": [
-    "현대차",
-    "기아"
+    "LIG넥스원",
+    "빅텍",
+    "스페코",
+    "한일단조"
    ],
    "issue_rank": 24
   },
@@ -3642,15 +3564,77 @@
     "샌즈랩"
    ],
    "issue_rank": 25
+  },
+  {
+   "id": "138/0002249229",
+   "title": "KAI·한국기계연구원, 미래 항공우주 기술 개발 '맞손'…저피탐·AI 협력",
+   "url": "https://n.news.naver.com/mnews/article/138/0002249229",
+   "press": "디지털데일리",
+   "time": "",
+   "section": "산업/재계",
+   "source": "section",
+   "main_rank": null,
+   "theme": "defense",
+   "theme_label": "방산·우주",
+   "tags": [
+    "항공우주",
+    "한국항공우주",
+    "우주"
+   ],
+   "presses": 1,
+   "press_list": [
+    "디지털데일리"
+   ],
+   "related": [],
+   "article_count": 1,
+   "breaking": false,
+   "relevance": 22,
+   "summary": "한국항공우주산업(KAI)이 한국기계연구원(KIMM)과 손잡고 저피탐과 첨단제조·인공지능(AI) 등 미래 항공우주 핵심기술 확보와 산업적 활용 확대에 나선다. KAI는 지난 18일 경남 사천 본사에서 한국기계연구원과",
+   "leaders": [
+    "한국항공우주",
+    "쎄트렉아이"
+   ],
+   "issue_rank": 26
+  },
+  {
+   "id": "081/0003701180",
+   "title": "한화 건설부문, 하안주공5단지 재건축 시공사 선정…도시정비사업 역대 최대 실적",
+   "url": "https://n.news.naver.com/mnews/article/081/0003701180",
+   "press": "서울신문",
+   "time": "",
+   "section": "경제 일반",
+   "source": "section",
+   "main_rank": null,
+   "theme": "policy",
+   "theme_label": "정책·건설",
+   "tags": [
+    "재건축",
+    "건설"
+   ],
+   "presses": 1,
+   "press_list": [
+    "서울신문"
+   ],
+   "related": [],
+   "article_count": 1,
+   "breaking": false,
+   "relevance": 19,
+   "summary": "한화 건설부문은 경기 광명시 하안주공5단지 재건축 정비사업의 시공사로 최종 선정됐다고 19일 밝혔다. 이번 수주로 한화 건설부문은 올해 도시정비사업 누적 수주액 2조 5000억원을 넘기며 역대 최대 실적을 기록했다.",
+   "leaders": [
+    "현대건설",
+    "대우건설",
+    "DL이앤씨"
+   ],
+   "issue_rank": 27
   }
  ],
  "articles": [
   {
    "id": "016/0002725801",
    "title": "[속보]“용인 수능 시험장서 초소형카메라·이어폰 발견”",
-   "summary": "",
+   "summary": "[헤럴드경제=민상식 기자] 2027학년도 대학수학능력시험(수능)이 진행 중인 19일 경기 용인시의 한 수능 시험장에서 초소형카메라와 이어폰이 발견됐다. 교육당국이 이 사실을 인지해 경찰에 통보했고, 경찰은 관련 수사에 착수할 예정이다.",
    "press": "헤럴드경제",
-   "time": "2026-11-19T14:51:35.773416+09:00",
+   "time": "2026-11-19T14:51:10+09:00",
    "url": "https://n.news.naver.com/article/016/0002725801",
    "theme": "aisec",
    "theme_label": "AI·보안",
@@ -3725,26 +3709,6 @@
    "issue_rank": 4
   },
   {
-   "id": "008/0005443612",
-   "title": "'역대 최대 IPO' 앤트로픽 나스닥 데뷔 첫날…장외선 20%대 급등",
-   "summary": "인공지능(AI) 기업 앤트로픽 주식이 기업공개(IPO)를 앞두고 장외시장에서 공모가보다 20%대 높은 가격에 시초가가 형성될 것이라는 지표가 나왔다. 이번 상장이 글로벌 AI 산업에 대한 투자 수요를 가늠하는 시험대",
-   "press": "머니투데이",
-   "time": "2026-11-19T15:01:34+09:00",
-   "url": "https://n.news.naver.com/mnews/article/008/0005443612",
-   "theme": "earnings",
-   "theme_label": "실적·공시·수급",
-   "tags": [
-    "급등",
-    "IPO",
-    "상장"
-   ],
-   "section": "글로벌 경제",
-   "relevance": 35,
-   "source": "section",
-   "leaders": [],
-   "issue_rank": 5
-  },
-  {
    "id": "119/0003157244",
    "title": "금투협, 유사투자자문업 신고 사전교육 개설…내년 1월 개강",
    "summary": "금융투자협회 금융투자교육원이 유사투자자문업 신고를 준비하는 법인 대표자를 대상으로 의무교육 과정을 개설한다. 19일 금융투자협회에 따르면, 금융투자교육원은 내년 1월 21일부터 '유사투자자문업 신고 사전교육' 집합과",
@@ -3758,7 +3722,7 @@
    "relevance": 0,
    "source": "section",
    "leaders": [],
-   "issue_rank": 6
+   "issue_rank": 5
   },
   {
    "id": "584/0000040221",
@@ -3781,7 +3745,7 @@
     "HLB",
     "삼성바이오로직스"
    ],
-   "issue_rank": 7
+   "issue_rank": 6
   },
   {
    "id": "123/0002394405",
@@ -3804,6 +3768,29 @@
     "이수페타시스",
     "가온칩스"
    ],
+   "issue_rank": 7
+  },
+  {
+   "id": "024/0000109739",
+   "title": "배터리 1위 ‘CATL’에 리튬 공급...포스코 ‘신났다’ [오늘, 이 종목]",
+   "summary": "",
+   "press": "매경이코노미",
+   "time": "2026-11-19T14:00:34.108323+09:00",
+   "url": "https://n.news.naver.com/article/024/0000109739",
+   "theme": "battery",
+   "theme_label": "2차전지·에너지",
+   "tags": [
+    "배터리",
+    "리튬"
+   ],
+   "section": "네이버 메인",
+   "relevance": 19,
+   "source": "main",
+   "leaders": [
+    "에코프로비엠",
+    "리튬포어스",
+    "하이드로리튬"
+   ],
    "issue_rank": 8
   },
   {
@@ -3825,29 +3812,6 @@
    "issue_rank": 9
   },
   {
-   "id": "024/0000109739",
-   "title": "배터리 1위 ‘CATL’에 리튬 공급...포스코 ‘신났다’ [오늘, 이 종목]",
-   "summary": "올해부터 2028년까지 3년간 공급 아르헨·호주 등 리튬 생산 투자 지속 “리튬 가격 반등·공장 가동률↑ 긍정적” 포스코의 아르헨티나 리튬 생산 데모플랜트 공장 및 염수저장시설.",
-   "press": "매경이코노미",
-   "time": "2026-11-19T13:20:13+09:00",
-   "url": "https://n.news.naver.com/article/024/0000109739",
-   "theme": "battery",
-   "theme_label": "2차전지·에너지",
-   "tags": [
-    "배터리",
-    "리튬"
-   ],
-   "section": "네이버 메인",
-   "relevance": 19,
-   "source": "main",
-   "leaders": [
-    "에코프로비엠",
-    "리튬포어스",
-    "하이드로리튬"
-   ],
-   "issue_rank": 10
-  },
-  {
    "id": "018/0006412458",
    "title": "머스크 \"운전대 없는 모델Y 낸다\"…스페이스X·테슬라 합병엔 \"아마도\"",
    "summary": "일론 머스크 테슬라·스페이스X 최고경영자(CEO)가 운전대와 페달이 없는 완전자율주행 ‘모델Y’를 내놓겠다고 밝혔다. 스페이스X와 테슬라의 합병에 대해선 “함께하면 아마 더 나을 것”이라며 가능성을 열어뒀다.",
@@ -3860,7 +3824,7 @@
     "스페이스X"
    ],
    "section": "글로벌 경제",
-   "relevance": 10,
+   "relevance": 13,
    "source": "section",
    "leaders": [
     "레인보우로보틱스",
@@ -3868,48 +3832,27 @@
     "유일로보틱스",
     "계양전기"
    ],
-   "issue_rank": 11
+   "issue_rank": 10
   },
   {
-   "id": "374/0000544672",
-   "title": "'월 1회 비만약' 대웅제약 \"국내 임상 1상 승인\"",
-   "summary": "",
-   "press": "SBS Biz",
-   "time": "2026-11-19T12:30:35.773416+09:00",
-   "url": "https://n.news.naver.com/article/374/0000544672",
-   "theme": "bio",
-   "theme_label": "바이오·헬스케어",
+   "id": "008/0005443612",
+   "title": "'역대 최대 IPO' 앤트로픽 나스닥 데뷔 첫날…장외선 20%대 급등",
+   "summary": "인공지능(AI) 기업 앤트로픽 주식이 기업공개(IPO)를 앞두고 장외시장에서 공모가보다 20%대 높은 가격에 시초가가 형성될 것이라는 지표가 나왔다. 이번 상장이 글로벌 AI 산업에 대한 투자 수요를 가늠하는 시험대",
+   "press": "머니투데이",
+   "time": "",
+   "url": "https://n.news.naver.com/mnews/article/008/0005443612",
+   "theme": "earnings",
+   "theme_label": "실적·공시·수급",
    "tags": [
-    "임상",
-    "제약"
+    "급등",
+    "IPO",
+    "상장"
    ],
-   "section": "네이버 메인",
-   "relevance": 16,
-   "source": "main",
-   "leaders": [
-    "알테오젠",
-    "HLB",
-    "삼성바이오로직스"
-   ],
-   "issue_rank": 12
-  },
-  {
-   "id": "353/0000057292",
-   "title": "두바이 국제상공회의소, 무역·투자 협력 강화 위해 서울 사무소 개소",
-   "summary": "",
-   "press": "중앙SUNDAY",
-   "time": "2026-11-19T12:30:35.773416+09:00",
-   "url": "https://n.news.naver.com/article/353/0000057292",
-   "theme": "geopolitics",
-   "theme_label": "남북·지정학",
-   "tags": [
-    "무역"
-   ],
-   "section": "네이버 메인",
-   "relevance": 7,
-   "source": "main",
+   "section": "글로벌 경제",
+   "relevance": 38,
+   "source": "section",
    "leaders": [],
-   "issue_rank": 13
+   "issue_rank": 11
   },
   {
    "id": "006/0000138832",
@@ -3931,7 +3874,7 @@
     "라온시큐어",
     "샌즈랩"
    ],
-   "issue_rank": 14
+   "issue_rank": 12
   },
   {
    "id": "087/0001231969",
@@ -3954,14 +3897,14 @@
     "대우건설",
     "DL이앤씨"
    ],
-   "issue_rank": 15
+   "issue_rank": 13
   },
   {
    "id": "448/0000652043",
    "title": "20대도 돌아섰다…李대통령 지지율 27.8% '급락'",
    "summary": "",
    "press": "TV조선",
-   "time": "2026-11-19T11:30:35.773416+09:00",
+   "time": "2026-11-19T12:00:34.108323+09:00",
    "url": "https://n.news.naver.com/article/448/0000652043",
    "theme": "earnings",
    "theme_label": "실적·공시·수급",
@@ -3972,14 +3915,79 @@
    "relevance": 10,
    "source": "main",
    "leaders": [],
+   "issue_rank": 14
+  },
+  {
+   "id": "138/0002249185",
+   "title": "효성중공업, 中 수출·美 생산 강화…전력기기 호황 속 통상 리스크 대응",
+   "summary": "",
+   "press": "디지털데일리",
+   "time": "2026-11-19T12:00:34.108323+09:00",
+   "url": "https://n.news.naver.com/article/138/0002249185",
+   "theme": "battery",
+   "theme_label": "2차전지·에너지",
+   "tags": [
+    "전력기기",
+    "전력"
+   ],
+   "section": "네이버 메인",
+   "relevance": 16,
+   "source": "main",
+   "leaders": [
+    "효성중공업",
+    "HD현대일렉트릭",
+    "LS일렉트릭",
+    "산일전기"
+   ],
+   "issue_rank": 15
+  },
+  {
+   "id": "353/0000057292",
+   "title": "두바이 국제상공회의소, 무역·투자 협력 강화 위해 서울 사무소 개소",
+   "summary": "Jamal Abdulla Al Suwaidi) 주한 아랍에미리트(UAE) 대사, 마르완 알마리(Marwan AlMarri) 두바이 상공회의소 인터내셔널 아시아 지역 디렉터, 손휘원 두바이 상공회의소 아시아 지역 한국 사무소 대표, 이광희 SC제일은행 은행장, 김태형 코트라 인베스트코리아 대표.",
+   "press": "중앙SUNDAY",
+   "time": "2026-11-19T11:34:08+09:00",
+   "url": "https://n.news.naver.com/article/353/0000057292",
+   "theme": "geopolitics",
+   "theme_label": "남북·지정학",
+   "tags": [
+    "무역"
+   ],
+   "section": "네이버 메인",
+   "relevance": 7,
+   "source": "main",
+   "leaders": [],
    "issue_rank": 16
+  },
+  {
+   "id": "374/0000544672",
+   "title": "'월 1회 비만약' 대웅제약 \"국내 임상 1상 승인\"",
+   "summary": "[대웅제약과 티온랩테라퓨틱스가 공동개발하는 세마글루타이드 월 1회 장기지속형 주사제. 이번 IND 승인으로 양사는 공동개발 협약 체결 이후 본격적인 임상 단계에 들어가게 됐습니다.",
+   "press": "SBS Biz",
+   "time": "2026-11-19T11:34:07+09:00",
+   "url": "https://n.news.naver.com/article/374/0000544672",
+   "theme": "bio",
+   "theme_label": "바이오·헬스케어",
+   "tags": [
+    "임상",
+    "제약"
+   ],
+   "section": "네이버 메인",
+   "relevance": 16,
+   "source": "main",
+   "leaders": [
+    "알테오젠",
+    "HLB",
+    "삼성바이오로직스"
+   ],
+   "issue_rank": 17
   },
   {
    "id": "293/0000093507",
    "title": "[LG엔솔 상장 5년]③ESS 수주잔고 '껑충'…AI 전력시장 新성장축",
-   "summary": "",
+   "summary": "LG에너지솔루션 DC-LINK ESS 전력망 제품./사진 제공=LG에너지솔루션 LG에너지솔루션이 상장 이후 에너지저장장치(ESS) 사업을 새로운 성장축으로 키우며 글로벌 전력 인프라 시장에서 입지를 확대하고 있다.",
    "press": "블로터",
-   "time": "2026-11-19T11:30:35.773416+09:00",
+   "time": "2026-11-19T11:20:14+09:00",
    "url": "https://n.news.naver.com/article/293/0000093507",
    "theme": "battery",
    "theme_label": "2차전지·에너지",
@@ -3996,14 +4004,14 @@
     "산일전기",
     "제룡전기"
    ],
-   "issue_rank": 17
+   "issue_rank": 18
   },
   {
    "id": "138/0002249172",
    "title": "코스피 하루 만에 5000선 붕괴…‘한한령 완화’ 기대에 콘텐츠주는 급등",
-   "summary": "",
+   "summary": "외국인·기관 동반 매도에 코스피 1.82%↓…반도체·2차전지 약세 9일 서울 중구 하나은행 본점 딜링룸에서 직원들이 업무를 보고 있다. 장 초반 5100선을 넘어섰지만 외국인과 기관의 동반 매도에 하락세로 돌아섰다.",
    "press": "디지털데일리",
-   "time": "2026-11-19T11:30:35.773416+09:00",
+   "time": "2026-11-19T10:51:07+09:00",
    "url": "https://n.news.naver.com/article/138/0002249172",
    "theme": "macro",
    "theme_label": "거시·환율·금리",
@@ -4013,30 +4021,10 @@
    "section": "네이버 메인",
    "relevance": 10,
    "source": "main",
-   "leaders": [],
-   "issue_rank": 18
-  },
-  {
-   "id": "138/0002249185",
-   "title": "효성중공업, 中 수출·美 생산 강화…전력기기 호황 속 통상 리스크 대응",
-   "summary": "미국 전력망에 설치된 효성중공업 초고압차단기 모습. 중국 난통공장은 직접수출 비중을 높이고 미국 멤피스공장은 현지 생산능력 확대에 투자를 집중하고 있다.",
-   "press": "디지털데일리",
-   "time": "2026-11-19T11:22:07+09:00",
-   "url": "https://n.news.naver.com/article/138/0002249185",
-   "theme": "battery",
-   "theme_label": "2차전지·에너지",
-   "tags": [
-    "전력기기",
-    "전력"
-   ],
-   "section": "네이버 메인",
-   "relevance": 16,
-   "source": "main",
    "leaders": [
-    "효성중공업",
-    "HD현대일렉트릭",
-    "LS일렉트릭",
-    "산일전기"
+    "에코프로비엠",
+    "리튬포어스",
+    "하이드로리튬"
    ],
    "issue_rank": 19
   },
@@ -4128,23 +4116,26 @@
    "issue_rank": 23
   },
   {
-   "id": "308/0000038992",
-   "title": "중국 제조업에 맞설 나라, 한국뿐이다 [산업지도 다시 그리기 ① 자동차]",
-   "summary": "",
-   "press": "시사IN",
-   "time": "2026-11-18T15:30:35.773416+09:00",
-   "url": "https://n.news.naver.com/article/308/0000038992",
+   "id": "640/0000097033",
+   "title": "중국 견제할 인도의 새 지정학 카드, 한국 조선사 유치",
+   "summary": "The planned Tamil Nadu yard would expand Korean shipbuilding capacity while helping India pursue its maritime and strategic ambitions.",
+   "press": "코리아중앙데일리",
+   "time": "2026-11-18T07:00:00+09:00",
+   "url": "https://n.news.naver.com/article/640/0000097033",
    "theme": "geopolitics",
    "theme_label": "남북·지정학",
    "tags": [
+    "지정학",
     "중국"
    ],
    "section": "네이버 메인",
-   "relevance": 4,
+   "relevance": 13,
    "source": "main",
    "leaders": [
-    "현대차",
-    "기아"
+    "LIG넥스원",
+    "빅텍",
+    "스페코",
+    "한일단조"
    ],
    "issue_rank": 24
   },
@@ -4169,6 +4160,52 @@
     "샌즈랩"
    ],
    "issue_rank": 25
+  },
+  {
+   "id": "138/0002249229",
+   "title": "KAI·한국기계연구원, 미래 항공우주 기술 개발 '맞손'…저피탐·AI 협력",
+   "summary": "한국항공우주산업(KAI)이 한국기계연구원(KIMM)과 손잡고 저피탐과 첨단제조·인공지능(AI) 등 미래 항공우주 핵심기술 확보와 산업적 활용 확대에 나선다. KAI는 지난 18일 경남 사천 본사에서 한국기계연구원과",
+   "press": "디지털데일리",
+   "time": "",
+   "url": "https://n.news.naver.com/mnews/article/138/0002249229",
+   "theme": "defense",
+   "theme_label": "방산·우주",
+   "tags": [
+    "항공우주",
+    "한국항공우주",
+    "우주"
+   ],
+   "section": "산업/재계",
+   "relevance": 22,
+   "source": "section",
+   "leaders": [
+    "한국항공우주",
+    "쎄트렉아이"
+   ],
+   "issue_rank": 26
+  },
+  {
+   "id": "081/0003701180",
+   "title": "한화 건설부문, 하안주공5단지 재건축 시공사 선정…도시정비사업 역대 최대 실적",
+   "summary": "한화 건설부문은 경기 광명시 하안주공5단지 재건축 정비사업의 시공사로 최종 선정됐다고 19일 밝혔다. 이번 수주로 한화 건설부문은 올해 도시정비사업 누적 수주액 2조 5000억원을 넘기며 역대 최대 실적을 기록했다.",
+   "press": "서울신문",
+   "time": "",
+   "url": "https://n.news.naver.com/mnews/article/081/0003701180",
+   "theme": "policy",
+   "theme_label": "정책·건설",
+   "tags": [
+    "재건축",
+    "건설"
+   ],
+   "section": "경제 일반",
+   "relevance": 19,
+   "source": "section",
+   "leaders": [
+    "현대건설",
+    "대우건설",
+    "DL이앤씨"
+   ],
+   "issue_rank": 27
   }
  ]
 }
