@@ -1751,18 +1751,21 @@ async function unlockHotbar(code){
 visPaint();
 /* 주소에 ?me=비밀코드 가 있으면 그 코드로 연다. 저장된 코드가 있으면 그것으로 조용히 연다 */
 (async function(){
+  const wantHash = (location.hash || '').replace('#', '');   /* 시작 탭은 풀기 전에 적어 둔다 */
   let code = '';
   try{
     const m = /[?&]me=([^&#]*)/.exec(location.search || '');
     if(m) code = decodeURIComponent(m[1] || '').trim();
   }catch(e){}
   const fromUrl = !!code;
-  if(!code) code = savedCode();
+  const saved = savedCode();
+  if(!code) code = saved;
   if(!code) return;
-  const ok = await unlockHotbar(code);
+  let ok = await unlockHotbar(code);
+  if(!ok && fromUrl && saved && saved !== code) ok = await unlockHotbar(saved);
   if(!ok){ if(fromUrl) toast('비밀코드가 맞지 않습니다'); return; }
   visPaint();
-  if((location.hash || '') === '#hotbar') switchTab('hotbar', true);
+  if(wantHash === 'hotbar' && state.tab !== 'hotbar') switchTab('hotbar', true);
 })();
 /* LIVE 배지 1.5초 안 3연속 탭 → 토글 */
 (function(){
