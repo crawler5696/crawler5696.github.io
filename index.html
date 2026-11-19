@@ -290,9 +290,9 @@
   .rd-stk b{font-size:12.5px;font-weight:700;color:#eef2fa;letter-spacing:-.2px;
     overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .rd-stk .px{font-size:10.5px;color:var(--dim2);font-weight:600;white-space:nowrap;flex:none}
-  .rd-stk .drp{margin-left:auto;flex:none;min-width:27px;text-align:center;font-size:11.5px;font-weight:800;
+  .rd-stk .drp{margin-left:auto;flex:none;min-width:22px;text-align:center;font-size:11.5px;font-weight:800;
     color:#fff;background:rgba(255,90,110,.2);border:1px solid rgba(255,90,110,.45);
-    border-radius:6px;padding:1px 5px;font-variant-numeric:tabular-nums}
+    border-radius:6px;padding:1px 6px;font-variant-numeric:tabular-nums}
   .rd-warn{font-size:10.5px;color:#ffb27a;margin:6px 0 0}
   .rd-dot{width:7px;height:7px;border-radius:50%;flex:none}
   .rd-dot.on{background:#ff2d44;box-shadow:0 0 6px rgba(255,45,68,.9);animation:rdpulse 1s ease-out infinite}
@@ -896,7 +896,7 @@ function radarStockHtml(s){
   const drop = (s.drop === 0 || s.drop) ? String(s.drop) : '';
   return `<div class="rd-stk"><b>${esc(s.name)}</b>` +
     (s.price_text ? `<span class="px">${esc(s.price_text)}</span>` : '') +
-    (drop ? `<span class="drp" title="고점 대비 -${esc(drop)}%">-${esc(drop)}%</span>` : '') +
+    (drop ? `<span class="drp" title="고점에서 ${esc(drop)}% 내려온 자리">${esc(drop)}</span>` : '') +
     `</div>`;
 }
 
@@ -984,7 +984,7 @@ async function renderRadar(force){
   }
   const rows = updateRadarDot();
   if($('#radarSub')) $('#radarSub').textContent = (r && r.base_date_text) ? r.base_date_text : '';
-  if($('#radarNote')) $('#radarNote').textContent = (r && r.drop_note) ? r.drop_note : '종목 옆 숫자 = 고점 대비 하락 % (예: 67 → -67%)';
+  if($('#radarNote')) $('#radarNote').textContent = (r && r.drop_note) ? r.drop_note : '종목 옆 숫자 = 고점에서 내려온 폭';
   if(!rows.length){
     box.innerHTML = `<div class="empty">레이더 자료를 불러오지 못했습니다.<br>잠시 후 다시 열어 주세요.</div>`;
     return;

@@ -3,7 +3,7 @@
  "generated_at_kst": "2026.11.19 00:20",
  "base_date": "2026-11-18",
  "base_date_text": "2026.11.18 종가 기준",
- "drop_note": "종목 옆 숫자 = 고점 대비 하락 % (예: 67 → -67%)",
+ "drop_note": "종목 옆 숫자 = 고점에서 내려온 폭",
  "active": true,
  "tiers": [
   {
