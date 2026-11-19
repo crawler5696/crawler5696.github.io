@@ -1231,7 +1231,7 @@ function chartSvgHtml(s){
   [0, 0.5, 1].forEach(f => {
     const v = lo + (hi - lo) * f, y = Y(v);
     g += `<line x1="${CH_X0}" x2="${CH_X1}" y1="${y.toFixed(1)}" y2="${y.toFixed(1)}" stroke="rgba(255,255,255,.055)" stroke-width="1"/>`;
-    g += `<text x="${CH_X1 + 4}" y="${(y + 3).toFixed(1)}" font-size="8" fill="#6b778f">${fmtWon(v)}</text>`;
+    g += `<text x="${CH_X1 + 4}" y="${(y + 3).toFixed(1)}" font-size="8.2" fill="#6b778f">${fmtWon(v)}</text>`;
   });
   g += `<line x1="${CH_X0}" x2="${CH_X1}" y1="${CH_VY1}" y2="${CH_VY1}" stroke="rgba(255,255,255,.07)" stroke-width="1"/>`;
   const vmax = Math.max(1, ...cs.map(c => c[5]));
@@ -1248,26 +1248,26 @@ function chartSvgHtml(s){
   });
   /* 기준선 — 1번 상한가 봉 시가 */
   if(base > 0 && base <= hi && base >= lo){
-    const y = Y(base), t = `기준선 ${fmtWon(base)}`, tw = textW(t, 7.6) + 5;
+    const y = Y(base), t = `기준선 ${fmtWon(base)}`, tw = textW(t, 8.2) + 6;
     g += `<line x1="${CH_X0}" x2="${CH_X1}" y1="${y.toFixed(1)}" y2="${y.toFixed(1)}" stroke="#ffb347" stroke-width="1.1" stroke-dasharray="4 3"/>`;
-    g += `<rect x="${CH_X0 + 1}" y="${(y - 12).toFixed(1)}" width="${tw.toFixed(1)}" height="10.5" rx="2" fill="rgba(11,17,32,.88)"/>`;
-    g += `<text x="${CH_X0 + 3}" y="${(y - 3.6).toFixed(1)}" font-size="7.6" font-weight="700" fill="#ffc477">${t}</text>`;
+    g += `<rect x="${CH_X0 + 2}" y="${(y - 12.5).toFixed(1)}" width="${tw.toFixed(1)}" height="11" rx="2" fill="rgba(11,17,32,.9)"/>`;
+    g += `<text x="${CH_X0 + 4}" y="${(y - 3.4).toFixed(1)}" font-size="8.2" font-weight="700" fill="#ffc477">${t}</text>`;
   }
   /* 1번 첫 상한가 봉 · 3번 첫 반등 봉 표시 */
   const idxOf = d => { const k = String(d || ''); return k ? cs.findIndex(c => c[0] === k) : -1; };
   const mark = (i, label, col) => {
     if(i < 0) return '';
     const x = CH_X0 + slot * i + slot / 2;
-    const y = Math.max(CH_PY0 - 10, Y(cs[i][2]) - 8);
-    return `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="6.2" fill="rgba(11,17,32,.96)" stroke="${col}" stroke-width="1.2"/>`
-      + `<text x="${x.toFixed(1)}" y="${(y + 2.5).toFixed(1)}" font-size="7.4" font-weight="900" fill="${col}" text-anchor="middle">${label}</text>`;
+    const y = Math.max(CH_PY0 - 8, Y(cs[i][2]) - 9);
+    return `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="6.8" fill="rgba(11,17,32,.96)" stroke="${col}" stroke-width="1.3"/>`
+      + `<text x="${x.toFixed(1)}" y="${(y + 2.8).toFixed(1)}" font-size="8" font-weight="900" fill="${col}" text-anchor="middle">${label}</text>`;
   };
   g += mark(idxOf(s.lu_date || s.base_date), '1', '#9dbcff');
   g += mark(idxOf(s.rb_date), '3', '#63e3ae');
   /* 날짜 눈금 — 처음·가운데·끝 */
-  g += `<text x="${CH_X0}" y="${CH_VY1 + 12}" font-size="7.6" fill="#6b778f">${mmdd(cs[0][0])}</text>`;
-  g += `<text x="${((CH_X0 + CH_X1) / 2).toFixed(1)}" y="${CH_VY1 + 12}" font-size="7.6" fill="#6b778f" text-anchor="middle">${mmdd(cs[Math.floor(n / 2)][0])}</text>`;
-  g += `<text x="${CH_X1}" y="${CH_VY1 + 12}" font-size="7.6" fill="#6b778f" text-anchor="end">${mmdd(cs[n - 1][0])}</text>`;
+  g += `<text x="${CH_X0}" y="${CH_VY1 + 12}" font-size="8" fill="#6b778f">${mmdd(cs[0][0])}</text>`;
+  g += `<text x="${((CH_X0 + CH_X1) / 2).toFixed(1)}" y="${CH_VY1 + 12}" font-size="8" fill="#6b778f" text-anchor="middle">${mmdd(cs[Math.floor(n / 2)][0])}</text>`;
+  g += `<text x="${CH_X1}" y="${CH_VY1 + 12}" font-size="8" fill="#6b778f" text-anchor="end">${mmdd(cs[n - 1][0])}</text>`;
   g += `<text x="${CH_X1}" y="11" font-size="8" fill="#6b778f" text-anchor="end">거래량 최대 ${fmtVolK(vmax)}주</text>`;
   /* 터치 가이드 — 손가락이 짚은 봉에 세로 점선 */
   g += `<line id="cGuide" x1="0" x2="0" y1="${CH_PY0 - 4}" y2="${CH_VY1}" stroke="rgba(255,255,255,.42)" stroke-width="1" stroke-dasharray="2 2" visibility="hidden"/>`;
