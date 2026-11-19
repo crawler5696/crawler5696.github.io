@@ -324,6 +324,7 @@
   .hb-badge.s1{background:rgba(79,140,255,.16);color:#9dbcff;border:1px solid rgba(79,140,255,.42)}
   .hb-badge.s2{background:rgba(255,179,71,.14);color:#ffc477;border:1px solid rgba(255,179,71,.4)}
   .hb-badge.s3{background:rgba(61,220,151,.14);color:#63e3ae;border:1px solid rgba(61,220,151,.4)}
+  .hb-badge.s4{background:rgba(167,139,250,.16);color:#c4b5fd;border:1px solid rgba(167,139,250,.46)}
   .hb-desc{font-size:11.5px;font-weight:700;color:var(--dim)}
   .hb-cnt{margin-left:auto;font-size:10px;font-weight:700;color:var(--dim2);
     background:rgba(255,255,255,.04);border:1px solid var(--line);padding:1px 6px;border-radius:6px}
@@ -346,6 +347,15 @@
   .hb-pos.front{color:#ff9aa8;background:rgba(255,60,80,.16);border:1px solid rgba(255,60,80,.46)}
   .hb-pos.mid{color:#9fb0c9;background:rgba(255,255,255,.04);border:1px solid var(--line)}
   .hb-pos.back{color:#6b7a94;background:rgba(255,255,255,.03);border:1px solid var(--line);opacity:.72}
+  /* 4번 진행 상태 칩 — 3번 뒤 현재 어디인지(기준선 닿음·코앞·눌림·반등 시도·3번 고가 위) */
+  .hb-prog{display:inline-block;margin-left:5px;padding:0 4px;border-radius:5px;white-space:nowrap;
+    font-size:9px;font-weight:900;letter-spacing:-.2px;vertical-align:1px;
+    color:#c4b5fd;background:rgba(167,139,250,.14);border:1px solid rgba(167,139,250,.38)}
+  .hb-prog.near{color:#ffc477;background:rgba(255,179,71,.14);border-color:rgba(255,179,71,.42)}
+  /* 상승 표시 — 2·3·4번인데 앞선 고가를 넘어 올라선 종목(눌림처럼 보이지 않게) */
+  .hb-up{display:inline-block;margin-left:5px;padding:0 4px;border-radius:5px;white-space:nowrap;
+    font-size:9px;font-weight:900;letter-spacing:-.2px;vertical-align:1px;
+    color:#ff8a7a;background:rgba(255,60,60,.16);border:1px solid rgba(255,60,60,.52)}
   .hb-r{text-align:right;white-space:nowrap;flex:none}
   .hb-px{font-size:12.5px;font-weight:800;letter-spacing:-.2px}
   .hb-sub{font-size:10px;font-weight:700;color:var(--dim);display:flex;gap:5px;justify-content:flex-end}
@@ -451,7 +461,7 @@
   <section class="view" data-view="hotbar" id="view-hotbar" hidden>
     <div class="viewhead"><b>핫바</b><span id="hotSub"></span></div>
     <div class="hb-seg" id="hotSeg">
-      <button type="button" data-sec="day" class="on">일봉<span class="s">1·2·3</span></button>
+      <button type="button" data-sec="day" class="on">일봉<span class="s">1·2·3·4</span></button>
       <button type="button" data-sec="week">주봉<span class="s">48주 거래량</span></button>
       <button type="button" data-sec="month">월봉<span class="s">12월 거래량</span></button>
     </div>
@@ -1009,6 +1019,23 @@ function hotEvtBadge(s){
   return e ? `<span class="hb-evt">📅 ${esc(e.badge || e.dtext || '')}</span>` : '';
 }
 
+/* 4번 진행 상태 칩 — 3번 뒤 지금 어디인지. 눌림이 기준선에 가까울수록 노랗게 */
+function hotProgBadge(s){
+  const near = (s.prog === '기준선 닿음' || s.prog === '기준선 코앞');
+  const vol = (typeof s.vol3_ratio === 'number') ? `3번 봉 거래량의 ${s.vol3_ratio.toFixed(2)}배` : '';
+  const hold = (typeof s.hold_pct === 'number') ? `상한가 봉 시가 대비 ${s.hold_pct > 0 ? '+' : ''}${s.hold_pct}%` : '';
+  const t = [s.after3 != null ? `3번 뒤 ${s.after3}거래일` : '', hold, vol].filter(Boolean).join(' · ');
+  return `<span class="hb-prog${near ? ' near' : ''}" title="${esc(t)}">${esc(s.prog)}</span>`;
+}
+
+/* 상승 표시 — 2·3·4번인데 눌림 없이 앞선 고가를 넘어선 종목. +%는 그 고가 대비 오른 폭 */
+function hotUpBadge(s){
+  const p = Number(s.up_pct);
+  const ref = s.up_ref || '앞선 고가';
+  const t = `${ref}를 넘어섬 — 오늘 종가가 ${ref} 대비 ${p > 0 ? '+' : ''}${p}%`;
+  return `<span class="hb-up" title="${esc(t)}">상승 ${p > 0 ? '+' : ''}${p}%</span>`;
+}
+
 /* 앞/뒤 자리 배지 — vr_all = 그 자리 봉 거래량이 그 앞 10년 최대의 몇 배였나(1을 넘으면 역대 최고)
    0.90 이상 '앞'(빨강) · 0.50~0.90 '중'(흐림) · 0.50 미만 '뒤'(회색) — 주봉·월봉 카드에는 '뒤'가 실리지 않는다.
    일봉 카드는 그 상한가 봉이 속한 주봉·월봉 거래량으로 잰 값(pos_src)이라 툴팁에 둘 다 적는다. */
@@ -1038,10 +1065,12 @@ function hotRowHtml(s){
   const dd = (s.dd === 0 || s.dd) ? Number(s.dd) : null;
   const ddTxt = dd === null ? '' : (dd >= 0 ? '1년 최고' : `고점 ${dd}%`);
   const bot = s.bottom ? `<span class="hb-bot" title="1년 고점 대비 ${esc(String(dd))}% — 바닥권에서 나온 1·2·3">바닥</span>` : '';
+  const up = s.up ? hotUpBadge(s) : '';
+  const prog = (s.stage === 4 && s.prog && !s.up && s.prog !== '3번 고가 위') ? hotProgBadge(s) : '';
   const reason = s.reason ? `<div class="hb-reason">${esc(s.reason)}</div>` : '';
   return `<div class="hb-row${s.bottom ? ' bot' : ''}">
     <div class="hb-l">
-      <div class="hb-name">${esc(s.name)}${bot}${hotPosBadge(s)}${hotEvtBadge(s)}</div>
+      <div class="hb-name">${esc(s.name)}${bot}${up}${prog}${hotPosBadge(s)}${hotEvtBadge(s)}</div>
       ${reason}
       <div class="hb-note">${esc(s.note || '')}</div>
     </div>
