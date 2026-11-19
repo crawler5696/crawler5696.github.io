@@ -348,41 +348,15 @@
   .hb-head.pick .hb-desc{color:#d8ccff}
   .hb-cnt{margin-left:auto;font-size:10px;font-weight:700;color:var(--dim2);
     background:rgba(255,255,255,.04);border:1px solid var(--line);padding:1px 6px;border-radius:6px}
-  .hb-row{display:flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--line);
-    border-radius:9px;padding:6px 9px;margin-bottom:4px}
+  /* 종목 줄 — 오직 종목명 + 테마(개별) 두 가지만, 여백 있게 (2026-11-19 지시) */
+  .hb-row{display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--line);
+    border-radius:10px;padding:9px 12px;margin-bottom:5px;min-width:0}
   .hb-row:active{background:var(--card2)}
-  .hb-l{min-width:0;flex:1}
-  .hb-name{font-size:13px;font-weight:800;letter-spacing:-.3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .hb-reason{font-size:9.8px;color:#8fb2ff;letter-spacing:-.1px;white-space:nowrap;overflow:hidden;
-    text-overflow:ellipsis;margin-top:1px}
-  .hb-note{font-size:9.5px;color:var(--dim2);letter-spacing:-.1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  /* 바닥권 배지 — 1년 고점 대비 -45% 이하에서 나온 1·2·3 */
-  .hb-bot{display:inline-block;margin-left:5px;padding:0 4px;border-radius:5px;white-space:nowrap;
-    font-size:9px;font-weight:900;letter-spacing:-.2px;vertical-align:1px;
-    color:#5be0b0;background:rgba(40,210,150,.14);border:1px solid rgba(40,210,150,.42)}
-  .hb-row.bot{box-shadow:inset 2px 0 0 rgba(40,210,150,.55)}
-  /* 앞/뒤 자리 표시 — 앞은 빨간 배지, 중은 흐린 배지, 뒤는 더 흐린 회색(일봉 카드에만 실린다) */
-  .hb-pos{display:inline-block;margin-left:5px;padding:0 4px;border-radius:5px;white-space:nowrap;
-    font-size:9px;font-weight:900;letter-spacing:-.2px;vertical-align:1px}
-  .hb-pos.front{color:#ff9aa8;background:rgba(255,60,80,.16);border:1px solid rgba(255,60,80,.46)}
-  .hb-pos.mid{color:#9fb0c9;background:rgba(255,255,255,.04);border:1px solid var(--line)}
-  .hb-pos.back{color:#6b7a94;background:rgba(255,255,255,.03);border:1px solid var(--line);opacity:.72}
-  /* 4번 진행 상태 칩 — 3번 뒤 현재 어디인지(기준선 닿음·코앞·눌림·반등 시도·3번 고가 위) */
-  .hb-prog{display:inline-block;margin-left:5px;padding:0 4px;border-radius:5px;white-space:nowrap;
-    font-size:9px;font-weight:900;letter-spacing:-.2px;vertical-align:1px;
-    color:#c4b5fd;background:rgba(167,139,250,.14);border:1px solid rgba(167,139,250,.38)}
-  .hb-prog.near{color:#ffc477;background:rgba(255,179,71,.14);border-color:rgba(255,179,71,.42)}
-  /* 테마 딱지 — 1번 명부에서 테마 확실 종목과 개별주를 갈라 보이게 */
-  .hb-th{display:inline-block;margin-right:4px;padding:0 4px;border-radius:4px;white-space:nowrap;
-    font-size:9px;font-weight:900;letter-spacing:-.2px;vertical-align:1px;
-    color:#7fd1ff;background:rgba(79,180,255,.13);border:1px solid rgba(79,180,255,.34)}
-  .hb-th.indiv{color:#8b97ab;background:rgba(255,255,255,.03);border-color:var(--line)}
-  /* 첫 상한가(파랑) / 재상한가(회색) / 얇음 */
-  .hb-tag{display:inline-block;margin-left:5px;padding:0 4px;border-radius:5px;white-space:nowrap;
-    font-size:9px;font-weight:900;letter-spacing:-.2px;vertical-align:1px}
-  .hb-tag.first{color:#9dbcff;background:rgba(79,140,255,.16);border:1px solid rgba(79,140,255,.44)}
-  .hb-tag.re{color:#8b97ab;background:rgba(255,255,255,.03);border:1px solid var(--line)}
-  .hb-tag.thin{color:#7e8aa0;background:transparent;border:1px dashed rgba(255,255,255,.14)}
+  .hb-name{flex:1;min-width:0;font-size:13.5px;font-weight:800;letter-spacing:-.3px;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .hb-th{flex:none;max-width:52%;font-size:11px;font-weight:600;letter-spacing:-.1px;
+    color:#8fb2ff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:right}
+  .hb-th.indiv{color:#7e8aa0;font-weight:600}
   /* A++ — 직접 뉴스·차트를 검수해 손으로 찍은 도장만(최우수 자리, 금색) */
   .hb-aplus{display:inline-block;margin-left:5px;padding:0 5px;border-radius:5px;white-space:nowrap;
     font-size:9.5px;font-weight:900;letter-spacing:-.1px;vertical-align:1px;
@@ -390,27 +364,6 @@
     border:1px solid rgba(255,214,106,.95);box-shadow:0 0 7px rgba(255,190,60,.45)}
   .hb-row.ap{background:linear-gradient(180deg,rgba(255,190,60,.10),var(--card));
     border-color:rgba(255,190,60,.46);box-shadow:inset 2px 0 0 rgba(255,190,60,.75)}
-  .hb-prog.add{color:#ffd76a;background:rgba(255,179,71,.18);border-color:rgba(255,179,71,.55)}
-  /* 일봉 위쪽 요약 줄 · 명부 안 소제목(테마 확실 / 개별) */
-  .hb-sum{display:flex;flex-wrap:wrap;gap:2px 5px;margin:2px 1px 6px;padding:5px 8px;border-radius:8px;
-    font-size:10px;font-weight:700;color:var(--dim2);background:rgba(255,255,255,.03);border:1px solid var(--line)}
-  .hb-sum b{color:#cfe0ff;font-weight:800}
-  .hb-sub-head{margin:7px 1px 4px;font-size:10px;font-weight:800;color:#9fc0ff;letter-spacing:-.2px}
-  .hb-sub-head b{color:#e8f0ff}
-  .hb-sub-head.indiv{color:#8b97ab}
-  .hb-sub-head.indiv b{color:#c2cde0}
-  .hb-now{display:inline-block;margin-right:4px;padding:0 4px;border-radius:4px;font-size:9px;font-weight:900;
-    color:#c4b5fd;background:rgba(167,139,250,.14);border:1px solid rgba(167,139,250,.36)}
-  /* 상승 표시 — 2·3·4번인데 앞선 고가를 넘어 올라선 종목(눌림처럼 보이지 않게) */
-  .hb-up{display:inline-block;margin-left:5px;padding:0 4px;border-radius:5px;white-space:nowrap;
-    font-size:9px;font-weight:900;letter-spacing:-.2px;vertical-align:1px;
-    color:#ff8a7a;background:rgba(255,60,60,.16);border:1px solid rgba(255,60,60,.52)}
-  .hb-r{text-align:right;white-space:nowrap;flex:none}
-  .hb-px{font-size:12.5px;font-weight:800;letter-spacing:-.2px}
-  .hb-sub{font-size:10px;font-weight:700;color:var(--dim);display:flex;gap:5px;justify-content:flex-end}
-  .hb-sub .up{color:var(--up)}
-  .hb-sub .dn{color:#5a8cff}
-  .hb-sub .dd{color:var(--dim2);font-weight:600}
   .hb-more{width:100%;margin:1px 0 4px;padding:6px;border-radius:8px;border:1px dashed var(--line);
     background:transparent;color:var(--dim2);font-family:inherit;font-size:11px;font-weight:700;cursor:pointer}
   .hb-empty{font-size:10.5px;color:var(--dim2);padding:4px 3px 6px}
@@ -421,15 +374,11 @@
   .rd-sched b{color:#8fb2ff;font-weight:800}
   .rd-sched span{color:#5d6a86}
   .rd-evt{display:block;font-size:10px;font-weight:700;color:#9fc0ff;margin:3px 0 0;letter-spacing:-.2px}
-  .hb-evt{display:inline-block;margin-left:5px;padding:0 4px;border-radius:5px;white-space:nowrap;
-    font-size:9px;font-weight:800;color:#9fc0ff;background:rgba(79,140,255,.14);
-    border:1px solid rgba(79,140,255,.32);vertical-align:1px}
 
   /* ---------- 핫바 카드 → 차트 모달 (비밀 핫바에서만 · 일봉 1·2·3·4 / 주봉·월봉 1·2·3) ---------- */
-  .hb-row.chart{cursor:pointer;position:relative;padding-right:12px}
-  .hb-row.chart::after{content:'';position:absolute;right:0;top:3px;bottom:3px;width:3px;border-radius:2px;
-    background:linear-gradient(180deg,rgba(167,139,250,.85),rgba(79,140,255,.25))}
-  .hb-go{font-size:9px;font-weight:800;color:#c4b5fd;letter-spacing:-.2px;margin-top:1px}
+  .hb-row.chart{cursor:pointer;position:relative;padding-right:14px}
+  .hb-row.chart::after{content:'';position:absolute;right:0;top:4px;bottom:4px;width:3px;border-radius:2px;
+    background:linear-gradient(180deg,rgba(167,139,250,.75),rgba(79,140,255,.2))}
   body.lock{overflow:hidden}
   .chart-ov{position:fixed;inset:0;z-index:40;display:flex;align-items:center;justify-content:center;padding:9px;
     background:rgba(4,8,18,.76);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);
@@ -1131,7 +1080,7 @@ async function renderRadar(force){
 /* ---------------- 핫바 (비밀 모드에서만 열리는 1·2·3) ----------------
    일봉 · 주봉(48주 거래량) · 월봉(12월 거래량)의 1번 / 2번 / 3번 자리를 data/hotbar.json 에서 받아 그린다. */
 let hotbarData = null, hotbarSec = 'day', sealedJson = null;
-const HOT_SHOW = 6;                       /* 단계마다 처음 보이는 종목 수(1번 명부는 테마/개별로 길어 6) */
+const HOT_SHOW = 10;                      /* 단계마다 처음 보이는 종목 수(줄이 종목명+테마뿐이라 10) */
 
 /* ---------------- 잠긴 핫바 자료 풀기 (AES-256-GCM · PBKDF2-SHA256) ----------------
    서버(data/hotbar.json)에는 {enc:1, salt, iv, ct} 만 있고, 기기에서 비밀코드로만 풀린다.
@@ -1174,156 +1123,51 @@ async function ensureHotbar(){
   return hotbarData;
 }
 
-function hotEvtBadge(s){
-  const e = schedFor(s.themes || [], 1)[0];
-  return e ? `<span class="hb-evt">📅 ${esc(e.badge || e.dtext || '')}</span>` : '';
-}
+/* ---------------- 핫바 목록 — 종목명 + 테마만 (2026-11-19 지시) ----------------
+   각 번호 칸(1·2·3·4·5…)에는 지금 그 단계에 있는 종목만 한 번씩 들어간다.
+   줄에는 종목명과 테마(테마·재료가 확인되지 않으면 '개별')만 남기고,
+   첫/재·얇음·바닥·앞중뒤·진행·기사 문장·가격·등락률 같은 딱지는 걷어낸다.
+   그 정보는 줄을 눌러 여는 차트 팝업에서만 본다. */
 
-/* 진행 상태 칩 — 지금 그 자리에서 어떤 모양인지(고점 / 줄 위 버팀 / 줄 닿음 / 추가매수 자리 …) */
-function hotProgBadge(s){
-  if(!s.prog) return '';
-  const near = (s.prog === '줄 닿음' || s.prog === '고점 돌파');
-  const add = (s.prog === '추가매수 자리');
-  return `<span class="hb-prog${near ? ' near' : ''}${add ? ' add' : ''}">${esc(s.prog)}</span>`;
-}
-
-/* 상승 표시 — 2·3·4번인데 눌림 없이 앞선 고가를 넘어선 종목. +%는 그 고가 대비 오른 폭 */
-function hotUpBadge(s){
-  const p = Number(s.up_pct);
-  const ref = s.up_ref || '앞선 고가';
-  const t = `${ref}를 넘어섬 — 오늘 종가가 ${ref} 대비 ${p > 0 ? '+' : ''}${p}%`;
-  return `<span class="hb-up" title="${esc(t)}">상승 ${p > 0 ? '+' : ''}${p}%</span>`;
-}
-
-/* 앞/뒤 자리 배지 — vr_all = 그 자리 봉 거래량이 그 앞 10년 최대의 몇 배였나(1을 넘으면 역대 최고)
-   0.90 이상 '앞'(빨강) · 0.50~0.90 '중'(흐림) · 0.50 미만 '뒤'(회색) — 주봉·월봉 카드에는 '뒤'가 실리지 않는다.
-   일봉 카드는 그 상한가 봉이 속한 주봉·월봉 거래량으로 잰 값(pos_src)이라 툴팁에 둘 다 적는다. */
-function hotPosBadge(s){
-  const p = s.pos;
-  if(!p) return '';
-  const cls = p === '앞' ? 'front' : (p === '중' ? 'mid' : 'back');
-  const v = (typeof s.vr_all === 'number') ? s.vr_all : null;
-  let t = '';
-  if(v !== null){
-    const best = `${v.toFixed(2)}배${v >= 1 ? ' (역대 최고)' : ''}`;
-    if(s.pos_src){
-      const w = (typeof s.vr_week === 'number') ? `주봉 ${s.vr_week.toFixed(2)}배` : '';
-      const m = (typeof s.vr_month === 'number') ? `월봉 ${s.vr_month.toFixed(2)}배` : '';
-      const part = s.pos_partial ? ` (${esc(s.pos_partial)}째 차는 중)` : '';
-      t = ` title="${esc(s.pos_src)} 거래량 = 앞선 10년 최대의 ${best} — ${esc([w, m].filter(Boolean).join(' · '))}${part}"`;
-    }else{
-      t = ` title="상한가 봉 거래량 = 앞선 10년 최대의 ${best}"`;
-    }
-  }
-  return `<span class="hb-pos ${cls}"${t}>${esc(p)}</span>`;
-}
-
-/* 테마 딱지 — 1번 명부에서 테마·재료가 확실한 종목과 개별주를 갈라 보이게(2026-11-19 지시) */
-function hotThemeChip(s){
-  if(periodOf(s) !== 'day') return '';
+/* 테마 이름 — ' — ' 뒤 부연과 괄호 설명을 떼어 짧게. 테마·재료가 확인되지 않으면 ''(개별) */
+function hotThemeName(s){
   const t = String(s.theme || '').trim();
-  if(!s.theme_ok){
-    return `<b class="hb-th indiv" title="테마·재료가 확인되지 않은 개별주">개별</b>`;
-  }
-  const short = t.split(' — ')[0].split(' (')[0].trim();
-  return `<b class="hb-th" title="${esc(t)}">${esc(short.length > 18 ? short.slice(0, 18) + '…' : short)}</b>`;
+  if(!t || s.theme_ok === false) return '';
+  return t.split(' — ')[0].split(' (')[0].trim();
 }
 
-/* A++ — 손으로 검수해 찍은 도장만(코드가 자동으로 판정하지 않는다). 0개면 배지도 숫자도 그리지 않는다 */
-function hotAPlus(s){
-  if(s.aplus !== 'A++') return '';
-  const why = (s.aplus_why || []).join(' · ');
-  return `<span class="hb-aplus" title="${esc('직접 검수한 A++' + (why ? ' — ' + why : ''))}">A++</span>`;
+/* 같은 테마끼리 나란히 — 테마 확실 종목 먼저(테마명 가나다순), 개별은 맨 아래(이름순) */
+function hotSortStocks(arr){
+  return arr.slice().sort((a, b) => {
+    const ta = hotThemeName(a), tb = hotThemeName(b);
+    if(!ta && tb) return 1;
+    if(ta && !tb) return -1;
+    if(ta && tb && ta !== tb) return ta.localeCompare(tb, 'ko');
+    return String(a.name || '').localeCompare(String(b.name || ''), 'ko');
+  });
 }
 
-/* 첫 상한가 / 재상한가 — 180봉 안에 앞선 상한가가 있었으면 '재' */
-function hotLuBadge(s){
-  if(periodOf(s) !== 'day' || s.lu_first === undefined) return '';
-  return s.lu_first
-    ? `<span class="hb-tag first" title="앞 180봉 안에 상한가가 없던 첫 상한가${s.lu_n > 1 ? ` · 이번 달 상한가 ${s.lu_n}번` : ''}">첫</span>`
-    : `<span class="hb-tag re" title="앞 180봉 안에 상한가가 있었던 재상한가${s.lu_n > 1 ? ` · 이번 달 상한가 ${s.lu_n}번` : ''}">재</span>`;
-}
-
-function hotBadges(s){
-  let out = hotAPlus(s);
-  out += hotLuBadge(s);
-  if(s.thin) out += `<span class="hb-tag thin" title="최근 3일 평균 거래대금 5억 미만 — 얇은 종목">얇음</span>`;
-  out += hotProgBadge(s);
-  if(s.up) out += hotUpBadge(s);
-  out += hotPosBadge(s);
-  if(s.bottom){
-    const dd = (s.dd === 0 || s.dd) ? Number(s.dd) : null;
-    out += `<span class="hb-bot" title="1년 고점 대비 ${dd === null ? '' : dd + '%'} — 바닥권에서 나온 상한가">바닥</span>`;
-  }
-  out += hotEvtBadge(s);
-  return out;
-}
-
-function hotRowHtml(s, opt){
-  opt = opt || {};
-  const chg = (s.chg === 0 || s.chg) ? Number(s.chg) : null;
-  const chgTxt = chg === null ? '' : (chg > 0 ? '+' : '') + chg.toFixed(1) + '%';
-  const dd = (s.dd === 0 || s.dd) ? Number(s.dd) : null;
-  const ddTxt = dd === null ? '' : (dd >= 0 ? '1년 최고' : `고점 ${dd}%`);
-  const reason = s.reason ? `<div class="hb-reason">${hotThemeChip(s)}${esc(s.reason)}</div>` : `<div class="hb-reason">${hotThemeChip(s)}</div>`;
-  /* 핫바 카드는 모두 눌러서 차트를 연다 — 일봉 1→10 · 주봉 1·2·3 · 월봉 1·2·3 */
+function hotRowHtml(s){
   const chartable = (s.candles || []).length > 0;
   const pd = PERIOD[periodOf(s)];
-  const cls = `hb-row${s.bottom ? ' bot' : ''}${chartable ? ' chart' : ''}${s.aplus === 'A++' ? ' ap' : ''}`;
+  const cls = `hb-row${chartable ? ' chart' : ''}${s.aplus === 'A++' ? ' ap' : ''}`;
   const attrs = chartable
-    ? ` data-code="${esc(String(s.code || ''))}"${opt.from ? ` data-from="${esc(opt.from)}"` : ''} role="button" tabindex="0" aria-label="${esc(s.name)} ${pd.t} 차트 열기"`
+    ? ` data-code="${esc(String(s.code || ''))}" role="button" tabindex="0" aria-label="${esc(s.name)} ${pd.t} 차트 열기"`
     : '';
-  const go = chartable ? `<div class="hb-go">📈 ${pd.t}</div>` : '';
-  const now = (periodOf(s) === 'day' && opt.now && s.stage !== 1)
-    ? `<span class="hb-now">지금 ${s.stage}번</span>` : '';
+  const why = (s.aplus_why || []).join(' · ');
+  const ap = s.aplus === 'A++'
+    ? `<span class="hb-aplus" title="${esc('직접 검수한 A++' + (why ? ' — ' + why : ''))}">A++</span>` : '';
+  const th = hotThemeName(s);
   return `<div class="${cls}"${attrs}>
-    <div class="hb-l">
-      <div class="hb-name">${esc(s.name)}${hotBadges(s)}</div>
-      ${reason}
-      <div class="hb-note">${now}${esc(s.note || '')}</div>
-    </div>
-    <div class="hb-r">
-      <div class="hb-px">${esc(s.price_text || '')}</div>
-      <div class="hb-sub"><span class="${chg !== null && chg < 0 ? 'dn' : 'up'}">${chgTxt}</span>${ddTxt ? `<span class="dd" title="1년 고점 대비 위치">${ddTxt}</span>` : ''}</div>
-      ${go}
-    </div>
+    <div class="hb-name">${esc(s.name)}${ap}</div>
+    <div class="hb-th${th ? '' : ' indiv'}"${th ? ` title="${esc(s.theme)}"` : ''}>${esc(th || '개별')}</div>
   </div>`;
 }
 
-/* 일봉 — 1번은 '이번 달 상한가 명부'(테마 확실 / 개별을 갈라서), 2번부터는 지금 자리별 */
-function hotDayRosterHtml(sec, byCode){
-  const rows = [];
-  const list = (arr) => arr.map(([code, stage]) => byCode.get(String(code))).filter(Boolean);
-  const themed = list(sec.roster || []);
-  const indiv = list(sec.roster_indiv || []);
-  const aplusN = themed.concat(indiv).filter(s => s.aplus === 'A++').length;
-  const block = (key, title, arr, cls) => {
-    const open = state.hotOpen && state.hotOpen.has(key);
-    const show = open ? arr : arr.slice(0, HOT_SHOW);
-    const rest = arr.length - show.length;
-    return [
-      `<div class="hb-sub-head${cls ? ' ' + cls : ''}">${esc(title)} <b>${arr.length}</b></div>`,
-      show.map(s => hotRowHtml(s, {now: 1})).join(''),
-      rest > 0 ? `<button class="hb-more" type="button" data-stage="${key}">${rest}종목 더 보기 ▾</button>` : '',
-      open && arr.length > HOT_SHOW ? `<button class="hb-more" type="button" data-stage="${key}">접기 ▴</button>` : ''
-    ].join('');
-  };
-  const head = `<div class="hb-head">
-      <span class="hb-badge s1">1</span>
-      <span class="hb-desc">${esc(sec.roster_desc || '상한가 · 테마별 전체')}</span>
-      <span class="hb-cnt">${themed.length + indiv.length}${aplusN ? ` · A++ ${aplusN}` : ''}</span></div>`;
-  rows.push(`<div class="hb-grp">${head}`);
-  rows.push(block('R1', '테마·재료 확실', themed, ''));
-  rows.push(block('R2', '개별 · 테마 미확인', indiv, 'indiv'));
-  rows.push(`</div>`);
-  return rows.join('');
-}
-
 function hotStageHtml(st){
-  const stocks = st.stocks || [];
-  const botN = st.bottom_count || stocks.filter(s => s.bottom).length;
+  const stocks = hotSortStocks(st.stocks || []);
   const aplusN = stocks.filter(s => s.aplus === 'A++').length;
-  const cnt = `${stocks.length}${aplusN ? ` · A++ ${aplusN}` : ''}${botN ? ` · 바닥 ${botN}` : ''}`;
+  const cnt = `${stocks.length}${aplusN ? ` · A++ ${aplusN}` : ''}`;
   if(!stocks.length){
     return `<div class="hb-grp">
       <div class="hb-head"><span class="hb-badge s${st.stage}">${st.stage}</span>
@@ -1343,16 +1187,6 @@ function hotStageHtml(st){
   </div>`;
 }
 
-/* 일봉 위쪽 한 줄 — 상한가 몇 종목이 지금 몇 번에 있는지(빠짐없이 들어갔는지 한눈에) */
-function hotSummary(sec){
-  if(sec.key !== 'day') return '';
-  const c = sec.counts || {};
-  const part = (n) => (c[n] ? `<b>${n}번</b> ${c[n]}` : '');
-  const over = Object.keys(c).filter(k => +k >= 5 && c[k]).reduce((a, k) => a + c[k], 0);
-  const items = [`전체 <b>${sec.total || 0}</b>`, `지금 1번 <b>${sec.at1 || 0}</b>`, part(2), part(3), part(4), over ? `<b>5번+</b> ${over}` : ''];
-  return `<div class="hb-sum">${items.filter(Boolean).join(' · ')}</div>`;
-}
-
 async function renderHotbar(){
   if(!visOn()) return;
   const box = $('#hotBody');
@@ -1366,15 +1200,7 @@ async function renderHotbar(){
   hotbarSec = sec.key;
   if($('#hotSub')) $('#hotSub').textContent = (sec.sub ? sec.sub + ' · ' : '') + (d.base_date_text || '') + (d.universe ? ` · ${d.universe}종목` : '');
   document.querySelectorAll('#hotSeg button').forEach(b => b.classList.toggle('on', b.dataset.sec === sec.key));
-  if(sec.key === 'day'){
-    const byCode = new Map();
-    (sec.stages || []).forEach(st => (st.stocks || []).forEach(s => byCode.set(String(s.code), s)));
-    box.innerHTML = hotSummary(sec)
-      + hotDayRosterHtml(sec, byCode)
-      + (sec.stages || []).filter(st => st.stage !== 1).map(hotStageHtml).join('');
-  }else{
-    box.innerHTML = (sec.stages || []).map(hotStageHtml).join('');
-  }
+  box.innerHTML = (sec.stages || []).map(hotStageHtml).join('');
 }
 
 /* ---------------- 핫바 카드 → 차트 모달 (일봉 · 주봉 · 월봉) ----------------
@@ -1409,7 +1235,6 @@ function chartSvgHtml(s){
   const p = periodOf(s);
   const lineDay = (p === 'day' && s.line) ? Number(s.line) : 0;   /* 일봉 = 2번 자리(살 줄) */
   const base = lineDay || Number(s.base_open) || 0;
-  const baseName = lineDay ? '2번 줄' : '1번';
   const refVol = Number(s.ref_vol) || 0;
   let hi = -Infinity, lo = Infinity;
   for(const c of cs){ hi = Math.max(hi, c[2]); lo = Math.min(lo, c[3]); }
@@ -1440,12 +1265,14 @@ function chartSvgHtml(s){
     const h = Math.max(1, c[5] / vmax * vh);
     g += `<rect x="${(x - bw / 2).toFixed(1)}" y="${(CH_VY1 - h).toFixed(1)}" width="${bw.toFixed(1)}" height="${h.toFixed(1)}" fill="${col}" opacity=".5"/>`;
   });
-  /* 가로 줄 — 일봉은 2번 자리(미리 그어 두는 살 줄), 주봉·월봉은 1번 봉 */
+  /* 가로 줄 — 일봉은 2번 자리(미리 그어 두는 살 줄), 주봉·월봉은 1번 봉.
+     2026-11-19 지시: 차트 왼쪽 끝부터 오른쪽 끝까지 가로지르는 선명한 실선 한 줄로 긋고,
+     왼쪽 끝에 그 줄 가격 숫자를 또렷하게 붙인다(점선 아님). */
   if(base > 0 && base <= hi && base >= lo){
-    const y = Y(base), t = `${baseName} ${fmtWon(base)}`, tw = textW(t, 8.2) + 6;
-    g += `<line x1="${CH_X0}" x2="${CH_X1}" y1="${y.toFixed(1)}" y2="${y.toFixed(1)}" stroke="#ffb347" stroke-width="1.1" stroke-dasharray="4 3"/>`;
-    g += `<rect x="${CH_X0 + 2}" y="${(y - 12.5).toFixed(1)}" width="${tw.toFixed(1)}" height="11" rx="2" fill="rgba(11,17,32,.9)"/>`;
-    g += `<text x="${CH_X0 + 4}" y="${(y - 3.4).toFixed(1)}" font-size="8.2" font-weight="700" fill="#ffc477">${t}</text>`;
+    const y = Y(base), t = fmtWon(base), tw = textW(t, 9.2) + 12;
+    g += `<line x1="${CH_X0}" x2="${CH_X1}" y1="${y.toFixed(1)}" y2="${y.toFixed(1)}" stroke="#ffc44d" stroke-width="1.8" stroke-linecap="round"/>`;
+    g += `<rect x="${CH_X0}" y="${(y - 7.5).toFixed(1)}" width="${tw.toFixed(1)}" height="15" rx="4" fill="rgba(11,17,32,.96)" stroke="#ffc44d" stroke-width="1.2"/>`;
+    g += `<text x="${CH_X0 + 6}" y="${(y + 3.3).toFixed(1)}" font-size="9.2" font-weight="800" fill="#ffd88a">${t}</text>`;
   }
   /* 기준 거래량 — 주봉 48주 · 월봉 12개월 최대(돌파를 잰 자). 거래량 칸에 점선으로 */
   if(refVol > 0){
@@ -1929,8 +1756,22 @@ visPaint();
   });
 })();
 
-/* PWA */
-if('serviceWorker' in navigator){ navigator.serviceWorker.register('sw.js').catch(()=>{}); }
+/* PWA — 새 배포가 나오면 캐시를 따로 지우지 않아도 바로 최신 화면으로 바뀐다.
+   sw.js 는 updateViaCache:'none' 으로 늘 서버에서 새 판을 확인하고, 새 워커가 이 페이지를 넘겨받으면
+   (controllerchange) 딱 한 번만 새로 고친다 — 이미 떠 있던 페이지는 옛 화면이므로. */
+if('serviceWorker' in navigator){
+  const hadController = !!navigator.serviceWorker.controller;
+  let swReloaded = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if(!hadController || swReloaded) return;      /* 첫 설치 때는 새로고침하지 않는다(무한 반복 방지) */
+    swReloaded = true;
+    location.reload();
+  });
+  navigator.serviceWorker.register('sw.js', {updateViaCache:'none'}).then(reg => {
+    reg.update().catch(() => {});
+    setInterval(() => reg.update().catch(() => {}), 30 * 60 * 1000);   /* 30분마다 새 배포 확인 */
+  }).catch(() => {});
+}
 
 /* 시작 탭 (주소 끝에 #radar 처럼 붙이면 그 탭으로 열린다) */
 let startTab = (location.hash||'').replace('#','');

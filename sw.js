@@ -1,15 +1,18 @@
 /* 뉴스레이더 — 오프라인에서도 마지막으로 본 뉴스를 보여주는 최소 서비스워커
    네트워크 우선(network-first): 항상 최신을 먼저 받고, 실패했을 때만 캐시를 쓴다.
    캐시가 먼저 나갔다가 네트워크로 덮어쓰는 방식이 아니므로 화면이 두 번 그려지지 않는다.
-   data/news.json 은 쿼리스트링(?_=타임스탬프)까지 포함해 언제나 네트워크를 먼저 탄다 —
-   새로고침(⟳) 때 캐시가 섞여 들어오지 않도록 cache:'no-store' 로 요청한다. */
-const CACHE = 'newsradar-v33';
+   새 판(이 파일이 바뀌면)은 install 에서 곧바로 대기 없이 넘겨받고(skipWaiting),
+   activate 에서 옛 버전 캐시를 전부 지운 뒤 화면을 넘겨받는다(clients.claim).
+   그래서 사용자가 캐시를 직접 지우거나 새로고침하지 않아도 접속할 때마다 최신 화면·최신 데이터가 뜬다.
+   index.html · data/*.json 은 쿼리스트링까지 포함해 언제나 네트워크를 먼저 탄다(cache:'no-store'). */
+const CACHE = 'newsradar-v34';
 const SHELL = ['./', './index.html', './manifest.json', './icons/icon-192.png', './data/calendar.json', './data/radar.json'];
 const NEWS_KEY = './data/news.json';   // 쿼리스트링이 붙어도 캐시에는 이 한 자리에만 남긴다
 
 self.addEventListener('install', e => {
   self.skipWaiting();
-  e.waitUntil(caches.open(CACHE).then(c => c.addAll(SHELL)).catch(() => {}));
+  /* 껍데기(index.html)도 브라우저 HTTP 캐시에 기대지 않고 서버에서 새로 받아 둔다 */
+  e.waitUntil(caches.open(CACHE).then(c => c.addAll(SHELL.map(u => new Request(u, {cache:'reload'})))).catch(() => {}));
 });
 
 self.addEventListener('activate', e => {
@@ -25,6 +28,8 @@ const isCalJson = url => /\/data\/calendar\.json$/.test(url.pathname);
 const isRadarJson = url => /\/data\/radar\.json$/.test(url.pathname);
 const isHotJson = url => /\/data\/hotbar\.json$/.test(url.pathname);
 const isSchedJson = url => /\/data\/schedule\.json$/.test(url.pathname);
+/* 화면 문서는 index.html 하나다 — 주소가 '/'든 '/index.html'이든, 새로 열든 늘 서버에서 새로 */
+const isDoc = (req, url) => req.mode === 'navigate' || /\/index\.html$/.test(url.pathname) || url.pathname.endsWith('/');
 const CAL_KEY = './data/calendar.json';
 const RADAR_KEY = './data/radar.json';
 const HOT_KEY = './data/hotbar.json';
@@ -52,21 +57,22 @@ self.addEventListener('fetch', e => {
   const rdr = isRadarJson(url);
   const hot = isHotJson(url);
   const sch = isSchedJson(url);
+  const doc = isDoc(req, url);
 
   e.respondWith((async () => {
     try {
-      // 뉴스 데이터는 쿼리스트링과 무관하게 항상 네트워크가 먼저(그리고 캐시 협상 없이)
-      const fresh = await fetch(req, {cache: (news || cal || rdr || hot || sch) ? 'no-store' : (req.mode === 'navigate' ? 'no-store' : 'no-cache')});
+      // 문서·데이터는 쿼리스트링과 무관하게 항상 네트워크가 먼저(그리고 캐시 협상 없이)
+      const fresh = await fetch(req, {cache: (doc || news || cal || rdr || hot || sch) ? 'no-store' : 'no-cache'});
       if (fresh && fresh.ok && (fresh.type === 'basic' || fresh.type === 'default')) {
         const copy = fresh.clone();
-        const key = news ? NEWS_KEY : (cal ? CAL_KEY : (rdr ? RADAR_KEY : (hot ? HOT_KEY : (sch ? SCHED_KEY : req))));   // 데이터 파일은 한 자리에만 저장(매번 다른 ?_= 주소로 쌓이지 않게)
+        const key = doc ? './index.html' : (news ? NEWS_KEY : (cal ? CAL_KEY : (rdr ? RADAR_KEY : (hot ? HOT_KEY : (sch ? SCHED_KEY : req)))));   // 데이터 파일은 한 자리에만 저장(매번 다른 ?_= 주소로 쌓이지 않게)
         caches.open(CACHE).then(c => c.put(key, copy)).catch(() => {});
       }
       return fresh;
     } catch (err) {
       const hit = await caches.match(req, {ignoreSearch: true});
       if (hit) return news ? await markCached(hit) : hit;
-      if (req.mode === 'navigate') {
+      if (doc) {
         const shell = await caches.match('./index.html', {ignoreSearch: true});
         if (shell) return shell;
       }
