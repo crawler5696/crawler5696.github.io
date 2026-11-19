@@ -64,6 +64,15 @@
     border:1px solid rgba(150,170,255,.6);text-shadow:0 1px 6px rgba(120,150,255,.5)}
   @media (max-width:430px){ .brand small{display:none} .brand{font-size:14.5px} }
   @media (max-width:400px){ .brand .who{font-size:12.5px;padding:0 4px;margin-right:4px} }
+  /* 제목 바로 밑 한 줄 — 카카오톡 오픈채팅방 안내(누르면 새 창) */
+  .kk{display:flex;align-items:center;justify-content:center;gap:5px;margin:0 0 5px;
+    padding:3px 8px;border-radius:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+    font-size:10.5px;font-weight:800;letter-spacing:-.2px;color:#ffe066;text-decoration:none;
+    background:linear-gradient(135deg,rgba(255,196,0,.16),rgba(255,120,60,.16));
+    border:1px solid rgba(255,200,60,.45);transition:background .15s}
+  .kk b{color:#fff;font-weight:900;letter-spacing:-.3px}
+  .kk:active{background:linear-gradient(135deg,rgba(255,196,0,.28),rgba(255,120,60,.28))}
+  @media (max-width:400px){ .kk{font-size:10px;padding:2px 6px;gap:3px} }
   .spacer{flex:1}
   .live{display:flex;align-items:center;gap:4px;font-size:10px;color:var(--ok);
     background:rgba(61,220,151,.1);border:1px solid rgba(61,220,151,.25);
@@ -468,6 +477,7 @@
       <div class="live" id="live"><span class="dot"></span><span id="liveTxt">LIVE</span></div>
       <button class="refresh" id="btnRefresh" aria-label="새로고침" title="새로고침 — 최신 뉴스를 지금 다시 받아옵니다">⟳</button>
     </div>
+    <a class="kk" href="https://open.kakao.com/o/gcRXomRg" target="_blank" rel="noopener noreferrer" aria-label="발몽레정 카카오톡 오픈채팅방 열기">발몽레정 여기로 놀러오세요! 👉<b>💬 카톡방</b></a>
     <div class="tabs" role="tablist" aria-label="화면 전환">
       <button class="tab" role="tab" data-tab="news" aria-selected="true">📰 뉴스</button>
       <button class="tab" role="tab" data-tab="upper" aria-selected="false">🚀 상한가</button>
