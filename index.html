@@ -1141,6 +1141,14 @@ function hotThemeName(s){
   return t.split(' — ')[0].split(' (')[0].trim();
 }
 
+/* 카드 오른쪽 글자 — 서버가 만든 짧은 이름(테마명 또는 '개별 · 수주')을 그대로 쓴다.
+   상한가 테마에 없어도 개별 재료(수주·실적·공시·섹터)가 확인된 종목은 '개별 · 키워드'로 보인다. */
+function hotThemeLabel(s){
+  const l = String(s.theme_label || '').trim();
+  if(l) return l;
+  return hotThemeName(s) || '개별';
+}
+
 /* 같은 테마끼리 나란히 — 테마 확실 종목 먼저(테마명 가나다순), 개별은 맨 아래(이름순) */
 function hotSortStocks(arr){
   const pv = x => x.pos2 === '앞쪽' ? 0 : (x.pos2 === '뒤쪽' ? 1 : 2);
@@ -1165,13 +1173,14 @@ function hotRowHtml(s){
   const why = (s.aplus_why || []).join(' · ');
   const ap = s.aplus === 'A++'
     ? `<span class="hb-aplus" title="${esc('직접 검수한 A++' + (why ? ' — ' + why : ''))}">A++</span>` : '';
-  const th = hotThemeName(s);
+  const th = hotThemeLabel(s);
+  const grp = hotThemeName(s);
   const pos = s.pos2 === '앞쪽' ? '<span class="hb-pos f" title="바닥 6개월 조용한 뒤 시작 거래량 · 20일선≥60일선">앞</span>'
             : (s.pos2 === '뒤쪽' ? `<span class="hb-pos b" title="${esc('뒤쪽 — ' + ((s.pos2_why || []).join(' · ') || '장기선 위'))}">뒤</span>` : '');
   return `<div class="${cls}"${attrs}>
     <div class="hb-name">${esc(s.name)}${ap}</div>
     ${pos}
-    <div class="hb-th${th ? '' : ' indiv'}"${th ? ` title="${esc(s.theme)}"` : ''}>${esc(th || '개별')}</div>
+    <div class="hb-th${grp ? '' : ' indiv'}" title="${esc(s.theme || s.reason || '')}">${esc(th)}</div>
   </div>`;
 }
 
