@@ -527,7 +527,7 @@
   <section class="view" data-view="news" id="view-news">
     <div class="meta">
       <span>업데이트 <b id="updated">불러오는 중…</b></span>
-      <a class="vbadge" id="visitors" href="https://crawler5696.goatcounter.com/" target="_blank" rel="noopener noreferrer" title="GoatCounter 방문자 대시보드" hidden>👥 총 <span id="visitorN">–</span>명</a>
+      <a class="vbadge" id="visitors" href="https://crawler5696.goatcounter.com/" target="_blank" rel="noopener noreferrer" title="GoatCounter 방문자 대시보드" hidden>👥 오늘 <span id="visitorN">–</span>명</a>
     </div>
 
     <div class="sechead"><span class="bar"></span>⚡ 실시간 속보
@@ -1837,7 +1837,9 @@ function dropCode(){
 async function visNumber(){
   if(visDone || !visBadge || visBadge.hidden) return;
   try{
-    const res = await fetch('https://crawler5696.goatcounter.com/counter/TOTAL.json?_=' + Date.now(), {cache:'no-store'});
+    /* 오늘(KST) 자정부터의 방문자 수만 받는다 — 집계는 서버가 UTC 하루 단위로 자른다 */
+    const kstToday = new Date(Date.now() + 9*3600*1000).toISOString().slice(0,10);
+    const res = await fetch('https://crawler5696.goatcounter.com/counter/TOTAL.json?start=' + kstToday + '&_=' + Date.now(), {cache:'no-store'});
     if(!res.ok) return;
     const j = await res.json();
     const v = (j && (j.count_unique != null ? j.count_unique : j.count));
