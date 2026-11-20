@@ -11,7 +11,8 @@
   · data/calendar.json (테마달력 12개월)의 상한가 종목
   · data/news.json upper_limits (오늘 상한가)
   · data/radar.json (레이더)
-  · news.json 기사 leaders(관련 종목 이름) → 이름으로 코드를 찾아 포함
+  · news.json 기사 leaders(관련 종목 이름) → 네이버 종목 자동완성(ac.stock.naver.com)으로 코드를 찾아 포함
+    (기사 관련 종목 칩을 눌러도 차트가 열리게)
 
 날짜는 한 벌(dates)만 담고 종목마다 그 안의 자리(o0 / x)만 적어 파일을 가볍게 유지한다.
 받지 못한 종목은 이미 있는 day125.json 의 봉을 그대로 둔다(차트가 비지 않게).
@@ -29,6 +30,7 @@ import json
 import os
 import sys
 import time
+import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
 from concurrent.futures import ThreadPoolExecutor
@@ -50,7 +52,7 @@ def jload(name):
         return {}
 
 
-def wanted_codes() -> tuple[list[str], dict[str, str]]:
+def wanted_codes() -> tuple[list[str], dict[str, str], list[str]]:
     """공개 화면에 이름이 뜨는 종목 (코드, 이름표)."""
     codes: list[str] = []
     names: dict[str, str] = {}
@@ -79,15 +81,53 @@ def wanted_codes() -> tuple[list[str], dict[str, str]]:
         for s in t.get("stocks") or []:
             add(s.get("code"), s.get("name"))
 
-    # 기사 관련 종목(leaders)은 이름만 온다 — 이미 아는 이름표에서 코드를 찾아 넣는다
+    # 기사 관련 종목(leaders)은 이름만 온다 — 아는 이름표에 있으면 바로, 없으면 나중에 코드를 찾는다
     by_name = {v: k for k, v in names.items() if v}
+    loose: list[str] = []
     for key in ("flash", "issues", "articles"):
         for a in news.get(key) or []:
             for nm in a.get("leaders") or []:
-                c = by_name.get(str(nm).strip())
+                nm = str(nm).strip()
+                if not nm:
+                    continue
+                c = by_name.get(nm)
                 if c:
-                    add(c, str(nm).strip())
-    return codes, names
+                    add(c, nm)
+                elif nm not in loose:
+                    loose.append(nm)
+    return codes, names, loose
+
+
+# 기사에 쓰는 이름과 종목명이 다른 것만 손으로 잇는다(자동완성이 다른 회사를 먼저 주는 경우)
+ALIAS = {"네이버": "NAVER", "포스코": "POSCO홀딩스", "엘지": "LG", "에스케이": "SK"}
+
+
+def resolve_names(names: list[str], workers: int = 8) -> dict[str, str]:
+    """종목 이름 → 코드 (네이버 종목 자동완성). 이름이 정확히 같은 것만 쓴다."""
+    out: dict[str, str] = {}
+
+    def one(nm):
+        want = ALIAS.get(nm, nm)
+        url = "https://ac.stock.naver.com/ac?q=%s&target=stock" % urllib.parse.quote(want)
+        try:
+            req = urllib.request.Request(url, headers=UA)
+            with urllib.request.urlopen(req, timeout=8) as resp:
+                j = json.loads(resp.read().decode("utf-8", errors="replace"))
+            for it in (j.get("items") or []):
+                code, name = str(it.get("code") or ""), str(it.get("name") or "").strip()
+                if name == want and code.isdigit() and len(code) == 6:
+                    return nm, code
+        except Exception:
+            pass
+        return nm, ""
+
+    if not names:
+        return out
+    with ThreadPoolExecutor(max_workers=workers) as ex:
+        for nm, code in ex.map(one, names):
+            if code:
+                out[nm] = code
+    return out
 
 
 def fetch_bars(code: str, count: int = 130):
@@ -167,7 +207,13 @@ def main():
         except Exception:
             pass
 
-    codes, names = wanted_codes()
+    codes, names, loose = wanted_codes()
+    if loose and not args.max_codes:
+        got = resolve_names(loose)
+        for nm, c in got.items():
+            if c not in names:
+                names[c] = nm
+                codes.append(c)
     if args.max_codes:
         codes = codes[:args.max_codes]
     if not codes:

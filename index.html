@@ -2247,13 +2247,17 @@ function bindStockChart(sel){
   el.addEventListener('click', e => {
     const t = e.target.closest('[data-code],[data-name]');
     if(!t) return;
-    if(t.dataset && t.dataset.code === '') { /* 코드를 모르는 자리 */ }
-    const code = t.dataset.code || codeOfName(t.dataset.name);
     const name = t.dataset.name || (t.textContent || '').trim();
-    if(!code) { toast('이 종목 일봉 시세가 아직 없습니다'); e.preventDefault(); e.stopPropagation(); return; }
-    e.preventDefault();
+    const code = t.dataset.code || codeOfName(name);
+    e.preventDefault();                 /* 안쪽 링크(기사)로 넘어가지 않게 먼저 막는다 */
     e.stopPropagation();
-    openDayChart(code, name);
+    if(code){ openDayChart(code, name); return; }
+    /* 이름만 있는 자리(관련 종목 칩) — 자료를 아직 안 받았으면 한 번 받아 보고 이름으로 다시 찾는다 */
+    ensureDay().then(() => {
+      const c = codeOfName(name) || t.dataset.code;
+      if(!c){ toast('이 종목 일봉 시세가 아직 없습니다'); return; }
+      openDayChart(c, name);
+    });
   });
 }
 
