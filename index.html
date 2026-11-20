@@ -313,10 +313,11 @@
   .tabs.five{grid-template-columns:repeat(5,1fr)}
   .tab[hidden]{display:none}
   @media (max-width:410px){ .tabs.five .tab{font-size:10.4px;letter-spacing:-.5px} }
-  .hb-seg{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin:2px 0 6px}
+  .hb-seg{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin:2px 0 6px}
   .hb-seg button{appearance:none;border:1px solid var(--line);background:rgba(255,255,255,.03);
-    color:var(--dim);font-family:inherit;font-size:12px;font-weight:800;letter-spacing:-.3px;
-    padding:7px 2px;border-radius:9px;cursor:pointer;white-space:nowrap;transition:.15s}
+    color:var(--dim);font-family:inherit;font-size:11.6px;font-weight:800;letter-spacing:-.3px;
+    padding:7px 1px;border-radius:9px;cursor:pointer;white-space:nowrap;transition:.15s}
+  @media (max-width:410px){ .hb-seg button{font-size:10.6px;letter-spacing:-.5px} }
   .hb-seg button:active{transform:scale(.98)}
   .hb-seg button .s{display:block;font-size:9px;font-weight:600;color:var(--dim2);letter-spacing:0}
   .hb-seg button.on{color:#fff;border-color:transparent;background:linear-gradient(135deg,#4f8cff,#7c5cff);
@@ -378,6 +379,65 @@
     border:1px solid rgba(61,220,151,.4);padding:0 5px;border-radius:4px;white-space:nowrap}
   .hb-cl.wait{color:#ffe066;background:rgba(255,224,102,.1);border-color:rgba(255,224,102,.32)}
   .hb-osc[hidden],.hb-cl[hidden]{display:none}
+
+  /* ---------- 핫바 · 월별 10단계 (비밀 · 월 × 테마 × 유형 A/B/C × 1~10단계) ---------- */
+  .hm-load{padding:26px 4px;text-align:center;font-size:11.5px;font-weight:700;color:var(--dim2)}
+  .hm-mons{display:flex;gap:4px;overflow-x:auto;padding:2px 1px 7px;scrollbar-width:none}
+  .hm-mons::-webkit-scrollbar{display:none}
+  .hm-mon{flex:none;appearance:none;border:1px solid var(--line);background:rgba(255,255,255,.03);
+    color:var(--dim);font-family:inherit;font-size:11.5px;font-weight:800;letter-spacing:-.3px;
+    padding:5px 9px;border-radius:9px;cursor:pointer;white-space:nowrap}
+  .hm-mon .n{font-size:9px;font-weight:700;color:var(--dim2);margin-left:4px}
+  .hm-mon.on{color:#fff;border-color:transparent;background:linear-gradient(135deg,#4f8cff,#7c5cff)}
+  .hm-mon.on .n{color:rgba(255,255,255,.8)}
+  .hm-flt{display:flex;gap:4px;flex-wrap:wrap;margin:0 0 8px}
+  .hm-flt button{appearance:none;border:1px solid var(--line);background:rgba(255,255,255,.03);
+    color:var(--dim);font-family:inherit;font-size:10.5px;font-weight:800;letter-spacing:-.3px;
+    padding:4px 8px;border-radius:8px;cursor:pointer;white-space:nowrap}
+  .hm-flt button.on{color:#fff;border-color:rgba(79,140,255,.6);background:rgba(79,140,255,.2)}
+  .hm-flt button.on.g45{color:#1a1206;border-color:#ffd45c;background:linear-gradient(135deg,#ffd76a,#ffb02e)}
+  .hm-sum{display:flex;flex-wrap:wrap;gap:2px 9px;margin:0 1px 2px;font-size:10px;font-weight:700;color:var(--dim2)}
+  .hm-sum b{color:#c2cde0}
+  .hm-grp{margin-bottom:4px}
+  .hm-gh{display:flex;align-items:baseline;gap:6px;margin:11px 1px 3px}
+  .hm-tn{flex:1;min-width:0;font-size:12px;font-weight:900;letter-spacing:-.3px;color:#dbe6ff;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .hm-tc{flex:none;font-size:9.5px;font-weight:700;color:var(--dim2);background:rgba(255,255,255,.04);
+    border:1px solid var(--line);padding:1px 6px;border-radius:6px}
+  .hm-ts{margin:0 1px 5px;font-size:9.8px;font-weight:600;line-height:1.42;color:#8494ad;
+    word-break:keep-all;overflow-wrap:anywhere;display:-webkit-box;-webkit-box-orient:vertical;
+    -webkit-line-clamp:2;overflow:hidden}
+  .hm-row{padding:8px 12px}
+  .hm-t{flex:none;font-size:9.5px;font-weight:900;padding:1px 5px;border-radius:5px;letter-spacing:-.2px}
+  .hm-t.A{color:#9dbcff;background:rgba(79,140,255,.14);border:1px solid rgba(79,140,255,.44)}
+  .hm-t.B{color:#c4b5fd;background:rgba(167,139,250,.14);border:1px solid rgba(167,139,250,.44)}
+  .hm-t.C{color:#ffc477;background:rgba(255,179,71,.13);border:1px solid rgba(255,179,71,.42)}
+  .hm-t.none{color:#7e8aa0;background:rgba(255,255,255,.04);border:1px solid var(--line)}
+  .hm-st{flex:none;font-size:9.5px;font-weight:900;padding:1px 6px;border-radius:5px;letter-spacing:-.2px;
+    color:#a9b8d0;background:rgba(255,255,255,.05);border:1px solid var(--line);font-variant-numeric:tabular-nums}
+  .hm-st.s1{color:#9dbcff;background:rgba(79,140,255,.14);border-color:rgba(79,140,255,.4)}
+  .hm-st.s2{color:#ffc477;background:rgba(255,179,71,.12);border-color:rgba(255,179,71,.38)}
+  .hm-st.s3{color:#63e3ae;background:rgba(61,220,151,.12);border-color:rgba(61,220,151,.38)}
+  .hm-st.s4{color:#c4b5fd;background:rgba(167,139,250,.14);border-color:rgba(167,139,250,.44)}
+  .hm-st.s5,.hm-st.s6{color:#9fd6ff;background:rgba(79,180,255,.12);border-color:rgba(79,180,255,.4)}
+  .hm-st.s9{color:#ffe066;background:rgba(255,224,102,.1);border-color:rgba(255,224,102,.34)}
+  .hm-st.s10{color:#ff9aa8;background:rgba(255,90,110,.11);border-color:rgba(255,90,110,.34)}
+  .hm-sub{flex:0 0 100%;display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin-top:3px;
+    font-size:9.5px;font-weight:700;color:var(--dim2);font-variant-numeric:tabular-nums}
+  .hm-sub .d0{color:#93a4bf}
+  .hm-sub .now{color:#8291a9}
+  .hm-b{font-size:9px;font-weight:900;padding:0 5px;border-radius:4px;letter-spacing:-.2px;line-height:14px}
+  .hm-b.sw{color:#63e3ae;background:rgba(61,220,151,.12);border:1px solid rgba(61,220,151,.36)}
+  .hm-b.g45{color:#1a1206;background:linear-gradient(135deg,#ffd76a,#ffb02e);border:1px solid rgba(255,214,106,.9)}
+  .hm-note{margin:10px 1px 2px;font-size:9.5px;font-weight:600;line-height:1.5;color:#71809a}
+  .hm-note b{color:#a9b8d0}
+
+  /* 다른 메뉴(뉴스·상한가·테마달력·레이더)의 종목 이름 → 기준선 없는 주봉 차트 */
+  .up-name[data-code],.stk[data-code],.rd-stk[data-code],.lead-c[data-code]{cursor:pointer}
+  .stk[data-code]{border-bottom:1px dashed rgba(143,178,255,.42)}
+  .rd-stk[data-code]{border-bottom:1px dashed rgba(143,178,255,.34)}
+  .up-name[data-code]{border-bottom:1px dashed rgba(255,255,255,.3)}
+  .lead-c[data-code]{border-bottom:1px dashed rgba(143,178,255,.4)}
 
   /* ---------- 진화 점수판 — 비밀 핫바 맨 위 (잠긴 자료 안에만 있다) ---------- */
   .sc{margin:0 0 9px;border:1px solid rgba(255,255,255,.09);border-radius:12px;overflow:hidden;
@@ -579,6 +639,7 @@
       <button type="button" data-sec="day" class="on">일봉<span class="s">1 → 2 → 3 → 4 → 5…</span></button>
       <button type="button" data-sec="week">주봉<span class="s">1 → 2 → 3 → 4 → 5…</span></button>
       <button type="button" data-sec="month">월봉<span class="s">1 → 2 → 3 → 4 → 5…</span></button>
+      <button type="button" data-sec="monthly">월별 10단계<span class="s">테마 · 유형 A/B/C</span></button>
     </div>
     <div id="hotScore"></div>
     <div id="hotBody">
@@ -693,7 +754,8 @@ function switchTab(name, keepScroll){
 function leadBadge(leaders){
   const names = (leaders||[]).filter(Boolean).slice(0,2);
   if(!names.length) return '';
-  return `<span class="sep">·</span><span class="lead" title="${esc(names.join(' · '))}"><b>🏢</b>${names.map(esc).join(' · ')}</span>`;
+  const html = names.map(nm => `<span class="lead-c" data-name="${esc(nm)}" role="button" tabindex="0" title="주봉 차트 보기">${esc(nm)}</span>`).join(' · ');
+  return `<span class="sep">·</span><span class="lead" title="${esc(names.join(' · '))}"><b>🏢</b>${html}</span>`;
 }
 
 /* 관련 테마 — 뉴스가 붙은 테마 이름을 작은 칩으로 (2026-11-20 지시 "관련 테마") */
@@ -892,7 +954,7 @@ function upperCardHtml(it, i){
   return `<article class="up-card">
     <div class="up-top">
       <span class="up-no">${i + 1}</span>
-      <span class="up-name">${esc(it.name)}</span>
+      <span class="up-name"${it.code ? ` data-code="${esc(it.code)}" data-name="${esc(it.name || '')}" role="button" tabindex="0" title="주봉 차트 보기"` : ''}>${esc(it.name)}</span>
       <span class="up-mk">${esc(it.market || '')}</span>
       <span class="up-price">${esc(it.price_text || '')}원</span>
       <span class="up-rate">+${rate}%</span>
@@ -945,7 +1007,7 @@ function stkHtml(s){
   const ds = s.dates || [];
   const show = ds.slice(-4).map(d => { const p = String(d).split('-'); return (+p[1]) + '/' + (+p[2]); });
   const more = ds.length > 4 ? ` +${ds.length - 4}` : '';
-  return `<span class="stk"><b>${esc(s.name)}</b><i>${show.join('·')}${more}</i></span>`;
+  return `<span class="stk"${s.code ? ` data-code="${esc(s.code)}" data-name="${esc(s.name)}" role="button" tabindex="0" title="주봉 차트 보기"` : ''}><b>${esc(s.name)}</b><i>${show.join('·')}${more}</i></span>`;
 }
 
 async function renderCalendar(){
@@ -1047,7 +1109,7 @@ async function ensureRadar(){
 
 function radarStockHtml(s){
   const drop = (s.drop === 0 || s.drop) ? String(s.drop) : '';
-  return `<div class="rd-stk"><b>${esc(s.name)}</b>` +
+  return `<div class="rd-stk"${s.code ? ` data-code="${esc(s.code)}" data-name="${esc(s.name)}" role="button" tabindex="0" title="주봉 차트 보기"` : ''}><b>${esc(s.name)}</b>` +
     (s.price_text ? `<span class="px">${esc(s.price_text)}</span>` : '') +
     (drop ? `<span class="drp" title="1년 고점 대비 ${esc(drop)} 내려온 자리">${esc(drop)}</span>` : '') +
     `</div>`;
@@ -1344,6 +1406,7 @@ async function renderHotbar(){
   if(!visOn()) return;
   const box = $('#hotBody');
   if(!box) return;
+  if(hotbarSec === 'monthly'){ await renderMonthly(); return; }
   const d = await ensureHotbar();
   if(!d || !(d.sections || []).length){
     box.innerHTML = `<div class="empty">핫바 자료를 불러오지 못했습니다.<br>잠시 후 다시 열어 주세요.</div>`;
@@ -1355,6 +1418,142 @@ async function renderHotbar(){
   if($('#hotSub')) $('#hotSub').textContent = (sec.sub ? sec.sub + ' · ' : '') + (d.base_date_text || '') + (d.universe ? ` · ${d.universe}종목` : '');
   document.querySelectorAll('#hotSeg button').forEach(b => b.classList.toggle('on', b.dataset.sec === sec.key));
   box.innerHTML = (sec.stages || []).map(hotStageHtml).join('');
+}
+
+/* ---------------- 월별 10단계 (2026-11-20 · 1안) ----------------
+   핫바 탭 안에 월 칩(2026-11 … 2025-11) → 그 달 테마 묶음 → 종목.
+   종목마다 유형(A 첫 상한가 / B 연속 파동 / C 9단계 재출발) · 지금 1~10단계 ·
+   1번(시작일) · 2~3회 횡보 / 4→5 황금자리 배지를 붙인다.
+   자료는 data/hotbar_monthly.json 한 벌(같은 비밀코드 5696 잠금) — 이 칸을 처음 열 때만 받는다.
+   누르면 그 종목 일봉 차트(단계 번호 1·2·3…9 마커 + 기준선)가 열린다. */
+let hotMonthly = null, hotMonthlyLoading = null, monSel = null, monFilter = 'all';
+const MON_TYPE = {A: '유형 A · 첫 상한가', B: '유형 B · 연속 파동', C: '유형 C · 9단계 재출발'};
+
+function ymd6(n){
+  const s = String(n == null ? '' : n).padStart(6, '0');
+  return '20' + s.slice(0, 2) + '-' + s.slice(2, 4) + '-' + s.slice(4, 6);
+}
+
+async function ensureMonthly(){
+  if(hotMonthly) return hotMonthly;
+  if(hotMonthlyLoading) return hotMonthlyLoading;
+  hotMonthlyLoading = (async () => {
+    try{
+      const code = savedCode();
+      if(!code) return null;
+      const res = await fetch('data/hotbar_monthly.json?_=' + Date.now(), {cache:'no-store'});
+      if(!res.ok) throw new Error('HTTP ' + res.status);
+      const sealed = await res.json();
+      hotMonthly = (Number(sealed.enc) === 1) ? await hotDecrypt(sealed, code) : sealed;
+    }catch(e){ hotMonthly = null; }
+    hotMonthlyLoading = null;
+    return hotMonthly;
+  })();
+  return hotMonthlyLoading;
+}
+
+/* 화면에서 쓴 종목 한 줌 — 같은 종목이 여러 테마에 걸렸을 수 있어 배열로 찾는다 */
+function monPick(mm, code){
+  for(const t of (mm.themes || [])){
+    const hit = (t.stocks || []).find(s => String(s.code) === String(code));
+    if(hit) return hit;
+  }
+  return null;
+}
+
+function monPass(st, f){
+  if(f === 'all') return true;
+  if(f === 'g45') return !!st.b45;
+  return st.t === f;
+}
+
+/* 월별 종목 → 차트 모달에 넘길 모양(일봉·단계 번호·기준선) */
+function monChartItem(st){
+  const ch = hotMonthly && (hotMonthly.charts || {})[String(st.code)];
+  if(!ch || !(ch.b || []).length) return null;
+  const cs = ch.b.map((x, i) => [ymd6(ch.d[i]), x[0], x[1], x[2], x[3], x[4]]);
+  return {
+    code: String(st.code), name: st.name, period: 'day', plain: 0, candles: cs,
+    price: st.now, price_text: fmtWon(st.now) + '원', chg: st.chg,
+    stage: st.stage, stage_dates: st.sd || {}, base_open: st.open0,
+    reason: (MON_TYPE[st.t] || '') + (st.d0 ? ' · 1번 ' + mmdd(st.d0) : ''),
+  };
+}
+
+function monRowHtml(st, mm){
+  const chartable = !!(hotMonthly && (hotMonthly.charts || {})[String(st.code)]);
+  const t = MON_TYPE[st.t] ? st.t : 'none';
+  const stageN = st.stage ? st.stage : null;
+  const stageCls = stageN ? ' s' + stageN : '';
+  const b = [];
+  if(st.sw >= 2) b.push(`<span class="hm-b sw" title="상자 안에서 위아래 ${st.sw}회 왕복 — 2~3회 횡보 자리">2~3회 횡보</span>`);
+  if(st.b45) b.push(`<span class="hm-b g45" title="지금 4단계 음봉(사는 자리) 또는 5단계 돌파 — 4→5 황금자리">4→5</span>`);
+  if(st.side === '앞쪽') b.push(`<span class="hb-pos f" title="앞쪽 — 20일선 ≥ 60일선 + 장기선 아래">앞</span>`);
+  else if(st.side === '뒤쪽') b.push(`<span class="hb-pos b" title="뒤쪽 — 장기선 위이거나 20일선 < 60일선">뒤</span>`);
+  const nowTxt = (st.now != null)
+    ? `<span class="now">${fmtWon(st.now)}원 ${Number(st.chg) > 0 ? '+' : ''}${Number(st.chg || 0).toFixed(1)}%</span>` : '';
+  const attr = chartable
+    ? ` data-code="${esc(String(st.code))}" data-mon="${esc(mm.m)}" data-name="${esc(st.name)}" role="button" tabindex="0"`
+    : '';
+  return `<div class="hb-row hm-row${chartable ? ' chart' : ''}"${attr}>
+    <div class="hb-name">${esc(st.name)}</div>
+    <span class="hm-t ${t}" title="${esc(MON_TYPE[st.t] || '유형 확인 안 됨')}">${st.t === '-' ? '?' : esc(st.t)}</span>
+    <span class="hm-st${stageCls}" title="${esc(st.st || '')}">${stageN ? stageN + '단계' : '자료없음'}</span>
+    <div class="hm-sub"><span class="d0">1번 ${esc(mmdd(st.d0))}</span>${nowTxt}${b.join('')}</div>
+  </div>`;
+}
+
+async function renderMonthly(){
+  const box = $('#hotBody');
+  if(!box) return;
+  document.querySelectorAll('#hotSeg button').forEach(x => x.classList.toggle('on', x.dataset.sec === 'monthly'));
+  if(!hotMonthly){
+    box.innerHTML = `<div class="hm-load">월별 10단계 자료를 받는 중…<br>잠긴 자료를 이 기기에서 풀고 있습니다.</div>`;
+    const got = await ensureMonthly();
+    if(!got){
+      box.innerHTML = `<div class="empty">월별 10단계 자료를 불러오지 못했습니다.<br>잠시 후 다시 열어 주세요.</div>`;
+      return;
+    }
+  }
+  if($('#hotScore')) $('#hotScore').innerHTML = scoreHtml((hotbarData || {}).score);
+  const ms = hotMonthly.months || [];
+  if(!ms.length){
+    box.innerHTML = `<div class="empty">월별 자료가 비어 있습니다.</div>`;
+    return;
+  }
+  if(!monSel || !ms.some(m => m.m === monSel)) monSel = ms[0].m;
+  const mm = ms.find(m => m.m === monSel) || ms[0];
+  const all = [];
+  (mm.themes || []).forEach(t => (t.stocks || []).forEach(s => all.push(s)));
+  const cnt = f => all.filter(s => monPass(s, f)).length;
+  const chips = ms.map(m => `<button class="hm-mon${m.m === monSel ? ' on' : ''}" type="button" data-m="${esc(m.m)}">`
+    + `${esc(m.label)}<span class="n">${m.stock_count}</span></button>`).join('');
+  const FLT = [['all', '전체'], ['A', '유형 A'], ['B', '유형 B'], ['C', '유형 C'], ['g45', '4→5 황금자리']];
+  const flt = FLT.map(([k, lab]) => `<button type="button" data-f="${k}" class="${monFilter === k ? 'on' : ''}${k === 'g45' ? ' g45' : ''}">`
+    + `${lab} ${cnt(k)}</button>`).join('');
+  const showN = cnt(monFilter);
+  const groups = [];
+  (mm.themes || []).forEach(t => {
+    const list = (t.stocks || []).filter(s => monPass(s, monFilter));
+    if(!list.length) return;
+    groups.push(`<div class="hm-grp" role="group" aria-label="${esc(t.short)} ${list.length}종목">
+      <div class="hm-gh"><b class="hm-tn" title="${esc(t.name)}">${esc(t.short)}</b><span class="hm-tc">${list.length}</span></div>
+      ${t.summary ? `<p class="hm-ts">${esc(t.summary)}</p>` : ''}
+      ${list.map(s => monRowHtml(s, mm)).join('')}
+    </div>`);
+  });
+  const sum = `<div class="hm-sum"><span>테마 <b>${mm.theme_count}</b></span><span>종목 <b>${mm.stock_count}</b></span>`
+    + `<span>A <b>${mm.types.A}</b> · B <b>${mm.types.B}</b> · C <b>${mm.types.C}</b></span>`
+    + `<span>2~3회 횡보 <b>${mm.swing}</b> · 4→5 <b>${mm.g45}</b></span></div>`;
+  if($('#hotSub')) $('#hotSub').textContent = `월별 10단계 · ${(hotMonthly.base_date_text || '')} · ${hotMonthly.counts ? hotMonthly.counts.events : 0}건`;
+  box.innerHTML = `<div class="hm-mons" id="hmMons">${chips}</div>
+    <div class="hm-flt" id="hmFlt">${flt}</div>
+    ${sum}
+    ${groups.join('') || `<div class="empty">이 달에는 고른 조건의 종목이 없습니다.</div>`}
+    <p class="hm-note">유형 <b>A</b> 앞 125봉 무상한가 첫 상한가 · <b>B</b> 앞 125봉 안 기존 상한가 뒤 2·3차 · <b>C</b> 큰 조정(8단계 뒤) 하락 멈춤 후 재출발<br>
+    1~10단계 = 1 길목 · 2 핫바 · 3 횡보 · 4 음봉 · 5 돌파 · 6 분출 · 7 숨쉬는 · 8 마지막 분출 · 9 하락·멈춤 · 10 스윙·폐기 — 종목을 누르면 차트</p>`;
+  const sel = $('#hmMons .on');
+  if(sel && sel.scrollIntoView) { try{ sel.scrollIntoView({block:'nearest', inline:'center'}); }catch(e){} }
 }
 
 /* ---------------- 핫바 카드 → 차트 모달 (일봉 · 주봉 · 월봉) ----------------
@@ -1387,8 +1586,9 @@ function chartSvgHtml(s){
   const cs = s.candles || [], n = cs.length;
   if(!n) return '';
   const p = periodOf(s);
-  const lineDay = (p === 'day' && s.line) ? Number(s.line) : 0;   /* 일봉 = 2번 자리(살 줄) */
-  const base = lineDay || Number(s.base_open) || 0;
+  const plain = !!s.plain;      /* 다른 메뉴에서 연 공개 주봉 — 기준선·단계 마커 없음 */
+  const lineDay = (!plain && p === 'day' && s.line) ? Number(s.line) : 0;   /* 일봉 = 2번 자리(살 줄) */
+  const base = plain ? 0 : (lineDay || Number(s.base_open) || 0);
   const refVol = Number(s.ref_vol) || 0;
   let hi = -Infinity, lo = Infinity;
   for(const c of cs){ hi = Math.max(hi, c[2]); lo = Math.min(lo, c[3]); }
@@ -1445,13 +1645,13 @@ function chartSvgHtml(s){
     return `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="6.8" fill="rgba(11,17,32,.96)" stroke="${col}" stroke-width="1.3"/>`
       + `<text x="${x.toFixed(1)}" y="${(y + 2.8).toFixed(1)}" font-size="8" font-weight="900" fill="${col}" text-anchor="middle">${label}</text>`;
   };
-  const sd = s.stage_dates || {};
+  const sd = plain ? {} : (s.stage_dates || {});
   const COL = {'1':'#9dbcff','2':'#ffc477','3':'#63e3ae','4':'#c4b5fd'};
   Object.keys(sd).sort((a, b) => (+a) - (+b)).forEach(k => {
     const col = COL[k] || '#9fd6ff';
     g += mark(idxOf(sd[k]), k, col);
   });
-  if(!Object.keys(sd).length){
+  if(!plain && !Object.keys(sd).length){
     g += mark(idxOf(s.lu_date), '1', '#9dbcff');
     g += mark(idxOf(s.rb_date), '3', '#63e3ae');
   }
@@ -1516,6 +1716,13 @@ function hotbarStock(code, secKey){
 /* 차트 아래 범례 — 번호 자리를 날짜로 풀어 준다(일봉 1→10 / 주봉·월봉 1·2·3) */
 function chartLegendHtml(s){
   const p = periodOf(s), pd = PERIOD[p];
+  if(s.plain){
+    /* 공개 주봉 — 시세만. 기준선·단계 번호 같은 개인 자는 하나도 그리지 않는다 */
+    return [`<span>${pd.t} ${(s.candles || []).length}봉 · 종가와 거래량만</span>`,
+            `<span>기준선 없음</span>`,
+            `<span style="color:#ff8a9a">■ 양봉</span><span style="color:#7fa8ff">■ 음봉</span>`,
+            chartDayNote(s)].join('');
+  }
   const parts = [];
   const sd = s.stage_dates || {};
   const LAB = {1: p === 'day' ? '상한가' : '시작 거래량',
@@ -1614,6 +1821,93 @@ function chartPoint(e){
     g.setAttribute('x1', cx); g.setAttribute('x2', cx);
     g.setAttribute('visibility', 'visible');
   }
+}
+
+/* ---------------- 다른 메뉴의 종목 → 기준선 없는 주봉 차트 ----------------
+   뉴스·상한가·테마달력·레이더는 누구나 보는 공개 화면이다. 여기서 여는 차트에는
+   기준선·1~10단계·앞쪽/뒷쪽·유형 같은 개인 자를 하나도 넣지 않고, 공개 시세만 담은
+   data/week.json(종목별 주봉 52주)으로 시세와 거래량만 그린다.
+   비밀 핫바가 잠겨 있어도, 열려 있어도 이 차트는 같은 공개 자료만 본다. */
+let weekDoc = null, weekLoading = null;
+const WEEK_CODE_KEY = 'newsradar_week';
+
+async function ensureWeek(){
+  if(weekDoc) return weekDoc;
+  if(weekLoading) return weekLoading;
+  weekLoading = (async () => {
+    try{
+      const res = await fetch('data/week.json?_=' + Date.now(), {cache:'no-store'});
+      if(res.ok){
+        weekDoc = await res.json();
+        try{ localStorage.setItem(WEEK_CODE_KEY, JSON.stringify(weekDoc)); }catch(e){}
+      }
+    }catch(e){ weekDoc = null; }
+    if(!weekDoc){
+      try{ weekDoc = JSON.parse(localStorage.getItem(WEEK_CODE_KEY) || 'null'); }catch(e){}
+    }
+    weekLoading = null;
+    return weekDoc;
+  })();
+  return weekLoading;
+}
+
+function weekItem(code, name){
+  const s = weekDoc && weekDoc.stocks && weekDoc.stocks[String(code)];
+  if(!s || !(s.b || []).length) return null;
+  const cs = s.b.map((x, i) => [ymd6(s.d[i]), x[0], x[1], x[2], x[3], x[4]]);
+  const last = cs[cs.length - 1], prev = cs[cs.length - 2] || last;
+  return {
+    code: String(code), name: name || s.n || '', period: 'week', plain: 1, candles: cs,
+    price: last[4], price_text: fmtWon(last[4]) + '원',
+    chg: prev[4] ? (last[4] / prev[4] - 1) * 100 : 0,
+  };
+}
+
+async function openWeekChart(code, name){
+  if(!weekDoc) toast('주봉 차트 불러오는 중…');
+  const d = await ensureWeek();
+  const it = weekItem(code, name);
+  if(!it){ toast('이 종목 주봉 시세가 아직 없습니다'); return; }
+  openChart(it);
+}
+
+/* 이름만 있는 자리(뉴스의 관련 종목)에서 코드를 찾는다 — 공개 화면에 이미 있는 목록만 본다 */
+function codeOfName(nm){
+  nm = String(nm || '').trim();
+  if(!nm) return '';
+  if(weekDoc && weekDoc.names && weekDoc.names[nm]) return weekDoc.names[nm];
+  const cal = state.calendar;
+  for(const m of ((cal && cal.months) || [])){
+    for(const t of (m.themes || [])){
+      const hit = (t.stocks || []).find(s => String(s.name || '').trim() === nm);
+      if(hit && hit.code) return String(hit.code);
+    }
+  }
+  for(const it of ((upperData() && upperData().items) || [])){
+    if(String(it.name || '').trim() === nm && it.code) return String(it.code);
+  }
+  for(const t of (((state.radar || {}).tiers) || [])){
+    const hit = (t.stocks || []).find(s => String(s.name || '').trim() === nm);
+    if(hit && hit.code) return String(hit.code);
+  }
+  return '';
+}
+
+/* 다른 메뉴의 종목 이름·칩을 누르면 그 자리에서 주봉 차트가 열린다 */
+function bindStockChart(sel){
+  const el = $(sel);
+  if(!el) return;
+  el.addEventListener('click', e => {
+    const t = e.target.closest('[data-code],[data-name]');
+    if(!t) return;
+    if(t.dataset && t.dataset.code === '') { /* 코드를 모르는 자리 */ }
+    const code = t.dataset.code || codeOfName(t.dataset.name);
+    const name = t.dataset.name || (t.textContent || '').trim();
+    if(!code) { toast('이 종목 주봉 시세가 아직 없습니다'); e.preventDefault(); e.stopPropagation(); return; }
+    e.preventDefault();
+    e.stopPropagation();
+    openWeekChart(code, name);
+  });
 }
 
 /* ---------------- 데이터 ---------------- */
@@ -1761,6 +2055,11 @@ $('#hotScore').addEventListener('click', e => {
   b.textContent = open ? '접기 ▴' : '최근 채점 · 공식 예상 펼치기 ▾';
 });
 $('#hotBody').addEventListener('click', e => {
+  /* 월별 10단계 — 월 칩 · 유형 필터 */
+  const mb = e.target.closest('#hmMons .hm-mon');
+  if(mb){ monSel = mb.dataset.m; renderMonthly(); return; }
+  const fb = e.target.closest('#hmFlt button');
+  if(fb){ monFilter = fb.dataset.f; renderMonthly(); return; }
   const b = e.target.closest('.hb-more');
   if(b){
     const raw = b.dataset.stage;
@@ -1771,9 +2070,17 @@ $('#hotBody').addEventListener('click', e => {
     if(again) again.scrollIntoView({block:'nearest'});
     return;
   }
-  /* 핫바 카드 → 그 자리(일봉·주봉·월봉) 차트 */
+  /* 핫바 카드 → 그 자리(일봉·주봉·월봉·월별) 차트 */
   const row = e.target.closest('.hb-row.chart');
   if(row){
+    if(row.dataset.mon){                       /* 월별 10단계 — 그 달 그 종목의 일봉 */
+      const mm = (hotMonthly && (hotMonthly.months || []).find(m => m.m === row.dataset.mon)) || null;
+      const st = mm && monPick(mm, row.dataset.code);
+      const it = st && monChartItem(st);
+      if(it) openChart(it);
+      else toast('이 종목 차트 자료가 아직 없습니다');
+      return;
+    }
     const st = hotbarStock(row.dataset.code, hotbarSec);
     if(st) openChart(st);
   }
@@ -1783,9 +2090,18 @@ $('#hotBody').addEventListener('keydown', e => {
   const row = e.target.closest('.hb-row.chart');
   if(!row) return;
   e.preventDefault();
+  if(row.dataset.mon){
+    const mm = (hotMonthly && (hotMonthly.months || []).find(m => m.m === row.dataset.mon)) || null;
+    const st = mm && monPick(mm, row.dataset.code);
+    const it = st && monChartItem(st);
+    if(it) openChart(it);
+    return;
+  }
   const st = hotbarStock(row.dataset.code, hotbarSec);
   if(st) openChart(st);
 });
+/* 다른 메뉴(뉴스·상한가·테마달력·레이더)의 종목 이름 → 기준선 없는 주봉 차트 */
+['#upperList', '#calThemes', '#radarList', '#flashList', '#issueList'].forEach(bindStockChart);
 /* 차트 모달 닫기 — ✕ · 바깥 누름 · Esc. 터치·마우스 위치의 봉 숫자 */
 (function(){
   const ov = $('#chartOv');
@@ -1876,6 +2192,8 @@ function hotPaint(){
   if(tab) tab.hidden = !on;
   const bar = document.querySelector('.tabs');
   if(bar) bar.classList.toggle('five', on);
+  /* 잠그면 월별 10단계도 기억에서 지운다(다시 열 때 그 기기에서 새로 푼다) */
+  if(!on){ hotMonthly = null; hotMonthlyLoading = null; monSel = null; }
   if(!on && state.tab === 'hotbar') switchTab('news');
 }
 /* 비밀코드를 묻고, 맞으면 풀어서 연다(틀리면 아무것도 열리지 않는다) */
