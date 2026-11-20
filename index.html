@@ -1615,7 +1615,7 @@ async function renderPick(){
   const watch = all.filter(s => s.state === '관망');
   const cntOf = f => (f === 'watch' ? watch : core).filter(s => pickPass(s, f)).length;
   const FLT = [['all', '전체'], ['A', '유형 A'], ['B', '유형 B'], ['C', '유형 C'], ['g45', '4→5 황금자리']];
-  if(watch.length) FLT.push(['watch', '관망 ' + watch.length]);
+  if(watch.length) FLT.push(['watch', '관망']);
   const flt = FLT.map(([k, lab]) => `<button type="button" data-f="${k}" class="`
     + `${pickFilter === k ? 'on' : ''}${k === 'g45' ? ' g45' : ''}">${lab} ${cntOf(k)}</button>`).join('');
   if($('#hotSub')) $('#hotSub').textContent = `10단계 · ${hotPick.base_date_text || ''}`;
@@ -1972,8 +1972,7 @@ function openChart(s){
     + (s.reason ? `<div class="chart-rs">${esc(s.reason)}</div>` : '')
     + (s.sector && s.sector.state
         ? `<div class="chart-sec ${SEC_CLS[s.sector.state] || 'weak'}">업종 ${esc(s.sector.name || '')} · 업종 ${esc(s.sector.state)} — ${esc(s.sector.why || '')}`
-          + `${s.sector.chg != null ? ` · 오늘 ${Number(s.sector.chg) > 0 ? '+' : ''}${Number(s.sector.chg).toFixed(1)}%` : ''}`
-          + `${s.sector.ma5 != null ? ` · 5일선 ${fmtWon(s.sector.ma5)} / 20일선 ${fmtWon(s.sector.ma20)}` : ''}</div>`
+          + `${s.sector.ma5 != null ? ` · 업종지수 5일선 ${Number(s.sector.ma5).toFixed(1)} / 20일선 ${Number(s.sector.ma20).toFixed(1)}` : ''}</div>`
         : '');
   $('#chartRead').innerHTML = chartReadText(s);
   const cp = chartPosHtml(s);
