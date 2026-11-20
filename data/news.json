@@ -1,12 +1,12 @@
 {
- "generated_at": "2026-11-20T14:30:23.903802+09:00",
- "generated_at_kst": "2026.11.20 14:30",
+ "generated_at": "2026-11-20T15:00:57.700981+09:00",
+ "generated_at_kst": "2026.11.20 15:00",
  "flash_count": 6,
  "flash_fresh_min": 60,
  "flash_fresh_count": 6,
- "flash_updated": "2026-11-20T14:30:23.903802+09:00",
- "count": 19,
- "article_count": 78,
+ "flash_updated": "2026-11-20T15:00:57.700981+09:00",
+ "count": 22,
+ "article_count": 74,
  "main_source": {
   "presses": 84,
   "collected": 417,
@@ -28,6 +28,12 @@
    "count": 3
   },
   {
+   "id": "geopolitics",
+   "label": "남북·지정학",
+   "color": "#ff8b8b",
+   "count": 3
+  },
+  {
    "id": "macro",
    "label": "거시·환율·금리",
    "color": "#7fd3e8",
@@ -46,21 +52,15 @@
    "count": 3
   },
   {
-   "id": "bio",
-   "label": "바이오·헬스케어",
-   "color": "#e564b8",
-   "count": 1
-  },
-  {
    "id": "policy",
    "label": "정책·건설",
    "color": "#c9a2ff",
-   "count": 1
+   "count": 2
   },
   {
-   "id": "geopolitics",
-   "label": "남북·지정학",
-   "color": "#ff8b8b",
+   "id": "bio",
+   "label": "바이오·헬스케어",
+   "color": "#e564b8",
    "count": 1
   },
   {
@@ -76,17 +76,17 @@
    "label": "AI·보안",
    "color": "#6fd0ff",
    "count": 3,
-   "recent_6h": 12,
+   "recent_6h": 11,
    "recent_6h_ratio": 22,
-   "day_count": 54,
-   "hot": 34,
-   "presses": 35,
-   "span_hours": 1.1,
+   "day_count": 51,
+   "hot": 33,
+   "presses": 34,
+   "span_hours": 0.6,
    "keywords": [
     "수능",
     "시험",
-    "부정행위",
-    "커닝"
+    "커닝",
+    "부정행위"
    ],
    "headlines": [
     {
@@ -110,7 +110,7 @@
    "hint": {
     "type": "medium",
     "label": "중기 흐름",
-    "reason": "보도 폭 24.0시간 · 19개 시간대 · 매체 35곳 · 24시간 54건 · 최근 6시간 12건(22%)"
+    "reason": "보도 폭 23.0시간 · 18개 시간대 · 매체 34곳 · 24시간 51건 · 최근 6시간 11건(22%)"
    },
    "rank": 1
   },
@@ -119,37 +119,37 @@
    "label": "거시·환율·금리",
    "color": "#7fd3e8",
    "count": 3,
-   "recent_6h": 15,
-   "recent_6h_ratio": 35,
-   "day_count": 43,
+   "recent_6h": 10,
+   "recent_6h_ratio": 24,
+   "day_count": 42,
    "hot": 19,
    "presses": 21,
-   "span_hours": 1.3,
+   "span_hours": 1.4,
    "keywords": [
-    "코스피",
     "증시",
     "지수",
+    "나스닥",
     "코스닥"
    ],
    "headlines": [
     {
-     "title": "[속보] 앤트로픽 상장빨도 안 듣는다…코스피, 4900선도 무너졌다",
-     "url": "https://n.news.naver.com/article/002/0002466835",
-     "press": "프레시안",
-     "time": "2026-11-20T13:44:07+09:00"
+     "title": "아시아 '검은 금요일' 일본, 대만 증시도 급락",
+     "url": "https://n.news.naver.com/article/374/0000544941",
+     "press": "SBS Biz",
+     "time": "2026-11-20T12:24:10+09:00"
     },
     {
-     "title": "코스피 이어 코스닥서도 매도 사이드카",
-     "url": "https://n.news.naver.com/mnews/article/374/0000544948",
-     "press": "SBS Biz",
-     "time": "2026-11-20T13:34:06+09:00"
+     "title": "'143조' 전미가 울었다…앤트로픽, 첫날부터 \"나스닥 상장, 성공적\"",
+     "url": "https://n.news.naver.com/article/243/0000105954",
+     "press": "이코노미스트",
+     "time": "2026-11-20T11:00:09+09:00"
     }
    ],
    "leaders": [],
    "hint": {
     "type": "medium",
     "label": "중기 흐름",
-    "reason": "보도 폭 25.0시간 · 20개 시간대 · 매체 21곳 · 24시간 43건 · 최근 6시간 15건(35%) · 업황·정책 표현 7건"
+    "reason": "보도 폭 24.0시간 · 19개 시간대 · 매체 21곳 · 24시간 42건 · 최근 6시간 10건(24%) · 업황·정책 표현 7건"
    },
    "rank": 2
   },
@@ -158,12 +158,12 @@
    "label": "반도체·AI",
    "color": "#5b8cff",
    "count": 3,
-   "recent_6h": 13,
-   "recent_6h_ratio": 29,
-   "day_count": 45,
-   "hot": 17,
-   "presses": 31,
-   "span_hours": 2.7,
+   "recent_6h": 10,
+   "recent_6h_ratio": 25,
+   "day_count": 40,
+   "hot": 16,
+   "presses": 29,
+   "span_hours": 2.3,
    "keywords": [
     "삼성전자",
     "반도체",
@@ -175,7 +175,7 @@
      "title": "'안정 속 변화' 택한 이재용, 삼성전자 반도체 기술통 전면 배치",
      "url": "https://n.news.naver.com/article/047/0002536617",
      "press": "오마이뉴스",
-     "time": "2026-11-20T13:30:23.903802+09:00"
+     "time": "2026-11-20T13:02:15+09:00"
     },
     {
      "title": "SK하이닉스 6% 밀리자…상위 1% 고수들 이틀째 순매수[주식 초고수는 지금]",
@@ -192,7 +192,7 @@
    "hint": {
     "type": "medium",
     "label": "중기 흐름",
-    "reason": "보도 폭 25.0시간 · 22개 시간대 · 매체 31곳 · 24시간 45건 · 최근 6시간 13건(29%) · 업황·정책 표현 11건"
+    "reason": "보도 폭 23.0시간 · 21개 시간대 · 매체 29곳 · 24시간 40건 · 최근 6시간 10건(25%) · 업황·정책 표현 10건"
    },
    "rank": 3
   },
@@ -201,37 +201,37 @@
    "label": "실적·공시·수급",
    "color": "#f5d06b",
    "count": 3,
-   "recent_6h": 11,
-   "recent_6h_ratio": 31,
+   "recent_6h": 10,
+   "recent_6h_ratio": 28,
    "day_count": 36,
    "hot": 14,
    "presses": 28,
-   "span_hours": 0.5,
+   "span_hours": 3.4,
    "keywords": [
     "매출",
-    "상장",
-    "인수",
-    "지분"
+    "상장"
    ],
    "headlines": [
+    {
+     "title": "[속보] ‘SM 주가조작’ 혐의 카카오 김범수 2심도 무죄",
+     "url": "https://n.news.naver.com/article/024/0000109764",
+     "press": "매경이코노미",
+     "time": "2026-11-20T12:00:57.700981+09:00"
+    },
     {
      "title": "다이소, 하루사이 매출 5배?…AI가 바꾼 수능 특수",
      "url": "https://n.news.naver.com/article/374/0000544929",
      "press": "SBS Biz",
-     "time": "2026-11-20T11:53:10+09:00"
-    },
-    {
-     "title": "2700억원이 3년 만에 4조…최태원 SK, 앤트로픽 상장에 '16배'",
-     "url": "https://n.news.naver.com/article/437/0000521651",
-     "press": "JTBC",
-     "time": "2026-11-20T11:47:49+09:00"
+     "time": "2026-11-20T12:00:57.700981+09:00"
     }
    ],
-   "leaders": [],
+   "leaders": [
+    "카카오"
+   ],
    "hint": {
     "type": "medium",
     "label": "중기 흐름",
-    "reason": "보도 폭 22.0시간 · 16개 시간대 · 매체 28곳 · 24시간 36건 · 최근 6시간 11건(31%) · 업황·정책 표현 9건"
+    "reason": "보도 폭 22.0시간 · 16개 시간대 · 매체 28곳 · 24시간 36건 · 최근 6시간 10건(28%) · 업황·정책 표현 9건"
    },
    "rank": 4
   },
@@ -240,30 +240,29 @@
    "label": "2차전지·에너지",
    "color": "#8bd450",
    "count": 3,
-   "recent_6h": 4,
-   "recent_6h_ratio": 31,
-   "day_count": 13,
-   "hot": 4,
-   "presses": 11,
-   "span_hours": 7.2,
+   "recent_6h": 5,
+   "recent_6h_ratio": 33,
+   "day_count": 15,
+   "hot": 5,
+   "presses": 12,
+   "span_hours": 7.8,
    "keywords": [
-    "ESS",
     "전기차",
-    "에너지",
-    "태양광"
+    "원전",
+    "원자력"
    ],
    "headlines": [
     {
-     "title": "'최주선 체제' 유지하는 삼성SDI…북미 ESS 확대·전고체 양산 잰걸음",
-     "url": "https://n.news.naver.com/mnews/article/003/0014335853",
-     "press": "뉴시스",
-     "time": "2026-11-20T14:13:56+09:00"
+     "title": "베일 벗은 G80 하이브리드… LA서 전세계 최초공개",
+     "url": "https://n.news.naver.com/mnews/article/469/0000966787",
+     "press": "한국일보",
+     "time": "2026-11-20T14:53:09+09:00"
     },
     {
-     "title": "“6년 만에 발행어음 재개”…김종민 메리츠증권 대표 연임 ‘청신호’",
-     "url": "https://n.news.naver.com/mnews/article/138/0002249363",
-     "press": "디지털데일리",
-     "time": "2026-11-20T13:58:11+09:00"
+     "title": "2000만 원대 ‘트윙고’로 중국 전기차 공습에 맞서는 르노",
+     "url": "https://n.news.naver.com/article/037/0000039184",
+     "press": "주간동아",
+     "time": "2026-11-20T07:02:21+09:00"
     }
    ],
    "leaders": [
@@ -274,20 +273,102 @@
    "hint": {
     "type": "medium",
     "label": "중기 흐름",
-    "reason": "보도 폭 25.0시간 · 9개 시간대 · 매체 11곳 · 24시간 13건 · 최근 6시간 4건(31%) · 업황·정책 표현 6건"
+    "reason": "보도 폭 26.0시간 · 10개 시간대 · 매체 12곳 · 24시간 15건 · 최근 6시간 5건(33%) · 업황·정책 표현 7건"
    },
    "rank": 5
+  },
+  {
+   "id": "geopolitics",
+   "label": "남북·지정학",
+   "color": "#ff8b8b",
+   "count": 3,
+   "recent_6h": 4,
+   "recent_6h_ratio": 44,
+   "day_count": 9,
+   "hot": 2,
+   "presses": 8,
+   "span_hours": 3.1,
+   "keywords": [
+    "중국",
+    "무역"
+   ],
+   "headlines": [
+    {
+     "title": "머스크 \"나는 中 열렬한 팬…상하이 공장 차량 증산\"",
+     "url": "https://n.news.naver.com/mnews/article/277/0005845696",
+     "press": "아시아경제",
+     "time": "2026-11-20T14:53:02+09:00"
+    },
+    {
+     "title": "선전에서 상하이까지, 중국 찾은 머스크 “테슬라 생산 확대”",
+     "url": "https://n.news.naver.com/mnews/article/018/0006413156",
+     "press": "이데일리",
+     "time": "2026-11-20T14:48:14+09:00"
+    }
+   ],
+   "leaders": [
+    "인디에프",
+    "좋은사람들",
+    "코데즈컴바인"
+   ],
+   "hint": {
+    "type": "medium",
+    "label": "중기 흐름",
+    "reason": "보도 폭 24.0시간 · 7개 시간대 · 매체 8곳 · 24시간 9건 · 최근 6시간 4건(44%) · 업황·정책 표현 3건"
+   },
+   "rank": 6
+  },
+  {
+   "id": "policy",
+   "label": "정책·건설",
+   "color": "#c9a2ff",
+   "count": 2,
+   "recent_6h": 4,
+   "recent_6h_ratio": 36,
+   "day_count": 11,
+   "hot": 2,
+   "presses": 11,
+   "span_hours": 7.5,
+   "keywords": [
+    "공공",
+    "부동산",
+    "대통령"
+   ],
+   "headlines": [
+    {
+     "title": "중기부, 중소기업 공공구매 촉진 유공 기관·개인 39점 포상",
+     "url": "https://n.news.naver.com/mnews/article/001/0016454560",
+     "press": "연합뉴스",
+     "time": "2026-11-20T14:30:15+09:00"
+    },
+    {
+     "title": "“팔짱 낀 채 보고 있어요”… 팔 이유 많은데 살 사람 없는 강남 부동산",
+     "url": "https://n.news.naver.com/article/037/0000039183",
+     "press": "주간동아",
+     "time": "2026-11-20T07:02:18+09:00"
+    }
+   ],
+   "leaders": [
+    "현대건설",
+    "대우건설"
+   ],
+   "hint": {
+    "type": "medium",
+    "label": "중기 흐름",
+    "reason": "보도 폭 23.0시간 · 8개 시간대 · 매체 11곳 · 24시간 11건 · 최근 6시간 4건(36%) · 업황·정책 표현 8건"
+   },
+   "rank": 7
   },
   {
    "id": "bio",
    "label": "바이오·헬스케어",
    "color": "#e564b8",
    "count": 1,
-   "recent_6h": 3,
-   "recent_6h_ratio": 25,
-   "day_count": 12,
-   "hot": 8,
-   "presses": 12,
+   "recent_6h": 2,
+   "recent_6h_ratio": 18,
+   "day_count": 11,
+   "hot": 7,
+   "presses": 11,
    "span_hours": 0.0,
    "keywords": [
     "임상",
@@ -310,74 +391,7 @@
    "hint": {
     "type": "medium",
     "label": "중기 흐름",
-    "reason": "보도 폭 22.0시간 · 8개 시간대 · 매체 12곳 · 24시간 12건 · 최근 6시간 3건(25%) · 업황·정책 표현 4건"
-   },
-   "rank": 6
-  },
-  {
-   "id": "policy",
-   "label": "정책·건설",
-   "color": "#c9a2ff",
-   "count": 1,
-   "recent_6h": 3,
-   "recent_6h_ratio": 27,
-   "day_count": 11,
-   "hot": 3,
-   "presses": 11,
-   "span_hours": 0.0,
-   "keywords": [
-    "부동산"
-   ],
-   "headlines": [
-    {
-     "title": "“팔짱 낀 채 보고 있어요”… 팔 이유 많은데 살 사람 없는 강남 부동산",
-     "url": "https://n.news.naver.com/article/037/0000039183",
-     "press": "주간동아",
-     "time": "2026-11-20T07:02:18+09:00"
-    }
-   ],
-   "leaders": [
-    "현대건설",
-    "대우건설"
-   ],
-   "hint": {
-    "type": "medium",
-    "label": "중기 흐름",
-    "reason": "보도 폭 25.0시간 · 8개 시간대 · 매체 11곳 · 24시간 11건 · 최근 6시간 3건(27%) · 업황·정책 표현 9건"
-   },
-   "rank": 7
-  },
-  {
-   "id": "geopolitics",
-   "label": "남북·지정학",
-   "color": "#ff8b8b",
-   "count": 1,
-   "recent_6h": 2,
-   "recent_6h_ratio": 29,
-   "day_count": 7,
-   "hot": 2,
-   "presses": 6,
-   "span_hours": 0.0,
-   "keywords": [
-    "무역"
-   ],
-   "headlines": [
-    {
-     "title": "원숭이 무역전쟁?…\"中, 연구용 3만마리 이상 수입\"",
-     "url": "https://n.news.naver.com/article/584/0000040241",
-     "press": "동아사이언스",
-     "time": "2026-11-20T11:46:13+09:00"
-    }
-   ],
-   "leaders": [
-    "인디에프",
-    "좋은사람들",
-    "코데즈컴바인"
-   ],
-   "hint": {
-    "type": "medium",
-    "label": "중기 흐름",
-    "reason": "보도 폭 23.0시간 · 6개 시간대 · 매체 6곳 · 24시간 7건 · 최근 6시간 2건(29%) · 업황·정책 표현 3건"
+    "reason": "보도 폭 20.0시간 · 7개 시간대 · 매체 11곳 · 24시간 11건 · 최근 6시간 2건(18%) · 업황·정책 표현 4건"
    },
    "rank": 8
   },
@@ -431,11 +445,11 @@
     "market": "코스피",
     "price": 99700,
     "change_rate": 29.99,
-    "trading_value": 42875000000,
-    "volume": 474234,
+    "trading_value": 43452000000,
+    "volume": 480022,
     "session": "REGULAR_MARKET",
     "price_text": "99,700",
-    "trading_value_text": "429억",
+    "trading_value_text": "435억",
     "theme": "",
     "theme_keywords": [],
     "issue_summary": "오전 이슈 [항공] : 한진칼우, 아시아나IDT, 한진칼, 제주항공, AK홀딩스",
@@ -451,11 +465,11 @@
     "market": "코스닥",
     "price": 7810,
     "change_rate": 29.95,
-    "trading_value": 4935530000,
-    "volume": 646789,
+    "trading_value": 5705299000,
+    "volume": 745351,
     "session": "REGULAR_MARKET",
     "price_text": "7,810",
-    "trading_value_text": "49억",
+    "trading_value_text": "57억",
     "theme": "화장품·뷰티",
     "theme_keywords": [
      "화장품"
@@ -473,8 +487,8 @@
     "market": "코스닥",
     "price": 1586,
     "change_rate": 30.0,
-    "trading_value": 189376000,
-    "volume": 121787,
+    "trading_value": 191044000,
+    "volume": 122839,
     "session": "REGULAR_MARKET",
     "price_text": "1,586",
     "trading_value_text": "2억",
@@ -492,27 +506,27 @@
   ]
  },
  "market_mood": {
-  "generated_at": "2026-11-20T14:30:23.903802+09:00",
+  "generated_at": "2026-11-20T15:00:57.700981+09:00",
   "kr": {
    "key": "bad",
    "label": "악재",
-   "why": "코스피 -5.71% · 코스닥 -5.58% (평균 -5.64%)",
+   "why": "코스피 -5.45% · 코스닥 -5.83% (평균 -5.64%)",
    "avg": -5.64,
    "live": true,
-   "as_of_kst": "11-20 14:31",
+   "as_of_kst": "11-20 15:02",
    "kospi": {
     "name": "코스피",
-    "value": 4844.37,
-    "chg": -5.71,
+    "value": 4857.73,
+    "chg": -5.45,
     "status": "OPEN",
-    "as_of": "2026-11-20T14:31:00+09:00"
+    "as_of": "2026-11-20T15:02:00+09:00"
    },
    "kosdaq": {
     "name": "코스닥",
-    "value": 646.62,
-    "chg": -5.58,
+    "value": 644.91,
+    "chg": -5.83,
     "status": "OPEN",
-    "as_of": "2026-11-20T14:31:00+09:00"
+    "as_of": "2026-11-20T15:02:00+09:00"
    }
   },
   "us": {
@@ -548,51 +562,11 @@
  "history": {
   "semiconductor": [
    [
-    "008/0005443476",
-    "2026-11-19T12",
-    "머니투데이",
-    0,
-    0,
-    0
-   ],
-   [
-    "374/0000544678",
-    "2026-11-19T12",
-    "SBS Biz",
-    0,
-    0,
-    0
-   ],
-   [
-    "024/0000109738",
-    "2026-11-19T12",
-    "매경이코노미",
-    1,
-    0,
-    0
-   ],
-   [
-    "011/0004683902",
-    "2026-11-19T12",
-    "서울경제",
-    0,
-    0,
-    0
-   ],
-   [
     "123/0002394405",
     "2026-11-19T14",
     "조세일보",
     0,
     0,
-    0
-   ],
-   [
-    "006/0000138832",
-    "2026-11-19T12",
-    "미디어오늘",
-    0,
-    1,
     0
    ],
    [
@@ -1216,14 +1190,6 @@
     0
    ],
    [
-    "374/0000544672",
-    "2026-11-19T12",
-    "SBS Biz",
-    1,
-    0,
-    0
-   ],
-   [
     "138/0002249296",
     "2026-11-19T22",
     "디지털데일리",
@@ -1400,6 +1366,22 @@
     0,
     0,
     0
+   ],
+   [
+    "469/0000966787",
+    "2026-11-20T14",
+    "한국일보",
+    0,
+    0,
+    0
+   ],
+   [
+    "003/0014336032",
+    "2026-11-20T15",
+    "뉴시스",
+    1,
+    1,
+    0
    ]
   ],
   "macro": [
@@ -1408,14 +1390,6 @@
     "2026-11-19T13",
     "뉴스1",
     1,
-    0,
-    0
-   ],
-   [
-    "374/0000544679",
-    "2026-11-19T12",
-    "SBS Biz",
-    0,
     0,
     0
    ],
@@ -1750,14 +1724,6 @@
   ],
   "policy": [
    [
-    "087/0001231969",
-    "2026-11-19T12",
-    "강원일보",
-    1,
-    1,
-    0
-   ],
-   [
     "081/0003701180",
     "2026-11-19T16",
     "서울신문",
@@ -1836,33 +1802,17 @@
     0,
     1,
     0
+   ],
+   [
+    "001/0016454560",
+    "2026-11-20T14",
+    "연합뉴스",
+    0,
+    0,
+    0
    ]
   ],
   "aisec": [
-   [
-    "657/0000057619",
-    "2026-11-19T12",
-    "대구MBC",
-    0,
-    0,
-    0
-   ],
-   [
-    "666/0000132832",
-    "2026-11-19T12",
-    "경기일보",
-    0,
-    0,
-    0
-   ],
-   [
-    "661/0000086783",
-    "2026-11-19T12",
-    "JIBS",
-    1,
-    0,
-    0
-   ],
    [
     "008/0005443531",
     "2026-11-19T13",
@@ -2468,25 +2418,25 @@
     0,
     0,
     0
-   ]
-  ],
-  "defense": [
+   ],
    [
-    "014/0005606779",
-    "2026-11-19T12",
-    "파이낸셜뉴스",
-    1,
-    1,
+    "277/0005845696",
+    "2026-11-20T14",
+    "아시아경제",
+    0,
+    0,
     0
    ],
    [
-    "018/0006412458",
-    "2026-11-19T12",
+    "018/0006413156",
+    "2026-11-20T14",
     "이데일리",
     0,
     0,
     0
-   ],
+   ]
+  ],
+  "defense": [
    [
     "138/0002249229",
     "2026-11-19T16",
@@ -2531,91 +2481,84 @@
  },
  "flash": [
   {
-   "id": "014/0005607440",
-   "title": "증시 '검은 금요일'에도 한미약품은 상승…국산 비만약 '에페' 기대감[종목NOW]",
-   "press": "파이낸셜뉴스",
-   "time": "2026-11-20T14:30:23.903802+09:00",
-   "url": "https://n.news.naver.com/mnews/article/014/0005607440",
+   "id": "215/0001273396",
+   "title": "한 달 새 33% '증발'…소프트뱅크 폭락에 亞 기술주 '비명'",
+   "press": "한국경제TV",
+   "time": "2026-11-20T15:00:57.700981+09:00",
+   "url": "https://n.news.naver.com/mnews/article/215/0001273396",
    "summary": "",
-   "theme": "macro",
-   "theme_label": "거시·환율·금리",
-   "theme_color": "#7fd3e8",
-   "leaders": [
-    "한미약품"
-   ],
-   "fresh": true,
-   "breaking": false
-  },
-  {
-   "id": "008/0005444163",
-   "title": "삼성증권 \"자문사 67%, 내년 코스피 7000이상·반도체AI 유망\"",
-   "press": "머니투데이",
-   "time": "2026-11-20T14:30:23.903802+09:00",
-   "url": "https://n.news.naver.com/mnews/article/008/0005444163",
-   "summary": "",
-   "theme": "semiconductor",
-   "theme_label": "반도체·AI",
-   "theme_color": "#5b8cff",
-   "leaders": [
-    "한미반도체",
-    "이수페타시스"
-   ],
-   "fresh": true,
-   "breaking": false
-  },
-  {
-   "id": "014/0005607433",
-   "title": "美 반도체 쇼크에 삼전닉스 급락…코스피 4800선으로 밀려[fn오후시황]",
-   "press": "파이낸셜뉴스",
-   "time": "2026-11-20T14:30:23.903802+09:00",
-   "url": "https://n.news.naver.com/mnews/article/014/0005607433",
-   "summary": "",
-   "theme": "semiconductor",
-   "theme_label": "반도체·AI",
-   "theme_color": "#5b8cff",
-   "leaders": [
-    "삼성전자",
-    "한미반도체"
-   ],
-   "fresh": true,
-   "breaking": false
-  },
-  {
-   "id": "018/0006413138",
-   "title": "제넥신, AI 신사업 정관 변경 부결…찬성률 97.5%에도 요건 미달",
-   "press": "이데일리",
-   "time": "2026-11-20T14:30:23.903802+09:00",
-   "url": "https://n.news.naver.com/mnews/article/018/0006413138",
-   "summary": "",
-   "theme": "semiconductor",
-   "theme_label": "반도체·AI",
-   "theme_color": "#5b8cff",
+   "theme": "etc",
+   "theme_label": "기타",
+   "theme_color": "#9aa4b2",
    "leaders": [],
    "fresh": true,
    "breaking": false
   },
   {
-   "id": "003/0014335835",
-   "title": "창업자 김범수 2심 무죄 후에도 카카오 주가는 3%↓",
-   "press": "뉴시스",
-   "time": "2026-11-20T14:30:23.903802+09:00",
-   "url": "https://n.news.naver.com/mnews/article/003/0014335835",
+   "id": "015/0005356355",
+   "title": "앤트로픽 상장에도 꺼진 AI 기대…소프트뱅크 장중 16% 폭락",
+   "press": "한국경제",
+   "time": "2026-11-20T15:00:57.700981+09:00",
+   "url": "https://n.news.naver.com/mnews/article/015/0005356355",
+   "summary": "",
+   "theme": "earnings",
+   "theme_label": "실적·공시·수급",
+   "theme_color": "#f5d06b",
+   "leaders": [],
+   "fresh": true,
+   "breaking": false
+  },
+  {
+   "id": "277/0005845696",
+   "title": "머스크 \"나는 中 열렬한 팬…상하이 공장 차량 증산\"",
+   "press": "아시아경제",
+   "time": "2026-11-20T15:00:57.700981+09:00",
+   "url": "https://n.news.naver.com/mnews/article/277/0005845696",
+   "summary": "",
+   "theme": "etc",
+   "theme_label": "기타",
+   "theme_color": "#9aa4b2",
+   "leaders": [],
+   "fresh": true,
+   "breaking": false
+  },
+  {
+   "id": "277/0005845693",
+   "title": "코스닥, 650선 아래로…6% 하락",
+   "press": "아시아경제",
+   "time": "2026-11-20T15:00:57.700981+09:00",
+   "url": "https://n.news.naver.com/mnews/article/277/0005845693",
+   "summary": "",
+   "theme": "macro",
+   "theme_label": "거시·환율·금리",
+   "theme_color": "#7fd3e8",
+   "leaders": [],
+   "fresh": true,
+   "breaking": false
+  },
+  {
+   "id": "008/0005444175",
+   "title": "'역대 최대' 앤트로픽 IPO수혜 기대...한화운용, AI인프라 ETF 출시",
+   "press": "머니투데이",
+   "time": "2026-11-20T15:00:57.700981+09:00",
+   "url": "https://n.news.naver.com/mnews/article/008/0005444175",
    "summary": "",
    "theme": "earnings",
    "theme_label": "실적·공시·수급",
    "theme_color": "#f5d06b",
    "leaders": [
-    "카카오"
+    "현대건설",
+    "대우건설"
    ],
    "fresh": true,
    "breaking": false
   },
   {
-   "id": "417/0001165079",
-   "title": "코스피·코스닥 매도 사이드카…5%대 급락",
-   "press": "동행미디어 시대",
-   "time": "2026-11-20T14:30:23.903802+09:00",
-   "url": "https://n.news.naver.com/mnews/article/417/0001165079",
+   "id": "003/0014335990",
+   "title": "투자자문사 대표 67% \"내년 코스피 7000선 넘어설 것\"",
+   "press": "뉴시스",
+   "time": "2026-11-20T15:00:57.700981+09:00",
+   "url": "https://n.news.naver.com/mnews/article/003/0014335990",
    "summary": "",
    "theme": "macro",
    "theme_label": "거시·환율·금리",
@@ -2626,58 +2569,6 @@
   }
  ],
  "issues": [
-  {
-   "id": "374/0000544948",
-   "title": "코스피 이어 코스닥서도 매도 사이드카",
-   "url": "https://n.news.naver.com/mnews/article/374/0000544948",
-   "press": "SBS Biz",
-   "time": "2026-11-20T13:34:06+09:00",
-   "section": "네이버 메인",
-   "source": "main",
-   "main_rank": 1,
-   "theme": "macro",
-   "theme_label": "거시·환율·금리",
-   "tags": [
-    "코스피",
-    "코스닥",
-    "지수"
-   ],
-   "presses": 26,
-   "press_list": [
-    "SBS Biz",
-    "한국일보",
-    "매경이코노미",
-    "디지털데일리",
-    "강원일보",
-    "세계일보"
-   ],
-   "related": [
-    {
-     "title": "[속보] 코스피·코스닥 매도 사이드카… 삼성전자, SK하이닉스 6% 급락",
-     "press": "한국일보",
-     "url": "https://n.news.naver.com/article/469/0000966758",
-     "time": "2026-11-20T13:30:23.903802+09:00"
-    },
-    {
-     "title": "[속보] 코스피 이어 코스닥서도 매도 사이드카",
-     "press": "매경이코노미",
-     "url": "https://n.news.naver.com/article/024/0000109765",
-     "time": "2026-11-20T13:50:23.903802+09:00"
-    },
-    {
-     "title": "“하루 만에 5000선 와르르”…코스피 3%대 급락, 삼성전자 18만원대로",
-     "press": "디지털데일리",
-     "url": "https://n.news.naver.com/article/138/0002249322",
-     "time": "2026-11-20T10:30:23.903802+09:00"
-    }
-   ],
-   "article_count": 33,
-   "breaking": true,
-   "relevance": 47,
-   "summary": "코스피에 이어 코스닥 지수도 5% 급락하면서 국내 대표 주가 지수에서 나란히 매도 사이드카가 발동됐습니다. 20일 한국거래소에 따르면, 이날 오전 11시 54분쯤 코스피에서 프로그램 매도가 일시 중단되는 매도 사이드",
-   "leaders": [],
-   "issue_rank": 1
-  },
   {
    "id": "654/0000212480",
    "title": "[속보] 위급재난문자로 54건 잡았다…수능 스마트기기 부정행위 111건 적발",
@@ -2699,28 +2590,28 @@
     "강원도민일보",
     "국민일보",
     "KBS",
-    "더스쿠프",
     "한겨레21",
+    "더스쿠프",
     "JIBS"
    ],
    "related": [
     {
-     "title": "[속보] 수능 전자기기 부정행위 111건…13명 추가 적발",
+     "title": "수능 전자기기 부정행위 111건…13명 추가 적발",
      "press": "국민일보",
      "url": "https://n.news.naver.com/article/005/0001886444",
-     "time": "2026-11-20T11:30:23.903802+09:00"
+     "time": "2026-11-20T12:00:57.700981+09:00"
     },
     {
      "title": "수능 부정행위 총 111건 적발…“고발 등 엄정 조치”",
      "press": "KBS",
      "url": "https://n.news.naver.com/article/056/0012298015",
-     "time": "2026-11-20T12:30:23.903802+09:00"
+     "time": "2026-11-20T13:00:57.700981+09:00"
     },
     {
-     "title": "경고했는데...수능 부정행위 98명 적발, 포상금 걸고 계속 추적",
-     "press": "더스쿠프",
-     "url": "https://n.news.naver.com/article/665/0000008604",
-     "time": "2026-11-20T03:30:23.903802+09:00"
+     "title": "재난문자, 단추 스티커에도… 부정행위자 98명",
+     "press": "한겨레21",
+     "url": "https://n.news.naver.com/article/036/0000054480",
+     "time": "2026-11-20T09:00:57.700981+09:00"
     }
    ],
    "article_count": 21,
@@ -2732,32 +2623,94 @@
     "라온시큐어",
     "샌즈랩"
    ],
-   "issue_rank": 2
+   "issue_rank": 1
   },
   {
-   "id": "002/0002466835",
-   "title": "[속보] 앤트로픽 상장빨도 안 듣는다…코스피, 4900선도 무너졌다",
-   "url": "https://n.news.naver.com/article/002/0002466835",
-   "press": "프레시안",
-   "time": "2026-11-20T13:44:07+09:00",
+   "id": "374/0000544948",
+   "title": "코스피 이어 코스닥서도 매도 사이드카",
+   "url": "https://n.news.naver.com/mnews/article/374/0000544948",
+   "press": "SBS Biz",
+   "time": "",
    "section": "네이버 메인",
    "source": "main",
    "main_rank": 1,
    "theme": "macro",
    "theme_label": "거시·환율·금리",
    "tags": [
-    "코스피"
+    "코스피",
+    "코스닥",
+    "지수"
    ],
-   "presses": 1,
+   "presses": 21,
    "press_list": [
-    "프레시안"
+    "SBS Biz",
+    "한국일보",
+    "매경이코노미",
+    "프레시안",
+    "디지털데일리",
+    "강원일보"
    ],
-   "related": [],
-   "article_count": 1,
+   "related": [
+    {
+     "title": "코스피·코스닥 매도 사이드카… 삼성전자, SK하이닉스 7% 급락",
+     "press": "한국일보",
+     "url": "https://n.news.naver.com/article/469/0000966758",
+     "time": "2026-11-20T14:00:57.700981+09:00"
+    },
+    {
+     "title": "[속보] 코스피 이어 코스닥서도 매도 사이드카",
+     "press": "매경이코노미",
+     "url": "https://n.news.naver.com/article/024/0000109765",
+     "time": "2026-11-20T14:00:57.700981+09:00"
+    },
+    {
+     "title": "[속보] 앤트로픽 상장빨도 안 듣는다…코스피, 4900선도 무너졌다",
+     "press": "프레시안",
+     "url": "https://n.news.naver.com/article/002/0002466835",
+     "time": "2026-11-20T14:00:57.700981+09:00"
+    }
+   ],
+   "article_count": 23,
+   "breaking": true,
+   "relevance": 47,
+   "summary": "코스피에 이어 코스닥 지수도 5% 급락하면서 국내 대표 주가 지수에서 나란히 매도 사이드카가 발동됐습니다. 20일 한국거래소에 따르면, 이날 오전 11시 54분쯤 코스피에서 프로그램 매도가 일시 중단되는 매도 사이드",
+   "leaders": [],
+   "issue_rank": 2
+  },
+  {
+   "id": "024/0000109764",
+   "title": "[속보] ‘SM 주가조작’ 혐의 카카오 김범수 2심도 무죄",
+   "url": "https://n.news.naver.com/article/024/0000109764",
+   "press": "매경이코노미",
+   "time": "2026-11-20T12:00:57.700981+09:00",
+   "section": "네이버 메인",
+   "source": "main",
+   "main_rank": 4,
+   "theme": "earnings",
+   "theme_label": "실적·공시·수급",
+   "tags": [
+    "주가"
+   ],
+   "presses": 2,
+   "press_list": [
+    "매경이코노미",
+    "한겨레"
+   ],
+   "related": [
+    {
+     "title": "김범수 카카오 창업자, ‘SM 주가조작’ 혐의 항소심도 무죄",
+     "press": "한겨레",
+     "url": "https://n.news.naver.com/article/028/0002833181",
+     "time": "2026-11-20T12:00:57.700981+09:00"
+    }
+   ],
+   "article_count": 2,
    "breaking": true,
    "relevance": 10,
-   "summary": "20일 코스피가 오후 들어 낙폭을 키우면서 4900선까지 무너졌다. 이날 오후 1시 30분 현재 코스피는 전장 대비 265.67(-5.17%) 하락한 4872.22를 기록 중이다.",
-   "leaders": [],
+   "summary": "",
+   "leaders": [
+    "카카오"
+   ],
    "issue_rank": 3
   },
   {
@@ -2775,38 +2728,39 @@
     "삼성전자",
     "메모리"
    ],
-   "presses": 5,
+   "presses": 6,
    "press_list": [
     "비즈워치",
-    "데일리안",
     "더팩트",
+    "데일리안",
     "아이뉴스24",
-    "조세일보"
+    "조세일보",
+    "동아일보"
    ],
    "related": [
-    {
-     "title": "부회장이 내려놓은 메모리, 72년생이 받았다…삼성전자 '바통터치’",
-     "press": "데일리안",
-     "url": "https://n.news.naver.com/article/119/0003157653",
-     "time": "2026-11-20T12:30:23.903802+09:00"
-    },
     {
      "title": "삼성전자, 전영현·노태문 '투톱' 유지…메모리·스마트폰 수장엔 새 얼굴",
      "press": "더팩트",
      "url": "https://n.news.naver.com/article/629/0000553905",
-     "time": "2026-11-20T10:30:23.903802+09:00"
+     "time": "2026-11-20T11:00:57.700981+09:00"
+    },
+    {
+     "title": "부회장이 내려놓은 메모리, 72년생이 받았다…삼성전자 '바통터치’",
+     "press": "데일리안",
+     "url": "https://n.news.naver.com/article/119/0003157653",
+     "time": "2026-11-20T12:00:57.700981+09:00"
     },
     {
      "title": "삼성전자, 전영현·박학규·노태문 유임…사장 승진 3명 모두 반도체[종합]",
      "press": "아이뉴스24",
      "url": "https://n.news.naver.com/article/031/0001076881",
-     "time": "2026-11-20T10:30:23.903802+09:00"
+     "time": "2026-11-20T10:00:57.700981+09:00"
     }
    ],
-   "article_count": 5,
+   "article_count": 6,
    "breaking": false,
-   "relevance": 25,
-   "summary": "황상준 메모리·최원준 MX사업부장 선임…책임경영 강화 사장 승진 3명 모두 반도체 출신…역대 최대 실적에 보상 전영현 파운드리·노태문 로봇…미래 성장동력 육성 집중 삼성SDI·삼성전기·삼성디스플레이 CEO도 나란히 유임 전영현(왼쪽) 부회장과 노태문 사장./그래픽=비즈워치 삼성전자가…",
+   "relevance": 28,
+   "summary": "삼성전자가 반도체 사상 최대 실적을 이끈 1970년대생 인재들을 사장으로 끌어올리며 세대교체에 나섰다. 메모리와 스마트폰 사업을 직접 챙겨 온 전영현 디바이스솔루션(DS) 부문장(부회장)과 노태문 디바이스경험(DX)",
    "leaders": [
     "삼성전자",
     "한미반도체",
@@ -2820,7 +2774,7 @@
    "title": "다이소, 하루사이 매출 5배?…AI가 바꾼 수능 특수",
    "url": "https://n.news.naver.com/article/374/0000544929",
    "press": "SBS Biz",
-   "time": "2026-11-20T11:53:10+09:00",
+   "time": "2026-11-20T12:00:57.700981+09:00",
    "section": "네이버 메인",
    "source": "main",
    "main_rank": 2,
@@ -2839,130 +2793,131 @@
      "title": "‘단춧구멍을 막아라’… AI가 바꾼 수능 시험장",
      "press": "한겨레21",
      "url": "https://n.news.naver.com/article/036/0000054478",
-     "time": "2026-11-20T09:30:23.903802+09:00"
+     "time": "2026-11-20T09:00:57.700981+09:00"
     }
    ],
    "article_count": 2,
    "breaking": false,
    "relevance": 10,
-   "summary": "[앵커] AI를 이용한 시험 컨닝 사태로 이번 수능을 앞두고 유통가에서는 이전에 없던 뜻밖의 매출 효과가 나타나기도 했습니다. 연필과 무테안경을 찾는 소비자가 급증하면서 곳곳에선 품귀 현상을 보이기도 했는데요.",
-   "leaders": [
-    "지슨",
-    "라온시큐어",
-    "샌즈랩"
-   ],
+   "summary": "",
+   "leaders": [],
    "issue_rank": 5
   },
   {
-   "id": "024/0000109764",
-   "title": "[속보] ‘SM 주가조작’ 혐의 카카오 김범수 2심도 무죄",
-   "url": "https://n.news.naver.com/article/024/0000109764",
-   "press": "매경이코노미",
-   "time": "2026-11-20T11:21:09+09:00",
-   "section": "네이버 메인",
-   "source": "main",
-   "main_rank": 4,
-   "theme": "earnings",
-   "theme_label": "실적·공시·수급",
-   "tags": [
-    "주가"
-   ],
-   "presses": 3,
-   "press_list": [
-    "매경이코노미",
-    "한겨레",
-    "뉴시스"
-   ],
-   "related": [
-    {
-     "title": "김범수 카카오 창업자, ‘SM 주가조작’ 혐의 항소심도 무죄",
-     "press": "한겨레",
-     "url": "https://n.news.naver.com/article/028/0002833181",
-     "time": "2026-11-20T11:30:23.903802+09:00"
-    },
-    {
-     "title": "창업자 김범수 2심 무죄 후에도 카카오 주가는 3%↓",
-     "press": "뉴시스",
-     "url": "https://n.news.naver.com/mnews/article/003/0014335835",
-     "time": ""
-    }
-   ],
-   "article_count": 3,
-   "breaking": false,
-   "relevance": 13,
-   "summary": "SM엔터테인먼트 인수 과정에서 시세조종에 공모했다는 의혹으로 재판에 넘겨진 김범수 카카오 미래이니셔티브센터장이 2심에서 무죄를 선고받은 가운데 카카오 주가는 3%대 약세다.",
-   "leaders": [
-    "카카오",
-    "하이브",
-    "에스엠",
-    "JYP Ent."
-   ],
-   "issue_rank": 6
-  },
-  {
-   "id": "003/0014335853",
-   "title": "'최주선 체제' 유지하는 삼성SDI…북미 ESS 확대·전고체 양산 잰걸음",
-   "url": "https://n.news.naver.com/mnews/article/003/0014335853",
-   "press": "뉴시스",
-   "time": "2026-11-20T14:13:56+09:00",
+   "id": "469/0000966787",
+   "title": "베일 벗은 G80 하이브리드… LA서 전세계 최초공개",
+   "url": "https://n.news.naver.com/mnews/article/469/0000966787",
+   "press": "한국일보",
+   "time": "2026-11-20T14:53:09+09:00",
    "section": "산업/재계",
    "source": "section",
    "main_rank": null,
    "theme": "battery",
    "theme_label": "2차전지·에너지",
    "tags": [
-    "ESS",
-    "에너지"
+    "전기차"
    ],
    "presses": 1,
    "press_list": [
-    "뉴시스"
+    "한국일보"
    ],
    "related": [],
    "article_count": 1,
    "breaking": false,
-   "relevance": 12,
-   "summary": "북미 에너지저장장치(ESS) 사업 확대로 올해 3분기 영업이익 4000억원대 흑자 기조를 굳힌 삼성SDI가 '최주선 체제'를 유지하며 성장세 이어가기에 나선다. 미국 현지 ESS 생산라인 전환을 가속화하는 동시에,",
+   "relevance": 7,
+   "summary": "제네시스 대표 세단 G80 하이브리드가 미국에서 가장 먼저 그 모습을 드러냈다. 제네시스는 북미에서 내연기관 모델과 순수 전기차(EV) 라인업만 판매해왔는데, 최근 강세를 보이는 하이브리드시장에도 도전장을 내민 것이",
    "leaders": [
-    "삼성SDI",
-    "인디에프",
-    "좋은사람들",
-    "코데즈컴바인"
+    "하이브",
+    "현대차",
+    "기아"
    ],
-   "issue_rank": 7
+   "issue_rank": 6
   },
   {
-   "id": "138/0002249363",
-   "title": "“6년 만에 발행어음 재개”…김종민 메리츠증권 대표 연임 ‘청신호’",
-   "url": "https://n.news.naver.com/mnews/article/138/0002249363",
-   "press": "디지털데일리",
-   "time": "2026-11-20T13:58:11+09:00",
+   "id": "277/0005845696",
+   "title": "머스크 \"나는 中 열렬한 팬…상하이 공장 차량 증산\"",
+   "url": "https://n.news.naver.com/mnews/article/277/0005845696",
+   "press": "아시아경제",
+   "time": "2026-11-20T14:53:02+09:00",
    "section": "증권",
    "source": "section",
    "main_rank": null,
-   "theme": "battery",
-   "theme_label": "2차전지·에너지",
+   "theme": "geopolitics",
+   "theme_label": "남북·지정학",
    "tags": [
-    "태양광"
+    "중국"
    ],
    "presses": 1,
    "press_list": [
-    "디지털데일리"
+    "아시아경제"
    ],
    "related": [],
    "article_count": 1,
    "breaking": false,
-   "relevance": 8,
-   "summary": "호주 태양광 4005억 금융거래 참여…14년 만에 IPO 주관도 재개 3분기 누적 순익 7205억…어음 운용마진 1.5%p 달성 여부 관건 김김종민 메리츠증권 대표가 내년 3월 임기 만료를 앞두고 연임에 유리한 성과",
+   "relevance": 4,
+   "summary": "일론 머스크 테슬라 최고경영자(CEO)가 아시아태평양경제협력체(APEC) 정상회의 개최지인 중국 광둥성 선전을 방문해 상하이에 위치한 테슬라 공장의 생산량을 늘리겠다고 밝혔다.",
+   "leaders": [],
+   "issue_rank": 7
+  },
+  {
+   "id": "018/0006413156",
+   "title": "선전에서 상하이까지, 중국 찾은 머스크 “테슬라 생산 확대”",
+   "url": "https://n.news.naver.com/mnews/article/018/0006413156",
+   "press": "이데일리",
+   "time": "2026-11-20T14:48:14+09:00",
+   "section": "글로벌 경제",
+   "source": "section",
+   "main_rank": null,
+   "theme": "geopolitics",
+   "theme_label": "남북·지정학",
+   "tags": [
+    "중국"
+   ],
+   "presses": 1,
+   "press_list": [
+    "이데일리"
+   ],
+   "related": [],
+   "article_count": 1,
+   "breaking": false,
+   "relevance": 4,
+   "summary": "선전 아시아태평양경제협력체(APEC) 정상회의 참석차 중국을 방문한 일론 머스크 테슬라 최고경영자(CEO)가 상하이까지 찾으며 중국 시장에 관심을 보였다. “나는 중국의 열렬한 팬”이라고 밝힌 머스크 CEO는 중국",
    "leaders": [],
    "issue_rank": 8
+  },
+  {
+   "id": "001/0016454560",
+   "title": "중기부, 중소기업 공공구매 촉진 유공 기관·개인 39점 포상",
+   "url": "https://n.news.naver.com/mnews/article/001/0016454560",
+   "press": "연합뉴스",
+   "time": "2026-11-20T14:30:15+09:00",
+   "section": "산업/재계",
+   "source": "section",
+   "main_rank": null,
+   "theme": "policy",
+   "theme_label": "정책·건설",
+   "tags": [
+    "공공",
+    "대통령"
+   ],
+   "presses": 1,
+   "press_list": [
+    "연합뉴스"
+   ],
+   "related": [],
+   "article_count": 1,
+   "breaking": false,
+   "relevance": 6,
+   "summary": "의왕도시공사 대통령 표창…혁신제품 전시·구매상담회 개최 중소벤처기업부는 중소기업 제품의 공공구매 확대에 기여한 공로로 의왕도시공사에 대통령 표창을, 과천도시공사와 용인도시공사, 서울 동작구 시설관리공단에 각각 국무총",
+   "leaders": [],
+   "issue_rank": 9
   },
   {
    "id": "047/0002536617",
    "title": "'안정 속 변화' 택한 이재용, 삼성전자 반도체 기술통 전면 배치",
    "url": "https://n.news.naver.com/article/047/0002536617",
    "press": "오마이뉴스",
-   "time": "2026-11-20T13:30:23.903802+09:00",
+   "time": "2026-11-20T13:02:15+09:00",
    "section": "네이버 메인",
    "source": "main",
    "main_rank": 4,
@@ -2980,14 +2935,14 @@
    "article_count": 1,
    "breaking": false,
    "relevance": 16,
-   "summary": "",
+   "summary": "정기 사장단 인사서 전영현·노태문 투톱 유지, 사장 승진 3명 모두 반도체 출신... 성과주의 속 미래사업 강화 초점 ▲ 경기도 수원시 영통구 삼성전자 본사 모습.",
    "leaders": [
     "삼성전자",
     "한미반도체",
     "이수페타시스",
     "가온칩스"
    ],
-   "issue_rank": 9
+   "issue_rank": 10
   },
   {
    "id": "469/0000966755",
@@ -3018,7 +2973,7 @@
     "라온시큐어",
     "샌즈랩"
    ],
-   "issue_rank": 10
+   "issue_rank": 11
   },
   {
    "id": "374/0000544941",
@@ -3044,7 +2999,34 @@
    "relevance": 10,
    "summary": "일본, 대만 등 아시아 증시가 동반 급락하고 있습니다. 우리시간 오전 11시 40분 기준 일본 닛케이255 지수는 4.49% 내린 56,775.04, 대만 가권지수는 6.08% 내린 36,089.60을 보이고 있습니다.",
    "leaders": [],
-   "issue_rank": 11
+   "issue_rank": 12
+  },
+  {
+   "id": "016/0002726307",
+   "title": "“자리 잘 썼어요. 뭐든 잘 풀릴 거에요” 수능 시험장 책상에 남은 손편지",
+   "url": "https://n.news.naver.com/article/016/0002726307",
+   "press": "헤럴드경제",
+   "time": "2026-11-20T12:14:16+09:00",
+   "section": "네이버 메인",
+   "source": "main",
+   "main_rank": 2,
+   "theme": "aisec",
+   "theme_label": "AI·보안",
+   "tags": [
+    "수능",
+    "시험"
+   ],
+   "presses": 1,
+   "press_list": [
+    "헤럴드경제"
+   ],
+   "related": [],
+   "article_count": 1,
+   "breaking": false,
+   "relevance": 10,
+   "summary": "서울 양천구 금옥여고 2학년 교실서 수험생이 후배에게 남긴 손편지 뭉클 2027학년도 대학수학능력시험(수능)이 치러진 19일 서울 영등포구 여의도여자고등학교에서 한 수험생이 시험 시작을 기다리고 있다.",
+   "leaders": [],
+   "issue_rank": 13
   },
   {
    "id": "011/0004684348",
@@ -3075,63 +3057,6 @@
     "이수페타시스",
     "가온칩스"
    ],
-   "issue_rank": 12
-  },
-  {
-   "id": "214/0001536921",
-   "title": "[단독] 정부 확보한 '리트 만점자' 수능시험지에 비정상적 풀이 정황",
-   "url": "https://n.news.naver.com/article/214/0001536921",
-   "press": "MBC",
-   "time": "2026-11-20T11:48:07+09:00",
-   "section": "네이버 메인",
-   "source": "main",
-   "main_rank": 1,
-   "theme": "aisec",
-   "theme_label": "AI·보안",
-   "tags": [
-    "수능",
-    "시험"
-   ],
-   "presses": 1,
-   "press_list": [
-    "MBC"
-   ],
-   "related": [],
-   "article_count": 1,
-   "breaking": false,
-   "relevance": 10,
-   "summary": "법학적성시험 리트 만점과 수능시험 성적 급상승으로 AI 부정행위 의혹을 받은 고 이진우 씨에 대해, 교육당국이 지난해 수능시험지를 확보해 일부 비정상적 풀이 정황을 포착한 것으로 확인됐습니다.",
-   "leaders": [
-    "지슨",
-    "라온시큐어",
-    "샌즈랩"
-   ],
-   "issue_rank": 13
-  },
-  {
-   "id": "437/0000521651",
-   "title": "2700억원이 3년 만에 4조…최태원 SK, 앤트로픽 상장에 '16배'",
-   "url": "https://n.news.naver.com/article/437/0000521651",
-   "press": "JTBC",
-   "time": "2026-11-20T11:47:49+09:00",
-   "section": "네이버 메인",
-   "source": "main",
-   "main_rank": 4,
-   "theme": "earnings",
-   "theme_label": "실적·공시·수급",
-   "tags": [
-    "상장"
-   ],
-   "presses": 1,
-   "press_list": [
-    "JTBC"
-   ],
-   "related": [],
-   "article_count": 1,
-   "breaking": false,
-   "relevance": 7,
-   "summary": "인공지능(AI) '클로드' 개발사 앤트로픽이 현지시간 19일 미국 나스닥에 상장하면서, 3년 전부터 투자해 온 SK텔레콤의 지분 가치가 4조원을 넘어섰습니다.",
-   "leaders": [],
    "issue_rank": 14
   },
   {
@@ -3196,6 +3121,32 @@
    "issue_rank": 16
   },
   {
+   "id": "243/0000105954",
+   "title": "'143조' 전미가 울었다…앤트로픽, 첫날부터 \"나스닥 상장, 성공적\"",
+   "url": "https://n.news.naver.com/article/243/0000105954",
+   "press": "이코노미스트",
+   "time": "2026-11-20T11:00:09+09:00",
+   "section": "네이버 메인",
+   "source": "main",
+   "main_rank": 5,
+   "theme": "macro",
+   "theme_label": "거시·환율·금리",
+   "tags": [
+    "나스닥"
+   ],
+   "presses": 1,
+   "press_list": [
+    "이코노미스트"
+   ],
+   "related": [],
+   "article_count": 1,
+   "breaking": false,
+   "relevance": 7,
+   "summary": "공모가 대비 17.1%↑ 껑충…97.17달러 마감 시총 10위권 안착·거래량 8억4600만주 돌파 앤트로픽 상장 첫날인 19일(현지시간) 다리오 아모데이 최고경영자(CEO)와 동생인 다니엘라 아모데이 사장이 서로 끌어안고 있다.",
+   "leaders": [],
+   "issue_rank": 17
+  },
+  {
    "id": "417/0001165047",
    "title": "비만약 '주 1회' 넘어 '월 1회'로…임상 경쟁 본격화",
    "url": "https://n.news.naver.com/article/417/0001165047",
@@ -3223,7 +3174,41 @@
     "HLB",
     "삼성바이오로직스"
    ],
-   "issue_rank": 17
+   "issue_rank": 18
+  },
+  {
+   "id": "050/0000113527",
+   "title": "“직원 자산 잭팟” 앤트로픽 상장에 ‘인생 역전’",
+   "url": "https://n.news.naver.com/article/050/0000113527",
+   "press": "한경비즈니스",
+   "time": "2026-11-20T08:36:14+09:00",
+   "section": "네이버 메인",
+   "source": "main",
+   "main_rank": 1,
+   "theme": "earnings",
+   "theme_label": "실적·공시·수급",
+   "tags": [
+    "상장"
+   ],
+   "presses": 2,
+   "press_list": [
+    "한경비즈니스",
+    "주간조선"
+   ],
+   "related": [
+    {
+     "title": "직원 평균 580억원 '돈방석'…앤트로픽 상장에 수천명 백만장자",
+     "press": "주간조선",
+     "url": "https://n.news.naver.com/article/053/0000063201",
+     "time": "2026-11-20T11:00:57.700981+09:00"
+    }
+   ],
+   "article_count": 2,
+   "breaking": false,
+   "relevance": 10,
+   "summary": "19일(현지시간) 앤트로픽에 따르면 주당 83달러에 공모가를 확정하면서 상장 기업가치는 1조 4000억 달러를 웃돌았다. 이에 따라 임직원들에게 지급된 주식 보상 가치도 크게 뛰었다.",
+   "leaders": [],
+   "issue_rank": 19
   },
   {
    "id": "037/0000039184",
@@ -3252,7 +3237,7 @@
     "현대차",
     "기아"
    ],
-   "issue_rank": 18
+   "issue_rank": 20
   },
   {
    "id": "037/0000039183",
@@ -3278,30 +3263,57 @@
    "relevance": 7,
    "summary": "강남·서초구 아파트값 15주 연속 하락… 부동산업계 “내년까진 매물 나올 것” 서울 서초구 한 부동산공인중개사사무소에 급매 안내문이 붙어 있다. 장기간 집을 보유한 고령 소유자의 경우 지금까지 시세차익과 앞으로 낼 보유세를 고려하면 매도가 낫다고 판단해 가격을 낮춰서라도 팔려고 해요.",
    "leaders": [],
-   "issue_rank": 19
+   "issue_rank": 21
+  },
+  {
+   "id": "003/0014336032",
+   "title": "한수원, 체코 원전 시공 협력협약 종료 공식화…새 시공사 선정 추진",
+   "url": "https://n.news.naver.com/mnews/article/003/0014336032",
+   "press": "뉴시스",
+   "time": "",
+   "section": "산업/재계",
+   "source": "section",
+   "main_rank": null,
+   "theme": "battery",
+   "theme_label": "2차전지·에너지",
+   "tags": [
+    "원전",
+    "원자력"
+   ],
+   "presses": 3,
+   "press_list": [
+    "뉴시스",
+    "연합뉴스TV",
+    "연합뉴스"
+   ],
+   "related": [
+    {
+     "title": "한수원 \"체코 원전, 내년 7월까지 새 시공사 계약…적기 준공\"",
+     "press": "연합뉴스TV",
+     "url": "https://n.news.naver.com/mnews/article/422/0000928223",
+     "time": ""
+    },
+    {
+     "title": "한수원 \"대우건설 컨소시엄과 체코원전 시공 공동협약 종료\"",
+     "press": "연합뉴스",
+     "url": "https://n.news.naver.com/mnews/article/001/0016454663",
+     "time": ""
+    }
+   ],
+   "article_count": 3,
+   "breaking": false,
+   "relevance": 22,
+   "summary": "한국수력원자력은 20일 대우건설·두산에너빌리티 컨소시엄과 체결한 체코 두코바니 원전 5·6호기 건설사업 시공분야 공동협약을 종료했다고 밝혔다. 양측은 지난해 6월 체코 발주사와의 본계약을 체결한 이후 공사비와 계약",
+   "leaders": [
+    "두산에너빌리티",
+    "우리기술",
+    "한신기계",
+    "보성파워텍"
+   ],
+   "issue_rank": 22
   }
  ],
  "articles": [
-  {
-   "id": "374/0000544948",
-   "title": "코스피 이어 코스닥서도 매도 사이드카",
-   "summary": "코스피에 이어 코스닥 지수도 5% 급락하면서 국내 대표 주가 지수에서 나란히 매도 사이드카가 발동됐습니다. 20일 한국거래소에 따르면, 이날 오전 11시 54분쯤 코스피에서 프로그램 매도가 일시 중단되는 매도 사이드",
-   "press": "SBS Biz",
-   "time": "2026-11-20T13:34:06+09:00",
-   "url": "https://n.news.naver.com/mnews/article/374/0000544948",
-   "theme": "macro",
-   "theme_label": "거시·환율·금리",
-   "tags": [
-    "코스피",
-    "코스닥",
-    "지수"
-   ],
-   "section": "네이버 메인",
-   "relevance": 47,
-   "source": "main",
-   "leaders": [],
-   "issue_rank": 1
-  },
   {
    "id": "654/0000212480",
    "title": "[속보] 위급재난문자로 54건 잡았다…수능 스마트기기 부정행위 111건 적발",
@@ -3324,30 +3336,52 @@
     "라온시큐어",
     "샌즈랩"
    ],
-   "issue_rank": 2
+   "issue_rank": 1
   },
   {
-   "id": "002/0002466835",
-   "title": "[속보] 앤트로픽 상장빨도 안 듣는다…코스피, 4900선도 무너졌다",
-   "summary": "20일 코스피가 오후 들어 낙폭을 키우면서 4900선까지 무너졌다. 이날 오후 1시 30분 현재 코스피는 전장 대비 265.67(-5.17%) 하락한 4872.22를 기록 중이다.",
-   "press": "프레시안",
-   "time": "2026-11-20T13:44:07+09:00",
-   "url": "https://n.news.naver.com/article/002/0002466835",
+   "id": "374/0000544948",
+   "title": "코스피 이어 코스닥서도 매도 사이드카",
+   "summary": "코스피에 이어 코스닥 지수도 5% 급락하면서 국내 대표 주가 지수에서 나란히 매도 사이드카가 발동됐습니다. 20일 한국거래소에 따르면, 이날 오전 11시 54분쯤 코스피에서 프로그램 매도가 일시 중단되는 매도 사이드",
+   "press": "SBS Biz",
+   "time": "",
+   "url": "https://n.news.naver.com/mnews/article/374/0000544948",
    "theme": "macro",
    "theme_label": "거시·환율·금리",
    "tags": [
-    "코스피"
+    "코스피",
+    "코스닥",
+    "지수"
+   ],
+   "section": "네이버 메인",
+   "relevance": 47,
+   "source": "main",
+   "leaders": [],
+   "issue_rank": 2
+  },
+  {
+   "id": "024/0000109764",
+   "title": "[속보] ‘SM 주가조작’ 혐의 카카오 김범수 2심도 무죄",
+   "summary": "",
+   "press": "매경이코노미",
+   "time": "2026-11-20T12:00:57.700981+09:00",
+   "url": "https://n.news.naver.com/article/024/0000109764",
+   "theme": "earnings",
+   "theme_label": "실적·공시·수급",
+   "tags": [
+    "주가"
    ],
    "section": "네이버 메인",
    "relevance": 10,
    "source": "main",
-   "leaders": [],
+   "leaders": [
+    "카카오"
+   ],
    "issue_rank": 3
   },
   {
    "id": "648/0000052822",
    "title": "삼성전자 '투톱' 그대로…메모리·갤럭시는 새 얼굴로",
-   "summary": "황상준 메모리·최원준 MX사업부장 선임…책임경영 강화 사장 승진 3명 모두 반도체 출신…역대 최대 실적에 보상 전영현 파운드리·노태문 로봇…미래 성장동력 육성 집중 삼성SDI·삼성전기·삼성디스플레이 CEO도 나란히 유임 전영현(왼쪽) 부회장과 노태문 사장./그래픽=비즈워치 삼성전자가…",
+   "summary": "삼성전자가 반도체 사상 최대 실적을 이끈 1970년대생 인재들을 사장으로 끌어올리며 세대교체에 나섰다. 메모리와 스마트폰 사업을 직접 챙겨 온 전영현 디바이스솔루션(DS) 부문장(부회장)과 노태문 디바이스경험(DX)",
    "press": "비즈워치",
    "time": "2026-11-20T10:47:12+09:00",
    "url": "https://n.news.naver.com/article/648/0000052822",
@@ -3358,7 +3392,7 @@
     "메모리"
    ],
    "section": "네이버 메인",
-   "relevance": 25,
+   "relevance": 28,
    "source": "main",
    "leaders": [
     "삼성전자",
@@ -3371,9 +3405,9 @@
   {
    "id": "374/0000544929",
    "title": "다이소, 하루사이 매출 5배?…AI가 바꾼 수능 특수",
-   "summary": "[앵커] AI를 이용한 시험 컨닝 사태로 이번 수능을 앞두고 유통가에서는 이전에 없던 뜻밖의 매출 효과가 나타나기도 했습니다. 연필과 무테안경을 찾는 소비자가 급증하면서 곳곳에선 품귀 현상을 보이기도 했는데요.",
+   "summary": "",
    "press": "SBS Biz",
-   "time": "2026-11-20T11:53:10+09:00",
+   "time": "2026-11-20T12:00:57.700981+09:00",
    "url": "https://n.news.naver.com/article/374/0000544929",
    "theme": "earnings",
    "theme_label": "실적·공시·수급",
@@ -3383,84 +3417,92 @@
    "section": "네이버 메인",
    "relevance": 10,
    "source": "main",
-   "leaders": [
-    "지슨",
-    "라온시큐어",
-    "샌즈랩"
-   ],
+   "leaders": [],
    "issue_rank": 5
   },
   {
-   "id": "024/0000109764",
-   "title": "[속보] ‘SM 주가조작’ 혐의 카카오 김범수 2심도 무죄",
-   "summary": "SM엔터테인먼트 인수 과정에서 시세조종에 공모했다는 의혹으로 재판에 넘겨진 김범수 카카오 미래이니셔티브센터장이 2심에서 무죄를 선고받은 가운데 카카오 주가는 3%대 약세다.",
-   "press": "매경이코노미",
-   "time": "2026-11-20T11:21:09+09:00",
-   "url": "https://n.news.naver.com/article/024/0000109764",
-   "theme": "earnings",
-   "theme_label": "실적·공시·수급",
+   "id": "469/0000966787",
+   "title": "베일 벗은 G80 하이브리드… LA서 전세계 최초공개",
+   "summary": "제네시스 대표 세단 G80 하이브리드가 미국에서 가장 먼저 그 모습을 드러냈다. 제네시스는 북미에서 내연기관 모델과 순수 전기차(EV) 라인업만 판매해왔는데, 최근 강세를 보이는 하이브리드시장에도 도전장을 내민 것이",
+   "press": "한국일보",
+   "time": "2026-11-20T14:53:09+09:00",
+   "url": "https://n.news.naver.com/mnews/article/469/0000966787",
+   "theme": "battery",
+   "theme_label": "2차전지·에너지",
    "tags": [
-    "주가"
+    "전기차"
    ],
-   "section": "네이버 메인",
-   "relevance": 13,
-   "source": "main",
+   "section": "산업/재계",
+   "relevance": 7,
+   "source": "section",
    "leaders": [
-    "카카오",
     "하이브",
-    "에스엠",
-    "JYP Ent."
+    "현대차",
+    "기아"
    ],
    "issue_rank": 6
   },
   {
-   "id": "003/0014335853",
-   "title": "'최주선 체제' 유지하는 삼성SDI…북미 ESS 확대·전고체 양산 잰걸음",
-   "summary": "북미 에너지저장장치(ESS) 사업 확대로 올해 3분기 영업이익 4000억원대 흑자 기조를 굳힌 삼성SDI가 '최주선 체제'를 유지하며 성장세 이어가기에 나선다. 미국 현지 ESS 생산라인 전환을 가속화하는 동시에,",
-   "press": "뉴시스",
-   "time": "2026-11-20T14:13:56+09:00",
-   "url": "https://n.news.naver.com/mnews/article/003/0014335853",
-   "theme": "battery",
-   "theme_label": "2차전지·에너지",
+   "id": "277/0005845696",
+   "title": "머스크 \"나는 中 열렬한 팬…상하이 공장 차량 증산\"",
+   "summary": "일론 머스크 테슬라 최고경영자(CEO)가 아시아태평양경제협력체(APEC) 정상회의 개최지인 중국 광둥성 선전을 방문해 상하이에 위치한 테슬라 공장의 생산량을 늘리겠다고 밝혔다.",
+   "press": "아시아경제",
+   "time": "2026-11-20T14:53:02+09:00",
+   "url": "https://n.news.naver.com/mnews/article/277/0005845696",
+   "theme": "geopolitics",
+   "theme_label": "남북·지정학",
    "tags": [
-    "ESS",
-    "에너지"
+    "중국"
    ],
-   "section": "산업/재계",
-   "relevance": 12,
+   "section": "증권",
+   "relevance": 4,
    "source": "section",
-   "leaders": [
-    "삼성SDI",
-    "인디에프",
-    "좋은사람들",
-    "코데즈컴바인"
-   ],
+   "leaders": [],
    "issue_rank": 7
   },
   {
-   "id": "138/0002249363",
-   "title": "“6년 만에 발행어음 재개”…김종민 메리츠증권 대표 연임 ‘청신호’",
-   "summary": "호주 태양광 4005억 금융거래 참여…14년 만에 IPO 주관도 재개 3분기 누적 순익 7205억…어음 운용마진 1.5%p 달성 여부 관건 김김종민 메리츠증권 대표가 내년 3월 임기 만료를 앞두고 연임에 유리한 성과",
-   "press": "디지털데일리",
-   "time": "2026-11-20T13:58:11+09:00",
-   "url": "https://n.news.naver.com/mnews/article/138/0002249363",
-   "theme": "battery",
-   "theme_label": "2차전지·에너지",
+   "id": "018/0006413156",
+   "title": "선전에서 상하이까지, 중국 찾은 머스크 “테슬라 생산 확대”",
+   "summary": "선전 아시아태평양경제협력체(APEC) 정상회의 참석차 중국을 방문한 일론 머스크 테슬라 최고경영자(CEO)가 상하이까지 찾으며 중국 시장에 관심을 보였다. “나는 중국의 열렬한 팬”이라고 밝힌 머스크 CEO는 중국",
+   "press": "이데일리",
+   "time": "2026-11-20T14:48:14+09:00",
+   "url": "https://n.news.naver.com/mnews/article/018/0006413156",
+   "theme": "geopolitics",
+   "theme_label": "남북·지정학",
    "tags": [
-    "태양광"
+    "중국"
    ],
-   "section": "증권",
-   "relevance": 8,
+   "section": "글로벌 경제",
+   "relevance": 4,
    "source": "section",
    "leaders": [],
    "issue_rank": 8
   },
   {
+   "id": "001/0016454560",
+   "title": "중기부, 중소기업 공공구매 촉진 유공 기관·개인 39점 포상",
+   "summary": "의왕도시공사 대통령 표창…혁신제품 전시·구매상담회 개최 중소벤처기업부는 중소기업 제품의 공공구매 확대에 기여한 공로로 의왕도시공사에 대통령 표창을, 과천도시공사와 용인도시공사, 서울 동작구 시설관리공단에 각각 국무총",
+   "press": "연합뉴스",
+   "time": "2026-11-20T14:30:15+09:00",
+   "url": "https://n.news.naver.com/mnews/article/001/0016454560",
+   "theme": "policy",
+   "theme_label": "정책·건설",
+   "tags": [
+    "공공",
+    "대통령"
+   ],
+   "section": "산업/재계",
+   "relevance": 6,
+   "source": "section",
+   "leaders": [],
+   "issue_rank": 9
+  },
+  {
    "id": "047/0002536617",
    "title": "'안정 속 변화' 택한 이재용, 삼성전자 반도체 기술통 전면 배치",
-   "summary": "",
+   "summary": "정기 사장단 인사서 전영현·노태문 투톱 유지, 사장 승진 3명 모두 반도체 출신... 성과주의 속 미래사업 강화 초점 ▲ 경기도 수원시 영통구 삼성전자 본사 모습.",
    "press": "오마이뉴스",
-   "time": "2026-11-20T13:30:23.903802+09:00",
+   "time": "2026-11-20T13:02:15+09:00",
    "url": "https://n.news.naver.com/article/047/0002536617",
    "theme": "semiconductor",
    "theme_label": "반도체·AI",
@@ -3477,7 +3519,7 @@
     "이수페타시스",
     "가온칩스"
    ],
-   "issue_rank": 9
+   "issue_rank": 10
   },
   {
    "id": "469/0000966755",
@@ -3500,7 +3542,7 @@
     "라온시큐어",
     "샌즈랩"
    ],
-   "issue_rank": 10
+   "issue_rank": 11
   },
   {
    "id": "374/0000544941",
@@ -3518,7 +3560,26 @@
    "relevance": 10,
    "source": "main",
    "leaders": [],
-   "issue_rank": 11
+   "issue_rank": 12
+  },
+  {
+   "id": "016/0002726307",
+   "title": "“자리 잘 썼어요. 뭐든 잘 풀릴 거에요” 수능 시험장 책상에 남은 손편지",
+   "summary": "서울 양천구 금옥여고 2학년 교실서 수험생이 후배에게 남긴 손편지 뭉클 2027학년도 대학수학능력시험(수능)이 치러진 19일 서울 영등포구 여의도여자고등학교에서 한 수험생이 시험 시작을 기다리고 있다.",
+   "press": "헤럴드경제",
+   "time": "2026-11-20T12:14:16+09:00",
+   "url": "https://n.news.naver.com/article/016/0002726307",
+   "theme": "aisec",
+   "theme_label": "AI·보안",
+   "tags": [
+    "수능",
+    "시험"
+   ],
+   "section": "네이버 메인",
+   "relevance": 10,
+   "source": "main",
+   "leaders": [],
+   "issue_rank": 13
   },
   {
    "id": "011/0004684348",
@@ -3541,47 +3602,6 @@
     "이수페타시스",
     "가온칩스"
    ],
-   "issue_rank": 12
-  },
-  {
-   "id": "214/0001536921",
-   "title": "[단독] 정부 확보한 '리트 만점자' 수능시험지에 비정상적 풀이 정황",
-   "summary": "법학적성시험 리트 만점과 수능시험 성적 급상승으로 AI 부정행위 의혹을 받은 고 이진우 씨에 대해, 교육당국이 지난해 수능시험지를 확보해 일부 비정상적 풀이 정황을 포착한 것으로 확인됐습니다.",
-   "press": "MBC",
-   "time": "2026-11-20T11:48:07+09:00",
-   "url": "https://n.news.naver.com/article/214/0001536921",
-   "theme": "aisec",
-   "theme_label": "AI·보안",
-   "tags": [
-    "수능",
-    "시험"
-   ],
-   "section": "네이버 메인",
-   "relevance": 10,
-   "source": "main",
-   "leaders": [
-    "지슨",
-    "라온시큐어",
-    "샌즈랩"
-   ],
-   "issue_rank": 13
-  },
-  {
-   "id": "437/0000521651",
-   "title": "2700억원이 3년 만에 4조…최태원 SK, 앤트로픽 상장에 '16배'",
-   "summary": "인공지능(AI) '클로드' 개발사 앤트로픽이 현지시간 19일 미국 나스닥에 상장하면서, 3년 전부터 투자해 온 SK텔레콤의 지분 가치가 4조원을 넘어섰습니다.",
-   "press": "JTBC",
-   "time": "2026-11-20T11:47:49+09:00",
-   "url": "https://n.news.naver.com/article/437/0000521651",
-   "theme": "earnings",
-   "theme_label": "실적·공시·수급",
-   "tags": [
-    "상장"
-   ],
-   "section": "네이버 메인",
-   "relevance": 7,
-   "source": "main",
-   "leaders": [],
    "issue_rank": 14
   },
   {
@@ -3630,6 +3650,24 @@
    "issue_rank": 16
   },
   {
+   "id": "243/0000105954",
+   "title": "'143조' 전미가 울었다…앤트로픽, 첫날부터 \"나스닥 상장, 성공적\"",
+   "summary": "공모가 대비 17.1%↑ 껑충…97.17달러 마감 시총 10위권 안착·거래량 8억4600만주 돌파 앤트로픽 상장 첫날인 19일(현지시간) 다리오 아모데이 최고경영자(CEO)와 동생인 다니엘라 아모데이 사장이 서로 끌어안고 있다.",
+   "press": "이코노미스트",
+   "time": "2026-11-20T11:00:09+09:00",
+   "url": "https://n.news.naver.com/article/243/0000105954",
+   "theme": "macro",
+   "theme_label": "거시·환율·금리",
+   "tags": [
+    "나스닥"
+   ],
+   "section": "네이버 메인",
+   "relevance": 7,
+   "source": "main",
+   "leaders": [],
+   "issue_rank": 17
+  },
+  {
    "id": "417/0001165047",
    "title": "비만약 '주 1회' 넘어 '월 1회'로…임상 경쟁 본격화",
    "summary": "주사 부담 줄이는 제형 기술 확보 감량 효과 입증할 후속 시험 필요 경기도 용인 대웅제약 생명과학연구소에서 연구원이 마이크로피펫을 이용해 미량의 액체 시료를 분주하고 있다./대웅제약 비만치료제 개발 경쟁이 매주 맞던 주사를 한 달에 한 번으로 줄이는 방향으로 확대됐다.대웅제약과 펩트론이 월…",
@@ -3649,7 +3687,25 @@
     "HLB",
     "삼성바이오로직스"
    ],
-   "issue_rank": 17
+   "issue_rank": 18
+  },
+  {
+   "id": "050/0000113527",
+   "title": "“직원 자산 잭팟” 앤트로픽 상장에 ‘인생 역전’",
+   "summary": "19일(현지시간) 앤트로픽에 따르면 주당 83달러에 공모가를 확정하면서 상장 기업가치는 1조 4000억 달러를 웃돌았다. 이에 따라 임직원들에게 지급된 주식 보상 가치도 크게 뛰었다.",
+   "press": "한경비즈니스",
+   "time": "2026-11-20T08:36:14+09:00",
+   "url": "https://n.news.naver.com/article/050/0000113527",
+   "theme": "earnings",
+   "theme_label": "실적·공시·수급",
+   "tags": [
+    "상장"
+   ],
+   "section": "네이버 메인",
+   "relevance": 10,
+   "source": "main",
+   "leaders": [],
+   "issue_rank": 19
   },
   {
    "id": "037/0000039184",
@@ -3670,7 +3726,7 @@
     "현대차",
     "기아"
    ],
-   "issue_rank": 18
+   "issue_rank": 20
   },
   {
    "id": "037/0000039183",
@@ -3688,7 +3744,31 @@
    "relevance": 7,
    "source": "main",
    "leaders": [],
-   "issue_rank": 19
+   "issue_rank": 21
+  },
+  {
+   "id": "003/0014336032",
+   "title": "한수원, 체코 원전 시공 협력협약 종료 공식화…새 시공사 선정 추진",
+   "summary": "한국수력원자력은 20일 대우건설·두산에너빌리티 컨소시엄과 체결한 체코 두코바니 원전 5·6호기 건설사업 시공분야 공동협약을 종료했다고 밝혔다. 양측은 지난해 6월 체코 발주사와의 본계약을 체결한 이후 공사비와 계약",
+   "press": "뉴시스",
+   "time": "",
+   "url": "https://n.news.naver.com/mnews/article/003/0014336032",
+   "theme": "battery",
+   "theme_label": "2차전지·에너지",
+   "tags": [
+    "원전",
+    "원자력"
+   ],
+   "section": "산업/재계",
+   "relevance": 22,
+   "source": "section",
+   "leaders": [
+    "두산에너빌리티",
+    "우리기술",
+    "한신기계",
+    "보성파워텍"
+   ],
+   "issue_rank": 22
   }
  ]
 }
