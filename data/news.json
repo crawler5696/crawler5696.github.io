@@ -1,16 +1,16 @@
 {
- "generated_at": "2026-11-21T02:12:17.379306+09:00",
- "generated_at_kst": "2026.11.21 02:12",
+ "generated_at": "2026-11-21T08:05:39.223754+09:00",
+ "generated_at_kst": "2026.11.21 08:05",
  "flash_count": 6,
  "flash_fresh_min": 60,
  "flash_fresh_count": 6,
- "flash_updated": "2026-11-21T02:12:17.379306+09:00",
- "count": 26,
- "article_count": 58,
+ "flash_updated": "2026-11-21T08:05:39.223754+09:00",
+ "count": 21,
+ "article_count": 64,
  "main_source": {
   "presses": 84,
-  "collected": 414,
-  "dropped": 314,
+  "collected": 410,
+  "dropped": 298,
   "cards": 20,
   "sections": 180
  },
@@ -28,6 +28,12 @@
    "count": 3
   },
   {
+   "id": "policy",
+   "label": "정책·건설",
+   "color": "#c9a2ff",
+   "count": 3
+  },
+  {
    "id": "macro",
    "label": "거시·환율·금리",
    "color": "#7fd3e8",
@@ -46,45 +52,15 @@
    "count": 3
   },
   {
-   "id": "robot",
-   "label": "로봇·자율주행",
-   "color": "#38d6a8",
-   "count": 2
-  },
-  {
-   "id": "bio",
-   "label": "바이오·헬스케어",
-   "color": "#e564b8",
-   "count": 2
-  },
-  {
-   "id": "policy",
-   "label": "정책·건설",
-   "color": "#c9a2ff",
-   "count": 2
-  },
-  {
    "id": "geopolitics",
    "label": "남북·지정학",
    "color": "#ff8b8b",
    "count": 2
   },
   {
-   "id": "defense",
-   "label": "방산·우주",
-   "color": "#f0a35e",
-   "count": 1
-  },
-  {
    "id": "disaster",
    "label": "재난·안전",
    "color": "#ffb27a",
-   "count": 1
-  },
-  {
-   "id": "etc",
-   "label": "기타",
-   "color": "#9aa4b2",
    "count": 1
   }
  ],
@@ -94,29 +70,30 @@
    "label": "AI·보안",
    "color": "#6fd0ff",
    "count": 3,
-   "recent_6h": 6,
-   "recent_6h_ratio": 13,
+   "recent_6h": 0,
+   "recent_6h_ratio": 0,
    "day_count": 45,
    "hot": 23,
    "presses": 33,
-   "span_hours": 2.0,
+   "span_hours": 0.9,
    "keywords": [
     "수능",
+    "부정행위",
     "시험",
-    "부정행위"
+    "탐지"
    ],
    "headlines": [
+    {
+     "title": "금속탐지기에 열화상카메라까지…대학가, AI 부정행위에 총력전",
+     "url": "https://n.news.naver.com/article/629/0000554231",
+     "press": "더팩트",
+     "time": "2026-11-21T00:01:20+09:00"
+    },
     {
      "title": "\"고생했다\"…꽃다발 든 아빠 품으로 달려가 안긴 딸, 올 수능 최고 장면[영상]",
      "url": "https://n.news.naver.com/article/421/0009302282",
      "press": "뉴스1",
      "time": "2026-11-21T00:01:00+09:00"
-    },
-    {
-     "title": "이재명 대통령 \"국가시험 전면 개편\"…범정부 수능 부정행위 대응 TF 출범",
-     "url": "https://n.news.naver.com/article/657/0000057678",
-     "press": "대구MBC",
-     "time": "2026-11-20T23:08:16+09:00"
     }
    ],
    "leaders": [
@@ -127,7 +104,7 @@
    "hint": {
     "type": "medium",
     "label": "중기 흐름",
-    "reason": "보도 폭 22.0시간 · 19개 시간대 · 매체 33곳 · 24시간 45건 · 최근 6시간 6건(13%) · 업황·정책 표현 2건"
+    "reason": "보도 폭 18.0시간 · 18개 시간대 · 매체 33곳 · 24시간 45건 · 최근 6시간 0건(0%) · 업황·정책 표현 2건"
    },
    "rank": 1
   },
@@ -141,32 +118,32 @@
    "day_count": 43,
    "hot": 17,
    "presses": 23,
-   "span_hours": 6.4,
+   "span_hours": 2.1,
    "keywords": [
     "증시",
-    "외국인",
-    "코스피",
-    "다우"
+    "지수",
+    "나스닥",
+    "외국인"
    ],
    "headlines": [
     {
-     "title": "뉴욕증시, 엔트로픽 9%·마이크론 6% 급락 출발… 기술주 투심 위축 속 혼조",
-     "url": "https://n.news.naver.com/mnews/article/029/0003060288",
-     "press": "디지털타임스",
-     "time": "2026-11-21T00:06:56+09:00"
+     "title": "“주식 어디가 바닥인데요?” 외국인은 이미 탈출…이건 7.4조 샀다는데",
+     "url": "https://n.news.naver.com/article/009/0005766931",
+     "press": "매일경제",
+     "time": "2026-11-21T07:05:39.223754+09:00"
     },
     {
-     "title": "\"불이야!\" 객실 문마다 두드렸다…외국인 관광객 16명 구한 30대 남성 [살맛나는 세상]",
-     "url": "https://n.news.naver.com/article/660/0000121871",
-     "press": "kbc광주방송",
-     "time": "2026-11-20T21:56:14+09:00"
+     "title": "\"6월 꿈같다, 구조대 오긴 하나요\"…5000선 또 무너진 코스피에 '한숨' [개미의 세계]",
+     "url": "https://n.news.naver.com/article/014/0005607576",
+     "press": "파이낸셜뉴스",
+     "time": "2026-11-21T05:01:15+09:00"
     }
    ],
    "leaders": [],
    "hint": {
     "type": "medium",
     "label": "중기 흐름",
-    "reason": "보도 폭 23.0시간 · 18개 시간대 · 매체 23곳 · 24시간 43건 · 최근 6시간 3건(7%) · 업황·정책 표현 6건"
+    "reason": "보도 폭 26.0시간 · 18개 시간대 · 매체 23곳 · 24시간 43건 · 최근 6시간 3건(7%) · 업황·정책 표현 6건"
    },
    "rank": 2
   },
@@ -175,29 +152,29 @@
    "label": "반도체·AI",
    "color": "#5b8cff",
    "count": 3,
-   "recent_6h": 0,
-   "recent_6h_ratio": 0,
-   "day_count": 39,
-   "hot": 15,
+   "recent_6h": 3,
+   "recent_6h_ratio": 8,
+   "day_count": 37,
+   "hot": 14,
    "presses": 26,
-   "span_hours": 0.8,
+   "span_hours": 1.8,
    "keywords": [
     "AI",
-    "엔비디아",
-    "챗GPT"
+    "삼성전자",
+    "데이터센터"
    ],
    "headlines": [
     {
-     "title": "“챗GPT도 2번이라는데”…수능 세계사 이의 폭주한 ‘이 문항’",
-     "url": "https://n.news.naver.com/article/666/0000133073",
-     "press": "경기일보",
-     "time": "2026-11-20T20:02:10+09:00"
+     "title": "트럼프 \"美 기업, 다른 나라에 데이터센터 지으면 고액 세금 부과\"",
+     "url": "https://n.news.naver.com/article/660/0000121874",
+     "press": "kbc광주방송",
+     "time": "2026-11-21T06:05:39.223754+09:00"
     },
     {
-     "title": "AI 안경 ‘이렇게’ 쓰면 좋은데…눈 번쩍할 만한 ‘농업 현장’ 사례",
-     "url": "https://n.news.naver.com/article/662/0000108990",
-     "press": "농민신문",
-     "time": "2026-11-20T19:43:14+09:00"
+     "title": "삼성전자 7% 폭락에 개미 1.5조 쓸어담았다…목표가도 줄하향 [숫자 뒤의 진실]",
+     "url": "https://n.news.naver.com/article/022/0004176893",
+     "press": "세계일보",
+     "time": "2026-11-21T05:02:18+09:00"
     }
    ],
    "leaders": [
@@ -208,7 +185,7 @@
    "hint": {
     "type": "medium",
     "label": "중기 흐름",
-    "reason": "보도 폭 20.0시간 · 18개 시간대 · 매체 26곳 · 24시간 39건 · 최근 6시간 0건(0%) · 업황·정책 표현 8건"
+    "reason": "보도 폭 24.0시간 · 17개 시간대 · 매체 26곳 · 24시간 37건 · 최근 6시간 3건(8%) · 업황·정책 표현 7건"
    },
    "rank": 3
   },
@@ -217,34 +194,32 @@
    "label": "실적·공시·수급",
    "color": "#f5d06b",
    "count": 3,
-   "recent_6h": 1,
-   "recent_6h_ratio": 3,
+   "recent_6h": 2,
+   "recent_6h_ratio": 6,
    "day_count": 31,
    "hot": 11,
    "presses": 26,
-   "span_hours": 8.0,
-   "keywords": [
-    "실적"
-   ],
+   "span_hours": 5.4,
+   "keywords": [],
    "headlines": [
     {
-     "title": "\"주식시장 자신 있다\"던 李…급락장에 날아온 청구서",
-     "url": "https://n.news.naver.com/article/586/0000142771",
-     "press": "시사저널",
-     "time": "2026-11-21T01:12:17.379306+09:00"
+     "title": "“혈압 급등 위험”… 알고 보면 ‘나트륨 폭탄’인 음식 5가지",
+     "url": "https://n.news.naver.com/article/346/0000119234",
+     "press": "헬스조선",
+     "time": "2026-11-21T06:02:18+09:00"
     },
     {
-     "title": "'한동훈 딸 봉사 실적' 안양시의회서 점화... 시장 \"시스템 무너졌구나\"",
-     "url": "https://n.news.naver.com/article/047/0002536690",
-     "press": "오마이뉴스",
-     "time": "2026-11-20T18:51:13+09:00"
+     "title": "'친위 쿠데타 준비'는 무죄이니, 앞으로는 꼭 쿠데타를 성공시켜라?[박세열 칼럼]",
+     "url": "https://n.news.naver.com/article/002/0002466934",
+     "press": "프레시안",
+     "time": "2026-11-21T05:29:12+09:00"
     }
    ],
    "leaders": [],
    "hint": {
     "type": "medium",
     "label": "중기 흐름",
-    "reason": "보도 폭 25.0시간 · 16개 시간대 · 매체 26곳 · 24시간 31건 · 최근 6시간 1건(3%) · 업황·정책 표현 8건"
+    "reason": "보도 폭 24.0시간 · 16개 시간대 · 매체 26곳 · 24시간 31건 · 최근 6시간 2건(6%) · 업황·정책 표현 8건"
    },
    "rank": 4
   },
@@ -255,25 +230,26 @@
    "count": 3,
    "recent_6h": 1,
    "recent_6h_ratio": 6,
-   "day_count": 18,
+   "day_count": 17,
    "hot": 6,
    "presses": 14,
-   "span_hours": 19.0,
+   "span_hours": 24.0,
    "keywords": [
-    "전기차"
+    "전기차",
+    "충전"
    ],
    "headlines": [
     {
-     "title": "비상 걸린 현대차… 혁신 대신 ‘차 가격 인상’ 대응에 비판 거세",
-     "url": "https://n.news.naver.com/mnews/article/029/0003060292",
-     "press": "디지털타임스",
-     "time": "2026-11-21T02:03:31+09:00"
+     "title": "카카오모빌리티, 볼트업 지분 510억에 매각…개방형 플랫폼에 무게",
+     "url": "https://n.news.naver.com/mnews/article/018/0006413407",
+     "press": "이데일리",
+     "time": "2026-11-21T07:04:08+09:00"
     },
     {
-     "title": "2000만 원대 ‘트윙고’로 중국 전기차 공습에 맞서는 르노",
-     "url": "https://n.news.naver.com/article/037/0000039184",
-     "press": "주간동아",
-     "time": "2026-11-20T07:02:21+09:00"
+     "title": "\"BYD 다음은 우리\"…체리·샤오펑·샤오미까지 '中 전기차' 줄줄이 韓 노크",
+     "url": "https://n.news.naver.com/article/629/0000553923",
+     "press": "더팩트",
+     "time": "2026-11-20T10:27:10+09:00"
     }
    ],
    "leaders": [
@@ -284,120 +260,39 @@
    "hint": {
     "type": "medium",
     "label": "중기 흐름",
-    "reason": "보도 폭 26.0시간 · 12개 시간대 · 매체 14곳 · 24시간 18건 · 최근 6시간 1건(6%) · 업황·정책 표현 8건"
+    "reason": "보도 폭 25.0시간 · 11개 시간대 · 매체 14곳 · 24시간 17건 · 최근 6시간 1건(6%) · 업황·정책 표현 7건"
    },
    "rank": 5
-  },
-  {
-   "id": "bio",
-   "label": "바이오·헬스케어",
-   "color": "#e564b8",
-   "count": 2,
-   "recent_6h": 1,
-   "recent_6h_ratio": 6,
-   "day_count": 17,
-   "hot": 9,
-   "presses": 15,
-   "span_hours": 1.3,
-   "keywords": [
-    "셀트리온",
-    "알테오젠"
-   ],
-   "headlines": [
-    {
-     "title": "머크, 독일서 '키트루다SC' 팔지만…특허 리스크 여전",
-     "url": "https://n.news.naver.com/mnews/article/215/0001273447",
-     "press": "한국경제TV",
-     "time": "2026-11-20T22:00:00+09:00"
-    },
-    {
-     "title": "STX 새 대표에 전재곤…\"경영 정상화·경쟁력 강화\"",
-     "url": "https://n.news.naver.com/mnews/article/422/0000928336",
-     "press": "연합뉴스TV",
-     "time": "2026-11-20T20:43:08+09:00"
-    }
-   ],
-   "leaders": [
-    "알테오젠",
-    "HLB",
-    "삼성바이오로직스"
-   ],
-   "hint": {
-    "type": "medium",
-    "label": "중기 흐름",
-    "reason": "보도 폭 16.0시간 · 12개 시간대 · 매체 15곳 · 24시간 17건 · 최근 6시간 1건(6%) · 업황·정책 표현 9건"
-   },
-   "rank": 6
-  },
-  {
-   "id": "robot",
-   "label": "로봇·자율주행",
-   "color": "#38d6a8",
-   "count": 2,
-   "recent_6h": 0,
-   "recent_6h_ratio": 0,
-   "day_count": 8,
-   "hot": 2,
-   "presses": 6,
-   "span_hours": 2.1,
-   "keywords": [
-    "로봇",
-    "자율주행"
-   ],
-   "headlines": [
-    {
-     "title": "3개월 만에 로봇 만들고, 비전공자가 의료 앱 개발…애플이 만든 'IT 교실'",
-     "url": "https://n.news.naver.com/article/092/0002446284",
-     "press": "지디넷코리아",
-     "time": "2026-11-20T18:12:17.379306+09:00"
-    },
-    {
-     "title": "국토부, 테슬라 자율주행(FSD) 국내 특례신청 퇴짜…“안전성 근거 부족”",
-     "url": "https://n.news.naver.com/article/138/0002249389",
-     "press": "디지털데일리",
-     "time": "2026-11-20T16:09:07+09:00"
-    }
-   ],
-   "leaders": [
-    "레인보우로보틱스",
-    "클로봇",
-    "유일로보틱스"
-   ],
-   "hint": {
-    "type": "medium",
-    "label": "중기 흐름",
-    "reason": "보도 폭 13.0시간 · 7개 시간대 · 매체 6곳 · 24시간 8건 · 최근 6시간 0건(0%) · 업황·정책 표현 2건"
-   },
-   "rank": 7
   },
   {
    "id": "policy",
    "label": "정책·건설",
    "color": "#c9a2ff",
-   "count": 2,
+   "count": 3,
    "recent_6h": 0,
    "recent_6h_ratio": 0,
-   "day_count": 13,
+   "day_count": 14,
    "hot": 1,
-   "presses": 11,
-   "span_hours": 10.5,
+   "presses": 12,
+   "span_hours": 5.3,
    "keywords": [
-    "부동산",
+    "정부",
+    "재개발",
     "재건축",
-    "국토부"
+    "부동산"
    ],
    "headlines": [
+    {
+     "title": "유적 보존안 ‘만장일치’ 부결…종묘 앞 세운4구역 재개발 멈췄다",
+     "url": "https://n.news.naver.com/article/016/0002726451",
+     "press": "헤럴드경제",
+     "time": "2026-11-20T23:05:39.223754+09:00"
+    },
     {
      "title": "재초환 부담금 현실로…강남 재건축 시장 ‘발칵’",
      "url": "https://n.news.naver.com/article/024/0000109784",
      "press": "매경이코노미",
-     "time": "2026-11-20T17:44:17+09:00"
-    },
-    {
-     "title": "“팔짱 낀 채 보고 있어요”… 팔 이유 많은데 살 사람 없는 강남 부동산",
-     "url": "https://n.news.naver.com/article/037/0000039183",
-     "press": "주간동아",
-     "time": "2026-11-20T07:12:17.379306+09:00"
+     "time": "2026-11-20T18:05:39.223754+09:00"
     }
    ],
    "leaders": [
@@ -407,9 +302,9 @@
    "hint": {
     "type": "medium",
     "label": "중기 흐름",
-    "reason": "보도 폭 12.0시간 · 9개 시간대 · 매체 11곳 · 24시간 13건 · 최근 6시간 0건(0%) · 업황·정책 표현 7건"
+    "reason": "보도 폭 17.0시간 · 10개 시간대 · 매체 12곳 · 24시간 14건 · 최근 6시간 0건(0%) · 업황·정책 표현 7건"
    },
-   "rank": 8
+   "rank": 6
   },
   {
    "id": "geopolitics",
@@ -418,25 +313,25 @@
    "count": 2,
    "recent_6h": 0,
    "recent_6h_ratio": 0,
-   "day_count": 9,
+   "day_count": 8,
    "hot": 1,
-   "presses": 7,
-   "span_hours": 0.5,
+   "presses": 6,
+   "span_hours": 0.2,
    "keywords": [
     "중국"
    ],
    "headlines": [
     {
+     "title": "\"테슬라, 중국 생산 확대\"",
+     "url": "https://n.news.naver.com/article/050/0000113550",
+     "press": "한경비즈니스",
+     "time": "2026-11-20T16:05:39.223754+09:00"
+    },
+    {
      "title": "중국 '맹추격'...'K-조선' 최후의 보루마저 뚫리나",
      "url": "https://n.news.naver.com/article/050/0000113554",
      "press": "한경비즈니스",
      "time": "2026-11-20T15:52:14+09:00"
-    },
-    {
-     "title": "\"테슬라, 중국 생산 확대\"",
-     "url": "https://n.news.naver.com/article/050/0000113550",
-     "press": "한경비즈니스",
-     "time": "2026-11-20T15:23:09+09:00"
     }
    ],
    "leaders": [
@@ -447,51 +342,17 @@
    "hint": {
     "type": "medium",
     "label": "중기 흐름",
-    "reason": "보도 폭 14.0시간 · 6개 시간대 · 매체 7곳 · 24시간 9건 · 최근 6시간 0건(0%) · 업황·정책 표현 3건"
+    "reason": "보도 폭 8.0시간 · 5개 시간대 · 매체 6곳 · 24시간 8건 · 최근 6시간 0건(0%) · 업황·정책 표현 3건"
    },
-   "rank": 9
-  },
-  {
-   "id": "defense",
-   "label": "방산·우주",
-   "color": "#f0a35e",
-   "count": 1,
-   "recent_6h": 1,
-   "recent_6h_ratio": 17,
-   "day_count": 6,
-   "hot": 1,
-   "presses": 5,
-   "span_hours": 0.0,
-   "keywords": [
-    "무기"
-   ],
-   "headlines": [
-    {
-     "title": "효성중공업 사무직노조, 첫 임단협안 거부… 성과급 차등 지급에 반발",
-     "url": "https://n.news.naver.com/mnews/article/366/0001206341",
-     "press": "조선비즈",
-     "time": "2026-11-20T21:54:19+09:00"
-    }
-   ],
-   "leaders": [
-    "LIG넥스원",
-    "빅텍",
-    "스페코"
-   ],
-   "hint": {
-    "type": "medium",
-    "label": "중기 흐름",
-    "reason": "보도 폭 14.0시간 · 6개 시간대 · 매체 5곳 · 24시간 6건 · 최근 6시간 1건(17%) · 업황·정책 표현 4건"
-   },
-   "rank": 10
+   "rank": 7
   },
   {
    "id": "disaster",
    "label": "재난·안전",
    "color": "#ffb27a",
    "count": 1,
-   "recent_6h": 3,
-   "recent_6h_ratio": 43,
+   "recent_6h": 0,
+   "recent_6h_ratio": 0,
    "day_count": 7,
    "hot": 0,
    "presses": 7,
@@ -504,7 +365,7 @@
      "title": "‘이른 한파에 대설’ 성층권도 흔들…이번 겨울은?",
      "url": "https://n.news.naver.com/article/056/0012298348",
      "press": "KBS",
-     "time": "2026-11-20T22:12:17.379306+09:00"
+     "time": "2026-11-20T21:28:23+09:00"
     }
    ],
    "leaders": [
@@ -515,9 +376,9 @@
    "hint": {
     "type": "medium",
     "label": "중기 흐름",
-    "reason": "보도 폭 16.0시간 · 5개 시간대 · 매체 7곳 · 24시간 7건 · 최근 6시간 3건(43%) · 업황·정책 표현 1건"
+    "reason": "보도 폭 16.0시간 · 5개 시간대 · 매체 7곳 · 24시간 7건 · 최근 6시간 0건(0%) · 업황·정책 표현 1건"
    },
-   "rank": 11
+   "rank": 8
   }
  ],
  "upper_limits": {
@@ -596,7 +457,7 @@
   ]
  },
  "market_mood": {
-  "generated_at": "2026-11-21T02:12:17.379306+09:00",
+  "generated_at": "2026-11-21T08:05:39.223754+09:00",
   "kr": {
    "key": "bad",
    "label": "악재",
@@ -622,51 +483,35 @@
   "us": {
    "key": "bad",
    "label": "악재",
-   "why": "나스닥 -3.49% · S&P500 -2.02% · 다우 -0.51% (평균 -2.01%)",
-   "avg": -2.01,
+   "why": "나스닥 -5.28% · S&P500 -3.70% · 다우 -1.93% (평균 -3.64%)",
+   "avg": -3.64,
    "live": true,
-   "as_of_kst": "11-21 02:14",
+   "as_of_kst": "11-21 07:15",
    "nasdaq": {
     "name": "나스닥",
-    "value": 23047.02,
-    "chg": -3.49,
-    "status": "OPEN",
-    "as_of": "2026-11-20T12:14:07-05:00"
+    "value": 22617.73,
+    "chg": -5.28,
+    "status": "CLOSE",
+    "as_of": "2026-11-20T17:15:59-05:00"
    },
    "sp500": {
     "name": "S&P500",
-    "value": 7030.86,
-    "chg": -2.02,
-    "status": "OPEN",
-    "as_of": "2026-11-20T12:14:07-05:00"
+    "value": 6910.39,
+    "chg": -3.7,
+    "status": "CLOSE",
+    "as_of": "2026-11-20T16:35:54-05:00"
    },
    "dow": {
     "name": "다우",
-    "value": 48847.68,
-    "chg": -0.51,
-    "status": "OPEN",
-    "as_of": "2026-11-20T12:14:08-05:00"
+    "value": 48147.33,
+    "chg": -1.93,
+    "status": "CLOSE",
+    "as_of": "2026-11-20T16:35:59-05:00"
    }
   }
  },
  "history": {
   "semiconductor": [
-   [
-    "052/0002435407",
-    "2026-11-20T01",
-    "YTN",
-    0,
-    0,
-    0
-   ],
-   [
-    "214/0001536801",
-    "2026-11-20T00",
-    "MBC",
-    0,
-    0,
-    0
-   ],
    [
     "138/0002249310",
     "2026-11-20T06",
@@ -676,35 +521,11 @@
     0
    ],
    [
-    "001/0016453389",
-    "2026-11-20T05",
-    "연합뉴스",
-    0,
-    0,
-    0
-   ],
-   [
     "366/0001206111",
     "2026-11-20T07",
     "조선비즈",
     1,
     0,
-    0
-   ],
-   [
-    "374/0000544831",
-    "2026-11-20T04",
-    "SBS Biz",
-    0,
-    0,
-    0
-   ],
-   [
-    "374/0000544833",
-    "2026-11-20T04",
-    "SBS Biz",
-    1,
-    1,
     0
    ],
    [
@@ -962,25 +783,33 @@
     0,
     0,
     0
+   ],
+   [
+    "660/0000121874",
+    "2026-11-21T06",
+    "kbc광주방송",
+    0,
+    0,
+    0
+   ],
+   [
+    "022/0004176893",
+    "2026-11-21T05",
+    "세계일보",
+    0,
+    0,
+    1
+   ],
+   [
+    "052/0002435960",
+    "2026-11-21T04",
+    "YTN",
+    0,
+    0,
+    0
    ]
   ],
   "earnings": [
-   [
-    "629/0000553839",
-    "2026-11-20T00",
-    "더팩트",
-    0,
-    1,
-    0
-   ],
-   [
-    "001/0016453350",
-    "2026-11-20T01",
-    "연합뉴스",
-    0,
-    0,
-    0
-   ],
    [
     "123/0002394466",
     "2026-11-20T07",
@@ -1212,6 +1041,22 @@
     0,
     0,
     1
+   ],
+   [
+    "346/0000119234",
+    "2026-11-21T06",
+    "헬스조선",
+    0,
+    1,
+    1
+   ],
+   [
+    "002/0002466934",
+    "2026-11-21T05",
+    "프레시안",
+    0,
+    0,
+    0
    ]
   ],
   "bio": [
@@ -1370,25 +1215,9 @@
     0
    ],
    [
-    "417/0001165001",
-    "2026-11-20T05",
-    "동행미디어 시대",
-    0,
-    1,
-    0
-   ],
-   [
     "037/0000039184",
     "2026-11-20T07",
     "주간동아",
-    0,
-    0,
-    0
-   ],
-   [
-    "023/0004010715",
-    "2026-11-20T00",
-    "조선일보",
     0,
     0,
     0
@@ -1496,31 +1325,23 @@
     0,
     0,
     0
+   ],
+   [
+    "018/0006413407",
+    "2026-11-21T07",
+    "이데일리",
+    0,
+    0,
+    0
    ]
   ],
   "macro": [
-   [
-    "023/0004010727",
-    "2026-11-20T01",
-    "조선일보",
-    1,
-    1,
-    0
-   ],
    [
     "031/0001076832",
     "2026-11-20T06",
     "아이뉴스24",
     1,
     1,
-    0
-   ],
-   [
-    "014/0005607174",
-    "2026-11-20T04",
-    "파이낸셜뉴스",
-    0,
-    0,
     0
    ],
    [
@@ -1535,14 +1356,6 @@
     "119/0003157445",
     "2026-11-20T06",
     "데일리안",
-    0,
-    0,
-    0
-   ],
-   [
-    "374/0000544832",
-    "2026-11-20T05",
-    "SBS Biz",
     0,
     0,
     0
@@ -1842,6 +1655,30 @@
     1,
     0,
     1
+   ],
+   [
+    "029/0003060294",
+    "2026-11-21T08",
+    "디지털타임스",
+    1,
+    0,
+    1
+   ],
+   [
+    "009/0005766931",
+    "2026-11-21T07",
+    "매일경제",
+    0,
+    0,
+    0
+   ],
+   [
+    "014/0005607576",
+    "2026-11-21T05",
+    "파이낸셜뉴스",
+    0,
+    1,
+    0
    ]
   ],
   "policy": [
@@ -1948,6 +1785,14 @@
     0,
     0,
     0
+   ],
+   [
+    "016/0002726451",
+    "2026-11-20T23",
+    "헤럴드경제",
+    0,
+    0,
+    0
    ]
   ],
   "aisec": [
@@ -1956,14 +1801,6 @@
     "2026-11-20T06",
     "YTN",
     0,
-    0,
-    1
-   ],
-   [
-    "665/0000008604",
-    "2026-11-20T02",
-    "더스쿠프",
-    1,
     0,
     1
    ],
@@ -2310,6 +2147,14 @@
     0,
     0,
     0
+   ],
+   [
+    "629/0000554231",
+    "2026-11-21T00",
+    "더팩트",
+    1,
+    0,
+    0
    ]
   ],
   "disaster": [
@@ -2380,14 +2225,6 @@
     0
    ],
    [
-    "138/0002249301",
-    "2026-11-20T05",
-    "디지털데일리",
-    0,
-    1,
-    0
-   ],
-   [
     "003/0014335394",
     "2026-11-20T11",
     "뉴시스",
@@ -2437,14 +2274,6 @@
    ]
   ],
   "geopolitics": [
-   [
-    "081/0003701316",
-    "2026-11-20T01",
-    "서울신문",
-    0,
-    0,
-    0
-   ],
    [
     "119/0003157457",
     "2026-11-20T07",
@@ -2563,39 +2392,11 @@
  },
  "flash": [
   {
-   "id": "020/0003764066",
-   "title": "앤스로픽 호재 덮은 ‘AI 거품론’… 코스피 4900 붕괴",
-   "press": "동아일보",
-   "time": "2026-11-21T02:12:17.379306+09:00",
-   "url": "https://n.news.naver.com/mnews/article/020/0003764066",
-   "summary": "",
-   "theme": "macro",
-   "theme_label": "거시·환율·금리",
-   "theme_color": "#7fd3e8",
-   "leaders": [],
-   "fresh": true,
-   "breaking": false
-  },
-  {
-   "id": "366/0001206346",
-   "title": "뉴욕증시, AI 기술주 매도세에 혼조 출발… 앤트로픽 상장 이틀째 10% 급락",
-   "press": "조선비즈",
-   "time": "2026-11-21T02:12:17.379306+09:00",
-   "url": "https://n.news.naver.com/mnews/article/366/0001206346",
-   "summary": "",
-   "theme": "earnings",
-   "theme_label": "실적·공시·수급",
-   "theme_color": "#f5d06b",
-   "leaders": [],
-   "fresh": true,
-   "breaking": false
-  },
-  {
-   "id": "018/0006413378",
-   "title": "앤스로픽 11% 급락, 공모가마저 위협…IPO 열기 왜 식었나",
+   "id": "018/0006413417",
+   "title": "폭락한 AI주, 물타기할까 갈아탈까…주가 말고 '이것' 보라",
    "press": "이데일리",
-   "time": "2026-11-21T02:12:17.379306+09:00",
-   "url": "https://n.news.naver.com/mnews/article/018/0006413378",
+   "time": "2026-11-21T08:05:39.223754+09:00",
+   "url": "https://n.news.naver.com/mnews/article/018/0006413417",
    "summary": "",
    "theme": "earnings",
    "theme_label": "실적·공시·수급",
@@ -2605,43 +2406,74 @@
    "breaking": false
   },
   {
-   "id": "001/0016455389",
-   "title": "앤트로픽 상장 이틀째 9% 급락 출발…AI 투자 불안 확산",
+   "id": "014/0005607603",
+   "title": "50대 투자자 \"주식 평가액 55억원…대주주 양도세 피하려면\"[세무 재테크 Q&A]",
+   "press": "파이낸셜뉴스",
+   "time": "2026-11-21T08:05:39.223754+09:00",
+   "url": "https://n.news.naver.com/mnews/article/014/0005607603",
+   "summary": "",
+   "theme": "earnings",
+   "theme_label": "실적·공시·수급",
+   "theme_color": "#f5d06b",
+   "leaders": [],
+   "fresh": true,
+   "breaking": false
+  },
+  {
+   "id": "001/0016455509",
+   "title": "[머니플로우] 서학개미, 이달 엔비디아 8천억 폭풍매수에도 6조 평가손",
    "press": "연합뉴스",
-   "time": "2026-11-21T02:12:17.379306+09:00",
-   "url": "https://n.news.naver.com/mnews/article/001/0016455389",
-   "summary": "",
-   "theme": "earnings",
-   "theme_label": "실적·공시·수급",
-   "theme_color": "#f5d06b",
-   "leaders": [],
-   "fresh": true,
-   "breaking": false
-  },
-  {
-   "id": "119/0003157850",
-   "title": "'일상어로 물으면 AI가 답변'…미래에셋증권, '미래에셋 3.0' 박차",
-   "press": "데일리안",
-   "time": "2026-11-21T02:12:17.379306+09:00",
-   "url": "https://n.news.naver.com/mnews/article/119/0003157850",
+   "time": "2026-11-21T08:05:39.223754+09:00",
+   "url": "https://n.news.naver.com/mnews/article/001/0016455509",
    "summary": "",
    "theme": "semiconductor",
    "theme_label": "반도체·AI",
    "theme_color": "#5b8cff",
+   "leaders": [
+    "한미반도체",
+    "이수페타시스"
+   ],
+   "fresh": true,
+   "breaking": false
+  },
+  {
+   "id": "119/0003157862",
+   "title": "코스닥, 좀비기업 내보내야 산다…상장사 63% 퇴출 찬성",
+   "press": "데일리안",
+   "time": "2026-11-21T08:05:39.223754+09:00",
+   "url": "https://n.news.naver.com/mnews/article/119/0003157862",
+   "summary": "",
+   "theme": "macro",
+   "theme_label": "거시·환율·금리",
+   "theme_color": "#7fd3e8",
    "leaders": [],
    "fresh": true,
    "breaking": false
   },
   {
-   "id": "029/0003060288",
-   "title": "뉴욕증시, 엔트로픽 9%·마이크론 6% 급락 출발… 기술주 투심 위축 속 혼조",
-   "press": "디지털타임스",
-   "time": "2026-11-21T02:12:17.379306+09:00",
-   "url": "https://n.news.naver.com/mnews/article/029/0003060288",
+   "id": "015/0005356555",
+   "title": "\"믿었던 AI마저\"…기술주 투매에 나스닥 5% 급락 [뉴욕증시 브리핑]",
+   "press": "한국경제",
+   "time": "2026-11-21T08:05:39.223754+09:00",
+   "url": "https://n.news.naver.com/mnews/article/015/0005356555",
    "summary": "",
    "theme": "macro",
    "theme_label": "거시·환율·금리",
    "theme_color": "#7fd3e8",
+   "leaders": [],
+   "fresh": true,
+   "breaking": false
+  },
+  {
+   "id": "138/0002249434",
+   "title": "나스닥 5.3% 폭락…AMD·마이크론 13% 급락",
+   "press": "디지털데일리",
+   "time": "2026-11-21T08:05:39.223754+09:00",
+   "url": "https://n.news.naver.com/mnews/article/138/0002249434",
+   "summary": "",
+   "theme": "earnings",
+   "theme_label": "실적·공시·수급",
+   "theme_color": "#f5d06b",
    "leaders": [],
    "fresh": true,
    "breaking": false
@@ -2649,11 +2481,11 @@
  ],
  "issues": [
   {
-   "id": "029/0003060288",
-   "title": "뉴욕증시, 엔트로픽 9%·마이크론 6% 급락 출발… 기술주 투심 위축 속 혼조",
-   "url": "https://n.news.naver.com/mnews/article/029/0003060288",
+   "id": "029/0003060294",
+   "title": "[속보] 엔비디아 14% 폭락… 뉴욕증시 기술주 매도에 나스닥 5.3% 떨어져",
+   "url": "https://n.news.naver.com/mnews/article/029/0003060294",
    "press": "디지털타임스",
-   "time": "2026-11-21T00:06:56+09:00",
+   "time": "",
    "section": "증권",
    "source": "main",
    "main_rank": 1,
@@ -2661,43 +2493,276 @@
    "theme_label": "거시·환율·금리",
    "tags": [
     "증시",
-    "다우"
+    "나스닥",
+    "지수"
    ],
-   "presses": 16,
+   "presses": 21,
    "press_list": [
     "디지털타임스",
-    "비즈워치",
-    "이코노미스트",
-    "강원일보",
-    "프레시안",
-    "디지털데일리"
+    "연합뉴스",
+    "여성신문",
+    "조세일보",
+    "국제신문",
+    "이코노미스트"
    ],
    "related": [
     {
-     "title": "실적도 안먹히는 시장...'검은 금요일' 코스피 4900선도 붕괴",
-     "press": "비즈워치",
-     "url": "https://n.news.naver.com/article/648/0000052838",
-     "time": "2026-11-20T18:12:17.379306+09:00"
+     "title": "나스닥, 기술주 매도에 5.3% 폭락…다우·S&P500도 조정 진입",
+     "press": "연합뉴스",
+     "url": "https://n.news.naver.com/mnews/article/001/0016455433",
+     "time": ""
     },
     {
-     "title": "[오늘의증시] \"시퍼런 주식창\" 코스피·코스닥 '멘붕'…美 악재에 또 '검은 금요일'",
-     "press": "이코노미스트",
-     "url": "https://n.news.naver.com/article/243/0000105973",
-     "time": "2026-11-20T16:12:17.379306+09:00"
+     "title": "기술주 매도에 나스닥 5.3% 폭락...다우·S&P 조정국면 진입",
+     "press": "여성신문",
+     "url": "https://n.news.naver.com/article/310/0000141924",
+     "time": "2026-11-21T07:05:39.223754+09:00"
     },
     {
-     "title": "삼성전자·SK하이닉스 6.7% 곤두박질…코스피, 매도 사이드카 발동",
-     "press": "강원일보",
-     "url": "https://n.news.naver.com/article/087/0001232271",
-     "time": "2026-11-20T13:12:17.379306+09:00"
+     "title": "‘대중 봉쇄’ 외치던 美...엔비디아·AMD AI칩 88만개 수출 허가",
+     "press": "조세일보",
+     "url": "https://n.news.naver.com/article/123/0002394527",
+     "time": "2026-11-20T19:05:39.223754+09:00"
     }
    ],
-   "article_count": 23,
-   "breaking": false,
-   "relevance": 39,
-   "summary": "20일(현지시간) 미국 뉴욕 증시는 기술주에 대한 투자심리가 위축된 가운데 혼조세로 출발했다. 이날 오전 9시 45분 현재 뉴욕증권거래소에서 다우존스30은 전장보다 214.97포인트(0.44%) 상승한 4만9312.",
-   "leaders": [],
+   "article_count": 43,
+   "breaking": true,
+   "relevance": 45,
+   "summary": "- 美증권위, 엔비디아 회계조사“…싱가포르 매출기준 변경 주목 - ‘순환형 자금 조달’ 거래도 회계 투명성 논란 배경으로 거론 - 다우·S&P500 지수도 조정기 진입 - 필리 반도체 지수도 10%↓…공포지수 급등,",
+   "leaders": [
+    "한미반도체",
+    "이수페타시스",
+    "가온칩스",
+    "티엘비"
+   ],
    "issue_rank": 1
+  },
+  {
+   "id": "009/0005766931",
+   "title": "“주식 어디가 바닥인데요?” 외국인은 이미 탈출…이건 7.4조 샀다는데",
+   "url": "https://n.news.naver.com/article/009/0005766931",
+   "press": "매일경제",
+   "time": "2026-11-21T07:05:39.223754+09:00",
+   "section": "네이버 메인",
+   "source": "main",
+   "main_rank": 2,
+   "theme": "macro",
+   "theme_label": "거시·환율·금리",
+   "tags": [
+    "외국인"
+   ],
+   "presses": 1,
+   "press_list": [
+    "매일경제"
+   ],
+   "related": [],
+   "article_count": 1,
+   "breaking": false,
+   "relevance": 7,
+   "summary": "",
+   "leaders": [],
+   "issue_rank": 2
+  },
+  {
+   "id": "018/0006413407",
+   "title": "카카오모빌리티, 볼트업 지분 510억에 매각…개방형 플랫폼에 무게",
+   "url": "https://n.news.naver.com/mnews/article/018/0006413407",
+   "press": "이데일리",
+   "time": "2026-11-21T07:04:08+09:00",
+   "section": "산업/재계",
+   "source": "section",
+   "main_rank": null,
+   "theme": "battery",
+   "theme_label": "2차전지·에너지",
+   "tags": [
+    "전기차",
+    "충전"
+   ],
+   "presses": 1,
+   "press_list": [
+    "이데일리"
+   ],
+   "related": [],
+   "article_count": 1,
+   "breaking": false,
+   "relevance": 9,
+   "summary": "카카오모빌리티가 LG유플러스(032640)와 공동 설립한 전기차 충전 전문기업 ‘LG유플러스볼트업’의 지분을 전량 매각한다. 전기차 충전사업에서 철수한다기 보다는 충전 인프라에 직접 투자하는 합작사업을 정리하고, 다",
+   "leaders": [
+    "카카오",
+    "현대차",
+    "기아"
+   ],
+   "issue_rank": 3
+  },
+  {
+   "id": "660/0000121874",
+   "title": "트럼프 \"美 기업, 다른 나라에 데이터센터 지으면 고액 세금 부과\"",
+   "url": "https://n.news.naver.com/article/660/0000121874",
+   "press": "kbc광주방송",
+   "time": "2026-11-21T06:05:39.223754+09:00",
+   "section": "네이버 메인",
+   "source": "main",
+   "main_rank": 4,
+   "theme": "semiconductor",
+   "theme_label": "반도체·AI",
+   "tags": [
+    "데이터센터"
+   ],
+   "presses": 1,
+   "press_list": [
+    "kbc광주방송"
+   ],
+   "related": [],
+   "article_count": 1,
+   "breaking": false,
+   "relevance": 7,
+   "summary": "",
+   "leaders": [
+    "한미반도체",
+    "이수페타시스",
+    "가온칩스",
+    "티엘비"
+   ],
+   "issue_rank": 4
+  },
+  {
+   "id": "346/0000119234",
+   "title": "“혈압 급등 위험”… 알고 보면 ‘나트륨 폭탄’인 음식 5가지",
+   "url": "https://n.news.naver.com/article/346/0000119234",
+   "press": "헬스조선",
+   "time": "2026-11-21T06:02:18+09:00",
+   "section": "네이버 메인",
+   "source": "main",
+   "main_rank": 4,
+   "theme": "earnings",
+   "theme_label": "실적·공시·수급",
+   "tags": [
+    "급등"
+   ],
+   "presses": 1,
+   "press_list": [
+    "헬스조선"
+   ],
+   "related": [],
+   "article_count": 1,
+   "breaking": false,
+   "relevance": 10,
+   "summary": "평소 건강식이라고 생각했던 음식에도 의외로 나트륨이 많이 들어 있을 수 있다. 나트륨을 과도하게 섭취하면 체내 수분이 늘어나 혈압이 상승하고, 장기적으로 심혈관질환 위험이 커질 수 있다.",
+   "leaders": [],
+   "issue_rank": 5
+  },
+  {
+   "id": "002/0002466934",
+   "title": "'친위 쿠데타 준비'는 무죄이니, 앞으로는 꼭 쿠데타를 성공시켜라?[박세열 칼럼]",
+   "url": "https://n.news.naver.com/article/002/0002466934",
+   "press": "프레시안",
+   "time": "2026-11-21T05:29:12+09:00",
+   "section": "네이버 메인",
+   "source": "main",
+   "main_rank": 1,
+   "theme": "earnings",
+   "theme_label": "실적·공시·수급",
+   "tags": [
+    "공시"
+   ],
+   "presses": 1,
+   "press_list": [
+    "프레시안"
+   ],
+   "related": [],
+   "article_count": 1,
+   "breaking": false,
+   "relevance": 10,
+   "summary": "[박세열 칼럼] 한덕수 판결이 남긴 위험한 질문…아마 '내란범'들은 실패를 통탄하고 있을 것이다 만약 윤석열의 12·3 비상계엄이 성공했다면 어떻게 됐을까. 국회에 투입된 군인, 경찰들이 국회의원 출입을 봉쇄하고 본회의장을 장악해 계엄 해제 요구안 표결을 저지했다고 가정해 보자.",
+   "leaders": [],
+   "issue_rank": 6
+  },
+  {
+   "id": "022/0004176893",
+   "title": "삼성전자 7% 폭락에 개미 1.5조 쓸어담았다…목표가도 줄하향 [숫자 뒤의 진실]",
+   "url": "https://n.news.naver.com/article/022/0004176893",
+   "press": "세계일보",
+   "time": "2026-11-21T05:02:18+09:00",
+   "section": "네이버 메인",
+   "source": "main",
+   "main_rank": 2,
+   "theme": "semiconductor",
+   "theme_label": "반도체·AI",
+   "tags": [
+    "삼성전자"
+   ],
+   "presses": 1,
+   "press_list": [
+    "세계일보"
+   ],
+   "related": [],
+   "article_count": 1,
+   "breaking": false,
+   "relevance": 7,
+   "summary": "삼성전자 7%·하이닉스 6%↓…코스피 4800선 추락 외국인·기관, 전기·전자 2조 매도…개인은 1.5조 순매수 모건스탠리, 이익 전망은 올리고 목표가 최대 38%↓ 삼성전자 주가가 하루 새 7% 넘게 빠진 20일, 개인투자자는 유가증권시장 전기·전자 업종에서 1조5178억원 매수 우위를…",
+   "leaders": [
+    "삼성전자",
+    "한미반도체",
+    "이수페타시스",
+    "가온칩스"
+   ],
+   "issue_rank": 7
+  },
+  {
+   "id": "014/0005607576",
+   "title": "\"6월 꿈같다, 구조대 오긴 하나요\"…5000선 또 무너진 코스피에 '한숨' [개미의 세계]",
+   "url": "https://n.news.naver.com/article/014/0005607576",
+   "press": "파이낸셜뉴스",
+   "time": "2026-11-21T05:01:15+09:00",
+   "section": "네이버 메인",
+   "source": "main",
+   "main_rank": 5,
+   "theme": "macro",
+   "theme_label": "거시·환율·금리",
+   "tags": [
+    "코스피"
+   ],
+   "presses": 1,
+   "press_list": [
+    "파이낸셜뉴스"
+   ],
+   "related": [],
+   "article_count": 1,
+   "breaking": false,
+   "relevance": 10,
+   "summary": "코스피가 하락 출발한 20일 서울 중구 하나은행 딜링룸 현황판에 코스피 지수가 표시되고 있다. \"올해 초가 꿈같습니다.",
+   "leaders": [],
+   "issue_rank": 8
+  },
+  {
+   "id": "052/0002435960",
+   "title": "시험의 종말? \"AI 콘택트 렌즈의 시대 온다\"",
+   "url": "https://n.news.naver.com/article/052/0002435960",
+   "press": "YTN",
+   "time": "2026-11-21T04:17:33+09:00",
+   "section": "네이버 메인",
+   "source": "main",
+   "main_rank": 5,
+   "theme": "semiconductor",
+   "theme_label": "반도체·AI",
+   "tags": [
+    "AI"
+   ],
+   "presses": 1,
+   "press_list": [
+    "YTN"
+   ],
+   "related": [],
+   "article_count": 1,
+   "breaking": false,
+   "relevance": 4,
+   "summary": "[앵커] AI 장비를 이용한 부정 시험 논란으로 우리 사회가 큰 홍역을 치르고 있지만, 관련 기술은 갈수록 빠르게 진화하고 있습니다. 스마트 안경을 넘어선 이른바 스마트 콘택트렌즈도 조만간 시중에 나올 예정인데, 이렇게 되면 정말 '시험의 종말' 시대가 올 것이라는 이야기마저 나옵니다.",
+   "leaders": [
+    "지슨",
+    "라온시큐어",
+    "샌즈랩"
+   ],
+   "issue_rank": 9
   },
   {
    "id": "657/0000057678",
@@ -2715,133 +2780,36 @@
     "수능",
     "시험"
    ],
-   "presses": 5,
+   "presses": 2,
    "press_list": [
     "대구MBC",
-    "대전일보",
-    "CJB청주방송",
-    "데일리안",
-    "kbc광주방송"
+    "CJB청주방송"
    ],
    "related": [
-    {
-     "title": "이 대통령 \"AI 커닝 막기 어려워… 국가시험제도 전면 개편해야\"",
-     "press": "대전일보",
-     "url": "https://n.news.naver.com/article/656/0000193073",
-     "time": "2026-11-20T15:12:17.379306+09:00"
-    },
     {
      "title": "한 총리 \"수능 스마트기기 부정행위자 형사고발…국가시험 개선 범정부 TF 출범\"",
      "press": "CJB청주방송",
      "url": "https://n.news.naver.com/article/655/0000033644",
-     "time": "2026-11-20T17:12:17.379306+09:00"
-    },
-    {
-     "title": "李대통령, 수능 재난문자 \"재밌어하셨다는 얘기 감사\"…국가시험 전면 개편 지시",
-     "press": "데일리안",
-     "url": "https://n.news.naver.com/article/119/0003157804",
-     "time": "2026-11-20T18:12:17.379306+09:00"
+     "time": "2026-11-20T17:05:39.223754+09:00"
     }
    ],
-   "article_count": 5,
+   "article_count": 2,
    "breaking": false,
-   "relevance": 31,
+   "relevance": 22,
    "summary": "최근 국가시험에서 논란이 이어지고 있는 부정행위에 대해 이재명 대통령이 기존 방식으로 인공지능 부정행위를 막기 어렵다며 제도 전면 개편을 지시했습니다.",
    "leaders": [
     "지슨",
     "라온시큐어",
     "샌즈랩"
    ],
-   "issue_rank": 2
-  },
-  {
-   "id": "011/0004684539",
-   "title": "“반으로 잘라, 내 책임이여” 수능날 교장 지시에 ‘땀 뻘뻘’…시험장 뒤집은 ‘지우개 소동’",
-   "url": "https://n.news.naver.com/article/011/0004684539",
-   "press": "서울경제",
-   "time": "2026-11-20T22:02:11+09:00",
-   "section": "네이버 메인",
-   "source": "main",
-   "main_rank": 4,
-   "theme": "aisec",
-   "theme_label": "AI·보안",
-   "tags": [
-    "수능",
-    "시험"
-   ],
-   "presses": 4,
-   "press_list": [
-    "서울경제",
-    "중앙일보",
-    "뉴시스",
-    "주간조선"
-   ],
-   "related": [
-    {
-     "title": "수능 시험장에 도착 안 한 지우개…“내 책임” 교장 내린 결단은",
-     "press": "중앙일보",
-     "url": "https://n.news.naver.com/article/025/0003566791",
-     "time": "2026-11-20T18:12:17.379306+09:00"
-    },
-    {
-     "title": "\"잘라도 돼, 내 책임이여\"…수능날 지우개 모자라자 교장 '특단 조치'",
-     "press": "뉴시스",
-     "url": "https://n.news.naver.com/article/003/0014336795",
-     "time": "2026-11-20T20:12:17.379306+09:00"
-    },
-    {
-     "title": "\"반으로 잘라, 내 책임이여\"…수능날 지우개 부족하자 교장이 내린 지시",
-     "press": "주간조선",
-     "url": "https://n.news.naver.com/article/053/0000063218",
-     "time": "2026-11-20T23:12:17.379306+09:00"
-    }
-   ],
-   "article_count": 4,
-   "breaking": false,
-   "relevance": 19,
-   "summary": "기사 이해를 돕기 위해 AI로 제작한 이미지 인공지능(AI) 부정행위를 막기 위해 수능 시험장에선 지우개를 반으로 잘라 나눠주는 소동까지 벌어졌다. 이번 주말 대학 논술고사를 앞두고도 개인 필기구 사용이 금지되고 가운·앞치마 착용까지 도입되는 등 시험장 풍경이 달라지고 있다.",
-   "leaders": [
-    "지슨",
-    "라온시큐어",
-    "샌즈랩"
-   ],
-   "issue_rank": 3
-  },
-  {
-   "id": "029/0003060292",
-   "title": "비상 걸린 현대차… 혁신 대신 ‘차 가격 인상’ 대응에 비판 거세",
-   "url": "https://n.news.naver.com/mnews/article/029/0003060292",
-   "press": "디지털타임스",
-   "time": "2026-11-21T02:03:31+09:00",
-   "section": "산업/재계",
-   "source": "section",
-   "main_rank": null,
-   "theme": "battery",
-   "theme_label": "2차전지·에너지",
-   "tags": [
-    "전기차"
-   ],
-   "presses": 1,
-   "press_list": [
-    "디지털타임스"
-   ],
-   "related": [],
-   "article_count": 1,
-   "breaking": false,
-   "relevance": 7,
-   "summary": "- 중국차 거센 공세에 전기차 안방 점유율 50% 깨져 - 옵션 재편 차 가격 인상으로 수익성 지켜… 아반테 최고급 사양 기준 4000만원 넘어 - 소비자에 전가 비판 적지 않아… 테슬라 같은 미래차 혁신 부족 대한",
-   "leaders": [
-    "현대차",
-    "기아"
-   ],
-   "issue_rank": 4
+   "issue_rank": 10
   },
   {
    "id": "586/0000142771",
    "title": "\"주식시장 자신 있다\"던 李…급락장에 날아온 청구서",
    "url": "https://n.news.naver.com/article/586/0000142771",
    "press": "시사저널",
-   "time": "2026-11-21T01:12:17.379306+09:00",
+   "time": "2026-11-21T00:38:13+09:00",
    "section": "네이버 메인",
    "source": "main",
    "main_rank": 1,
@@ -2858,9 +2826,40 @@
    "article_count": 1,
    "breaking": false,
    "relevance": 10,
-   "summary": "",
+   "summary": "[박성의 기자 sos@sisajournal.com] 9114까지 치솟던 코스피, 5개월 만에 4800선 추락…달라진 여권의 메시지 주식은 급락하는데 집값은 상승…2030·중도 민심 흔들리며 총선 악재 우려 \"민주당 정권이 들어서면 주식시장이 확실히 좋아진다.",
    "leaders": [],
-   "issue_rank": 5
+   "issue_rank": 11
+  },
+  {
+   "id": "629/0000554231",
+   "title": "금속탐지기에 열화상카메라까지…대학가, AI 부정행위에 총력전",
+   "url": "https://n.news.naver.com/article/629/0000554231",
+   "press": "더팩트",
+   "time": "2026-11-21T00:01:20+09:00",
+   "section": "네이버 메인",
+   "source": "main",
+   "main_rank": 2,
+   "theme": "aisec",
+   "theme_label": "AI·보안",
+   "tags": [
+    "부정행위",
+    "탐지"
+   ],
+   "presses": 1,
+   "press_list": [
+    "더팩트"
+   ],
+   "related": [],
+   "article_count": 1,
+   "breaking": false,
+   "relevance": 16,
+   "summary": "삼육대·성균관대 등 금속탐지기 도입 세종대, 열화상카메라로 수험생 확인 서울대·경희대, 일회용 의류 지급 21일 대학가에 따르면 서울 주요 대학들은 이날부터 수시모집 논술과 면접고사 등을 진행한다.",
+   "leaders": [
+    "지슨",
+    "라온시큐어",
+    "샌즈랩"
+   ],
+   "issue_rank": 12
   },
   {
    "id": "421/0009302282",
@@ -2870,7 +2869,7 @@
    "time": "2026-11-21T00:01:00+09:00",
    "section": "네이버 메인",
    "source": "main",
-   "main_rank": 2,
+   "main_rank": 1,
    "theme": "aisec",
    "theme_label": "AI·보안",
    "tags": [
@@ -2886,86 +2885,44 @@
    "relevance": 7,
    "summary": "스레드 'gogwe_gongbang' (서울=뉴스1) 김학진 기자 = 대학수학능력시험을 마친 딸이 꽃다발을 들고 기다리던 아빠를 발견하고 달려가 품에 안기는 모습이 뭉클함을 안기고 있다.",
    "leaders": [],
-   "issue_rank": 6
+   "issue_rank": 13
   },
   {
-   "id": "366/0001206341",
-   "title": "효성중공업 사무직노조, 첫 임단협안 거부… 성과급 차등 지급에 반발",
-   "url": "https://n.news.naver.com/mnews/article/366/0001206341",
-   "press": "조선비즈",
-   "time": "2026-11-20T21:54:19+09:00",
-   "section": "산업/재계",
-   "source": "section",
-   "main_rank": null,
-   "theme": "defense",
-   "theme_label": "방산·우주",
+   "id": "016/0002726451",
+   "title": "유적 보존안 ‘만장일치’ 부결…종묘 앞 세운4구역 재개발 멈췄다",
+   "url": "https://n.news.naver.com/article/016/0002726451",
+   "press": "헤럴드경제",
+   "time": "2026-11-20T23:05:39.223754+09:00",
+   "section": "네이버 메인",
+   "source": "main",
+   "main_rank": 5,
+   "theme": "policy",
+   "theme_label": "정책·건설",
    "tags": [
-    "무기"
+    "재개발"
    ],
-   "presses": 2,
+   "presses": 1,
    "press_list": [
-    "조선비즈",
-    "연합뉴스"
+    "헤럴드경제"
    ],
-   "related": [
-    {
-     "title": "효성중 사무직노조, 임단협 제시안 거부…사측 \"합리적 안\"(종합)",
-     "press": "연합뉴스",
-     "url": "https://n.news.naver.com/mnews/article/001/0016455361",
-     "time": ""
-    }
-   ],
-   "article_count": 2,
-   "breaking": false,
-   "relevance": 8,
-   "summary": "전면 파업 중인 효성중공업 사무기술직 노동조합이 회사의 첫 임금·단체협약(임단협) 제시안을 거부했다. 회사는 일부 직원에게 특별성과급 1000만원을 지급하는 등의 보상안을 내놨지만, 노조는 직급과 근무지에 따라 지급",
-   "leaders": [
-    "효성중공업"
-   ],
-   "issue_rank": 7
-  },
-  {
-   "id": "422/0000928336",
-   "title": "STX 새 대표에 전재곤…\"경영 정상화·경쟁력 강화\"",
-   "url": "https://n.news.naver.com/mnews/article/422/0000928336",
-   "press": "연합뉴스TV",
-   "time": "2026-11-20T20:43:08+09:00",
-   "section": "산업/재계",
-   "source": "section",
-   "main_rank": null,
-   "theme": "bio",
-   "theme_label": "바이오·헬스케어",
-   "tags": [
-    "셀트리온"
-   ],
-   "presses": 2,
-   "press_list": [
-    "연합뉴스TV",
-    "한국경제"
-   ],
-   "related": [
-    {
-     "title": "KB금융 신임 회장에 이재근, 자본시장 경쟁력 강화 나선다",
-     "press": "한국경제",
-     "url": "https://n.news.naver.com/mnews/article/015/0005356441",
-     "time": ""
-    }
-   ],
-   "article_count": 2,
+   "related": [],
+   "article_count": 1,
    "breaking": false,
    "relevance": 10,
-   "summary": "종합상사 STX가 전재곤 신임 대표이사를 선임했습니다. 전 신임 대표는 기업 경영관리와 금융투자 분야에서 경험을 쌓아 온 전문 경영인으로 세원이앤씨 총괄부사장, 셀로이드 대표이사를 지냈고 셀트리온에서 관리 부문을 담",
+   "summary": "",
    "leaders": [
-    "셀트리온"
+    "현대건설",
+    "대우건설",
+    "DL이앤씨"
    ],
-   "issue_rank": 8
+   "issue_rank": 14
   },
   {
    "id": "056/0012298348",
    "title": "‘이른 한파에 대설’ 성층권도 흔들…이번 겨울은?",
    "url": "https://n.news.naver.com/article/056/0012298348",
    "press": "KBS",
-   "time": "2026-11-20T22:12:17.379306+09:00",
+   "time": "2026-11-20T21:28:23+09:00",
    "section": "네이버 메인",
    "source": "main",
    "main_rank": 1,
@@ -2982,289 +2939,23 @@
    "article_count": 1,
    "breaking": false,
    "relevance": 10,
-   "summary": "",
+   "summary": "[앵커] 갑자기 추위가 잦고, 일부 지역엔 눈도 쏟아졌습니다. 주말인 내일(21일) 서울이 영하 5도까지 떨어지는 등 더 추워집니다.",
    "leaders": [
     "삼영엠텍",
     "파라텍",
     "포메탈"
-   ],
-   "issue_rank": 9
-  },
-  {
-   "id": "215/0001273447",
-   "title": "머크, 독일서 '키트루다SC' 팔지만…특허 리스크 여전",
-   "url": "https://n.news.naver.com/mnews/article/215/0001273447",
-   "press": "한국경제TV",
-   "time": "2026-11-20T22:00:00+09:00",
-   "section": "산업/재계",
-   "source": "section",
-   "main_rank": null,
-   "theme": "bio",
-   "theme_label": "바이오·헬스케어",
-   "tags": [
-    "알테오젠"
-   ],
-   "presses": 1,
-   "press_list": [
-    "한국경제TV"
-   ],
-   "related": [],
-   "article_count": 1,
-   "breaking": false,
-   "relevance": 7,
-   "summary": "알테오젠 파트너사 머크(MSD)가 할로자임테라퓨틱스와 벌이고 있는 특허 분쟁과 관련해 독일에서 유리한 결정을 확보했다. 다만 독일에서는 할로자임이 맞대응을 예고한 데다 특허 무효소송도 진행 중이고, 다른 유럽 국가에",
-   "leaders": [
-    "알테오젠"
-   ],
-   "issue_rank": 10
-  },
-  {
-   "id": "660/0000121871",
-   "title": "\"불이야!\" 객실 문마다 두드렸다…외국인 관광객 16명 구한 30대 남성 [살맛나는 세상]",
-   "url": "https://n.news.naver.com/article/660/0000121871",
-   "press": "kbc광주방송",
-   "time": "2026-11-20T21:56:14+09:00",
-   "section": "네이버 메인",
-   "source": "main",
-   "main_rank": 1,
-   "theme": "macro",
-   "theme_label": "거시·환율·금리",
-   "tags": [
-    "외국인"
-   ],
-   "presses": 1,
-   "press_list": [
-    "kbc광주방송"
-   ],
-   "related": [],
-   "article_count": 1,
-   "breaking": false,
-   "relevance": 7,
-   "summary": "오토바이 타고 가다 건물 3층 화재 목격…119 신고 후 투숙객 대피 도와 ▲박진용 씨(사진 왼쪽) [연합뉴스] 불이 난 숙박시설에 뛰어들어 객실 문을 두드리며 외국인 관광객 16명의 대피를 도운 30대 남성의 사연이 알려졌습니다.",
-   "leaders": [
-    "삼영엠텍",
-    "파라텍",
-    "포메탈"
-   ],
-   "issue_rank": 11
-  },
-  {
-   "id": "037/0000039188",
-   "title": "앤스로픽 쏠림, 대중 규제 리스크… 복합 악재에 코스피 4900 붕괴",
-   "url": "https://n.news.naver.com/article/037/0000039188",
-   "press": "주간동아",
-   "time": "2026-11-20T17:44:17+09:00",
-   "section": "네이버 메인",
-   "source": "main",
-   "main_rank": 3,
-   "theme": "macro",
-   "theme_label": "거시·환율·금리",
-   "tags": [
-    "코스피"
-   ],
-   "presses": 2,
-   "press_list": [
-    "주간동아",
-    "동아일보"
-   ],
-   "related": [
-    {
-     "title": "앤스로픽 호재 덮은 ‘AI 거품론’… 코스피 4900 붕괴",
-     "press": "동아일보",
-     "url": "https://n.news.naver.com/mnews/article/020/0003764066",
-     "time": ""
-    }
-   ],
-   "article_count": 2,
-   "breaking": false,
-   "relevance": 13,
-   "summary": "인공지능(AI) 모델 ‘클로드’를 개발한 미국 앤스로픽이 성공적으로 나스닥 무대에 데뷔했지만 시장에 팽배한 ‘AI 거품론’을 잠재우지 못했다. 코스피는 5% 넘게 급락하며 4,900 선마저 무너졌고, 일본과 대만 등",
-   "leaders": [],
-   "issue_rank": 12
-  },
-  {
-   "id": "666/0000133073",
-   "title": "“챗GPT도 2번이라는데”…수능 세계사 이의 폭주한 ‘이 문항’",
-   "url": "https://n.news.naver.com/article/666/0000133073",
-   "press": "경기일보",
-   "time": "2026-11-20T20:02:10+09:00",
-   "section": "네이버 메인",
-   "source": "main",
-   "main_rank": 5,
-   "theme": "semiconductor",
-   "theme_label": "반도체·AI",
-   "tags": [
-    "챗GPT"
-   ],
-   "presses": 1,
-   "press_list": [
-    "경기일보"
-   ],
-   "related": [],
-   "article_count": 1,
-   "breaking": false,
-   "relevance": 7,
-   "summary": "접수된 이의신청 59건 중 10건 집중 전문가 \"2번 아냐…오해 유도한 고난도 변별력 문항\" 가장 많은 이의가 제기된 세계사 2번 문항.",
-   "leaders": [
-    "네이버",
-    "카카오",
-    "코난테크놀로지",
-    "솔트룩스"
-   ],
-   "issue_rank": 13
-  },
-  {
-   "id": "662/0000108990",
-   "title": "AI 안경 ‘이렇게’ 쓰면 좋은데…눈 번쩍할 만한 ‘농업 현장’ 사례",
-   "url": "https://n.news.naver.com/article/662/0000108990",
-   "press": "농민신문",
-   "time": "2026-11-20T19:43:14+09:00",
-   "section": "네이버 메인",
-   "source": "main",
-   "main_rank": 5,
-   "theme": "semiconductor",
-   "theme_label": "반도체·AI",
-   "tags": [
-    "AI"
-   ],
-   "presses": 1,
-   "press_list": [
-    "농민신문"
-   ],
-   "related": [],
-   "article_count": 1,
-   "breaking": false,
-   "relevance": 4,
-   "summary": "[해외 농업 리포트] 중국, 토마토 익은 정도 5단계 판정 일본에선 포도 알솎기 안경 연구도 인공지능(AI) 안경에 정보를 띄워 수확이 수월하도록 돕는 연구가 나오고 있다.",
-   "leaders": [
-    "지슨",
-    "라온시큐어",
-    "샌즈랩"
-   ],
-   "issue_rank": 14
-  },
-  {
-   "id": "123/0002394527",
-   "title": "‘대중 봉쇄’ 외치던 美...엔비디아·AMD AI칩 88만개 수출 허가",
-   "url": "https://n.news.naver.com/article/123/0002394527",
-   "press": "조세일보",
-   "time": "2026-11-20T19:12:17.379306+09:00",
-   "section": "네이버 메인",
-   "source": "main",
-   "main_rank": 2,
-   "theme": "semiconductor",
-   "theme_label": "반도체·AI",
-   "tags": [
-    "엔비디아",
-    "AI"
-   ],
-   "presses": 1,
-   "press_list": [
-    "조세일보"
-   ],
-   "related": [],
-   "article_count": 1,
-   "breaking": false,
-   "relevance": 13,
-   "summary": "",
-   "leaders": [
-    "한미반도체",
-    "이수페타시스",
-    "가온칩스",
-    "티엘비"
    ],
    "issue_rank": 15
-  },
-  {
-   "id": "047/0002536690",
-   "title": "'한동훈 딸 봉사 실적' 안양시의회서 점화... 시장 \"시스템 무너졌구나\"",
-   "url": "https://n.news.naver.com/article/047/0002536690",
-   "press": "오마이뉴스",
-   "time": "2026-11-20T18:51:13+09:00",
-   "section": "네이버 메인",
-   "source": "main",
-   "main_rank": 2,
-   "theme": "earnings",
-   "theme_label": "실적·공시·수급",
-   "tags": [
-    "실적"
-   ],
-   "presses": 1,
-   "press_list": [
-    "오마이뉴스"
-   ],
-   "related": [],
-   "article_count": 1,
-   "breaking": false,
-   "relevance": 10,
-   "summary": "채진기 안양시의원, 20일 시정질의서 'PD수첩 봉사일지·지역아동센터 등록취소·진은정 방문 의혹' 질의 ▲ 최대호 안양시장이 20일 안양시의회에서 열린 본회의에서 2027년도 예산안 시정연설을 하고 있다.",
-   "leaders": [],
-   "issue_rank": 16
-  },
-  {
-   "id": "092/0002446284",
-   "title": "3개월 만에 로봇 만들고, 비전공자가 의료 앱 개발…애플이 만든 'IT 교실'",
-   "url": "https://n.news.naver.com/article/092/0002446284",
-   "press": "지디넷코리아",
-   "time": "2026-11-20T18:12:17.379306+09:00",
-   "section": "네이버 메인",
-   "source": "main",
-   "main_rank": 4,
-   "theme": "robot",
-   "theme_label": "로봇·자율주행",
-   "tags": [
-    "로봇"
-   ],
-   "presses": 1,
-   "press_list": [
-    "지디넷코리아"
-   ],
-   "related": [],
-   "article_count": 1,
-   "breaking": false,
-   "relevance": 10,
-   "summary": "",
-   "leaders": [
-    "레인보우로보틱스",
-    "클로봇",
-    "유일로보틱스",
-    "계양전기"
-   ],
-   "issue_rank": 17
-  },
-  {
-   "id": "018/0006413331",
-   "title": "RFP만 쌓이고 돈은 안 풀렸다…16bp 벌어진 회사채, 기관 집행은 내년으로",
-   "url": "https://n.news.naver.com/mnews/article/018/0006413331",
-   "press": "이데일리",
-   "time": "2026-11-20T18:12:09+09:00",
-   "section": "금융",
-   "source": "section",
-   "main_rank": null,
-   "theme": "etc",
-   "theme_label": "기타",
-   "tags": [],
-   "presses": 1,
-   "press_list": [
-    "이데일리"
-   ],
-   "related": [],
-   "article_count": 1,
-   "breaking": false,
-   "relevance": 0,
-   "summary": "이 기사는 2026년11월20일 17시10분에 마켓인 프리미엄 콘텐츠로 선공개 되었습니다. 크레딧 스프레드의 등락은 곧 회사채 시장의 투심과 자금의 이동을 나타내는 지표입니다.",
-   "leaders": [],
-   "issue_rank": 18
   },
   {
    "id": "024/0000109784",
    "title": "재초환 부담금 현실로…강남 재건축 시장 ‘발칵’",
    "url": "https://n.news.naver.com/article/024/0000109784",
    "press": "매경이코노미",
-   "time": "2026-11-20T17:44:17+09:00",
+   "time": "2026-11-20T18:05:39.223754+09:00",
    "section": "네이버 메인",
    "source": "main",
-   "main_rank": 5,
+   "main_rank": 4,
    "theme": "policy",
    "theme_label": "정책·건설",
    "tags": [
@@ -3278,69 +2969,65 @@
    "article_count": 1,
    "breaking": false,
    "relevance": 10,
-   "summary": "국토부, 서초구와 동일한 법률 해석 2029년 아닌 다음달 30일까지 부과 조합원 1인당 평균 2억2000만원대 서울 서초구 반포센트레빌아스테리움. (매경DB) 국토교통부가 재건축초과이익환수제(재초환) 부담금 부과 기한을 연장할 수 없다고 못 박았다.",
+   "summary": "",
    "leaders": [
     "현대건설",
     "대우건설",
     "DL이앤씨"
    ],
-   "issue_rank": 19
+   "issue_rank": 16
   },
   {
-   "id": "648/0000052837",
-   "title": "내년도, 후년도…공시가격 현실화율 '그대로'",
-   "url": "https://n.news.naver.com/article/648/0000052837",
-   "press": "비즈워치",
-   "time": "2026-11-20T17:12:17.379306+09:00",
+   "id": "011/0004684479",
+   "title": "“퇴직연금까지 몰빵했는데”…한달반새 30% 빠져도 손놓은 정부",
+   "url": "https://n.news.naver.com/article/011/0004684479",
+   "press": "서울경제",
+   "time": "2026-11-20T17:47:14+09:00",
    "section": "네이버 메인",
    "source": "main",
-   "main_rank": 3,
-   "theme": "earnings",
-   "theme_label": "실적·공시·수급",
+   "main_rank": 5,
+   "theme": "policy",
+   "theme_label": "정책·건설",
    "tags": [
-    "공시"
+    "정부"
    ],
    "presses": 1,
    "press_list": [
-    "비즈워치"
+    "서울경제"
    ],
    "related": [],
    "article_count": 1,
    "breaking": false,
-   "relevance": 10,
+   "relevance": 4,
+   "summary": "[개미 하반기 563조 손실] ■코스피 4800선 ‘10개월만에 최저’ 2~3회 금리인상 맞먹는 가계손실 예금·부동산 이동에 소비위축 우려 거래량 12년來·예탁금 연중 최저 대만, 공매도 제한 강화 나섰지만 韓정부는 추가 안정대책에 소극적 클립아트코리아 최근 한 달 반 사이 코스피가 30%…",
+   "leaders": [],
+   "issue_rank": 17
+  },
+  {
+   "id": "050/0000113550",
+   "title": "\"테슬라, 중국 생산 확대\"",
+   "url": "https://n.news.naver.com/article/050/0000113550",
+   "press": "한경비즈니스",
+   "time": "2026-11-20T16:05:39.223754+09:00",
+   "section": "네이버 메인",
+   "source": "main",
+   "main_rank": 5,
+   "theme": "geopolitics",
+   "theme_label": "남북·지정학",
+   "tags": [
+    "중국"
+   ],
+   "presses": 1,
+   "press_list": [
+    "한경비즈니스"
+   ],
+   "related": [],
+   "article_count": 1,
+   "breaking": false,
+   "relevance": 4,
    "summary": "",
    "leaders": [],
-   "issue_rank": 20
-  },
-  {
-   "id": "138/0002249389",
-   "title": "국토부, 테슬라 자율주행(FSD) 국내 특례신청 퇴짜…“안전성 근거 부족”",
-   "url": "https://n.news.naver.com/article/138/0002249389",
-   "press": "디지털데일리",
-   "time": "2026-11-20T16:09:07+09:00",
-   "section": "네이버 메인",
-   "source": "main",
-   "main_rank": 3,
-   "theme": "robot",
-   "theme_label": "로봇·자율주행",
-   "tags": [
-    "자율주행"
-   ],
-   "presses": 1,
-   "press_list": [
-    "디지털데일리"
-   ],
-   "related": [],
-   "article_count": 1,
-   "breaking": false,
-   "relevance": 10,
-   "summary": "정부는 현재 자료만으로는 기술 검토가 어렵다며 구체적인 기술적 근거와 안전성 관련 자료를 요구했다. 국토교통부는 한국교통안전공단이 테슬라코리아가 제출한 FSD 특례 신청서에 대해 현재 서류만으로는 검토가 어렵다는 의견을 신청인에게 전달했다고 20일 밝혔다.",
-   "leaders": [
-    "삼영엠텍",
-    "파라텍",
-    "포메탈"
-   ],
-   "issue_rank": 21
+   "issue_rank": 18
   },
   {
    "id": "050/0000113554",
@@ -3350,7 +3037,7 @@
    "time": "2026-11-20T15:52:14+09:00",
    "section": "네이버 메인",
    "source": "main",
-   "main_rank": 3,
+   "main_rank": 1,
    "theme": "geopolitics",
    "theme_label": "남북·지정학",
    "tags": [
@@ -3370,59 +3057,36 @@
     "한화오션",
     "세진중공업"
    ],
-   "issue_rank": 22
+   "issue_rank": 19
   },
   {
-   "id": "050/0000113550",
-   "title": "\"테슬라, 중국 생산 확대\"",
-   "url": "https://n.news.naver.com/article/050/0000113550",
-   "press": "한경비즈니스",
-   "time": "2026-11-20T15:23:09+09:00",
+   "id": "629/0000553923",
+   "title": "\"BYD 다음은 우리\"…체리·샤오펑·샤오미까지 '中 전기차' 줄줄이 韓 노크",
+   "url": "https://n.news.naver.com/article/629/0000553923",
+   "press": "더팩트",
+   "time": "2026-11-20T10:27:10+09:00",
    "section": "네이버 메인",
    "source": "main",
    "main_rank": 5,
-   "theme": "geopolitics",
-   "theme_label": "남북·지정학",
+   "theme": "battery",
+   "theme_label": "2차전지·에너지",
    "tags": [
-    "중국"
+    "전기차"
    ],
    "presses": 1,
    "press_list": [
-    "한경비즈니스"
+    "더팩트"
    ],
    "related": [],
    "article_count": 1,
    "breaking": false,
-   "relevance": 4,
-   "summary": "일론 머스크 테슬라 최고경영자(CEO)가 중국 상하이 공장의 생산 확대 계획을 알렸다.",
-   "leaders": [],
-   "issue_rank": 23
-  },
-  {
-   "id": "037/0000039183",
-   "title": "“팔짱 낀 채 보고 있어요”… 팔 이유 많은데 살 사람 없는 강남 부동산",
-   "url": "https://n.news.naver.com/article/037/0000039183",
-   "press": "주간동아",
-   "time": "2026-11-20T07:12:17.379306+09:00",
-   "section": "네이버 메인",
-   "source": "main",
-   "main_rank": 1,
-   "theme": "policy",
-   "theme_label": "정책·건설",
-   "tags": [
-    "부동산"
+   "relevance": 10,
+   "summary": "샤오미, SU7·YU7 등 국내 상표 출원 샤오펑·체리차 내년 진출 준비 BYD, 1~10월 수입차 판매 4위 샤오미의 첫 전기차 SU7(Speed Ultra 7·중국명 수치) 판매장에서 방문객들이 차량을 살펴보고 있다.",
+   "leaders": [
+    "현대차",
+    "기아"
    ],
-   "presses": 1,
-   "press_list": [
-    "주간동아"
-   ],
-   "related": [],
-   "article_count": 1,
-   "breaking": false,
-   "relevance": 7,
-   "summary": "",
-   "leaders": [],
-   "issue_rank": 24
+   "issue_rank": 20
   },
   {
    "id": "037/0000039184",
@@ -3432,7 +3096,7 @@
    "time": "2026-11-20T07:02:21+09:00",
    "section": "네이버 메인",
    "source": "main",
-   "main_rank": 4,
+   "main_rank": 3,
    "theme": "battery",
    "theme_label": "2차전지·에너지",
    "tags": [
@@ -3451,57 +3115,197 @@
     "현대차",
     "기아"
    ],
-   "issue_rank": 25
-  },
-  {
-   "id": "014/0005607475",
-   "title": "中에서 고전하는 테슬라 머스크 \"나는 中의 열렬한 팬",
-   "url": "https://n.news.naver.com/mnews/article/014/0005607475",
-   "press": "파이낸셜뉴스",
-   "time": "",
-   "section": "글로벌 경제",
-   "source": "section",
-   "main_rank": null,
-   "theme": "battery",
-   "theme_label": "2차전지·에너지",
-   "tags": [
-    "전기차"
-   ],
-   "presses": 1,
-   "press_list": [
-    "파이낸셜뉴스"
-   ],
-   "related": [],
-   "article_count": 1,
-   "breaking": false,
-   "relevance": 7,
-   "summary": "최근 중국 시장에서 현지 업체에 밀리고 있는 미국 전기차 기업 테슬라의 일론 머스크 최고경영자(CEO)가 중국을 방문해 자신이 \"중국의 열렬한 팬\"이라고 강조했다.",
-   "leaders": [
-    "현대차",
-    "기아"
-   ],
-   "issue_rank": 26
+   "issue_rank": 21
   }
  ],
  "articles": [
   {
-   "id": "029/0003060288",
-   "title": "뉴욕증시, 엔트로픽 9%·마이크론 6% 급락 출발… 기술주 투심 위축 속 혼조",
-   "summary": "20일(현지시간) 미국 뉴욕 증시는 기술주에 대한 투자심리가 위축된 가운데 혼조세로 출발했다. 이날 오전 9시 45분 현재 뉴욕증권거래소에서 다우존스30은 전장보다 214.97포인트(0.44%) 상승한 4만9312.",
+   "id": "029/0003060294",
+   "title": "[속보] 엔비디아 14% 폭락… 뉴욕증시 기술주 매도에 나스닥 5.3% 떨어져",
+   "summary": "- 美증권위, 엔비디아 회계조사“…싱가포르 매출기준 변경 주목 - ‘순환형 자금 조달’ 거래도 회계 투명성 논란 배경으로 거론 - 다우·S&P500 지수도 조정기 진입 - 필리 반도체 지수도 10%↓…공포지수 급등,",
    "press": "디지털타임스",
-   "time": "2026-11-21T00:06:56+09:00",
-   "url": "https://n.news.naver.com/mnews/article/029/0003060288",
+   "time": "",
+   "url": "https://n.news.naver.com/mnews/article/029/0003060294",
    "theme": "macro",
    "theme_label": "거시·환율·금리",
    "tags": [
     "증시",
-    "다우"
+    "나스닥",
+    "지수"
    ],
    "section": "증권",
-   "relevance": 39,
+   "relevance": 45,
+   "source": "main",
+   "leaders": [
+    "한미반도체",
+    "이수페타시스",
+    "가온칩스",
+    "티엘비"
+   ],
+   "issue_rank": 1
+  },
+  {
+   "id": "009/0005766931",
+   "title": "“주식 어디가 바닥인데요?” 외국인은 이미 탈출…이건 7.4조 샀다는데",
+   "summary": "",
+   "press": "매일경제",
+   "time": "2026-11-21T07:05:39.223754+09:00",
+   "url": "https://n.news.naver.com/article/009/0005766931",
+   "theme": "macro",
+   "theme_label": "거시·환율·금리",
+   "tags": [
+    "외국인"
+   ],
+   "section": "네이버 메인",
+   "relevance": 7,
    "source": "main",
    "leaders": [],
-   "issue_rank": 1
+   "issue_rank": 2
+  },
+  {
+   "id": "018/0006413407",
+   "title": "카카오모빌리티, 볼트업 지분 510억에 매각…개방형 플랫폼에 무게",
+   "summary": "카카오모빌리티가 LG유플러스(032640)와 공동 설립한 전기차 충전 전문기업 ‘LG유플러스볼트업’의 지분을 전량 매각한다. 전기차 충전사업에서 철수한다기 보다는 충전 인프라에 직접 투자하는 합작사업을 정리하고, 다",
+   "press": "이데일리",
+   "time": "2026-11-21T07:04:08+09:00",
+   "url": "https://n.news.naver.com/mnews/article/018/0006413407",
+   "theme": "battery",
+   "theme_label": "2차전지·에너지",
+   "tags": [
+    "전기차",
+    "충전"
+   ],
+   "section": "산업/재계",
+   "relevance": 9,
+   "source": "section",
+   "leaders": [
+    "카카오",
+    "현대차",
+    "기아"
+   ],
+   "issue_rank": 3
+  },
+  {
+   "id": "660/0000121874",
+   "title": "트럼프 \"美 기업, 다른 나라에 데이터센터 지으면 고액 세금 부과\"",
+   "summary": "",
+   "press": "kbc광주방송",
+   "time": "2026-11-21T06:05:39.223754+09:00",
+   "url": "https://n.news.naver.com/article/660/0000121874",
+   "theme": "semiconductor",
+   "theme_label": "반도체·AI",
+   "tags": [
+    "데이터센터"
+   ],
+   "section": "네이버 메인",
+   "relevance": 7,
+   "source": "main",
+   "leaders": [
+    "한미반도체",
+    "이수페타시스",
+    "가온칩스",
+    "티엘비"
+   ],
+   "issue_rank": 4
+  },
+  {
+   "id": "346/0000119234",
+   "title": "“혈압 급등 위험”… 알고 보면 ‘나트륨 폭탄’인 음식 5가지",
+   "summary": "평소 건강식이라고 생각했던 음식에도 의외로 나트륨이 많이 들어 있을 수 있다. 나트륨을 과도하게 섭취하면 체내 수분이 늘어나 혈압이 상승하고, 장기적으로 심혈관질환 위험이 커질 수 있다.",
+   "press": "헬스조선",
+   "time": "2026-11-21T06:02:18+09:00",
+   "url": "https://n.news.naver.com/article/346/0000119234",
+   "theme": "earnings",
+   "theme_label": "실적·공시·수급",
+   "tags": [
+    "급등"
+   ],
+   "section": "네이버 메인",
+   "relevance": 10,
+   "source": "main",
+   "leaders": [],
+   "issue_rank": 5
+  },
+  {
+   "id": "002/0002466934",
+   "title": "'친위 쿠데타 준비'는 무죄이니, 앞으로는 꼭 쿠데타를 성공시켜라?[박세열 칼럼]",
+   "summary": "[박세열 칼럼] 한덕수 판결이 남긴 위험한 질문…아마 '내란범'들은 실패를 통탄하고 있을 것이다 만약 윤석열의 12·3 비상계엄이 성공했다면 어떻게 됐을까. 국회에 투입된 군인, 경찰들이 국회의원 출입을 봉쇄하고 본회의장을 장악해 계엄 해제 요구안 표결을 저지했다고 가정해 보자.",
+   "press": "프레시안",
+   "time": "2026-11-21T05:29:12+09:00",
+   "url": "https://n.news.naver.com/article/002/0002466934",
+   "theme": "earnings",
+   "theme_label": "실적·공시·수급",
+   "tags": [
+    "공시"
+   ],
+   "section": "네이버 메인",
+   "relevance": 10,
+   "source": "main",
+   "leaders": [],
+   "issue_rank": 6
+  },
+  {
+   "id": "022/0004176893",
+   "title": "삼성전자 7% 폭락에 개미 1.5조 쓸어담았다…목표가도 줄하향 [숫자 뒤의 진실]",
+   "summary": "삼성전자 7%·하이닉스 6%↓…코스피 4800선 추락 외국인·기관, 전기·전자 2조 매도…개인은 1.5조 순매수 모건스탠리, 이익 전망은 올리고 목표가 최대 38%↓ 삼성전자 주가가 하루 새 7% 넘게 빠진 20일, 개인투자자는 유가증권시장 전기·전자 업종에서 1조5178억원 매수 우위를…",
+   "press": "세계일보",
+   "time": "2026-11-21T05:02:18+09:00",
+   "url": "https://n.news.naver.com/article/022/0004176893",
+   "theme": "semiconductor",
+   "theme_label": "반도체·AI",
+   "tags": [
+    "삼성전자"
+   ],
+   "section": "네이버 메인",
+   "relevance": 7,
+   "source": "main",
+   "leaders": [
+    "삼성전자",
+    "한미반도체",
+    "이수페타시스",
+    "가온칩스"
+   ],
+   "issue_rank": 7
+  },
+  {
+   "id": "014/0005607576",
+   "title": "\"6월 꿈같다, 구조대 오긴 하나요\"…5000선 또 무너진 코스피에 '한숨' [개미의 세계]",
+   "summary": "코스피가 하락 출발한 20일 서울 중구 하나은행 딜링룸 현황판에 코스피 지수가 표시되고 있다. \"올해 초가 꿈같습니다.",
+   "press": "파이낸셜뉴스",
+   "time": "2026-11-21T05:01:15+09:00",
+   "url": "https://n.news.naver.com/article/014/0005607576",
+   "theme": "macro",
+   "theme_label": "거시·환율·금리",
+   "tags": [
+    "코스피"
+   ],
+   "section": "네이버 메인",
+   "relevance": 10,
+   "source": "main",
+   "leaders": [],
+   "issue_rank": 8
+  },
+  {
+   "id": "052/0002435960",
+   "title": "시험의 종말? \"AI 콘택트 렌즈의 시대 온다\"",
+   "summary": "[앵커] AI 장비를 이용한 부정 시험 논란으로 우리 사회가 큰 홍역을 치르고 있지만, 관련 기술은 갈수록 빠르게 진화하고 있습니다. 스마트 안경을 넘어선 이른바 스마트 콘택트렌즈도 조만간 시중에 나올 예정인데, 이렇게 되면 정말 '시험의 종말' 시대가 올 것이라는 이야기마저 나옵니다.",
+   "press": "YTN",
+   "time": "2026-11-21T04:17:33+09:00",
+   "url": "https://n.news.naver.com/article/052/0002435960",
+   "theme": "semiconductor",
+   "theme_label": "반도체·AI",
+   "tags": [
+    "AI"
+   ],
+   "section": "네이버 메인",
+   "relevance": 4,
+   "source": "main",
+   "leaders": [
+    "지슨",
+    "라온시큐어",
+    "샌즈랩"
+   ],
+   "issue_rank": 9
   },
   {
    "id": "657/0000057678",
@@ -3518,65 +3322,21 @@
     "시험"
    ],
    "section": "네이버 메인",
-   "relevance": 31,
+   "relevance": 22,
    "source": "main",
    "leaders": [
     "지슨",
     "라온시큐어",
     "샌즈랩"
    ],
-   "issue_rank": 2
-  },
-  {
-   "id": "011/0004684539",
-   "title": "“반으로 잘라, 내 책임이여” 수능날 교장 지시에 ‘땀 뻘뻘’…시험장 뒤집은 ‘지우개 소동’",
-   "summary": "기사 이해를 돕기 위해 AI로 제작한 이미지 인공지능(AI) 부정행위를 막기 위해 수능 시험장에선 지우개를 반으로 잘라 나눠주는 소동까지 벌어졌다. 이번 주말 대학 논술고사를 앞두고도 개인 필기구 사용이 금지되고 가운·앞치마 착용까지 도입되는 등 시험장 풍경이 달라지고 있다.",
-   "press": "서울경제",
-   "time": "2026-11-20T22:02:11+09:00",
-   "url": "https://n.news.naver.com/article/011/0004684539",
-   "theme": "aisec",
-   "theme_label": "AI·보안",
-   "tags": [
-    "수능",
-    "시험"
-   ],
-   "section": "네이버 메인",
-   "relevance": 19,
-   "source": "main",
-   "leaders": [
-    "지슨",
-    "라온시큐어",
-    "샌즈랩"
-   ],
-   "issue_rank": 3
-  },
-  {
-   "id": "029/0003060292",
-   "title": "비상 걸린 현대차… 혁신 대신 ‘차 가격 인상’ 대응에 비판 거세",
-   "summary": "- 중국차 거센 공세에 전기차 안방 점유율 50% 깨져 - 옵션 재편 차 가격 인상으로 수익성 지켜… 아반테 최고급 사양 기준 4000만원 넘어 - 소비자에 전가 비판 적지 않아… 테슬라 같은 미래차 혁신 부족 대한",
-   "press": "디지털타임스",
-   "time": "2026-11-21T02:03:31+09:00",
-   "url": "https://n.news.naver.com/mnews/article/029/0003060292",
-   "theme": "battery",
-   "theme_label": "2차전지·에너지",
-   "tags": [
-    "전기차"
-   ],
-   "section": "산업/재계",
-   "relevance": 7,
-   "source": "section",
-   "leaders": [
-    "현대차",
-    "기아"
-   ],
-   "issue_rank": 4
+   "issue_rank": 10
   },
   {
    "id": "586/0000142771",
    "title": "\"주식시장 자신 있다\"던 李…급락장에 날아온 청구서",
-   "summary": "",
+   "summary": "[박성의 기자 sos@sisajournal.com] 9114까지 치솟던 코스피, 5개월 만에 4800선 추락…달라진 여권의 메시지 주식은 급락하는데 집값은 상승…2030·중도 민심 흔들리며 총선 악재 우려 \"민주당 정권이 들어서면 주식시장이 확실히 좋아진다.",
    "press": "시사저널",
-   "time": "2026-11-21T01:12:17.379306+09:00",
+   "time": "2026-11-21T00:38:13+09:00",
    "url": "https://n.news.naver.com/article/586/0000142771",
    "theme": "earnings",
    "theme_label": "실적·공시·수급",
@@ -3587,7 +3347,30 @@
    "relevance": 10,
    "source": "main",
    "leaders": [],
-   "issue_rank": 5
+   "issue_rank": 11
+  },
+  {
+   "id": "629/0000554231",
+   "title": "금속탐지기에 열화상카메라까지…대학가, AI 부정행위에 총력전",
+   "summary": "삼육대·성균관대 등 금속탐지기 도입 세종대, 열화상카메라로 수험생 확인 서울대·경희대, 일회용 의류 지급 21일 대학가에 따르면 서울 주요 대학들은 이날부터 수시모집 논술과 면접고사 등을 진행한다.",
+   "press": "더팩트",
+   "time": "2026-11-21T00:01:20+09:00",
+   "url": "https://n.news.naver.com/article/629/0000554231",
+   "theme": "aisec",
+   "theme_label": "AI·보안",
+   "tags": [
+    "부정행위",
+    "탐지"
+   ],
+   "section": "네이버 메인",
+   "relevance": 16,
+   "source": "main",
+   "leaders": [
+    "지슨",
+    "라온시큐어",
+    "샌즈랩"
+   ],
+   "issue_rank": 12
   },
   {
    "id": "421/0009302282",
@@ -3605,54 +3388,36 @@
    "relevance": 7,
    "source": "main",
    "leaders": [],
-   "issue_rank": 6
+   "issue_rank": 13
   },
   {
-   "id": "366/0001206341",
-   "title": "효성중공업 사무직노조, 첫 임단협안 거부… 성과급 차등 지급에 반발",
-   "summary": "전면 파업 중인 효성중공업 사무기술직 노동조합이 회사의 첫 임금·단체협약(임단협) 제시안을 거부했다. 회사는 일부 직원에게 특별성과급 1000만원을 지급하는 등의 보상안을 내놨지만, 노조는 직급과 근무지에 따라 지급",
-   "press": "조선비즈",
-   "time": "2026-11-20T21:54:19+09:00",
-   "url": "https://n.news.naver.com/mnews/article/366/0001206341",
-   "theme": "defense",
-   "theme_label": "방산·우주",
+   "id": "016/0002726451",
+   "title": "유적 보존안 ‘만장일치’ 부결…종묘 앞 세운4구역 재개발 멈췄다",
+   "summary": "",
+   "press": "헤럴드경제",
+   "time": "2026-11-20T23:05:39.223754+09:00",
+   "url": "https://n.news.naver.com/article/016/0002726451",
+   "theme": "policy",
+   "theme_label": "정책·건설",
    "tags": [
-    "무기"
+    "재개발"
    ],
-   "section": "산업/재계",
-   "relevance": 8,
-   "source": "section",
-   "leaders": [
-    "효성중공업"
-   ],
-   "issue_rank": 7
-  },
-  {
-   "id": "422/0000928336",
-   "title": "STX 새 대표에 전재곤…\"경영 정상화·경쟁력 강화\"",
-   "summary": "종합상사 STX가 전재곤 신임 대표이사를 선임했습니다. 전 신임 대표는 기업 경영관리와 금융투자 분야에서 경험을 쌓아 온 전문 경영인으로 세원이앤씨 총괄부사장, 셀로이드 대표이사를 지냈고 셀트리온에서 관리 부문을 담",
-   "press": "연합뉴스TV",
-   "time": "2026-11-20T20:43:08+09:00",
-   "url": "https://n.news.naver.com/mnews/article/422/0000928336",
-   "theme": "bio",
-   "theme_label": "바이오·헬스케어",
-   "tags": [
-    "셀트리온"
-   ],
-   "section": "산업/재계",
+   "section": "네이버 메인",
    "relevance": 10,
-   "source": "section",
+   "source": "main",
    "leaders": [
-    "셀트리온"
+    "현대건설",
+    "대우건설",
+    "DL이앤씨"
    ],
-   "issue_rank": 8
+   "issue_rank": 14
   },
   {
    "id": "056/0012298348",
    "title": "‘이른 한파에 대설’ 성층권도 흔들…이번 겨울은?",
-   "summary": "",
+   "summary": "[앵커] 갑자기 추위가 잦고, 일부 지역엔 눈도 쏟아졌습니다. 주말인 내일(21일) 서울이 영하 5도까지 떨어지는 등 더 추워집니다.",
    "press": "KBS",
-   "time": "2026-11-20T22:12:17.379306+09:00",
+   "time": "2026-11-20T21:28:23+09:00",
    "url": "https://n.news.naver.com/article/056/0012298348",
    "theme": "disaster",
    "theme_label": "재난·안전",
@@ -3667,200 +3432,14 @@
     "파라텍",
     "포메탈"
    ],
-   "issue_rank": 9
-  },
-  {
-   "id": "215/0001273447",
-   "title": "머크, 독일서 '키트루다SC' 팔지만…특허 리스크 여전",
-   "summary": "알테오젠 파트너사 머크(MSD)가 할로자임테라퓨틱스와 벌이고 있는 특허 분쟁과 관련해 독일에서 유리한 결정을 확보했다. 다만 독일에서는 할로자임이 맞대응을 예고한 데다 특허 무효소송도 진행 중이고, 다른 유럽 국가에",
-   "press": "한국경제TV",
-   "time": "2026-11-20T22:00:00+09:00",
-   "url": "https://n.news.naver.com/mnews/article/215/0001273447",
-   "theme": "bio",
-   "theme_label": "바이오·헬스케어",
-   "tags": [
-    "알테오젠"
-   ],
-   "section": "산업/재계",
-   "relevance": 7,
-   "source": "section",
-   "leaders": [
-    "알테오젠"
-   ],
-   "issue_rank": 10
-  },
-  {
-   "id": "660/0000121871",
-   "title": "\"불이야!\" 객실 문마다 두드렸다…외국인 관광객 16명 구한 30대 남성 [살맛나는 세상]",
-   "summary": "오토바이 타고 가다 건물 3층 화재 목격…119 신고 후 투숙객 대피 도와 ▲박진용 씨(사진 왼쪽) [연합뉴스] 불이 난 숙박시설에 뛰어들어 객실 문을 두드리며 외국인 관광객 16명의 대피를 도운 30대 남성의 사연이 알려졌습니다.",
-   "press": "kbc광주방송",
-   "time": "2026-11-20T21:56:14+09:00",
-   "url": "https://n.news.naver.com/article/660/0000121871",
-   "theme": "macro",
-   "theme_label": "거시·환율·금리",
-   "tags": [
-    "외국인"
-   ],
-   "section": "네이버 메인",
-   "relevance": 7,
-   "source": "main",
-   "leaders": [
-    "삼영엠텍",
-    "파라텍",
-    "포메탈"
-   ],
-   "issue_rank": 11
-  },
-  {
-   "id": "037/0000039188",
-   "title": "앤스로픽 쏠림, 대중 규제 리스크… 복합 악재에 코스피 4900 붕괴",
-   "summary": "인공지능(AI) 모델 ‘클로드’를 개발한 미국 앤스로픽이 성공적으로 나스닥 무대에 데뷔했지만 시장에 팽배한 ‘AI 거품론’을 잠재우지 못했다. 코스피는 5% 넘게 급락하며 4,900 선마저 무너졌고, 일본과 대만 등",
-   "press": "주간동아",
-   "time": "2026-11-20T17:44:17+09:00",
-   "url": "https://n.news.naver.com/article/037/0000039188",
-   "theme": "macro",
-   "theme_label": "거시·환율·금리",
-   "tags": [
-    "코스피"
-   ],
-   "section": "네이버 메인",
-   "relevance": 13,
-   "source": "main",
-   "leaders": [],
-   "issue_rank": 12
-  },
-  {
-   "id": "666/0000133073",
-   "title": "“챗GPT도 2번이라는데”…수능 세계사 이의 폭주한 ‘이 문항’",
-   "summary": "접수된 이의신청 59건 중 10건 집중 전문가 \"2번 아냐…오해 유도한 고난도 변별력 문항\" 가장 많은 이의가 제기된 세계사 2번 문항.",
-   "press": "경기일보",
-   "time": "2026-11-20T20:02:10+09:00",
-   "url": "https://n.news.naver.com/article/666/0000133073",
-   "theme": "semiconductor",
-   "theme_label": "반도체·AI",
-   "tags": [
-    "챗GPT"
-   ],
-   "section": "네이버 메인",
-   "relevance": 7,
-   "source": "main",
-   "leaders": [
-    "네이버",
-    "카카오",
-    "코난테크놀로지",
-    "솔트룩스"
-   ],
-   "issue_rank": 13
-  },
-  {
-   "id": "662/0000108990",
-   "title": "AI 안경 ‘이렇게’ 쓰면 좋은데…눈 번쩍할 만한 ‘농업 현장’ 사례",
-   "summary": "[해외 농업 리포트] 중국, 토마토 익은 정도 5단계 판정 일본에선 포도 알솎기 안경 연구도 인공지능(AI) 안경에 정보를 띄워 수확이 수월하도록 돕는 연구가 나오고 있다.",
-   "press": "농민신문",
-   "time": "2026-11-20T19:43:14+09:00",
-   "url": "https://n.news.naver.com/article/662/0000108990",
-   "theme": "semiconductor",
-   "theme_label": "반도체·AI",
-   "tags": [
-    "AI"
-   ],
-   "section": "네이버 메인",
-   "relevance": 4,
-   "source": "main",
-   "leaders": [
-    "지슨",
-    "라온시큐어",
-    "샌즈랩"
-   ],
-   "issue_rank": 14
-  },
-  {
-   "id": "123/0002394527",
-   "title": "‘대중 봉쇄’ 외치던 美...엔비디아·AMD AI칩 88만개 수출 허가",
-   "summary": "",
-   "press": "조세일보",
-   "time": "2026-11-20T19:12:17.379306+09:00",
-   "url": "https://n.news.naver.com/article/123/0002394527",
-   "theme": "semiconductor",
-   "theme_label": "반도체·AI",
-   "tags": [
-    "엔비디아",
-    "AI"
-   ],
-   "section": "네이버 메인",
-   "relevance": 13,
-   "source": "main",
-   "leaders": [
-    "한미반도체",
-    "이수페타시스",
-    "가온칩스",
-    "티엘비"
-   ],
    "issue_rank": 15
-  },
-  {
-   "id": "047/0002536690",
-   "title": "'한동훈 딸 봉사 실적' 안양시의회서 점화... 시장 \"시스템 무너졌구나\"",
-   "summary": "채진기 안양시의원, 20일 시정질의서 'PD수첩 봉사일지·지역아동센터 등록취소·진은정 방문 의혹' 질의 ▲ 최대호 안양시장이 20일 안양시의회에서 열린 본회의에서 2027년도 예산안 시정연설을 하고 있다.",
-   "press": "오마이뉴스",
-   "time": "2026-11-20T18:51:13+09:00",
-   "url": "https://n.news.naver.com/article/047/0002536690",
-   "theme": "earnings",
-   "theme_label": "실적·공시·수급",
-   "tags": [
-    "실적"
-   ],
-   "section": "네이버 메인",
-   "relevance": 10,
-   "source": "main",
-   "leaders": [],
-   "issue_rank": 16
-  },
-  {
-   "id": "092/0002446284",
-   "title": "3개월 만에 로봇 만들고, 비전공자가 의료 앱 개발…애플이 만든 'IT 교실'",
-   "summary": "",
-   "press": "지디넷코리아",
-   "time": "2026-11-20T18:12:17.379306+09:00",
-   "url": "https://n.news.naver.com/article/092/0002446284",
-   "theme": "robot",
-   "theme_label": "로봇·자율주행",
-   "tags": [
-    "로봇"
-   ],
-   "section": "네이버 메인",
-   "relevance": 10,
-   "source": "main",
-   "leaders": [
-    "레인보우로보틱스",
-    "클로봇",
-    "유일로보틱스",
-    "계양전기"
-   ],
-   "issue_rank": 17
-  },
-  {
-   "id": "018/0006413331",
-   "title": "RFP만 쌓이고 돈은 안 풀렸다…16bp 벌어진 회사채, 기관 집행은 내년으로",
-   "summary": "이 기사는 2026년11월20일 17시10분에 마켓인 프리미엄 콘텐츠로 선공개 되었습니다. 크레딧 스프레드의 등락은 곧 회사채 시장의 투심과 자금의 이동을 나타내는 지표입니다.",
-   "press": "이데일리",
-   "time": "2026-11-20T18:12:09+09:00",
-   "url": "https://n.news.naver.com/mnews/article/018/0006413331",
-   "theme": "etc",
-   "theme_label": "기타",
-   "tags": [],
-   "section": "금융",
-   "relevance": 0,
-   "source": "section",
-   "leaders": [],
-   "issue_rank": 18
   },
   {
    "id": "024/0000109784",
    "title": "재초환 부담금 현실로…강남 재건축 시장 ‘발칵’",
-   "summary": "국토부, 서초구와 동일한 법률 해석 2029년 아닌 다음달 30일까지 부과 조합원 1인당 평균 2억2000만원대 서울 서초구 반포센트레빌아스테리움. (매경DB) 국토교통부가 재건축초과이익환수제(재초환) 부담금 부과 기한을 연장할 수 없다고 못 박았다.",
+   "summary": "",
    "press": "매경이코노미",
-   "time": "2026-11-20T17:44:17+09:00",
+   "time": "2026-11-20T18:05:39.223754+09:00",
    "url": "https://n.news.naver.com/article/024/0000109784",
    "theme": "policy",
    "theme_label": "정책·건설",
@@ -3875,47 +3454,43 @@
     "대우건설",
     "DL이앤씨"
    ],
-   "issue_rank": 19
+   "issue_rank": 16
   },
   {
-   "id": "648/0000052837",
-   "title": "내년도, 후년도…공시가격 현실화율 '그대로'",
-   "summary": "",
-   "press": "비즈워치",
-   "time": "2026-11-20T17:12:17.379306+09:00",
-   "url": "https://n.news.naver.com/article/648/0000052837",
-   "theme": "earnings",
-   "theme_label": "실적·공시·수급",
+   "id": "011/0004684479",
+   "title": "“퇴직연금까지 몰빵했는데”…한달반새 30% 빠져도 손놓은 정부",
+   "summary": "[개미 하반기 563조 손실] ■코스피 4800선 ‘10개월만에 최저’ 2~3회 금리인상 맞먹는 가계손실 예금·부동산 이동에 소비위축 우려 거래량 12년來·예탁금 연중 최저 대만, 공매도 제한 강화 나섰지만 韓정부는 추가 안정대책에 소극적 클립아트코리아 최근 한 달 반 사이 코스피가 30%…",
+   "press": "서울경제",
+   "time": "2026-11-20T17:47:14+09:00",
+   "url": "https://n.news.naver.com/article/011/0004684479",
+   "theme": "policy",
+   "theme_label": "정책·건설",
    "tags": [
-    "공시"
+    "정부"
    ],
    "section": "네이버 메인",
-   "relevance": 10,
+   "relevance": 4,
    "source": "main",
    "leaders": [],
-   "issue_rank": 20
+   "issue_rank": 17
   },
   {
-   "id": "138/0002249389",
-   "title": "국토부, 테슬라 자율주행(FSD) 국내 특례신청 퇴짜…“안전성 근거 부족”",
-   "summary": "정부는 현재 자료만으로는 기술 검토가 어렵다며 구체적인 기술적 근거와 안전성 관련 자료를 요구했다. 국토교통부는 한국교통안전공단이 테슬라코리아가 제출한 FSD 특례 신청서에 대해 현재 서류만으로는 검토가 어렵다는 의견을 신청인에게 전달했다고 20일 밝혔다.",
-   "press": "디지털데일리",
-   "time": "2026-11-20T16:09:07+09:00",
-   "url": "https://n.news.naver.com/article/138/0002249389",
-   "theme": "robot",
-   "theme_label": "로봇·자율주행",
+   "id": "050/0000113550",
+   "title": "\"테슬라, 중국 생산 확대\"",
+   "summary": "",
+   "press": "한경비즈니스",
+   "time": "2026-11-20T16:05:39.223754+09:00",
+   "url": "https://n.news.naver.com/article/050/0000113550",
+   "theme": "geopolitics",
+   "theme_label": "남북·지정학",
    "tags": [
-    "자율주행"
+    "중국"
    ],
    "section": "네이버 메인",
-   "relevance": 10,
+   "relevance": 4,
    "source": "main",
-   "leaders": [
-    "삼영엠텍",
-    "파라텍",
-    "포메탈"
-   ],
-   "issue_rank": 21
+   "leaders": [],
+   "issue_rank": 18
   },
   {
    "id": "050/0000113554",
@@ -3937,43 +3512,28 @@
     "한화오션",
     "세진중공업"
    ],
-   "issue_rank": 22
+   "issue_rank": 19
   },
   {
-   "id": "050/0000113550",
-   "title": "\"테슬라, 중국 생산 확대\"",
-   "summary": "일론 머스크 테슬라 최고경영자(CEO)가 중국 상하이 공장의 생산 확대 계획을 알렸다.",
-   "press": "한경비즈니스",
-   "time": "2026-11-20T15:23:09+09:00",
-   "url": "https://n.news.naver.com/article/050/0000113550",
-   "theme": "geopolitics",
-   "theme_label": "남북·지정학",
+   "id": "629/0000553923",
+   "title": "\"BYD 다음은 우리\"…체리·샤오펑·샤오미까지 '中 전기차' 줄줄이 韓 노크",
+   "summary": "샤오미, SU7·YU7 등 국내 상표 출원 샤오펑·체리차 내년 진출 준비 BYD, 1~10월 수입차 판매 4위 샤오미의 첫 전기차 SU7(Speed Ultra 7·중국명 수치) 판매장에서 방문객들이 차량을 살펴보고 있다.",
+   "press": "더팩트",
+   "time": "2026-11-20T10:27:10+09:00",
+   "url": "https://n.news.naver.com/article/629/0000553923",
+   "theme": "battery",
+   "theme_label": "2차전지·에너지",
    "tags": [
-    "중국"
+    "전기차"
    ],
    "section": "네이버 메인",
-   "relevance": 4,
+   "relevance": 10,
    "source": "main",
-   "leaders": [],
-   "issue_rank": 23
-  },
-  {
-   "id": "037/0000039183",
-   "title": "“팔짱 낀 채 보고 있어요”… 팔 이유 많은데 살 사람 없는 강남 부동산",
-   "summary": "",
-   "press": "주간동아",
-   "time": "2026-11-20T07:12:17.379306+09:00",
-   "url": "https://n.news.naver.com/article/037/0000039183",
-   "theme": "policy",
-   "theme_label": "정책·건설",
-   "tags": [
-    "부동산"
+   "leaders": [
+    "현대차",
+    "기아"
    ],
-   "section": "네이버 메인",
-   "relevance": 7,
-   "source": "main",
-   "leaders": [],
-   "issue_rank": 24
+   "issue_rank": 20
   },
   {
    "id": "037/0000039184",
@@ -3994,28 +3554,7 @@
     "현대차",
     "기아"
    ],
-   "issue_rank": 25
-  },
-  {
-   "id": "014/0005607475",
-   "title": "中에서 고전하는 테슬라 머스크 \"나는 中의 열렬한 팬",
-   "summary": "최근 중국 시장에서 현지 업체에 밀리고 있는 미국 전기차 기업 테슬라의 일론 머스크 최고경영자(CEO)가 중국을 방문해 자신이 \"중국의 열렬한 팬\"이라고 강조했다.",
-   "press": "파이낸셜뉴스",
-   "time": "",
-   "url": "https://n.news.naver.com/mnews/article/014/0005607475",
-   "theme": "battery",
-   "theme_label": "2차전지·에너지",
-   "tags": [
-    "전기차"
-   ],
-   "section": "글로벌 경제",
-   "relevance": 7,
-   "source": "section",
-   "leaders": [
-    "현대차",
-    "기아"
-   ],
-   "issue_rank": 26
+   "issue_rank": 21
   }
  ]
 }
