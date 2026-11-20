@@ -1516,7 +1516,7 @@ function pickRowHtml(st){
   if(st.b45) b.push(`<span class="hm-b g45">4→5 황금자리</span>`);
   b.push(`<span class="hm-b al">${st.align === 'full' ? '정배열' : '정배열 시작'}</span>`);
   const volTxt = (st.vol_max && st.vol_max >= 1)
-    ? `앞 6개월 최대의 ${st.vol_max}배`
+    ? `앞 6개월 최대의 ${Number(st.vol_max).toFixed(1)}배`
     : `앞 6개월 평균의 ${Math.round(st.vol_avg || 0)}배`;
   const line = `유형 ${st.t} · 1번 ${mmdd(st.d0)} · ${swTxt} · `
     + `기준선 ${fmtWon(st.base)}원 / 윗선(돌파선) ${st.box_hi ? fmtWon(st.box_hi) + '원' : '—'}`
