@@ -1537,8 +1537,9 @@ async function renderMonthly(){
   (mm.themes || []).forEach(t => {
     const list = (t.stocks || []).filter(s => monPass(s, monFilter));
     if(!list.length) return;
+    /* 테마 기준월이 이 달과 다르면 작게 적어 둔다 — 그 달에 그 테마 종목이 다시 상한가를 낸 자리 */
     const label = t.base && t.base !== mm.m
-      ? `<span class="hm-tc" title="테마 기준월 ${esc(t.base)} — 이 달에는 이어서 움직인 종목만 있다">${esc(t.base.slice(2).replace('-', '.'))}부터</span>`
+      ? `<span class="hm-tc" title="테마 기준월 ${esc(t.base)} — 이 달에는 그 테마 종목이 다시 상한가를 낸 자리만 있다">기준 ${esc(t.base.slice(2).replace('-', '.'))}</span>`
       : '';
     groups.push(`<div class="hm-grp" role="group" aria-label="${esc(t.short)} ${list.length}종목">
       <div class="hm-gh"><b class="hm-tn" title="${esc(t.name)}">${esc(t.short)}</b>${label}<span class="hm-tc">${list.length}</span></div>
