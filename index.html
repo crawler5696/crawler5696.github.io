@@ -1973,7 +1973,7 @@ function openChart(s){
     + `</div>`
     + (s.reason ? `<div class="chart-rs">${esc(s.reason)}</div>` : '')
     + (s.sector && s.sector.state
-        ? `<div class="chart-sec ${SEC_CLS[s.sector.state] || 'weak'}">업종 ${esc(s.sector.name || '')} · 업종 ${esc(s.sector.state)} — ${esc(s.sector.why || '')}`
+        ? `<div class="chart-sec ${SEC_CLS[s.sector.state] || 'weak'}">업종 ${esc(s.sector.name || '')} · ${esc(s.sector.state)} — ${esc(s.sector.why || '')}`
           + `${s.sector.ma5 != null ? ` · 업종지수 5일선 ${Number(s.sector.ma5).toFixed(1)} / 20일선 ${Number(s.sector.ma20).toFixed(1)}` : ''}</div>`
         : '');
   $('#chartRead').innerHTML = chartReadText(s);
