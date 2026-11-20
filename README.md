@@ -92,7 +92,11 @@ python3 scripts/build_hotbar_radar.py --debug 095610   # 한 종목 판정 근�
 자동으로 골라 `data/hotbar_monthly.json`(비밀코드 `5696` · AES-256-GCM)에 다시 담는다. 13개월 과거 나열은 없다.
 
 ```bash
-python3 scripts/build_hotbar_radar.py && python3 scripts/build_hotbar_buy.py
+bash scripts/daily_hotbar.sh               # 재료 → 핫바(일·주·월봉) → 매수선별 → 커밋·푸시 (한 줄, 무인 실행)
+bash scripts/daily_hotbar.sh --dry         # 매수선별 결과만 확인(파일 안 씀)
+PUSH=0 bash scripts/daily_hotbar.sh        # 깃 커밋·푸시만 건너뛰기
+
+python3 scripts/build_hotbar_radar.py && python3 scripts/build_hotbar_buy.py   # 한 단계씩 돌릴 때
 python3 scripts/build_hotbar_buy.py --dry     # 파일 쓰지 않고 결과만 확인
 python3 scripts/build_hotbar_buy.py --max 5   # 하루 핵심 종목 수 줄이기(기본 8)
 ```
