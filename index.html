@@ -397,6 +397,7 @@
 
   /* 차트 모달 — 최근 38봉 확대 / 전체 90봉 전환 · 이평선 범례 */
   .chart-tools{display:flex;align-items:center;gap:6px;margin:6px 1px 2px}
+  .chart-tools[hidden]{display:none}
   .chart-zoom{appearance:none;border:1px solid rgba(143,178,255,.45);background:rgba(79,140,255,.14);
     color:#bcd0ff;font-family:inherit;font-size:10px;font-weight:800;letter-spacing:-.2px;
     padding:4px 9px;border-radius:8px;cursor:pointer}
@@ -1557,9 +1558,9 @@ async function renderPick(){
     + `${pickFilter === k ? 'on' : ''}${k === 'g45' ? ' g45' : ''}">${lab} ${cntOf(k)}</button>`).join('');
   if($('#hotSub')) $('#hotSub').textContent =
     `매수선별 · ${hotPick.base_date_text || ''}${hotPick.generated_at_kst ? ' · ' + hotPick.generated_at_kst + ' 생성' : ''}`;
-  const head = `<div class="hp-head"><b>${all.length}종목 (매수)</b>`
+  const head = `<div class="hp-head"><b>${all.filter(s => pickPass(s, pickFilter)).length}종목 (매수)</b>`
     + `<span>${esc(hotPick.base_date_text || '')} · 살아있는 테마 ${cnt.live_themes || themes.length}개 · `
-    + `그 안 ${cnt.live_stocks || 0}종목 훑어 ${all.length}개만</span></div>`;
+    + `그 안 ${cnt.live_stocks || 0}종목 훑어 ${all.length}개만${pickFilter === 'all' ? '' : ` (고른 조건만)`}</span></div>`;
   const groups = [];
   themes.forEach(t => {
     const list = (t.stocks || []).filter(s => pickPass(s, pickFilter));
@@ -1762,8 +1763,9 @@ function chartReadText(s, i){
   let ma = '';
   if(s.mas && idx >= 4){                       /* 그 봉 시점의 5·20·60일선도 같이 */
     const v = k => idx + 1 >= k ? cs.slice(idx + 1 - k, idx + 1).reduce((a, x) => a + x[4], 0) / k : null;
-    const m5 = v(5), m20 = v(20), m60 = v(60);
+    const m5 = v(5), m10 = v(10), m20 = v(20), m60 = v(60);
     ma = ` · <span class="t">5일</span> ${fmtWon(m5)}`
+       + (m10 ? ` <span class="t">10일</span> ${fmtWon(m10)}` : '')
        + (m20 ? ` <span class="t">20일</span> ${fmtWon(m20)}` : '')
        + (m60 ? ` <span class="t">60일</span> ${fmtWon(m60)}` : '');
   }
