@@ -103,7 +103,7 @@ python3 scripts/build_hotbar_radar.py --debug 095610   # 한 종목 판정 근�
 ### 핫바 네 번째 칸 `10단계` (`scripts/build_hotbar_buy.py`)
 
 10년 전수조사(`brain/tools/stage10_core.py`) 기준 그대로 **오늘 4→5 황금자리와 9단계 하락 멈춤 자리**만
-골라 `data/hotbar_monthly.json`(비밀코드 `5696` · AES-256-GCM)에 담는다. 뉴스레이더 지정시간
+골라 `data/hotbar_monthly.json`(비밀코드로 잠금 · AES-256-GCM)에 담는다. 뉴스레이더 지정시간
 (장전·장중 30분·장후 1시간)에 단독으로 10~20초 만에 돌아간다.
 
 ```bash
