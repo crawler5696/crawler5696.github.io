@@ -316,7 +316,8 @@
   .hb-seg{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin:2px 0 6px}
   .hb-seg button{appearance:none;border:1px solid var(--line);background:rgba(255,255,255,.03);
     color:var(--dim);font-family:inherit;font-size:11.6px;font-weight:800;letter-spacing:-.3px;
-    padding:7px 1px;border-radius:9px;cursor:pointer;white-space:nowrap;transition:.15s}
+    padding:7px 1px;border-radius:9px;cursor:pointer;white-space:nowrap;transition:.15s;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:38px}
   @media (max-width:410px){ .hb-seg button{font-size:10.6px;letter-spacing:-.5px} }
   .hb-seg button:active{transform:scale(.98)}
   .hb-seg button .s{display:block;font-size:9px;font-weight:600;color:var(--dim2);letter-spacing:0;
@@ -702,9 +703,9 @@
   <section class="view" data-view="hotbar" id="view-hotbar" hidden>
     <div class="viewhead"><b>핫바</b><span id="hotSub"></span></div>
     <div class="hb-seg" id="hotSeg">
-      <button type="button" data-sec="day" class="on">일봉<span class="s">1 → 2 → 3 → 4 → 5…</span></button>
-      <button type="button" data-sec="week">주봉<span class="s">1 → 2 → 3 → 4 → 5…</span></button>
-      <button type="button" data-sec="month">월봉<span class="s">1 → 2 → 3 → 4 → 5…</span></button>
+      <button type="button" data-sec="day" class="on">일봉</button>
+      <button type="button" data-sec="week">주봉</button>
+      <button type="button" data-sec="month">월봉</button>
       <button type="button" data-sec="pick">10단계<span class="s">4→5 · A/B/C</span></button>
     </div>
     <div id="hotScore"></div>
