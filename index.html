@@ -1540,12 +1540,11 @@ function pickRowHtml(st){
   const S = PICK_STATE[st.state] || {cls:'buy', txt: st.state || '매수'};
   const side = st.side === '앞쪽' ? '<span class="hm-b side-f">앞</span>'
              : (st.side === '뒷쪽' ? '<span class="hm-b side-b">뒤</span>' : '');
-  const swTxt = st.sw != null && st.sw >= 2 ? `2~3회 횡보 ${st.sw}회` : (st.sw != null ? `횡보 ${st.sw}회` : '');
-  const d0 = st.d0 ? `1번 ${mmdd(st.d0)}` : '';
+  const d0 = st.d0 ? `1번 ${mmdd(st.d0)}${st.lu_days != null ? ` (D+${st.lu_days})` : ''}` : '';
   const val = st.val3 ? `거래대금 ${st.val3}억` : '';
-  const gain = (st.gain != null && st.entry_price) ? `진입 ${fmtWon(st.entry_price)}원 ${st.gain > 0 ? '+' : ''}${Number(st.gain).toFixed(1)}%` : '';
-  const dday = st.days != null && st.entry_date ? `D+${st.days}` : '';
-  const sub = [d0, dday, swTxt, val, gain].filter(Boolean).join(' · ');
+  const gain = (st.days > 0 && st.entry_price)
+    ? `진입 ${fmtWon(st.entry_price)}원 ${st.gain > 0 ? '+' : ''}${Number(st.gain).toFixed(1)}% (D+${st.days})` : '';
+  const sub = [d0, val, gain].filter(Boolean).join(' · ');
   return `<div class="hb-row hm-row hp-row${ch ? ' chart' : ''}"${attr}>
     <div class="hb-name hp-name">${esc(st.name)}<b class="hp-st ${S.cls}">(${esc(S.txt)})</b></div>
     <span class="hm-t ${esc(st.t)}" title="${esc(PICK_TYPE[st.t] || '')}">${esc(st.t)}</span>
