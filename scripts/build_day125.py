@@ -58,8 +58,9 @@ def wanted_codes() -> tuple[list[str], dict[str, str], list[str]]:
     names: dict[str, str] = {}
 
     def add(code, name=""):
-        c = str(code or "").strip()
-        if not c or not c.isdigit() or len(c) != 6:
+        c = str(code or "").strip().upper()
+        # 종목코드는 여섯 자리 — 우선주·신주인수권 등은 숫자+영문(예: 18064K)
+        if len(c) != 6 or not all(ch.isdigit() or ch in "ABCDEFGHIJKLMNOPQRSTUVWXYZ" for ch in c):
             return
         if c not in names:
             codes.append(c)
