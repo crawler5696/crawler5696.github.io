@@ -1525,7 +1525,8 @@ async function renderMonthly(){
   const mm = ms.find(m => m.m === monSel) || ms[0];
   const all = [];
   (mm.themes || []).forEach(t => (t.stocks || []).forEach(s => all.push(s)));
-  const cnt = f => all.filter(s => monPass(s, f)).length;
+  /* 종목 수는 코드로 한 번만 센다 — 같은 종목이 두 테마에 걸리면 줄은 둘이지만 종목은 하나 */
+  const cnt = f => new Set(all.filter(s => monPass(s, f)).map(s => String(s.code))).size;
   const chips = ms.map(m => `<button class="hm-mon${m.m === monSel ? ' on' : ''}" type="button" data-m="${esc(m.m)}">`
     + `${esc(m.label)}<span class="n">${m.stock_count}</span></button>`).join('');
   const FLT = [['all', '전체'], ['A', '유형 A'], ['B', '유형 B'], ['C', '유형 C'], ['g45', '4→5 황금자리']];
@@ -1536,8 +1537,11 @@ async function renderMonthly(){
   (mm.themes || []).forEach(t => {
     const list = (t.stocks || []).filter(s => monPass(s, monFilter));
     if(!list.length) return;
+    const label = t.base && t.base !== mm.m
+      ? `<span class="hm-tc" title="테마 기준월 ${esc(t.base)} — 이 달에는 이어서 움직인 종목만 있다">${esc(t.base.slice(2).replace('-', '.'))}부터</span>`
+      : '';
     groups.push(`<div class="hm-grp" role="group" aria-label="${esc(t.short)} ${list.length}종목">
-      <div class="hm-gh"><b class="hm-tn" title="${esc(t.name)}">${esc(t.short)}</b><span class="hm-tc">${list.length}</span></div>
+      <div class="hm-gh"><b class="hm-tn" title="${esc(t.name)}">${esc(t.short)}</b>${label}<span class="hm-tc">${list.length}</span></div>
       ${t.summary ? `<p class="hm-ts">${esc(t.summary)}</p>` : ''}
       ${list.map(s => monRowHtml(s, mm)).join('')}
     </div>`);
