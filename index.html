@@ -532,6 +532,10 @@
   .chart-px b{font-size:16px;font-weight:900;letter-spacing:-.4px}
   .chart-chg{font-size:11px;font-weight:800}
   .chart-chg.up{color:var(--up)} .chart-chg.dn{color:#5a8cff}
+  /* 주봉(공개) 차트 — 52주 최고가에서 지금 종가까지 빠진 폭. 숫자와 %만 */
+  .chart-dd{flex:none;font-size:10.5px;font-weight:900;letter-spacing:-.2px;color:#ff9aa8;
+    background:rgba(255,90,110,.12);border:1px solid rgba(255,90,110,.36);
+    padding:0 5px;border-radius:6px;font-variant-numeric:tabular-nums}
   .chart-rs{font-size:10px;color:#8fb2ff;margin-top:3px;line-height:1.4;letter-spacing:-.1px}
   .chart-x{flex:none;width:28px;height:28px;border-radius:9px;border:1px solid var(--line);
     background:rgba(255,255,255,.05);color:var(--dim);font-size:14px;font-family:inherit;cursor:pointer}
@@ -1867,7 +1871,9 @@ function openChart(s){
   $('#chartHd').innerHTML =
     `<div class="chart-nm" id="chartNm">${esc(s.name)}${s.aplus === 'A++' ? '<span class="hb-aplus">A++</span>' : ''}<span class="chart-cd">${esc(String(s.code || ''))}</span><span class="chart-pd">${pd.t}</span></div>`
     + `<div class="chart-px"><b>${esc(s.price_text || (fmtWon(s.price) + '원'))}</b>`
-    + `<span class="chart-chg ${cls}">${chg > 0 ? '+' : ''}${chg.toFixed(1)}%</span></div>`
+    + `<span class="chart-chg ${cls}">${chg > 0 ? '+' : ''}${chg.toFixed(1)}%</span>`
+    + ((s.plain && s.dd != null) ? `<span class="chart-dd">${s.dd.toFixed(1)}%</span>` : '')
+    + `</div>`
     + (s.reason ? `<div class="chart-rs">${esc(s.reason)}</div>` : '');
   $('#chartRead').innerHTML = chartReadText(s);
   const cp = chartPosHtml(s);
@@ -1972,10 +1978,15 @@ function weekItem(code, name){
   if(!s || !(s.b || []).length) return null;
   const cs = s.b.map((x, i) => [ymd6(s.d[i]), x[0], x[1], x[2], x[3], x[4]]);
   const last = cs[cs.length - 1], prev = cs[cs.length - 2] || last;
+  /* 52주(차트에 담긴 주봉) 최고가와 지금 종가의 거리 — "최고가 대비 -XX.X%" */
+  let hi = cs[0];
+  cs.forEach(c => { if(c[2] > hi[2]) hi = c; });
+  const dd = hi[2] ? (last[4] / hi[2] - 1) * 100 : null;
   return {
     code: String(code), name: name || s.n || '', period: 'week', plain: 1, candles: cs,
     price: last[4], price_text: fmtWon(last[4]) + '원',
     chg: prev[4] ? (last[4] / prev[4] - 1) * 100 : 0,
+    hi_price: hi[2], hi_date: hi[0], dd: dd, bars: cs.length,
   };
 }
 
