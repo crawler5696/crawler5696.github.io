@@ -176,10 +176,12 @@
     min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .lead b{font-weight:800;color:#7fa8ff;font-size:9.5px}
   .rankp{font-size:10px;font-weight:800;color:#8fb2ff;white-space:nowrap}
+  .cl-th{flex:none;font-size:9.5px;font-weight:800;color:#9fc0ff;border:1px solid rgba(79,140,255,.35);
+    background:rgba(79,140,255,.08);border-radius:4px;padding:0 4px;line-height:14px;white-space:nowrap;
+    max-width:46%;overflow:hidden;text-overflow:ellipsis}
   .brk{display:none}
   .presses{appearance:none;font-family:inherit;font-size:10px;font-weight:700;color:#8fb2ff;
     background:transparent;border:0;padding:0;cursor:pointer;white-space:nowrap}
-  .presses::after{content:" ›"}
   .cl-exp{flex:none;margin-left:auto;appearance:none;border:0;background:transparent;color:#5f6f8c;
     font-size:12px;padding:0 2px;cursor:pointer;font-family:inherit;line-height:1}
   .cl-det{display:none;margin-top:7px;padding-left:9px;border-left:2px solid rgba(79,140,255,.3)}
@@ -694,14 +696,23 @@ function leadBadge(leaders){
   return `<span class="sep">·</span><span class="lead" title="${esc(names.join(' · '))}"><b>🏢</b>${names.map(esc).join(' · ')}</span>`;
 }
 
-/* 속보 한 줄 — 챗방처럼 왼쪽 시간 · 오른쪽 제목/매체/관련 종목 (2026-11-20 개편) */
+/* 관련 테마 — 뉴스가 붙은 테마 이름을 작은 칩으로 (2026-11-20 지시 "관련 테마") */
+function themeChip(a){
+  const t = String((a && a.theme_label) || '').trim();
+  if(!t) return '';
+  const c = String((a && a.theme_color) || (a && a.theme ? themeColor(a.theme) : '') || '').trim();
+  const st = /^#[0-9a-f]{3,8}$/i.test(c) ? ` style="color:${c};border-color:${c}66;background:${c}14"` : '';
+  return `<span class="sep">·</span><span class="cl-th"${st} title="${esc(t)}">${esc(t)}</span>`;
+}
+
+/* 속보 한 줄 — 챗방처럼 왼쪽 시간 · 오른쪽 제목/매체/테마/관련 종목 (2026-11-20 개편) */
 function flashHtml(a){
   const cls = `cl-it${a.breaking ? ' brk' : ''}`;
   return `<a class="${cls}" href="${esc(a.url)}" target="_blank" rel="noopener noreferrer">
     <span class="cl-t">${hm(a.time)||relTime(a.time)}</span>
     <span class="cl-b">
       <span class="cl-tt">${esc(a.title)}</span>
-      <span class="cl-meta"><span class="src">${esc(a.press||'')}</span>${leadBadge(a.leaders)}</span>
+      <span class="cl-meta"><span class="src">${esc(a.press||'')}</span>${themeChip(a)}${leadBadge(a.leaders)}</span>
     </span>
   </a>`;
 }
@@ -726,7 +737,7 @@ function issueHtml(a, i){
     <div class="cl-b">
       <a class="cl-tt" href="${esc(a.url)}" target="_blank" rel="noopener noreferrer">${esc(a.title)}</a>
       <div class="cl-meta">
-        <span class="src">${hm(a.time)||relTime(a.time)} · ${esc(a.press||'')}</span>${leadBadge(a.leaders)}${pressBadge}
+        <span class="src">${hm(a.time)||relTime(a.time)} · ${esc(a.press||'')}</span>${themeChip(a)}${leadBadge(a.leaders)}${pressBadge}
         ${det ? `<button class="cl-exp exp" type="button" aria-label="요약과 다른 매체 기사 펼치기">${open?'▴':'▾'}</button>` : ''}
       </div>
       ${det}
@@ -1305,7 +1316,8 @@ function scoreHtml(sc){
     const c = (r.chg == null) ? ''
       : `<span class="c ${Number(r.chg) < 0 ? 'b' : 'r'}">${Number(r.chg) > 0 ? '+' : ''}${Number(r.chg).toFixed(2)}%</span>`;
     const v = r.v === '적중' ? 'hit' : (r.v === '실패' ? 'miss' : 'flat');
-    return `<div class="sc-it"><span class="d">${esc(r.d)}</span><span class="n">${esc(r.name)}</span>${c}<span class="v ${v}">${esc(r.v)}</span></div>`;
+    const dd = String(r.d || '').split(' ')[0];      /* '11/19 06:00' → '11/19' (칸 넘침 방지) */
+    return `<div class="sc-it" title="${esc(r.d)}"><span class="d">${esc(dd)}</span><span class="n">${esc(r.name)}</span>${c}<span class="v ${v}">${esc(r.v)}</span></div>`;
   }).join('');
   const preds = (sc.preds || []).map(p =>
     `<div class="sc-it"><span class="d">${esc(p.md)}</span><span class="n">${esc(p.id)} · ${esc(p.target)}</span>`
