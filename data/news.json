@@ -1,17 +1,17 @@
 {
- "generated_at": "2026-11-20T10:16:33.323815+09:00",
- "generated_at_kst": "2026.11.20 10:16",
+ "generated_at": "2026-11-20T10:30:34.232782+09:00",
+ "generated_at_kst": "2026.11.20 10:30",
  "flash_count": 6,
  "flash_fresh_min": 60,
  "flash_fresh_count": 6,
- "flash_updated": "2026-11-20T10:16:33.323815+09:00",
- "count": 24,
- "article_count": 105,
+ "flash_updated": "2026-11-20T10:30:34.232782+09:00",
+ "count": 23,
+ "article_count": 96,
  "main_source": {
   "presses": 83,
   "collected": 412,
-  "dropped": 283,
-  "cards": 22,
+  "dropped": 284,
+  "cards": 20,
   "sections": 180
  },
  "themes": [
@@ -19,12 +19,6 @@
    "id": "semiconductor",
    "label": "반도체·AI",
    "color": "#5b8cff",
-   "count": 3
-  },
-  {
-   "id": "bio",
-   "label": "바이오·헬스케어",
-   "color": "#e564b8",
    "count": 3
   },
   {
@@ -61,6 +55,12 @@
    "id": "robot",
    "label": "로봇·자율주행",
    "color": "#38d6a8",
+   "count": 2
+  },
+  {
+   "id": "bio",
+   "label": "바이오·헬스케어",
+   "color": "#e564b8",
    "count": 2
   },
   {
@@ -119,23 +119,24 @@
    "label": "거시·환율·금리",
    "color": "#7fd3e8",
    "count": 3,
-   "recent_6h": 10,
-   "recent_6h_ratio": 26,
-   "day_count": 38,
-   "hot": 17,
-   "presses": 23,
-   "span_hours": 16.1,
+   "recent_6h": 12,
+   "recent_6h_ratio": 30,
+   "day_count": 40,
+   "hot": 19,
+   "presses": 24,
+   "span_hours": 1.4,
    "keywords": [
-    "외국인",
+    "코스피",
+    "환율",
     "코스닥",
-    "코스피"
+    "달러"
    ],
    "headlines": [
     {
-     "title": "하나에어로다이내믹스 코스닥시장 상장기념식",
-     "url": "https://n.news.naver.com/mnews/article/001/0016453811",
-     "press": "연합뉴스",
-     "time": "2026-11-20T10:10:11+09:00"
+     "title": "자문사 CEO 3명 중 2명 \"내년 코스피 7000 넘는다\"",
+     "url": "https://n.news.naver.com/mnews/article/014/0005607310",
+     "press": "파이낸셜뉴스",
+     "time": "2026-11-20T10:29:11+09:00"
     },
     {
      "title": "코스피, 4.08% 내린 4928.51에 개장",
@@ -148,7 +149,7 @@
    "hint": {
     "type": "medium",
     "label": "중기 흐름",
-    "reason": "보도 폭 26.0시간 · 21개 시간대 · 매체 23곳 · 24시간 38건 · 최근 6시간 10건(26%) · 업황·정책 표현 8건"
+    "reason": "보도 폭 26.0시간 · 21개 시간대 · 매체 24곳 · 24시간 40건 · 최근 6시간 12건(30%) · 업황·정책 표현 8건"
    },
    "rank": 2
   },
@@ -200,87 +201,39 @@
    "label": "실적·공시·수급",
    "color": "#f5d06b",
    "count": 3,
-   "recent_6h": 4,
-   "recent_6h_ratio": 14,
-   "day_count": 28,
-   "hot": 9,
-   "presses": 23,
-   "span_hours": 15.4,
+   "recent_6h": 5,
+   "recent_6h_ratio": 17,
+   "day_count": 29,
+   "hot": 10,
+   "presses": 24,
+   "span_hours": 14.8,
    "keywords": [
     "실적",
     "IPO",
-    "공급계약",
-    "매출"
+    "자사주",
+    "주주"
    ],
    "headlines": [
     {
-     "title": "인텍플러스, 146억 규모 반도체·Substrate 검사 장비 공급계약",
-     "url": "https://n.news.naver.com/mnews/article/016/0002726133",
-     "press": "헤럴드경제",
-     "time": "2026-11-20T10:02:19+09:00"
+     "title": "삼익악기, 30억 규모 자사주 취득 결정",
+     "url": "https://n.news.naver.com/mnews/article/003/0014335079",
+     "press": "뉴시스",
+     "time": "2026-11-20T10:20:24+09:00"
     },
     {
      "title": "108조 IPO 대박 뒤엔 1200조 지출 약정…앤트로픽의 딜레마",
      "url": "https://n.news.naver.com/article/123/0002394466",
      "press": "조세일보",
-     "time": "2026-11-20T07:02:12+09:00"
+     "time": "2026-11-20T07:30:34.232782+09:00"
     }
    ],
-   "leaders": [
-    "한미반도체",
-    "이수페타시스",
-    "가온칩스",
-    "티엘비"
-   ],
+   "leaders": [],
    "hint": {
     "type": "medium",
     "label": "중기 흐름",
-    "reason": "보도 폭 25.0시간 · 15개 시간대 · 매체 23곳 · 24시간 28건 · 최근 6시간 4건(14%) · 업황·정책 표현 10건"
+    "reason": "보도 폭 25.0시간 · 15개 시간대 · 매체 24곳 · 24시간 29건 · 최근 6시간 5건(17%) · 업황·정책 표현 10건"
    },
    "rank": 4
-  },
-  {
-   "id": "bio",
-   "label": "바이오·헬스케어",
-   "color": "#e564b8",
-   "count": 3,
-   "recent_6h": 6,
-   "recent_6h_ratio": 55,
-   "day_count": 11,
-   "hot": 8,
-   "presses": 11,
-   "span_hours": 18.8,
-   "keywords": [
-    "바이오",
-    "신약",
-    "제약",
-    "CDMO"
-   ],
-   "headlines": [
-    {
-     "title": "미·중·러 첫 3자 회담에 “자신들 견제하는 제약만 풀어” 잇단 비판",
-     "url": "https://n.news.naver.com/article/028/0002833145",
-     "press": "한겨레",
-     "time": "2026-11-20T09:16:33.323815+09:00"
-    },
-    {
-     "title": "반도체 업계처럼…바이오 판도 '순수 CDMO'가 바꿨다",
-     "url": "https://n.news.naver.com/article/648/0000052815",
-     "press": "비즈워치",
-     "time": "2026-11-20T08:16:33.323815+09:00"
-    }
-   ],
-   "leaders": [
-    "알테오젠",
-    "HLB",
-    "삼성바이오로직스"
-   ],
-   "hint": {
-    "type": "medium",
-    "label": "중기 흐름",
-    "reason": "보도 폭 22.0시간 · 8개 시간대 · 매체 11곳 · 24시간 11건 · 최근 6시간 6건(55%) · 업황·정책 표현 4건"
-   },
-   "rank": 5
   },
   {
    "id": "battery",
@@ -292,7 +245,7 @@
    "day_count": 20,
    "hot": 8,
    "presses": 17,
-   "span_hours": 8.2,
+   "span_hours": 8.7,
    "keywords": [
     "전기차",
     "충전",
@@ -303,13 +256,13 @@
      "title": "비타민B12로 만든 충전식 배터리 나왔다",
      "url": "https://n.news.naver.com/article/092/0002446150",
      "press": "지디넷코리아",
-     "time": "2026-11-20T09:00:10+09:00"
+     "time": "2026-11-20T09:30:34.232782+09:00"
     },
     {
      "title": "2000만 원대 ‘트윙고’로 중국 전기차 공습에 맞서는 르노",
      "url": "https://n.news.naver.com/article/037/0000039184",
      "press": "주간동아",
-     "time": "2026-11-20T07:16:33.323815+09:00"
+     "time": "2026-11-20T07:02:21+09:00"
     }
    ],
    "leaders": [
@@ -322,7 +275,7 @@
     "label": "중기 흐름",
     "reason": "보도 폭 25.0시간 · 11개 시간대 · 매체 17곳 · 24시간 20건 · 최근 6시간 5건(25%) · 업황·정책 표현 11건"
    },
-   "rank": 6
+   "rank": 5
   },
   {
    "id": "policy",
@@ -363,6 +316,49 @@
     "type": "medium",
     "label": "중기 흐름",
     "reason": "보도 폭 23.0시간 · 7개 시간대 · 매체 9곳 · 24시간 9건 · 최근 6시간 4건(44%) · 업황·정책 표현 7건"
+   },
+   "rank": 6
+  },
+  {
+   "id": "bio",
+   "label": "바이오·헬스케어",
+   "color": "#e564b8",
+   "count": 2,
+   "recent_6h": 6,
+   "recent_6h_ratio": 55,
+   "day_count": 11,
+   "hot": 8,
+   "presses": 11,
+   "span_hours": 17.2,
+   "keywords": [
+    "바이오",
+    "신약",
+    "CDMO",
+    "셀트리온"
+   ],
+   "headlines": [
+    {
+     "title": "반도체 업계처럼…바이오 판도 '순수 CDMO'가 바꿨다",
+     "url": "https://n.news.naver.com/article/648/0000052815",
+     "press": "비즈워치",
+     "time": "2026-11-20T07:40:13+09:00"
+    },
+    {
+     "title": "韓 바이오텍 개발 '비아그라' 계열 신약 후보, 알츠하이머 31% 늦춘다",
+     "url": "https://n.news.naver.com/article/584/0000040221",
+     "press": "동아사이언스",
+     "time": "2026-11-19T14:30:34.232782+09:00"
+    }
+   ],
+   "leaders": [
+    "알테오젠",
+    "HLB",
+    "삼성바이오로직스"
+   ],
+   "hint": {
+    "type": "medium",
+    "label": "중기 흐름",
+    "reason": "보도 폭 22.0시간 · 8개 시간대 · 매체 11곳 · 24시간 11건 · 최근 6시간 6건(55%) · 업황·정책 표현 4건"
    },
    "rank": 7
   },
@@ -448,7 +444,7 @@
   "label": "오늘 11/20",
   "is_today": true,
   "session_label": "정규장",
-  "count": 4,
+  "count": 3,
   "note": "장중에는 현재 상한가 가격에 있는 종목만 표시됩니다.",
   "items": [
    {
@@ -457,11 +453,11 @@
     "market": "코스피",
     "price": 99700,
     "change_rate": 29.99,
-    "trading_value": 41875000000,
-    "volume": 464207,
+    "trading_value": 42221000000,
+    "volume": 467676,
     "session": "REGULAR_MARKET",
     "price_text": "99,700",
-    "trading_value_text": "419억",
+    "trading_value_text": "422억",
     "theme": "",
     "theme_keywords": [],
     "issue_summary": "",
@@ -477,8 +473,8 @@
     "market": "코스닥",
     "price": 7810,
     "change_rate": 29.95,
-    "trading_value": 4837085000,
-    "volume": 634184,
+    "trading_value": 4841263000,
+    "volume": 634719,
     "session": "REGULAR_MARKET",
     "price_text": "7,810",
     "trading_value_text": "48억",
@@ -499,8 +495,8 @@
     "market": "코스닥",
     "price": 1586,
     "change_rate": 30.0,
-    "trading_value": 151237000,
-    "volume": 97740,
+    "trading_value": 154341000,
+    "volume": 99697,
     "session": "REGULAR_MARKET",
     "price_text": "1,586",
     "trading_value_text": "2억",
@@ -514,51 +510,31 @@
     "article_url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE5kVllrRF9HclJiRW5MTFBIcU95Qmt3NHVHbmUtcWN4ZWJ6WDdfdko4OWRONzlSLUVRQnVSVHRodkFOVncxb1hPcm9qSVdYbllXdnpjSUg4UDIyS2paX1JvYk1xX2Z3WjY3V2c?oc=5",
     "article_press": "뉴스웨이",
     "article_time": "2026-11-20T09:42:30+09:00"
-   },
-   {
-    "name": "동양2우B",
-    "code": "001527",
-    "market": "코스피",
-    "price": 4705,
-    "change_rate": 29.97,
-    "trading_value": 107000000,
-    "volume": 23551,
-    "session": "REGULAR_MARKET",
-    "price_text": "4,705",
-    "trading_value_text": "1억",
-    "theme": "",
-    "theme_keywords": [],
-    "issue_summary": "",
-    "summary_from": "",
-    "article_title": "",
-    "article_url": "",
-    "article_press": "",
-    "article_time": ""
    }
   ]
  },
  "market_mood": {
-  "generated_at": "2026-11-20T10:16:33.323815+09:00",
+  "generated_at": "2026-11-20T10:30:34.232782+09:00",
   "kr": {
    "key": "bad",
    "label": "악재",
-   "why": "코스피 -3.73% · 코스닥 -4.00% (평균 -3.87%)",
-   "avg": -3.87,
+   "why": "코스피 -3.75% · 코스닥 -3.61% (평균 -3.68%)",
+   "avg": -3.68,
    "live": true,
-   "as_of_kst": "11-20 10:17",
+   "as_of_kst": "11-20 10:32",
    "kospi": {
     "name": "코스피",
-    "value": 4946.04,
-    "chg": -3.73,
+    "value": 4945.13,
+    "chg": -3.75,
     "status": "OPEN",
-    "as_of": "2026-11-20T10:17:00+09:00"
+    "as_of": "2026-11-20T10:31:00+09:00"
    },
    "kosdaq": {
     "name": "코스닥",
-    "value": 657.44,
-    "chg": -4.0,
+    "value": 660.11,
+    "chg": -3.61,
     "status": "OPEN",
-    "as_of": "2026-11-20T10:17:00+09:00"
+    "as_of": "2026-11-20T10:32:00+09:00"
    }
   },
   "us": {
@@ -1146,6 +1122,14 @@
     1,
     1,
     0
+   ],
+   [
+    "003/0014335079",
+    "2026-11-20T10",
+    "뉴시스",
+    1,
+    0,
+    0
    ]
   ],
   "bio": [
@@ -1704,6 +1688,22 @@
     0,
     0,
     0
+   ],
+   [
+    "014/0005607310",
+    "2026-11-20T10",
+    "파이낸셜뉴스",
+    1,
+    0,
+    0
+   ],
+   [
+    "277/0005845532",
+    "2026-11-20T10",
+    "아시아경제",
+    1,
+    0,
+    1
    ]
   ],
   "policy": [
@@ -2537,39 +2537,67 @@
  },
  "flash": [
   {
-   "id": "119/0003157563",
-   "title": "단타 개미만 산다…코스피 5000선 재붕괴 [시황]",
+   "id": "014/0005607310",
+   "title": "자문사 CEO 3명 중 2명 \"내년 코스피 7000 넘는다\"",
+   "press": "파이낸셜뉴스",
+   "time": "2026-11-20T10:30:34.232782+09:00",
+   "url": "https://n.news.naver.com/mnews/article/014/0005607310",
+   "summary": "",
+   "theme": "macro",
+   "theme_label": "거시·환율·금리",
+   "theme_color": "#7fd3e8",
+   "leaders": [],
+   "fresh": true,
+   "breaking": false
+  },
+  {
+   "id": "003/0014335116",
+   "title": "한솔홈데코, 3분기 누적 영업익 44억…전년比 97.4%↑",
+   "press": "뉴시스",
+   "time": "2026-11-20T10:30:34.232782+09:00",
+   "url": "https://n.news.naver.com/mnews/article/003/0014335116",
+   "summary": "",
+   "theme": "etc",
+   "theme_label": "기타",
+   "theme_color": "#9aa4b2",
+   "leaders": [],
+   "fresh": true,
+   "breaking": false
+  },
+  {
+   "id": "422/0000928114",
+   "title": "코스피, 美기술주 급락에 4% 하락…또 5,000선 하회",
+   "press": "연합뉴스TV",
+   "time": "2026-11-20T10:30:34.232782+09:00",
+   "url": "https://n.news.naver.com/mnews/article/422/0000928114",
+   "summary": "",
+   "theme": "macro",
+   "theme_label": "거시·환율·금리",
+   "theme_color": "#7fd3e8",
+   "leaders": [],
+   "fresh": true,
+   "breaking": false
+  },
+  {
+   "id": "277/0005845540",
+   "title": "앤스로픽 상장도 못 막은 AI 의구심…코스피 4900도 붕괴",
+   "press": "아시아경제",
+   "time": "2026-11-20T10:30:34.232782+09:00",
+   "url": "https://n.news.naver.com/mnews/article/277/0005845540",
+   "summary": "",
+   "theme": "macro",
+   "theme_label": "거시·환율·금리",
+   "theme_color": "#7fd3e8",
+   "leaders": [],
+   "fresh": true,
+   "breaking": false
+  },
+  {
+   "id": "119/0003157569",
+   "title": "하나에어로, 코스닥 상장 첫날 66% 상승세 [특징주]",
    "press": "데일리안",
-   "time": "2026-11-20T10:16:33.323815+09:00",
-   "url": "https://n.news.naver.com/mnews/article/119/0003157563",
-   "summary": "",
-   "theme": "macro",
-   "theme_label": "거시·환율·금리",
-   "theme_color": "#7fd3e8",
-   "leaders": [],
-   "fresh": true,
-   "breaking": false
-  },
-  {
-   "id": "016/0002726152",
-   "title": "“오천피 또 깨졌다” 앤트로픽 흥행에도 코스피 4% 하락 출발 [투자360]",
-   "press": "헤럴드경제",
-   "time": "2026-11-20T10:16:33.323815+09:00",
-   "url": "https://n.news.naver.com/mnews/article/016/0002726152",
-   "summary": "",
-   "theme": "macro",
-   "theme_label": "거시·환율·금리",
-   "theme_color": "#7fd3e8",
-   "leaders": [],
-   "fresh": true,
-   "breaking": false
-  },
-  {
-   "id": "016/0002726151",
-   "title": "삼익악기, 30억 규모 자사주 취득 결정",
-   "press": "헤럴드경제",
-   "time": "2026-11-20T10:16:33.323815+09:00",
-   "url": "https://n.news.naver.com/mnews/article/016/0002726151",
+   "time": "2026-11-20T10:30:34.232782+09:00",
+   "url": "https://n.news.naver.com/mnews/article/119/0003157569",
    "summary": "",
    "theme": "earnings",
    "theme_label": "실적·공시·수급",
@@ -2579,25 +2607,11 @@
    "breaking": false
   },
   {
-   "id": "082/0001408151",
-   "title": "앤트로픽 상장 첫날 17% 상승…SKT 지분가치 5조 추정",
-   "press": "부산일보",
-   "time": "2026-11-20T10:16:33.323815+09:00",
-   "url": "https://n.news.naver.com/mnews/article/082/0001408151",
-   "summary": "",
-   "theme": "earnings",
-   "theme_label": "실적·공시·수급",
-   "theme_color": "#f5d06b",
-   "leaders": [],
-   "fresh": true,
-   "breaking": false
-  },
-  {
-   "id": "001/0016453811",
-   "title": "하나에어로다이내믹스 코스닥시장 상장기념식",
-   "press": "연합뉴스",
-   "time": "2026-11-20T10:16:33.323815+09:00",
-   "url": "https://n.news.naver.com/mnews/article/001/0016453811",
+   "id": "018/0006413011",
+   "title": "아델, 기관 수요예측 부진에 코스닥 상장 철회",
+   "press": "이데일리",
+   "time": "2026-11-20T10:30:34.232782+09:00",
+   "url": "https://n.news.naver.com/mnews/article/018/0006413011",
    "summary": "",
    "theme": "macro",
    "theme_label": "거시·환율·금리",
@@ -2605,23 +2619,6 @@
    "leaders": [],
    "fresh": true,
    "breaking": false
-  },
-  {
-   "id": "021/0002834240",
-   "title": "[속보]삼성전자 장초반 4% 급락, SK하이닉스도 6%↓",
-   "press": "문화일보",
-   "time": "2026-11-20T10:16:33.323815+09:00",
-   "url": "https://n.news.naver.com/mnews/article/021/0002834240",
-   "summary": "",
-   "theme": "semiconductor",
-   "theme_label": "반도체·AI",
-   "theme_color": "#5b8cff",
-   "leaders": [
-    "SK하이닉스",
-    "삼성전자"
-   ],
-   "fresh": true,
-   "breaking": true
   }
  ],
  "issues": [
@@ -2641,7 +2638,7 @@
     "데이터센터",
     "AI"
    ],
-   "presses": 31,
+   "presses": 26,
    "press_list": [
     "디지털데일리",
     "비즈워치",
@@ -2655,22 +2652,22 @@
      "title": "앤트로픽 흥행보다 강했던 AMD 쇼크...코스피 다시 5000선 밑으로",
      "press": "비즈워치",
      "url": "https://n.news.naver.com/article/648/0000052819",
-     "time": "2026-11-20T09:39:33.323815+09:00"
+     "time": "2026-11-20T09:39:34.232782+09:00"
     },
     {
      "title": "코스피, 하루 만에 5000선 붕괴… 장 초반 3.7% 급락",
      "press": "대전일보",
      "url": "https://n.news.naver.com/article/656/0000193042",
-     "time": "2026-11-20T09:16:33.323815+09:00"
+     "time": "2026-11-20T09:30:34.232782+09:00"
     },
     {
      "title": "“직원 자산 잭팟” 앤트로픽 상장에 ‘인생 역전’",
      "press": "한경비즈니스",
      "url": "https://n.news.naver.com/article/050/0000113527",
-     "time": "2026-11-20T09:16:33.323815+09:00"
+     "time": "2026-11-20T09:30:34.232782+09:00"
     }
    ],
-   "article_count": 42,
+   "article_count": 34,
    "breaking": true,
    "relevance": 43,
    "summary": "삼성전자와 SK하이닉스 주가가 급락했지만 메모리 반도체 업황은 여전히 견조하다는 분석이 나왔다. 인공지능(AI) 서버 수요 증가로 내년에도 반도체 공급 부족이 이어지고 D램 가격은 올해보다 40% 상승할 것이라는 전",
@@ -2697,7 +2694,7 @@
     "반도체",
     "삼성전자"
    ],
-   "presses": 17,
+   "presses": 14,
    "press_list": [
     "SBS Biz",
     "조선비즈",
@@ -2711,25 +2708,25 @@
      "title": "삼성전자, 사장 3명 승진… 전영현·노태문 ‘투톱’ 유지, 메모리·스마트폰 새 수장 선임",
      "press": "조선비즈",
      "url": "https://n.news.naver.com/article/366/0001206155",
-     "time": "2026-11-20T09:16:33.323815+09:00"
+     "time": "2026-11-20T09:30:34.232782+09:00"
     },
     {
      "title": "삼성, 사장 승진자 전원 '반도체'서 나왔다…황상준 등 3인방 승진",
      "press": "블로터",
      "url": "https://n.news.naver.com/article/293/0000093577",
-     "time": "2026-11-20T09:33:33.323815+09:00"
+     "time": "2026-11-20T09:33:34.232782+09:00"
     },
     {
      "title": "[속보] 삼성전자 사장단 인사…전영현·노태문 ‘투톱’ 체제 유지",
      "press": "국민일보",
      "url": "https://n.news.naver.com/article/005/0001886421",
-     "time": "2026-11-20T09:20:33.323815+09:00"
+     "time": "2026-11-20T09:30:34.232782+09:00"
     }
    ],
-   "article_count": 19,
+   "article_count": 17,
    "breaking": true,
    "relevance": 40,
-   "summary": "삼성전자(005930)가 2027년 사장단 인사를 통해 반도체 부문 디바이스솔루션(DS)과 완제품 부문 디바이스경험(DX) 양대 사업수장의 투톱 체제를 공고하고, 고대역폭메모리(HBM)와 스마트폰 등 주력 제품 개발",
+   "summary": "삼성전자가 반도체(DS)부문은 전영현 부회장, 모바일·가전(DX)부문은 노태문 사장이 이끄는 '2인 CEO(최고경영자) 체제'를 유지하며 경영 안정을 택했다. 대신 두 부문장의 메모리·MX(모바일경험)사업부장 겸직을",
    "leaders": [
     "삼성전자",
     "한미반도체",
@@ -2768,19 +2765,19 @@
      "title": "경고했는데...수능 부정행위 98명 적발, 포상금 걸고 계속 추적",
      "press": "더스쿠프",
      "url": "https://n.news.naver.com/article/665/0000008604",
-     "time": "2026-11-20T03:16:33.323815+09:00"
+     "time": "2026-11-20T03:30:34.232782+09:00"
     },
     {
      "title": "재난문자, 단추 스티커에도… 부정행위자 98명",
      "press": "한겨레21",
      "url": "https://n.news.naver.com/article/036/0000054480",
-     "time": "2026-11-20T09:16:33.323815+09:00"
+     "time": "2026-11-20T09:30:34.232782+09:00"
     },
     {
      "title": "“부정행위 엄단” 경고에도…스마트 안경·카메라 등 98명 적발",
      "press": "KBS",
      "url": "https://n.news.naver.com/article/056/0012297557",
-     "time": "2026-11-19T21:16:33.323815+09:00"
+     "time": "2026-11-19T21:30:34.232782+09:00"
     }
    ],
    "article_count": 16,
@@ -2819,13 +2816,13 @@
      "title": "수능 도전한 스님 출신 50대...가방 속 ‘재난문자 알림’에 결국 퇴실",
      "press": "경기일보",
      "url": "https://n.news.naver.com/article/666/0000132963",
-     "time": "2026-11-19T23:16:33.323815+09:00"
+     "time": "2026-11-19T23:30:34.232782+09:00"
     },
     {
      "title": "‘수능도전’ 승려 출신 50대, 가방서 스마트폰 ‘삐’ 퇴실",
      "press": "문화일보",
      "url": "https://n.news.naver.com/article/021/0002834144",
-     "time": "2026-11-20T01:16:33.323815+09:00"
+     "time": "2026-11-20T01:30:34.232782+09:00"
     }
    ],
    "article_count": 3,
@@ -2840,45 +2837,74 @@
    "issue_rank": 4
   },
   {
-   "id": "016/0002726133",
-   "title": "인텍플러스, 146억 규모 반도체·Substrate 검사 장비 공급계약",
-   "url": "https://n.news.naver.com/mnews/article/016/0002726133",
-   "press": "헤럴드경제",
-   "time": "2026-11-20T10:02:19+09:00",
+   "id": "014/0005607310",
+   "title": "자문사 CEO 3명 중 2명 \"내년 코스피 7000 넘는다\"",
+   "url": "https://n.news.naver.com/mnews/article/014/0005607310",
+   "press": "파이낸셜뉴스",
+   "time": "2026-11-20T10:29:11+09:00",
+   "section": "증권",
+   "source": "section",
+   "main_rank": null,
+   "theme": "macro",
+   "theme_label": "거시·환율·금리",
+   "tags": [
+    "코스피"
+   ],
+   "presses": 2,
+   "press_list": [
+    "파이낸셜뉴스",
+    "SBS Biz"
+   ],
+   "related": [
+    {
+     "title": "투자자문사 CEO 3명 중 2명 \"내년 코스피 7000 이상\"",
+     "press": "SBS Biz",
+     "url": "https://n.news.naver.com/mnews/article/374/0000544887",
+     "time": ""
+    }
+   ],
+   "article_count": 2,
+   "breaking": false,
+   "relevance": 14,
+   "summary": "국내 주요 투자자문사와 자산운용사 경영진 3명 중 2명이 내년 코스피가 7000선 이상에 도달할 것으로 전망했다. 20일 삼성증권에 따르면 '삼성증권 자문사 CEO 포럼'에 참석한 국내 주요 투자자문사·자산운용사 최",
+   "leaders": [],
+   "issue_rank": 5
+  },
+  {
+   "id": "003/0014335079",
+   "title": "삼익악기, 30억 규모 자사주 취득 결정",
+   "url": "https://n.news.naver.com/mnews/article/003/0014335079",
+   "press": "뉴시스",
+   "time": "2026-11-20T10:20:24+09:00",
    "section": "증권",
    "source": "section",
    "main_rank": null,
    "theme": "earnings",
    "theme_label": "실적·공시·수급",
    "tags": [
-    "공급계약",
+    "자사주",
     "공시",
-    "매출"
+    "주주"
    ],
    "presses": 2,
    "press_list": [
-    "헤럴드경제",
-    "뉴시스"
+    "뉴시스",
+    "헤럴드경제"
    ],
    "related": [
     {
-     "title": "아센디오, 9억원 규모 화장품 공급계약",
-     "press": "뉴시스",
-     "url": "https://n.news.naver.com/mnews/article/003/0014334998",
+     "title": "삼익악기, 30억 규모 자사주 취득 결정",
+     "press": "헤럴드경제",
+     "url": "https://n.news.naver.com/mnews/article/016/0002726151",
      "time": ""
     }
    ],
-   "article_count": 4,
+   "article_count": 2,
    "breaking": false,
    "relevance": 24,
-   "summary": "인텍플러스는 takewin International과 반도체 및 Substrate 검사 장비 공급계약을 체결했다고 20일 공시했다. 계약금액은 145억8952만원으로 이는 2025년 매출 대비 16.25%에 해당하는",
-   "leaders": [
-    "한미반도체",
-    "이수페타시스",
-    "가온칩스",
-    "티엘비"
-   ],
-   "issue_rank": 5
+   "summary": "삼익악기는 주주가치 제고 및 주가안정화를 위해 30억원 규모의 자사주 취득을 결정했다고 20일 공시했다. 취득 예상 기간은 오는 23일부터 내년 2월 20일까지다.",
+   "leaders": [],
+   "issue_rank": 6
   },
   {
    "id": "661/0000086824",
@@ -2905,7 +2931,7 @@
      "title": "서울대 \"시험 때 일회용 가운 입어라\"… 논술·면접 시험 앞둔 대학가 'AI 커닝' 비상",
      "press": "한국일보",
      "url": "https://n.news.naver.com/article/469/0000966686",
-     "time": "2026-11-20T05:16:33.323815+09:00"
+     "time": "2026-11-20T04:30:34.232782+09:00"
     }
    ],
    "article_count": 2,
@@ -2917,7 +2943,7 @@
     "라온시큐어",
     "샌즈랩"
    ],
-   "issue_rank": 6
+   "issue_rank": 7
   },
   {
    "id": "050/0000113530",
@@ -2944,7 +2970,7 @@
      "title": "젠슨 황 사임 후 흔들리던 엔비디아 안정화한 콜레트 크레스",
      "press": "주간동아",
      "url": "https://n.news.naver.com/article/037/0000039173",
-     "time": "2026-11-19T10:16:33.323815+09:00"
+     "time": "2026-11-19T10:30:34.232782+09:00"
     }
    ],
    "article_count": 2,
@@ -2957,61 +2983,36 @@
     "가온칩스",
     "티엘비"
    ],
-   "issue_rank": 7
-  },
-  {
-   "id": "001/0016453811",
-   "title": "하나에어로다이내믹스 코스닥시장 상장기념식",
-   "url": "https://n.news.naver.com/mnews/article/001/0016453811",
-   "press": "연합뉴스",
-   "time": "2026-11-20T10:10:11+09:00",
-   "section": "증권",
-   "source": "section",
-   "main_rank": null,
-   "theme": "macro",
-   "theme_label": "거시·환율·금리",
-   "tags": [
-    "코스닥"
-   ],
-   "presses": 1,
-   "press_list": [
-    "연합뉴스"
-   ],
-   "related": [],
-   "article_count": 1,
-   "breaking": false,
-   "relevance": 11,
-   "summary": "20일 서울 영등포구 한국거래소에서 열린 하나에어로다이내믹스 코스닥시장 상장기념식에서 관계자들이 상장기념패 전달 후 기념 촬영하고 있다. 왼쪽부터 박종식 한국IR협의회 부회장, 민경욱 한국거래소 코스닥시장본부장, 이",
-   "leaders": [],
    "issue_rank": 8
   },
   {
-   "id": "028/0002833145",
-   "title": "미·중·러 첫 3자 회담에 “자신들 견제하는 제약만 풀어” 잇단 비판",
-   "url": "https://n.news.naver.com/article/028/0002833145",
-   "press": "한겨레",
-   "time": "2026-11-20T09:16:33.323815+09:00",
+   "id": "092/0002446150",
+   "title": "비타민B12로 만든 충전식 배터리 나왔다",
+   "url": "https://n.news.naver.com/article/092/0002446150",
+   "press": "지디넷코리아",
+   "time": "2026-11-20T09:30:34.232782+09:00",
    "section": "네이버 메인",
    "source": "main",
    "main_rank": 5,
-   "theme": "bio",
-   "theme_label": "바이오·헬스케어",
+   "theme": "battery",
+   "theme_label": "2차전지·에너지",
    "tags": [
-    "제약"
+    "배터리",
+    "충전"
    ],
    "presses": 1,
    "press_list": [
-    "한겨레"
+    "지디넷코리아"
    ],
    "related": [],
    "article_count": 1,
    "breaking": false,
-   "relevance": 7,
+   "relevance": 13,
    "summary": "",
    "leaders": [
-    "알테오젠",
-    "HLB",
-    "삼성바이오로직스"
+    "에코프로비엠",
+    "리튬포어스",
+    "하이드로리튬"
    ],
    "issue_rank": 9
   },
@@ -3042,42 +3043,11 @@
    "issue_rank": 10
   },
   {
-   "id": "092/0002446150",
-   "title": "비타민B12로 만든 충전식 배터리 나왔다",
-   "url": "https://n.news.naver.com/article/092/0002446150",
-   "press": "지디넷코리아",
-   "time": "2026-11-20T09:00:10+09:00",
-   "section": "네이버 메인",
-   "source": "main",
-   "main_rank": 5,
-   "theme": "battery",
-   "theme_label": "2차전지·에너지",
-   "tags": [
-    "배터리",
-    "충전"
-   ],
-   "presses": 1,
-   "press_list": [
-    "지디넷코리아"
-   ],
-   "related": [],
-   "article_count": 1,
-   "breaking": false,
-   "relevance": 13,
-   "summary": "아르헨티나 연구진, 아연·공기 배터리에 촉매로 비타민B12 활용 인체 건강에 중요한 영양소로 잘 알려진 비타민 B12로 배터리를 만들 수 있는 길이 열렸다.",
-   "leaders": [
-    "에코프로비엠",
-    "리튬포어스",
-    "하이드로리튬"
-   ],
-   "issue_rank": 11
-  },
-  {
    "id": "648/0000052815",
    "title": "반도체 업계처럼…바이오 판도 '순수 CDMO'가 바꿨다",
    "url": "https://n.news.naver.com/article/648/0000052815",
    "press": "비즈워치",
-   "time": "2026-11-20T08:16:33.323815+09:00",
+   "time": "2026-11-20T07:40:13+09:00",
    "section": "네이버 메인",
    "source": "main",
    "main_rank": 5,
@@ -3095,13 +3065,39 @@
    "article_count": 1,
    "breaking": false,
    "relevance": 19,
-   "summary": "",
+   "summary": "[CDMO 톺아보기②] 시밀러 떼어낸 삼성바이오, 셀트리온과 생산 동맹 파운드리처럼 생산만…투자부담 줄이고 판매 집중 삼성바이오로직스가 바이오시밀러 사업을 떼어내고 '순수 위탁개발생산(CDMO)' 기업으로 거듭나면서 바이오 산업의 판도 변화가 나타나고 있다.",
    "leaders": [
     "한미반도체",
     "이수페타시스",
     "가온칩스",
     "티엘비"
    ],
+   "issue_rank": 11
+  },
+  {
+   "id": "123/0002394466",
+   "title": "108조 IPO 대박 뒤엔 1200조 지출 약정…앤트로픽의 딜레마",
+   "url": "https://n.news.naver.com/article/123/0002394466",
+   "press": "조세일보",
+   "time": "2026-11-20T07:30:34.232782+09:00",
+   "section": "네이버 메인",
+   "source": "main",
+   "main_rank": 5,
+   "theme": "earnings",
+   "theme_label": "실적·공시·수급",
+   "tags": [
+    "IPO"
+   ],
+   "presses": 1,
+   "press_list": [
+    "조세일보"
+   ],
+   "related": [],
+   "article_count": 1,
+   "breaking": false,
+   "relevance": 10,
+   "summary": "",
+   "leaders": [],
    "issue_rank": 12
   },
   {
@@ -3109,7 +3105,7 @@
    "title": "2000만 원대 ‘트윙고’로 중국 전기차 공습에 맞서는 르노",
    "url": "https://n.news.naver.com/article/037/0000039184",
    "press": "주간동아",
-   "time": "2026-11-20T07:16:33.323815+09:00",
+   "time": "2026-11-20T07:02:21+09:00",
    "section": "네이버 메인",
    "source": "main",
    "main_rank": 3,
@@ -3126,7 +3122,7 @@
    "article_count": 1,
    "breaking": false,
    "relevance": 10,
-   "summary": "",
+   "summary": "[조진혁의 Car Talk] 유럽, 생산비 절감 총력… 현대차 캐스퍼도 ‘가성비’ 모델 출시 둥근 차체와 표정 있는 전면 디자인이 특징인 르노 트윙고. 블룸버그통신 보도에 따르면 올해 3분기 유럽에 신규 등록된 승용차의 12.7%가 중국 브랜드 차량이다.",
    "leaders": [
     "현대차",
     "기아"
@@ -3160,32 +3156,6 @@
    "issue_rank": 14
   },
   {
-   "id": "123/0002394466",
-   "title": "108조 IPO 대박 뒤엔 1200조 지출 약정…앤트로픽의 딜레마",
-   "url": "https://n.news.naver.com/article/123/0002394466",
-   "press": "조세일보",
-   "time": "2026-11-20T07:02:12+09:00",
-   "section": "네이버 메인",
-   "source": "main",
-   "main_rank": 5,
-   "theme": "earnings",
-   "theme_label": "실적·공시·수급",
-   "tags": [
-    "IPO"
-   ],
-   "presses": 1,
-   "press_list": [
-    "조세일보"
-   ],
-   "related": [],
-   "article_count": 1,
-   "breaking": false,
-   "relevance": 10,
-   "summary": "◆…앤트로픽 로고. 인공지능(AI) 산업의 성장 가능성에 대한 기대가 커지면서 공모 규모는 813억달러(약 108조원)까지 늘어났고 스페이스X가 세운 종전 기록도 넘어섰다.",
-   "leaders": [],
-   "issue_rank": 15
-  },
-  {
    "id": "138/0002249301",
    "title": "AIDC 냉각 수주 3조·로봇 부품 양산 채비…LG전자, 미래사업 속도전",
    "url": "https://n.news.naver.com/article/138/0002249301",
@@ -3214,7 +3184,7 @@
     "클로봇",
     "유일로보틱스"
    ],
-   "issue_rank": 16
+   "issue_rank": 15
   },
   {
    "id": "023/0004010715",
@@ -3243,6 +3213,42 @@
     "현대차",
     "기아"
    ],
+   "issue_rank": 16
+  },
+  {
+   "id": "277/0005845532",
+   "title": "[포토] 장중 5% 가까이 폭락한 코스피",
+   "url": "https://n.news.naver.com/mnews/article/277/0005845532",
+   "press": "아시아경제",
+   "time": "",
+   "section": "증권",
+   "source": "section",
+   "main_rank": null,
+   "theme": "macro",
+   "theme_label": "거시·환율·금리",
+   "tags": [
+    "코스피",
+    "환율",
+    "코스닥"
+   ],
+   "presses": 2,
+   "press_list": [
+    "아시아경제",
+    "이코노미스트"
+   ],
+   "related": [
+    {
+     "title": "[속보]코스피 4900선도 깨졌다 '장중 5%↓'…외국인·기관 동반 '팔자' 영향",
+     "press": "이코노미스트",
+     "url": "https://n.news.naver.com/mnews/article/243/0000105946",
+     "time": ""
+    }
+   ],
+   "article_count": 4,
+   "breaking": false,
+   "relevance": 26,
+   "summary": "코스피가 개장과 동시에 4%대 급락 출발하며 단숨에 4900선도 무너진 20일 서울 중구 하나은행 본점 딜링룸에 코스피와 코스닥, 원/달러 환율 등이 표시되고 있다.",
+   "leaders": [],
    "issue_rank": 17
   },
   {
@@ -3250,7 +3256,7 @@
    "title": "믿지 못할 국가시험…\"구술 평가가 현실적 대안\"",
    "url": "https://n.news.naver.com/article/417/0001164986",
    "press": "동행미디어 시대",
-   "time": "2026-11-19T18:40:06+09:00",
+   "time": "2026-11-19T19:30:34.232782+09:00",
    "section": "네이버 메인",
    "source": "main",
    "main_rank": 4,
@@ -3267,12 +3273,8 @@
    "article_count": 1,
    "breaking": false,
    "relevance": 10,
-   "summary": "리트 만점자, 과거 전과 드러나 서·논술형도 AI 부정 안심 못해 독일·프랑스 대입엔 구술 반영 평가 다변화로 공정성 확보해야 시험 부정행위 의혹을 받다 공개 검증을 앞두고 연락이 두절된 법학적성시험(LEET·리트) 만점자 이진우씨(32)가 숨진 채 발견된 서울 강동구 한 숙박업소 인근에서…",
-   "leaders": [
-    "지슨",
-    "라온시큐어",
-    "샌즈랩"
-   ],
+   "summary": "",
+   "leaders": [],
    "issue_rank": 18
   },
   {
@@ -3307,37 +3309,11 @@
    "issue_rank": 19
   },
   {
-   "id": "050/0000113525",
-   "title": "“귀국길에 꼭 챙겨야”…외국인들 사로잡은 K-쇼핑백",
-   "url": "https://n.news.naver.com/article/050/0000113525",
-   "press": "한경비즈니스",
-   "time": "2026-11-19T18:04:08+09:00",
-   "section": "네이버 메인",
-   "source": "main",
-   "main_rank": 5,
-   "theme": "macro",
-   "theme_label": "거시·환율·금리",
-   "tags": [
-    "외국인"
-   ],
-   "presses": 1,
-   "press_list": [
-    "한경비즈니스"
-   ],
-   "related": [],
-   "article_count": 1,
-   "breaking": false,
-   "relevance": 7,
-   "summary": "SNS에서 올리브영 쇼핑팩을 한국 여행 인증템으로 소개하는 게시물이 확산하고 있다(우). 유명 명품 브랜드도 아닌 올리브영의 3000원짜리 쇼핑백이다.",
-   "leaders": [],
-   "issue_rank": 20
-  },
-  {
    "id": "584/0000040221",
    "title": "韓 바이오텍 개발 '비아그라' 계열 신약 후보, 알츠하이머 31% 늦춘다",
    "url": "https://n.news.naver.com/article/584/0000040221",
    "press": "동아사이언스",
-   "time": "2026-11-19T14:27:09+09:00",
+   "time": "2026-11-19T14:30:34.232782+09:00",
    "section": "네이버 메인",
    "source": "main",
    "main_rank": 2,
@@ -3355,13 +3331,13 @@
    "article_count": 1,
    "breaking": false,
    "relevance": 19,
-   "summary": "'아리바이오' 개발중인 치료제 글로벌 임상3상 결과 공개 비아그라 모방 신약 후보물질 'AR1001' 글로벌 임상 3상 결과가 발표됐다. 게티이미지뱅크 제공 발기부전 치료제 ‘비아그라’와 같은 계열의 경구용 신약 후보물질이 초기 알츠하이머병 환자의 인지 저하 속도를 늦추는 것으로 나타났다.",
+   "summary": "",
    "leaders": [
     "알테오젠",
     "HLB",
     "삼성바이오로직스"
    ],
-   "issue_rank": 21
+   "issue_rank": 20
   },
   {
    "id": "087/0001231969",
@@ -3392,7 +3368,7 @@
     "대우건설",
     "DL이앤씨"
    ],
-   "issue_rank": 22
+   "issue_rank": 21
   },
   {
    "id": "353/0000057292",
@@ -3418,7 +3394,7 @@
    "relevance": 7,
    "summary": "Jamal Abdulla Al Suwaidi) 주한 아랍에미리트(UAE) 대사, 마르완 알마리(Marwan AlMarri) 두바이 상공회의소 인터내셔널 아시아 지역 디렉터, 손휘원 두바이 상공회의소 아시아 지역 한국 사무소 대표, 이광희 SC제일은행 은행장, 김태형 코트라 인베스트코리아 대표.",
    "leaders": [],
-   "issue_rank": 23
+   "issue_rank": 22
   },
   {
    "id": "665/0000008592",
@@ -3444,7 +3420,7 @@
    "relevance": 7,
    "summary": "더스쿠프 심층취재 추적+ K-콘텐츠 세계서 인기몰이 정부 K-FAST 사업도 성황리 무료로 한국 드마라·영화 송출 넷플릭스 거치지 않아도 돼 하지만 내년 정부 예산 0원 콘텐츠 공급에 차질 있을 수도 한국 콘텐츠가 세계 무대에서 주목받고 있습니다.",
    "leaders": [],
-   "issue_rank": 24
+   "issue_rank": 23
   }
  ],
  "articles": [
@@ -3476,7 +3452,7 @@
   {
    "id": "374/0000544879",
    "title": "삼성전자, 반도체·스마트폰 수장 교체…황상준·최원준 전면에",
-   "summary": "삼성전자(005930)가 2027년 사장단 인사를 통해 반도체 부문 디바이스솔루션(DS)과 완제품 부문 디바이스경험(DX) 양대 사업수장의 투톱 체제를 공고하고, 고대역폭메모리(HBM)와 스마트폰 등 주력 제품 개발",
+   "summary": "삼성전자가 반도체(DS)부문은 전영현 부회장, 모바일·가전(DX)부문은 노태문 사장이 이끄는 '2인 CEO(최고경영자) 체제'를 유지하며 경영 안정을 택했다. 대신 두 부문장의 메모리·MX(모바일경험)사업부장 겸직을",
    "press": "SBS Biz",
    "time": "2026-11-20T09:06:12+09:00",
    "url": "https://n.news.naver.com/article/374/0000544879",
@@ -3544,29 +3520,42 @@
    "issue_rank": 4
   },
   {
-   "id": "016/0002726133",
-   "title": "인텍플러스, 146억 규모 반도체·Substrate 검사 장비 공급계약",
-   "summary": "인텍플러스는 takewin International과 반도체 및 Substrate 검사 장비 공급계약을 체결했다고 20일 공시했다. 계약금액은 145억8952만원으로 이는 2025년 매출 대비 16.25%에 해당하는",
-   "press": "헤럴드경제",
-   "time": "2026-11-20T10:02:19+09:00",
-   "url": "https://n.news.naver.com/mnews/article/016/0002726133",
+   "id": "014/0005607310",
+   "title": "자문사 CEO 3명 중 2명 \"내년 코스피 7000 넘는다\"",
+   "summary": "국내 주요 투자자문사와 자산운용사 경영진 3명 중 2명이 내년 코스피가 7000선 이상에 도달할 것으로 전망했다. 20일 삼성증권에 따르면 '삼성증권 자문사 CEO 포럼'에 참석한 국내 주요 투자자문사·자산운용사 최",
+   "press": "파이낸셜뉴스",
+   "time": "2026-11-20T10:29:11+09:00",
+   "url": "https://n.news.naver.com/mnews/article/014/0005607310",
+   "theme": "macro",
+   "theme_label": "거시·환율·금리",
+   "tags": [
+    "코스피"
+   ],
+   "section": "증권",
+   "relevance": 14,
+   "source": "section",
+   "leaders": [],
+   "issue_rank": 5
+  },
+  {
+   "id": "003/0014335079",
+   "title": "삼익악기, 30억 규모 자사주 취득 결정",
+   "summary": "삼익악기는 주주가치 제고 및 주가안정화를 위해 30억원 규모의 자사주 취득을 결정했다고 20일 공시했다. 취득 예상 기간은 오는 23일부터 내년 2월 20일까지다.",
+   "press": "뉴시스",
+   "time": "2026-11-20T10:20:24+09:00",
+   "url": "https://n.news.naver.com/mnews/article/003/0014335079",
    "theme": "earnings",
    "theme_label": "실적·공시·수급",
    "tags": [
-    "공급계약",
+    "자사주",
     "공시",
-    "매출"
+    "주주"
    ],
    "section": "증권",
    "relevance": 24,
    "source": "section",
-   "leaders": [
-    "한미반도체",
-    "이수페타시스",
-    "가온칩스",
-    "티엘비"
-   ],
-   "issue_rank": 5
+   "leaders": [],
+   "issue_rank": 6
   },
   {
    "id": "661/0000086824",
@@ -3589,7 +3578,7 @@
     "라온시큐어",
     "샌즈랩"
    ],
-   "issue_rank": 6
+   "issue_rank": 7
   },
   {
    "id": "050/0000113530",
@@ -3613,45 +3602,28 @@
     "가온칩스",
     "티엘비"
    ],
-   "issue_rank": 7
-  },
-  {
-   "id": "001/0016453811",
-   "title": "하나에어로다이내믹스 코스닥시장 상장기념식",
-   "summary": "20일 서울 영등포구 한국거래소에서 열린 하나에어로다이내믹스 코스닥시장 상장기념식에서 관계자들이 상장기념패 전달 후 기념 촬영하고 있다. 왼쪽부터 박종식 한국IR협의회 부회장, 민경욱 한국거래소 코스닥시장본부장, 이",
-   "press": "연합뉴스",
-   "time": "2026-11-20T10:10:11+09:00",
-   "url": "https://n.news.naver.com/mnews/article/001/0016453811",
-   "theme": "macro",
-   "theme_label": "거시·환율·금리",
-   "tags": [
-    "코스닥"
-   ],
-   "section": "증권",
-   "relevance": 11,
-   "source": "section",
-   "leaders": [],
    "issue_rank": 8
   },
   {
-   "id": "028/0002833145",
-   "title": "미·중·러 첫 3자 회담에 “자신들 견제하는 제약만 풀어” 잇단 비판",
+   "id": "092/0002446150",
+   "title": "비타민B12로 만든 충전식 배터리 나왔다",
    "summary": "",
-   "press": "한겨레",
-   "time": "2026-11-20T09:16:33.323815+09:00",
-   "url": "https://n.news.naver.com/article/028/0002833145",
-   "theme": "bio",
-   "theme_label": "바이오·헬스케어",
+   "press": "지디넷코리아",
+   "time": "2026-11-20T09:30:34.232782+09:00",
+   "url": "https://n.news.naver.com/article/092/0002446150",
+   "theme": "battery",
+   "theme_label": "2차전지·에너지",
    "tags": [
-    "제약"
+    "배터리",
+    "충전"
    ],
    "section": "네이버 메인",
-   "relevance": 7,
+   "relevance": 13,
    "source": "main",
    "leaders": [
-    "알테오젠",
-    "HLB",
-    "삼성바이오로직스"
+    "에코프로비엠",
+    "리튬포어스",
+    "하이드로리튬"
    ],
    "issue_rank": 9
   },
@@ -3674,34 +3646,11 @@
    "issue_rank": 10
   },
   {
-   "id": "092/0002446150",
-   "title": "비타민B12로 만든 충전식 배터리 나왔다",
-   "summary": "아르헨티나 연구진, 아연·공기 배터리에 촉매로 비타민B12 활용 인체 건강에 중요한 영양소로 잘 알려진 비타민 B12로 배터리를 만들 수 있는 길이 열렸다.",
-   "press": "지디넷코리아",
-   "time": "2026-11-20T09:00:10+09:00",
-   "url": "https://n.news.naver.com/article/092/0002446150",
-   "theme": "battery",
-   "theme_label": "2차전지·에너지",
-   "tags": [
-    "배터리",
-    "충전"
-   ],
-   "section": "네이버 메인",
-   "relevance": 13,
-   "source": "main",
-   "leaders": [
-    "에코프로비엠",
-    "리튬포어스",
-    "하이드로리튬"
-   ],
-   "issue_rank": 11
-  },
-  {
    "id": "648/0000052815",
    "title": "반도체 업계처럼…바이오 판도 '순수 CDMO'가 바꿨다",
-   "summary": "",
+   "summary": "[CDMO 톺아보기②] 시밀러 떼어낸 삼성바이오, 셀트리온과 생산 동맹 파운드리처럼 생산만…투자부담 줄이고 판매 집중 삼성바이오로직스가 바이오시밀러 사업을 떼어내고 '순수 위탁개발생산(CDMO)' 기업으로 거듭나면서 바이오 산업의 판도 변화가 나타나고 있다.",
    "press": "비즈워치",
-   "time": "2026-11-20T08:16:33.323815+09:00",
+   "time": "2026-11-20T07:40:13+09:00",
    "url": "https://n.news.naver.com/article/648/0000052815",
    "theme": "bio",
    "theme_label": "바이오·헬스케어",
@@ -3718,14 +3667,32 @@
     "가온칩스",
     "티엘비"
    ],
+   "issue_rank": 11
+  },
+  {
+   "id": "123/0002394466",
+   "title": "108조 IPO 대박 뒤엔 1200조 지출 약정…앤트로픽의 딜레마",
+   "summary": "",
+   "press": "조세일보",
+   "time": "2026-11-20T07:30:34.232782+09:00",
+   "url": "https://n.news.naver.com/article/123/0002394466",
+   "theme": "earnings",
+   "theme_label": "실적·공시·수급",
+   "tags": [
+    "IPO"
+   ],
+   "section": "네이버 메인",
+   "relevance": 10,
+   "source": "main",
+   "leaders": [],
    "issue_rank": 12
   },
   {
    "id": "037/0000039184",
    "title": "2000만 원대 ‘트윙고’로 중국 전기차 공습에 맞서는 르노",
-   "summary": "",
+   "summary": "[조진혁의 Car Talk] 유럽, 생산비 절감 총력… 현대차 캐스퍼도 ‘가성비’ 모델 출시 둥근 차체와 표정 있는 전면 디자인이 특징인 르노 트윙고. 블룸버그통신 보도에 따르면 올해 3분기 유럽에 신규 등록된 승용차의 12.7%가 중국 브랜드 차량이다.",
    "press": "주간동아",
-   "time": "2026-11-20T07:16:33.323815+09:00",
+   "time": "2026-11-20T07:02:21+09:00",
    "url": "https://n.news.naver.com/article/037/0000039184",
    "theme": "battery",
    "theme_label": "2차전지·에너지",
@@ -3760,24 +3727,6 @@
    "issue_rank": 14
   },
   {
-   "id": "123/0002394466",
-   "title": "108조 IPO 대박 뒤엔 1200조 지출 약정…앤트로픽의 딜레마",
-   "summary": "◆…앤트로픽 로고. 인공지능(AI) 산업의 성장 가능성에 대한 기대가 커지면서 공모 규모는 813억달러(약 108조원)까지 늘어났고 스페이스X가 세운 종전 기록도 넘어섰다.",
-   "press": "조세일보",
-   "time": "2026-11-20T07:02:12+09:00",
-   "url": "https://n.news.naver.com/article/123/0002394466",
-   "theme": "earnings",
-   "theme_label": "실적·공시·수급",
-   "tags": [
-    "IPO"
-   ],
-   "section": "네이버 메인",
-   "relevance": 10,
-   "source": "main",
-   "leaders": [],
-   "issue_rank": 15
-  },
-  {
    "id": "138/0002249301",
    "title": "AIDC 냉각 수주 3조·로봇 부품 양산 채비…LG전자, 미래사업 속도전",
    "summary": "어플라이드사업부 신설…美 칠러 생산거점 마련해 대형 수주 대응 LG전자의 액체냉각 솔루션 CDU(Coolant Distribution Unit) 라인업. (좌측부터) 600㎾, 1㎿, 2.5㎿ 제품.",
@@ -3798,7 +3747,7 @@
     "클로봇",
     "유일로보틱스"
    ],
-   "issue_rank": 16
+   "issue_rank": 15
   },
   {
    "id": "023/0004010715",
@@ -3819,14 +3768,34 @@
     "현대차",
     "기아"
    ],
+   "issue_rank": 16
+  },
+  {
+   "id": "277/0005845532",
+   "title": "[포토] 장중 5% 가까이 폭락한 코스피",
+   "summary": "코스피가 개장과 동시에 4%대 급락 출발하며 단숨에 4900선도 무너진 20일 서울 중구 하나은행 본점 딜링룸에 코스피와 코스닥, 원/달러 환율 등이 표시되고 있다.",
+   "press": "아시아경제",
+   "time": "",
+   "url": "https://n.news.naver.com/mnews/article/277/0005845532",
+   "theme": "macro",
+   "theme_label": "거시·환율·금리",
+   "tags": [
+    "코스피",
+    "환율",
+    "코스닥"
+   ],
+   "section": "증권",
+   "relevance": 26,
+   "source": "section",
+   "leaders": [],
    "issue_rank": 17
   },
   {
    "id": "417/0001164986",
    "title": "믿지 못할 국가시험…\"구술 평가가 현실적 대안\"",
-   "summary": "리트 만점자, 과거 전과 드러나 서·논술형도 AI 부정 안심 못해 독일·프랑스 대입엔 구술 반영 평가 다변화로 공정성 확보해야 시험 부정행위 의혹을 받다 공개 검증을 앞두고 연락이 두절된 법학적성시험(LEET·리트) 만점자 이진우씨(32)가 숨진 채 발견된 서울 강동구 한 숙박업소 인근에서…",
+   "summary": "",
    "press": "동행미디어 시대",
-   "time": "2026-11-19T18:40:06+09:00",
+   "time": "2026-11-19T19:30:34.232782+09:00",
    "url": "https://n.news.naver.com/article/417/0001164986",
    "theme": "earnings",
    "theme_label": "실적·공시·수급",
@@ -3836,11 +3805,7 @@
    "section": "네이버 메인",
    "relevance": 10,
    "source": "main",
-   "leaders": [
-    "지슨",
-    "라온시큐어",
-    "샌즈랩"
-   ],
+   "leaders": [],
    "issue_rank": 18
   },
   {
@@ -3867,29 +3832,11 @@
    "issue_rank": 19
   },
   {
-   "id": "050/0000113525",
-   "title": "“귀국길에 꼭 챙겨야”…외국인들 사로잡은 K-쇼핑백",
-   "summary": "SNS에서 올리브영 쇼핑팩을 한국 여행 인증템으로 소개하는 게시물이 확산하고 있다(우). 유명 명품 브랜드도 아닌 올리브영의 3000원짜리 쇼핑백이다.",
-   "press": "한경비즈니스",
-   "time": "2026-11-19T18:04:08+09:00",
-   "url": "https://n.news.naver.com/article/050/0000113525",
-   "theme": "macro",
-   "theme_label": "거시·환율·금리",
-   "tags": [
-    "외국인"
-   ],
-   "section": "네이버 메인",
-   "relevance": 7,
-   "source": "main",
-   "leaders": [],
-   "issue_rank": 20
-  },
-  {
    "id": "584/0000040221",
    "title": "韓 바이오텍 개발 '비아그라' 계열 신약 후보, 알츠하이머 31% 늦춘다",
-   "summary": "'아리바이오' 개발중인 치료제 글로벌 임상3상 결과 공개 비아그라 모방 신약 후보물질 'AR1001' 글로벌 임상 3상 결과가 발표됐다. 게티이미지뱅크 제공 발기부전 치료제 ‘비아그라’와 같은 계열의 경구용 신약 후보물질이 초기 알츠하이머병 환자의 인지 저하 속도를 늦추는 것으로 나타났다.",
+   "summary": "",
    "press": "동아사이언스",
-   "time": "2026-11-19T14:27:09+09:00",
+   "time": "2026-11-19T14:30:34.232782+09:00",
    "url": "https://n.news.naver.com/article/584/0000040221",
    "theme": "bio",
    "theme_label": "바이오·헬스케어",
@@ -3905,7 +3852,7 @@
     "HLB",
     "삼성바이오로직스"
    ],
-   "issue_rank": 21
+   "issue_rank": 20
   },
   {
    "id": "087/0001231969",
@@ -3928,7 +3875,7 @@
     "대우건설",
     "DL이앤씨"
    ],
-   "issue_rank": 22
+   "issue_rank": 21
   },
   {
    "id": "353/0000057292",
@@ -3946,7 +3893,7 @@
    "relevance": 7,
    "source": "main",
    "leaders": [],
-   "issue_rank": 23
+   "issue_rank": 22
   },
   {
    "id": "665/0000008592",
@@ -3964,7 +3911,7 @@
    "relevance": 7,
    "source": "main",
    "leaders": [],
-   "issue_rank": 24
+   "issue_rank": 23
   }
  ]
 }
