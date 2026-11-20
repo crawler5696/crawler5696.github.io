@@ -319,7 +319,8 @@
     padding:7px 1px;border-radius:9px;cursor:pointer;white-space:nowrap;transition:.15s}
   @media (max-width:410px){ .hb-seg button{font-size:10.6px;letter-spacing:-.5px} }
   .hb-seg button:active{transform:scale(.98)}
-  .hb-seg button .s{display:block;font-size:9px;font-weight:600;color:var(--dim2);letter-spacing:0}
+  .hb-seg button .s{display:block;font-size:9px;font-weight:600;color:var(--dim2);letter-spacing:0;
+    white-space:normal;line-height:1.15;overflow-wrap:anywhere}
   .hb-seg button.on{color:#fff;border-color:transparent;background:linear-gradient(135deg,#4f8cff,#7c5cff);
     box-shadow:0 3px 12px rgba(79,140,255,.3)}
   .hb-seg button.on .s{color:rgba(255,255,255,.78)}
@@ -680,7 +681,7 @@
       <button type="button" data-sec="day" class="on">일봉<span class="s">1 → 2 → 3 → 4 → 5…</span></button>
       <button type="button" data-sec="week">주봉<span class="s">1 → 2 → 3 → 4 → 5…</span></button>
       <button type="button" data-sec="month">월봉<span class="s">1 → 2 → 3 → 4 → 5…</span></button>
-      <button type="button" data-sec="pick">10단계<span class="s">4→5 황금자리 · 유형 A/B/C</span></button>
+      <button type="button" data-sec="pick">10단계<span class="s">4→5 · A/B/C</span></button>
     </div>
     <div id="hotScore"></div>
     <div id="hotBody">
