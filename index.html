@@ -144,66 +144,53 @@
     .brand{font-size:14px} }
 
 
-  /* ---------- 구역 머리 ---------- */
+  /* ---------- 구역 머리 — 챗방처럼 얇은 한 줄 (2026-11-20 개편) ---------- */
   main{padding-top:1px}
-  .sechead{display:flex;align-items:center;gap:5px;margin:6px 1px 4px;font-size:13px;font-weight:800;letter-spacing:-.2px}
-  .sechead .bar{width:3px;height:12px;border-radius:2px;background:#ff5a6e}
-  .sechead.issue .bar{background:linear-gradient(180deg,#4f8cff,#7c5cff)}
-  .sechead .livechip{display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:800;color:#ff8b9c;
-    background:rgba(255,90,110,.12);border:1px solid rgba(255,90,110,.3);padding:1px 6px;border-radius:6px;margin-left:auto}
+  .sechead{display:flex;align-items:center;gap:6px;margin:13px 1px 0;font-size:11.5px;font-weight:800;
+    color:#aab7cc;letter-spacing:-.2px}
+  .sechead .bar{display:none}
+  .sechead .livechip{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;color:var(--dim2)}
+  .sechead .livechip .dot{width:4px;height:4px}
+  .sechead::after{content:"";flex:1;height:1px;background:var(--line)}
 
-  /* ---------- 속보 초슬림 카드 ---------- */
-  .fcard{
-    display:block;background:var(--card);border:1px solid var(--line);border-left:3px solid #ff5a6e;
-    border-radius:10px;padding:7px 10px 6px;margin-bottom:6px;transition:background .15s;
-  }
-  .fcard:active{background:var(--card2)}
-  .frow{display:flex;gap:5px;align-items:baseline}
-  .fb{flex:none;font-size:10px;font-weight:800;color:#ff8b9c;background:rgba(255,90,110,.13);
-    border:1px solid rgba(255,90,110,.3);padding:1px 5px;border-radius:5px;letter-spacing:-.2px;position:relative;top:-1px}
-  .fb.live{color:#7fd3e8;background:rgba(127,211,232,.12);border-color:rgba(127,211,232,.3)}
-  .fb.old{color:var(--dim2);background:rgba(255,255,255,.04);border-color:var(--line)}
-  .ft{font-size:14px;font-weight:600;line-height:1.32;letter-spacing:-.3px;
-    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-  .fmeta{display:flex;align-items:center;gap:5px;margin-top:2px;padding-left:1px}
-  .lead{display:inline-flex;align-items:center;gap:3px;font-size:11px;font-weight:700;color:#9fc0ff;
-    background:rgba(79,140,255,.09);border:1px solid rgba(79,140,255,.24);padding:1px 6px;border-radius:5px;
-    max-width:75%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
-  .lead b{font-weight:800;color:#7fa8ff;font-size:10px}
-  .src{margin-left:auto;font-size:11px;color:var(--dim2);white-space:nowrap;font-weight:600}
-  .src .p{color:var(--dim)}
-
-  /* ---------- 이슈 슬림 카드 ---------- */
-  .icard{
-    background:var(--card);border:1px solid var(--line);border-left:3px solid var(--c,#4f8cff);
-    border-radius:10px;padding:7px 10px 6px;margin-bottom:6px;position:relative;
-  }
-  .irow{display:flex;gap:6px;align-items:flex-start}
-  .rankb{flex:none;min-width:19px;height:19px;border-radius:6px;display:grid;place-items:center;
-    font-size:11px;font-weight:800;color:var(--dim);background:rgba(255,255,255,.07);
-    border:1px solid rgba(255,255,255,.14);margin-top:2px}
-  .rankb.top3{color:#fff;background:linear-gradient(135deg,#4f8cff,#7c5cff);border-color:transparent}
-  .ititle{flex:1;font-size:14px;font-weight:600;line-height:1.32;letter-spacing:-.3px;color:var(--txt);
-    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-  .isum{font-size:11.5px;color:#93a1ba;line-height:1.45;margin:0 0 4px;
-    display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
-  .ifoot{display:flex;align-items:center;gap:5px;margin:3px 0 0 0;font-size:11px;color:var(--dim2);min-height:16px}
-  .ifoot .lead{font-size:10.5px;padding:0 5px}
-  .presses{font-size:10.5px;font-weight:800;color:#9fc0ff;background:rgba(79,140,255,.12);
-    border:1px solid rgba(79,140,255,.3);padding:0 6px;border-radius:20px;white-space:nowrap;
-    font-family:inherit;cursor:pointer;height:17px;line-height:15px}
-  .brk{font-size:10px;font-weight:800;color:#fff;padding:0 5px;border-radius:5px;
-    background:linear-gradient(135deg,#ff4d4d,#ff8a4c);white-space:nowrap;height:17px;line-height:17px}
-  .exp{margin-left:auto;appearance:none;border:0;background:transparent;color:#5f6f8c;
-    font-size:13px;padding:0 2px;cursor:pointer;font-family:inherit;line-height:1}
-  .idet{display:none;margin:5px 0 0 0;padding-left:25px}
-  .icard.open .idet{display:block}
-  .relm{display:block;margin:3px 0 0}
-  .relm a{display:block;font-size:12px;color:#a9b7cd;padding:4px 0 4px 7px;border-top:1px solid var(--line);line-height:1.4}
-  .relm a .rp{color:#6b778f;font-size:9.5px}
+  /* ---------- 뉴스 — 채팅방처럼 한 줄씩 (2026-11-20 개편) ----------
+     박스·왼쪽 색띠·번호 배지·중복 딱지를 걷어내고 왼쪽에 시간(이슈는 순위), 오른쪽에 제목·매체·관련 종목.
+     줄 사이는 얇은 선 하나. 누르면 요약과 다른 매체 기사가 그 자리에서 내려온다(답장처럼). */
+  .cl{display:flex;flex-direction:column}
+  .cl-it{display:flex;gap:8px;padding:9px 2px;border-bottom:1px solid rgba(255,255,255,.055)}
+  .cl-it:last-child{border-bottom:0}
+  a.cl-it{text-decoration:none}
+  .cl-it:active{background:rgba(255,255,255,.02)}
+  .cl-t{flex:none;width:29px;padding-top:2px;font-size:10.5px;font-weight:700;color:var(--dim2);
+    font-variant-numeric:tabular-nums;letter-spacing:-.2px}
+  .cl-b{flex:1;min-width:0}
+  .cl-tt{display:block;font-size:14px;font-weight:600;line-height:1.36;letter-spacing:-.3px;color:var(--txt);
+    word-break:keep-all;overflow-wrap:anywhere}
+  a.cl-tt:active{opacity:.72}
+  .cl-it.brk .cl-tt{color:#ffdde2}
+  .cl-it.brk .cl-t{color:#ff8b9c;font-weight:900}
+  .cl-meta{display:flex;align-items:center;gap:5px;margin-top:3px;font-size:10.5px;color:var(--dim2);min-width:0}
+  .cl-meta .src{color:var(--dim);font-weight:700;white-space:nowrap}
+  .cl-meta .sep{color:#39435a}
+  .lead{display:inline-flex;align-items:center;gap:3px;font-size:10.5px;font-weight:700;color:#9fc0ff;
+    min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .lead b{font-weight:800;color:#7fa8ff;font-size:9.5px}
+  .rankp{font-size:10px;font-weight:800;color:#8fb2ff;white-space:nowrap}
+  .brk{display:none}
+  .presses{appearance:none;font-family:inherit;font-size:10px;font-weight:700;color:#8fb2ff;
+    background:transparent;border:0;padding:0;cursor:pointer;white-space:nowrap}
+  .presses::after{content:" ›"}
+  .cl-exp{flex:none;margin-left:auto;appearance:none;border:0;background:transparent;color:#5f6f8c;
+    font-size:12px;padding:0 2px;cursor:pointer;font-family:inherit;line-height:1}
+  .cl-det{display:none;margin-top:7px;padding-left:9px;border-left:2px solid rgba(79,140,255,.3)}
+  .cl-it.open .cl-det{display:block}
+  .cl-sum{font-size:11.8px;color:#a9b7cd;line-height:1.5;margin:0}
+  .cl-rel{display:block;margin-top:2px}
+  .cl-rel a{display:block;font-size:11.5px;color:#9fb0c8;padding:5px 0 4px;border-top:1px dashed var(--line);line-height:1.4}
+  .cl-rel a .rp{color:#6b778f;font-size:9.5px}
   .more{width:100%;appearance:none;border:1px solid var(--line);background:rgba(255,255,255,.03);
     color:var(--dim);font-family:inherit;font-size:12px;font-weight:700;padding:8px;border-radius:9px;
-    margin-top:2px;cursor:pointer}
+    margin-top:8px;cursor:pointer}
   .more:active{background:var(--card2)}
   .mini-empty{font-size:11px;color:var(--dim2);padding:10px 4px}
 
@@ -349,14 +336,14 @@
   .hb-cnt{margin-left:auto;font-size:10px;font-weight:700;color:var(--dim2);
     background:rgba(255,255,255,.04);border:1px solid var(--line);padding:1px 6px;border-radius:6px}
   /* 종목 줄 — 오직 종목명 + 테마(개별) 두 가지만, 여백 있게 (2026-11-19 지시) */
-  .hb-row{display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--line);
+  .hb-row{display:flex;align-items:center;gap:2px 10px;flex-wrap:wrap;background:var(--card);border:1px solid var(--line);
     border-radius:10px;padding:9px 12px;margin-bottom:5px;min-width:0}
   .hb-row:active{background:var(--card2)}
   .hb-name{flex:1;min-width:0;font-size:13.5px;font-weight:800;letter-spacing:-.3px;
     white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   /* 일봉 1·2·3번 — 종목명·테마 밑에 그 종목의 실제 재료/이슈 한 줄 (2026-11-20 지시
      "일봉상한가는 1.2.3진행하는 동안 테마.이슈내용잘보이게") */
-  .hb-row.iss{flex-wrap:wrap;row-gap:0}
+  .hb-row.iss{}
   .hb-iss{flex:0 0 100%;margin-top:3px;font-size:11px;font-weight:600;line-height:1.34;
     letter-spacing:-.15px;color:#9fb0c8;word-break:keep-all;overflow-wrap:anywhere;
     display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
@@ -378,6 +365,53 @@
   .hb-more{width:100%;margin:1px 0 4px;padding:6px;border-radius:8px;border:1px dashed var(--line);
     background:transparent;color:var(--dim2);font-family:inherit;font-size:11px;font-weight:700;cursor:pointer}
   .hb-empty{font-size:10.5px;color:var(--dim2);padding:4px 3px 6px}
+  /* 종목 줄 둘째 줄 — 480봉 위치(0~100)와 주봉 240주 선뭉침 (2026-11-20 상위 버전) */
+  .hb-meta{flex:0 0 100%;display:flex;align-items:center;gap:5px;margin-top:3px;flex-wrap:wrap}
+  .hb-osc{font-size:9.5px;font-weight:800;color:#9fb0c8;background:rgba(255,255,255,.05);
+    border:1px solid var(--line);padding:0 5px;border-radius:4px;white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  .hb-osc.low{color:#9dbcff;background:rgba(79,140,255,.1);border-color:rgba(79,140,255,.4)}
+  .hb-osc.high{color:#ffc477;background:rgba(255,179,71,.1);border-color:rgba(255,179,71,.36)}
+  .hb-cl{font-size:9.5px;font-weight:900;color:#63e3ae;background:rgba(61,220,151,.12);
+    border:1px solid rgba(61,220,151,.4);padding:0 5px;border-radius:4px;white-space:nowrap}
+  .hb-cl.wait{color:#ffe066;background:rgba(255,224,102,.1);border-color:rgba(255,224,102,.32)}
+  .hb-osc[hidden],.hb-cl[hidden]{display:none}
+
+  /* ---------- 진화 점수판 — 비밀 핫바 맨 위 (잠긴 자료 안에만 있다) ---------- */
+  .sc{margin:0 0 9px;border:1px solid rgba(255,255,255,.09);border-radius:12px;overflow:hidden;
+    background:linear-gradient(180deg,rgba(124,92,255,.16),rgba(20,29,51,.92))}
+  .sc.none{display:none}
+  .sc-top{display:flex;align-items:center;gap:9px;padding:9px 11px 7px}
+  .sc-h{flex:1;min-width:0}
+  .sc-t{font-size:9.5px;font-weight:800;color:#b8a8ff;letter-spacing:.1px}
+  .sc-v{display:flex;align-items:baseline;gap:6px;margin-top:0}
+  .sc-v b{font-size:22px;font-weight:900;letter-spacing:-1px;color:#fff;font-variant-numeric:tabular-nums}
+  .sc-v span{font-size:10.5px;font-weight:700;color:var(--dim)}
+  .sc-goal{flex:none;text-align:right;font-size:13px;font-weight:900;color:#ffd76a;letter-spacing:-.4px}
+  .sc-goal i{display:block;font-style:normal;font-size:8.5px;color:var(--dim2);font-weight:700;letter-spacing:0}
+  .sc-bar{position:relative;height:5px;margin:0 11px 7px;border-radius:99px;background:rgba(255,255,255,.09)}
+  .sc-bar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#4f8cff,#a78bfa)}
+  .sc-bar u{position:absolute;top:-3px;bottom:-3px;width:2px;background:#ffd76a;border-radius:2px}
+  .sc-sub{display:flex;flex-wrap:wrap;gap:2px 10px;padding:0 11px 9px;font-size:10px;font-weight:600;color:var(--dim2);line-height:1.45}
+  .sc-sub b{color:#c2cde0;font-weight:800}
+  .sc-toggle{width:100%;appearance:none;border:0;border-top:1px solid var(--line);background:rgba(255,255,255,.03);
+    color:#9fb0c8;font-family:inherit;font-size:11px;font-weight:800;padding:6px;cursor:pointer}
+  .sc-body{display:none;padding:1px 11px 9px;border-top:1px solid var(--line)}
+  .sc.open .sc-body{display:block}
+  .sc-grp{font-size:9.5px;font-weight:800;color:#7c8ba6;margin:9px 0 3px;letter-spacing:.2px}
+  .sc-it{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px;padding:4px 0 3px;
+    border-bottom:1px dashed rgba(255,255,255,.055);font-size:11px;color:#c2cde0}
+  .sc-it:last-child{border-bottom:0}
+  .sc-it .d{flex:none;width:52px;font-size:9.5px;font-weight:700;color:var(--dim2)}
+  .sc-it .n{flex:1;min-width:0;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .sc-it .c{flex:none;font-size:10px;font-weight:800;font-variant-numeric:tabular-nums}
+  .sc-it .c.r{color:#ff8a9a} .sc-it .c.b{color:#5a8cff} .sc-it .c.n2{color:var(--dim2)}
+  .sc-it .v{flex:none;font-size:9px;font-weight:900;padding:0 4px;border-radius:4px;line-height:13px}
+  .sc-it .f{flex:0 0 100%;padding-left:58px;font-size:10px;font-weight:600;color:#8fa0ba;line-height:1.4}
+  .v.hit{color:#63e3ae;background:rgba(61,220,151,.14);border:1px solid rgba(61,220,151,.35)}
+  .v.miss{color:#ff9aa8;background:rgba(255,90,110,.12);border:1px solid rgba(255,90,110,.32)}
+  .v.flat{color:#ffe066;background:rgba(255,224,102,.1);border:1px solid rgba(255,224,102,.3)}
+  .v.wait{color:#9fc0ff;background:rgba(79,140,255,.1);border:1px solid rgba(79,140,255,.3)}
   /* 일정 배지 — 레이더 상단 바 · 카드 · 핫바 종목 */
   .rd-sched{display:flex;flex-wrap:wrap;align-items:center;gap:2px 6px;margin:0 1px 7px;padding:4px 8px;
     font-size:10.5px;font-weight:700;color:#cfe0ff;line-height:1.45;
@@ -415,6 +449,22 @@
   .chart-x:active{background:rgba(255,255,255,.12)}
   .chart-read{margin:8px 1px 4px;font-size:10.5px;font-weight:700;color:#c2cde0;letter-spacing:-.1px;
     line-height:1.45;font-variant-numeric:tabular-nums}
+  /* 480봉 0~100 눈금 — 차트 위에 위치 자 한 줄 (2026-11-20 상위 버전) */
+  .chart-pos{margin:8px 1px 0;font-size:10px;font-weight:700;color:#aab7cc;letter-spacing:-.1px}
+  .chart-pos .hd{display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+  .chart-pos .hd b{font-size:11px;font-weight:900;color:#dbe6ff}
+  .chart-pos .cpv{color:#9dbcff;font-variant-numeric:tabular-nums}
+  .chart-pos .cpb{font-size:9.5px;font-weight:800;color:var(--dim2)}
+  .chart-pos .cl{font-size:9px;font-weight:900;color:#63e3ae;background:rgba(61,220,151,.12);
+    border:1px solid rgba(61,220,151,.4);padding:0 4px;border-radius:4px}
+  .chart-pos .cl.wait{color:#ffe066;background:rgba(255,224,102,.1);border-color:rgba(255,224,102,.32)}
+  .chart-pos .tr{position:relative;height:6px;margin:6px 0 3px;border-radius:99px;
+    background:linear-gradient(90deg,rgba(79,140,255,.55),rgba(255,255,255,.12) 52%,rgba(255,179,71,.55))}
+  .chart-pos .mk{position:absolute;top:-3.5px;width:13px;height:13px;border-radius:50%;background:#fff;
+    border:2px solid #4f8cff;transform:translateX(-50%);box-shadow:0 0 6px rgba(120,160,255,.7)}
+  .chart-pos .lb{display:flex;justify-content:space-between;font-size:8.5px;color:#5f6f8c;font-weight:700}
+  .chart-pos .cp-n{margin-top:4px;font-size:9.5px;font-weight:600;color:#8fa0ba;line-height:1.4}
+  .chart-pos[hidden]{display:none}
   .chart-read .t{color:var(--dim2);font-weight:800}
   .chart-read .r{color:var(--up)} .chart-read .b{color:#5a8cff}
   .chart-svg{display:block;width:100%;height:auto;touch-action:pan-y;
@@ -490,15 +540,13 @@
       <a class="vbadge" id="visitors" href="https://crawler5696.goatcounter.com/" target="_blank" rel="noopener noreferrer" title="GoatCounter 방문자 대시보드" hidden>👥 오늘 <span id="visitorN">–</span>명</a>
     </div>
 
-    <div class="sechead"><span class="bar"></span>⚡ 실시간 속보
-      <span class="livechip"><span class="dot"></span>최근 60분</span>
-    </div>
-    <div id="flashList">
+    <div class="sechead"><span>실시간 속보</span><span class="livechip"><span class="dot"></span>최근 60분</span></div>
+    <div id="flashList" class="cl">
       <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
     </div>
 
-    <div class="sechead issue" style="margin-top:10px"><span class="bar"></span>🔥 이슈 순위</div>
-    <div id="issueList">
+    <div class="sechead"><span>이슈 순위</span></div>
+    <div id="issueList" class="cl">
       <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
     </div>
     <button class="more" id="moreIssues" hidden>이슈 더 보기</button>
@@ -527,9 +575,10 @@
     <div class="viewhead"><b>핫바</b><span id="hotSub"></span></div>
     <div class="hb-seg" id="hotSeg">
       <button type="button" data-sec="day" class="on">일봉<span class="s">1 → 2 → 3 → 4 → 5…</span></button>
-      <button type="button" data-sec="week">주봉<span class="s">1 → 2 → 3 → 4 · 2배 양봉</span></button>
-      <button type="button" data-sec="month">월봉<span class="s">1 → 2 → 3 → 4 · 2배 양봉</span></button>
+      <button type="button" data-sec="week">주봉<span class="s">1 → 2 → 3 → 4 → 5…</span></button>
+      <button type="button" data-sec="month">월봉<span class="s">1 → 2 → 3 → 4 → 5…</span></button>
     </div>
+    <div id="hotScore"></div>
     <div id="hotBody">
       <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
     </div>
@@ -557,6 +606,7 @@
       <button class="chart-x" id="chartX" type="button" aria-label="차트 닫기">✕</button>
     </div>
     <div class="chart-read" id="chartRead"></div>
+    <div class="chart-pos" id="chartPos" hidden></div>
     <svg class="chart-svg" id="chartSvg" viewBox="0 0 360 292" role="img" aria-label="최근 일봉 차트"></svg>
     <div class="chart-lg" id="chartLg"></div>
     <a class="chart-link" id="chartNaver" href="https://finance.naver.com/" target="_blank" rel="noopener noreferrer">네이버 증권에서 보기 ↗</a>
@@ -637,50 +687,50 @@ function switchTab(name, keepScroll){
 }
 
 /* ---------------- 뉴스 ---------------- */
+/* 관련 종목 — 줄 끝에 '· 🏢 삼성전자 · 한미반도체'처럼 작게 */
 function leadBadge(leaders){
   const names = (leaders||[]).filter(Boolean).slice(0,2);
   if(!names.length) return '';
-  return `<span class="lead"><b>🏢</b>${names.map(esc).join(' · ')}</span>`;
+  return `<span class="sep">·</span><span class="lead" title="${esc(names.join(' · '))}"><b>🏢</b>${names.map(esc).join(' · ')}</span>`;
 }
 
+/* 속보 한 줄 — 챗방처럼 왼쪽 시간 · 오른쪽 제목/매체/관련 종목 (2026-11-20 개편) */
 function flashHtml(a){
-  const fresh = a.fresh !== false;
-  const cls = !fresh ? 'fb old' : (a.breaking ? 'fb' : 'fb live');
-  const label = !fresh ? '🕘 최신' : (a.breaking ? '⚡ 속보' : '⚡ 실시간');
-  return `<a class="fcard" href="${esc(a.url)}" target="_blank" rel="noopener noreferrer">
-    <div class="frow"><span class="${cls}">${label}</span><span class="ft">${esc(a.title)}</span></div>
-    <div class="fmeta">${leadBadge(a.leaders)}
-      <span class="src">${hm(a.time)||relTime(a.time)} <span class="p">· ${esc(a.press||'')}</span></span>
-    </div>
+  const cls = `cl-it${a.breaking ? ' brk' : ''}`;
+  return `<a class="${cls}" href="${esc(a.url)}" target="_blank" rel="noopener noreferrer">
+    <span class="cl-t">${hm(a.time)||relTime(a.time)}</span>
+    <span class="cl-b">
+      <span class="cl-tt">${esc(a.title)}</span>
+      <span class="cl-meta"><span class="src">${esc(a.press||'')}</span>${leadBadge(a.leaders)}</span>
+    </span>
   </a>`;
 }
 
+/* 이슈 한 줄 — 왼쪽은 순위, 오른쪽은 제목·매체·관련 종목·매체 수. 누르면 요약과 다른 매체 기사가 내려온다 */
 function issueHtml(a, i){
-  const color = themeColor(a.theme);
   const rank = i + 1;   // 화면에 보이는 순서대로 번호를 매긴다(속보와 겹쳐 빠지는 카드가 있어도 번호가 끊기지 않게)
   const pressN = a.presses || 1;
+  const open = state.open.has(a.id);
   const pressBadge = pressN >= 2
     ? `<button class="presses" type="button" aria-label="다른 매체 기사 펼치기">${pressN}개 매체</button>`
-    : (a.main_rank ? `<span class="presses" style="cursor:default">메인 ${a.main_rank}위</span>` : '');
-  const brk = a.breaking ? '<span class="brk">속보</span>' : '';
-  const open = state.open.has(a.id);
+    : (a.main_rank ? `<span class="rankp">메인 ${a.main_rank}위</span>` : '');
   const related = (a.related||[]);
   const relHtml = related.length
-    ? `<div class="relm">` + related.map(r =>
+    ? `<div class="cl-rel">` + related.map(r =>
         `<a href="${esc(r.url)}" target="_blank" rel="noopener noreferrer">${esc(r.title)} <span class="rp">· ${esc(r.press||'')}</span></a>`).join('') + `</div>`
     : '';
   const det = (a.summary || relHtml)
-    ? `<div class="idet">${a.summary ? `<div class="isum">${esc(a.summary)}</div>` : ''}${relHtml}</div>` : '';
-  return `<article class="icard${open?' open':''}" style="--c:${color}" data-id="${esc(a.id)}">
-    <div class="irow">
-      <span class="rankb${rank<=3?' top3':''}">${rank}</span>
-      <a class="ititle" href="${esc(a.url)}" target="_blank" rel="noopener noreferrer">${esc(a.title)}</a>
+    ? `<div class="cl-det">${a.summary ? `<p class="cl-sum">${esc(a.summary)}</p>` : ''}${relHtml}</div>` : '';
+  return `<article class="cl-it icard${open?' open':''}" data-id="${esc(a.id)}">
+    <span class="cl-t">${rank}</span>
+    <div class="cl-b">
+      <a class="cl-tt" href="${esc(a.url)}" target="_blank" rel="noopener noreferrer">${esc(a.title)}</a>
+      <div class="cl-meta">
+        <span class="src">${hm(a.time)||relTime(a.time)} · ${esc(a.press||'')}</span>${leadBadge(a.leaders)}${pressBadge}
+        ${det ? `<button class="cl-exp exp" type="button" aria-label="요약과 다른 매체 기사 펼치기">${open?'▴':'▾'}</button>` : ''}
+      </div>
+      ${det}
     </div>
-    <div class="ifoot">${brk}${leadBadge(a.leaders)}${pressBadge}
-      <span class="src" style="margin-left:auto">${hm(a.time)||relTime(a.time)} · ${esc(a.press||'')}</span>
-      ${det ? `<button class="exp" type="button" aria-label="요약과 다른 매체 기사 펼치기">${open?'▴':'▾'}</button>` : ''}
-    </div>
-    ${det}
   </article>`;
 }
 
@@ -1199,10 +1249,18 @@ function hotRowHtml(s){
   const grp = hotThemeName(s);
   const pos = s.pos2 === '앞쪽' ? '<span class="hb-pos f" title="바닥 6개월 조용한 뒤 시작 거래량 · 20일선≥60일선">앞</span>'
             : (s.pos2 === '뒤쪽' ? `<span class="hb-pos b" title="${esc('뒤쪽 — ' + ((s.pos2_why || []).join(' · ') || '장기선 위'))}">뒤</span>` : '');
+  /* 480봉 0~100 눈금 — 지금이 2년 창의 어디인지 (도장이 아니라 위치 자. 2026-11-20 상위 버전) */
+  const osc = (s.osc != null)
+    ? `<span class="hb-osc${s.osc <= 35 ? ' low' : (s.osc > 70 ? ' high' : '')}" title="${esc(`${s.osc_n}봉 최저 ${fmtWon(s.osc_lo)}원 ~ 최고 ${fmtWon(s.osc_hi)}원 사이에서 지금 ${s.osc}/100`)}">${s.osc_n >= 480 ? '480봉' : s.osc_n + '봉'} ${s.osc}/100</span>` : '';
+  /* 주봉 240주 선뭉침 — 선은 뭉쳤는데 거래량이 아직이면 '불씨전'(노랑) */
+  const cl = s.cl ? `<span class="hb-cl" title="${esc(`주봉 240주 하단 선뭉침 — 선 간격 ${s.cl_sp}% · 하단 ${s.cl_pos}% · 거래량 240주 최대의 ${s.cl_vol}배 (${s.cl_at})`)}">선뭉침</span>`
+           : (s.cl_wait ? `<span class="hb-cl wait" title="${esc(`선은 뭉쳤는데 거래량이 240주 최대의 ${s.cl_vol}배 — 아직 불씨 전 (선 간격 ${s.cl_sp}% · 하단 ${s.cl_pos}%)`)}">선뭉침·불씨전</span>` : '');
+  const meta = (osc || cl) ? `<div class="hb-meta">${osc}${cl}</div>` : '';
   return `<div class="${cls}"${attrs}>
     <div class="hb-name">${esc(s.name)}${ap}</div>
     ${pos}
     <div class="hb-th${grp ? '' : ' indiv'}" title="${esc(s.theme || s.reason || '')}">${esc(th)}</div>
+    ${meta}
     ${issue ? `<div class="hb-iss" title="${esc(s.reason)}">${esc(issue)}</div>` : ''}
   </div>`;
 }
@@ -1230,6 +1288,46 @@ function hotStageHtml(st){
   </div>`;
 }
 
+/* ---------------- 진화 점수판 (비밀 핫바 맨 위) ----------------
+   잠긴 hotbar.json 안의 score 를 그대로 그린다 — 누적 적중률(10/14 = 71.4%), 목표 99%,
+   보합 빼고 센 숫자·패스 판정, 최근 채점, 공식 예상 P1~P8. 밖으로 나가는 곳은 없다. */
+function scoreHtml(sc){
+  if(!sc || !sc.total) return '';
+  const rate = Math.max(0, Math.min(100, Number(sc.rate) || 0));
+  const target = Math.max(1, Math.min(100, Number(sc.target) || 99));
+  const sub = [];
+  if(sc.flat) sub.push(`<span>보합 ${sc.flat}건 빼면 <b>${sc.fix_hit}/${sc.fix_total} = ${sc.fix_rate}%</b></span>`);
+  if(sc.pass_total) sub.push(`<span>패스 판정 <b>${sc.pass_hit}/${sc.pass_total} = ${sc.pass_rate}%</b></span>`);
+  if(sc.as_of) sub.push(`<span>기준 <b>${esc(sc.as_of)}</b></span>`);
+  const today = (sc.today && sc.today.text)
+    ? `<div class="sc-sub" style="padding-top:0"><span>오늘(${esc(sc.today.date)}) <b>${esc(sc.today.text)}</b></span></div>` : '';
+  const recent = (sc.recent || []).map(r => {
+    const c = (r.chg == null) ? ''
+      : `<span class="c ${Number(r.chg) < 0 ? 'b' : 'r'}">${Number(r.chg) > 0 ? '+' : ''}${Number(r.chg).toFixed(2)}%</span>`;
+    const v = r.v === '적중' ? 'hit' : (r.v === '실패' ? 'miss' : 'flat');
+    return `<div class="sc-it"><span class="d">${esc(r.d)}</span><span class="n">${esc(r.name)}</span>${c}<span class="v ${v}">${esc(r.v)}</span></div>`;
+  }).join('');
+  const preds = (sc.preds || []).map(p =>
+    `<div class="sc-it"><span class="d">${esc(p.md)}</span><span class="n">${esc(p.id)} · ${esc(p.target)}</span>`
+    + `<span class="v ${p.st === '대기' ? 'wait' : 'flat'}">${esc(p.st)}</span>`
+    + `<span class="f">${esc(p.f)}</span></div>`).join('');
+  return `<div class="sc">
+    <div class="sc-top">
+      <div class="sc-h"><div class="sc-t">진화 점수판 · 채점 끝난 공식 픽</div>
+        <div class="sc-v"><b>${esc(String(sc.hit))}/${esc(String(sc.total))}</b><span>${rate.toFixed(1)}%</span></div></div>
+      <div class="sc-goal">${target}%<i>목표</i></div>
+    </div>
+    <div class="sc-bar"><i style="width:${rate}%"></i><u style="left:${target}%"></u></div>
+    <div class="sc-sub">${sub.join('')}</div>
+    ${today}
+    <button class="sc-toggle" type="button">최근 채점 · 공식 예상 ${(sc.preds || []).length}건 펼치기 ▾</button>
+    <div class="sc-body">
+      <div class="sc-grp">최근 채점 (새것부터)</div>${recent || '<div class="sc-it"><span class="n" style="color:#6b778f">아직 없습니다</span></div>'}
+      <div class="sc-grp">공식 예상 ${((sc.preds || [])[0] || {}).basis ? '· 기준 ' + esc(sc.preds[0].basis) : ''}</div>${preds || '<div class="sc-it"><span class="n" style="color:#6b778f">등록된 예상 없음</span></div>'}
+    </div>
+  </div>`;
+}
+
 async function renderHotbar(){
   if(!visOn()) return;
   const box = $('#hotBody');
@@ -1241,6 +1339,7 @@ async function renderHotbar(){
   }
   const sec = (d.sections || []).find(x => x.key === hotbarSec) || d.sections[0];
   hotbarSec = sec.key;
+  if($('#hotScore')) $('#hotScore').innerHTML = scoreHtml(d.score);
   if($('#hotSub')) $('#hotSub').textContent = (sec.sub ? sec.sub + ' · ' : '') + (d.base_date_text || '') + (d.universe ? ` · ${d.universe}종목` : '');
   document.querySelectorAll('#hotSeg button').forEach(b => b.classList.toggle('on', b.dataset.sec === sec.key));
   box.innerHTML = (sec.stages || []).map(hotStageHtml).join('');
@@ -1433,6 +1532,22 @@ function chartLegendHtml(s){
   return parts.join('');
 }
 
+/* 480봉 0~100 눈금 + 선뭉침 — 차트 위에 한 줄 (2026-11-20 상위 버전) */
+function chartPosHtml(s){
+  if(!s || s.osc == null) return '';
+  const band = s.osc <= 35 ? '아래쪽' : (s.osc > 70 ? '위쪽' : '가운데');
+  const cl = s.cl ? '<span class="cl">선뭉침</span>'
+           : (s.cl_wait ? '<span class="cl wait">선뭉침·불씨전</span>' : '');
+  const nums = (s.cl_sp == null)
+    ? '<span>주봉 240주 자료 없음</span>'
+    : `<span>선 간격 ${s.cl_sp}% · 하단 ${s.cl_pos}% · 거래량 240주 최대의 ${s.cl_vol}배</span>`;
+  return `<div class="hd"><b>${s.osc_n}봉 위치 <span class="cpv">${s.osc}</span>/100</b>`
+    + `<span class="cpb">${band}</span>${cl}</div>`
+    + `<div class="tr"><span class="mk" style="left:${s.osc}%"></span></div>`
+    + `<div class="lb"><span>0 바닥</span><span>35</span><span>70</span><span>100 꼭대기</span></div>`
+    + `<div class="cp-n">${nums}</div>`;
+}
+
 function openChart(s){
   if(!s) return;
   const cs = s.candles || [];
@@ -1447,6 +1562,8 @@ function openChart(s){
     + `<span class="chart-chg ${cls}">${chg > 0 ? '+' : ''}${chg.toFixed(1)}%</span></div>`
     + (s.reason ? `<div class="chart-rs">${esc(s.reason)}</div>` : '');
   $('#chartRead').innerHTML = chartReadText(s);
+  const cp = chartPosHtml(s);
+  if($('#chartPos')){ $('#chartPos').innerHTML = cp; $('#chartPos').hidden = !cp; }
   $('#chartSvg').innerHTML = chartSvgHtml(s);
   $('#chartSvg').setAttribute('aria-label', `${esc(s.name)} 최근 ${pd.t} 차트`);
   $('#chartLg').innerHTML = chartLegendHtml(s);
@@ -1621,6 +1738,15 @@ $('#hotSeg').addEventListener('click', e => {
   hotbarSec = b.dataset.sec;
   state.hotOpen.clear();
   renderHotbar();
+});
+/* 진화 점수판 펼치기/접기 — 다시 그리지 않고 그 자리에서 열고 닫는다 */
+$('#hotScore').addEventListener('click', e => {
+  const b = e.target.closest('.sc-toggle');
+  if(!b) return;
+  const box = b.closest('.sc');
+  if(!box) return;
+  const open = box.classList.toggle('open');
+  b.textContent = open ? '접기 ▴' : '최근 채점 · 공식 예상 펼치기 ▾';
 });
 $('#hotBody').addEventListener('click', e => {
   const b = e.target.closest('.hb-more');
