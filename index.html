@@ -380,7 +380,33 @@
   .hb-cl.wait{color:#ffe066;background:rgba(255,224,102,.1);border-color:rgba(255,224,102,.32)}
   .hb-osc[hidden],.hb-cl[hidden]{display:none}
 
-  /* ---------- 핫바 · 월별 10단계 (비밀 · 월 × 테마 × 유형 A/B/C × 1~10단계) ---------- */
+  /* ---------- 핫바 · 매수선별 (비밀 · 살아있는 테마 × 정배열 × 매수 자리) ---------- */
+  .hp-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 8px;margin:0 1px 7px;font-size:10px;font-weight:700;color:var(--dim2)}
+  .hp-head b{font-size:12.5px;font-weight:900;color:#fff;letter-spacing:-.3px}
+  .hp-row{padding:9px 12px}
+  .hp-name{white-space:nowrap}
+  .hp-buy{display:inline-block;margin-left:3px;vertical-align:1px;font-size:10px;font-weight:900;color:#1a1206;
+    letter-spacing:-.2px;background:linear-gradient(135deg,#ffd76a,#ffb02e);padding:0 4px;border-radius:4px}
+  .hp-vol{color:#8fb2ff}
+  .hp-when{color:#ffd76a}
+  .hp-line{flex:0 0 100%;margin:4px 0 0;font-size:9.8px;font-weight:700;line-height:1.5;color:#93a4bf;
+    letter-spacing:-.2px;word-break:keep-all;overflow-wrap:anywhere}
+  .hm-b.no{color:#7e8aa0;background:rgba(255,255,255,.05);border:1px solid var(--line)}
+  .hm-b.al{color:#9fd6ff;background:rgba(79,180,255,.12);border:1px solid rgba(79,180,255,.36)}
+  .hm-tc.flow{color:#63e3ae;background:rgba(61,220,151,.1);border-color:rgba(61,220,151,.34)}
+
+  /* 차트 모달 — 최근 38봉 확대 / 전체 90봉 전환 · 이평선 범례 */
+  .chart-tools{display:flex;align-items:center;gap:6px;margin:6px 1px 2px}
+  .chart-zoom{appearance:none;border:1px solid rgba(143,178,255,.45);background:rgba(79,140,255,.14);
+    color:#bcd0ff;font-family:inherit;font-size:10px;font-weight:800;letter-spacing:-.2px;
+    padding:4px 9px;border-radius:8px;cursor:pointer}
+  .chart-zoom:active{opacity:.7}
+  .chart-tools .hint{font-size:9.5px;font-weight:700;color:var(--dim2)}
+  .chart-lg i.cm{width:auto;padding:0 4px;border-radius:4px;font-style:normal;font-size:9px;font-weight:900}
+  .chart-lg i.cm.m5{color:#ff9ecb;background:rgba(255,158,203,.12);border:1px solid rgba(255,158,203,.45)}
+  .chart-lg i.cm.m10{color:#4fd6ff;background:rgba(79,214,255,.12);border:1px solid rgba(79,214,255,.45)}
+  .chart-lg i.cm.m20{color:#63e3ae;background:rgba(99,227,174,.12);border:1px solid rgba(99,227,174,.45)}
+  .chart-lg i.cm.m60{color:#a78bfa;background:rgba(167,139,250,.14);border:1px solid rgba(167,139,250,.45)}
   .hm-load{padding:26px 4px;text-align:center;font-size:11.5px;font-weight:700;color:var(--dim2)}
   .hm-mons{display:flex;gap:4px;overflow-x:auto;padding:2px 1px 7px;scrollbar-width:none}
   .hm-mons::-webkit-scrollbar{display:none}
@@ -639,7 +665,7 @@
       <button type="button" data-sec="day" class="on">일봉<span class="s">1 → 2 → 3 → 4 → 5…</span></button>
       <button type="button" data-sec="week">주봉<span class="s">1 → 2 → 3 → 4 → 5…</span></button>
       <button type="button" data-sec="month">월봉<span class="s">1 → 2 → 3 → 4 → 5…</span></button>
-      <button type="button" data-sec="monthly">월별 10단계<span class="s">테마 · 유형 A/B/C</span></button>
+      <button type="button" data-sec="pick">매수선별<span class="s">정배열 · 유형 A/B/C</span></button>
     </div>
     <div id="hotScore"></div>
     <div id="hotBody">
@@ -669,6 +695,7 @@
       <button class="chart-x" id="chartX" type="button" aria-label="차트 닫기">✕</button>
     </div>
     <div class="chart-read" id="chartRead"></div>
+    <div class="chart-tools" id="chartTools" hidden><button class="chart-zoom" id="chartZoom" type="button">전체 90봉</button><span class="hint" id="chartHint"></span></div>
     <div class="chart-pos" id="chartPos" hidden></div>
     <svg class="chart-svg" id="chartSvg" viewBox="0 0 360 292" role="img" aria-label="최근 일봉 차트"></svg>
     <div class="chart-lg" id="chartLg"></div>
@@ -1406,7 +1433,7 @@ async function renderHotbar(){
   if(!visOn()) return;
   const box = $('#hotBody');
   if(!box) return;
-  if(hotbarSec === 'monthly'){ await renderMonthly(); return; }
+  if(hotbarSec === 'pick'){ await renderPick(); return; }
   const d = await ensureHotbar();
   if(!d || !(d.sections || []).length){
     box.innerHTML = `<div class="empty">핫바 자료를 불러오지 못했습니다.<br>잠시 후 다시 열어 주세요.</div>`;
@@ -1420,145 +1447,141 @@ async function renderHotbar(){
   box.innerHTML = (sec.stages || []).map(hotStageHtml).join('');
 }
 
-/* ---------------- 월별 10단계 (2026-11-20 · 1안) ----------------
-   핫바 탭 안에 월 칩(2026-11 … 2025-11) → 그 달 테마 묶음 → 종목.
-   종목마다 유형(A 첫 상한가 / B 연속 파동 / C 9단계 재출발) · 지금 1~10단계 ·
-   1번(시작일) · 2~3회 횡보 / 4→5 황금자리 배지를 붙인다.
-   자료는 data/hotbar_monthly.json 한 벌(같은 비밀코드 5696 잠금) — 이 칸을 처음 열 때만 받는다.
-   누르면 그 종목 일봉 차트(단계 번호 1·2·3…9 마커 + 기준선)가 열린다. */
-let hotMonthly = null, hotMonthlyLoading = null, monSel = null, monFilter = 'all';
-const MON_TYPE = {A: '유형 A · 첫 상한가', B: '유형 B · 연속 파동', C: '유형 C · 9단계 재출발'};
+/* ---------------- 매수선별 (2026-11-20 · 네 번째 칸) ----------------
+   월별 13개월 나열은 없앴다. 살아있는 테마(최근 20거래일 안 상한가) 안에서
+     선이 차례로 선 자리(정배열 5>10>20>60)이거나 정배열 직전 시작(5>10>20 · 20선 상승),
+     1번 상한가 거래량이 앞 6개월보다 우뚝,
+     오늘 시간외 · 익일 바로 살 수 있는 자리(4단계 음봉 · 5단계 오늘 돌파 · 3단계 상자 · 2단계 3번 양봉)
+   를 모두 통과한 종목만 점수순 2~8개 담는다. 자료는 data/hotbar_monthly.json 한 벌(비밀코드 5696 잠금).
+   종목을 누르면 일봉 차트가 열린다 — 최근 38봉 확대 + 5·10·20·60일선 + 기준선 + 단계 번호. */
+let hotPick = null, hotPickLoading = null, pickFilter = 'all';
+const PICK_TYPE = {A: '유형 A · 첫 상한가', B: '유형 B · 연속 파동', C: '유형 C · 9단계 재출발'};
 
 function ymd6(n){
   const s = String(n == null ? '' : n).padStart(6, '0');
   return '20' + s.slice(0, 2) + '-' + s.slice(2, 4) + '-' + s.slice(4, 6);
 }
 
-async function ensureMonthly(){
-  if(hotMonthly) return hotMonthly;
-  if(hotMonthlyLoading) return hotMonthlyLoading;
-  hotMonthlyLoading = (async () => {
+async function ensurePick(){
+  if(hotPick) return hotPick;
+  if(hotPickLoading) return hotPickLoading;
+  hotPickLoading = (async () => {
     try{
       const code = savedCode();
       if(!code) return null;
       const res = await fetch('data/hotbar_monthly.json?_=' + Date.now(), {cache:'no-store'});
       if(!res.ok) throw new Error('HTTP ' + res.status);
       const sealed = await res.json();
-      hotMonthly = (Number(sealed.enc) === 1) ? await hotDecrypt(sealed, code) : sealed;
-    }catch(e){ hotMonthly = null; }
-    hotMonthlyLoading = null;
-    return hotMonthly;
+      hotPick = (Number(sealed.enc) === 1) ? await hotDecrypt(sealed, code) : sealed;
+    }catch(e){ hotPick = null; }
+    hotPickLoading = null;
+    return hotPick;
   })();
-  return hotMonthlyLoading;
+  return hotPickLoading;
 }
 
-/* 화면에서 쓴 종목 한 줌 — 같은 종목이 여러 테마에 걸렸을 수 있어 배열로 찾는다 */
-function monPick(mm, code){
-  for(const t of (mm.themes || [])){
-    const hit = (t.stocks || []).find(s => String(s.code) === String(code));
-    if(hit) return hit;
-  }
-  return null;
+/* 종목 한 칸의 모든 줄을 한 번에 — 테마 묶음과 무관하게 필터에 쓴다 */
+function pickAll(){
+  const out = [];
+  ((hotPick || {}).themes || []).forEach(t => (t.stocks || []).forEach(s => out.push(s)));
+  return out;
 }
 
-function monPass(st, f){
+function pickPass(st, f){
   if(f === 'all') return true;
   if(f === 'g45') return !!st.b45;
   return st.t === f;
 }
 
-/* 월별 종목 → 차트 모달에 넘길 모양(일봉·단계 번호·기준선) */
-function monChartItem(st){
-  const ch = hotMonthly && (hotMonthly.charts || {})[String(st.code)];
+/* 매수선별 종목 → 차트 모달(일봉 170봉 · 최근 38봉 확대 + 이평선 + 기준선 + 단계 번호) */
+function pickChartItem(st){
+  const ch = hotPick && (hotPick.charts || {})[String(st.code)];
   if(!ch || !(ch.b || []).length) return null;
   const cs = ch.b.map((x, i) => [ymd6(ch.d[i]), x[0], x[1], x[2], x[3], x[4]]);
   return {
     code: String(st.code), name: st.name, period: 'day', plain: 0, candles: cs,
+    view: 38, full: 90, mas: 1,
     price: st.now, price_text: fmtWon(st.now) + '원', chg: st.chg,
-    stage: st.stage, stage_dates: st.sd || {}, base_open: st.open0,
-    reason: (MON_TYPE[st.t] || '') + (st.d0 ? ' · 1번 ' + mmdd(st.d0) : ''),
+    stage: st.stage, stage_dates: st.sd || {}, base_open: st.base,
+    reason: `유형 ${st.t} · ${st.st} · 1번 ${mmdd(st.d0)} · ${st.when}`,
   };
 }
 
-function monRowHtml(st, mm){
-  const chartable = !!(hotMonthly && (hotMonthly.charts || {})[String(st.code)]);
-  const t = MON_TYPE[st.t] ? st.t : 'none';
-  const stageN = st.stage ? st.stage : null;
-  const stageCls = stageN ? ' s' + stageN : '';
+function pickRowHtml(st){
+  const ch = hotPick && (hotPick.charts || {})[String(st.code)];
+  const attr = ch ? ` data-code="${esc(String(st.code))}" role="button" tabindex="0"` : '';
+  const swTxt = st.sw >= 2 ? `2~3회 횡보 O(${st.sw}회)` : '2~3회 횡보 아직';
   const b = [];
-  if(st.sw >= 2) b.push(`<span class="hm-b sw" title="상자 안에서 위아래 ${st.sw}회 왕복 — 2~3회 횡보 자리">2~3회 횡보</span>`);
-  if(st.b45) b.push(`<span class="hm-b g45" title="지금 4단계 음봉(사는 자리) 또는 5단계 돌파 — 4→5 황금자리">4→5</span>`);
-  if(st.side === '앞쪽') b.push(`<span class="hb-pos f" title="앞쪽 — 20일선 ≥ 60일선 + 장기선 아래">앞</span>`);
-  else if(st.side === '뒤쪽') b.push(`<span class="hb-pos b" title="뒤쪽 — 장기선 위이거나 20일선 < 60일선">뒤</span>`);
-  const nowTxt = (st.now != null)
-    ? `<span class="now">${fmtWon(st.now)}원 ${Number(st.chg) > 0 ? '+' : ''}${Number(st.chg || 0).toFixed(1)}%</span>` : '';
-  const attr = chartable
-    ? ` data-code="${esc(String(st.code))}" data-mon="${esc(mm.m)}" data-name="${esc(st.name)}" role="button" tabindex="0"`
-    : '';
-  return `<div class="hb-row hm-row${chartable ? ' chart' : ''}"${attr}>
-    <div class="hb-name">${esc(st.name)}</div>
-    <span class="hm-t ${t}" title="${esc(MON_TYPE[st.t] || '유형 확인 안 됨')}">${st.t === '-' ? '?' : esc(st.t)}</span>
-    <span class="hm-st${stageCls}" title="${esc(st.st || '')}">${stageN ? stageN + '단계' : '자료없음'}</span>
-    <div class="hm-sub"><span class="d0">1번 ${esc(mmdd(st.d0))}</span>${nowTxt}${b.join('')}</div>
+  b.push(`<span class="hm-b ${st.sw >= 2 ? 'sw' : 'no'}">${st.sw >= 2 ? '2~3회 횡보' : '횡보 아직'}</span>`);
+  if(st.b45) b.push(`<span class="hm-b g45">4→5 황금자리</span>`);
+  b.push(`<span class="hm-b al">${st.align === 'full' ? '정배열' : '정배열 시작'}</span>`);
+  const volTxt = (st.vol_max && st.vol_max >= 1)
+    ? `앞 6개월 최대의 ${st.vol_max}배`
+    : `앞 6개월 평균의 ${Math.round(st.vol_avg || 0)}배`;
+  const line = `유형 ${st.t} · 1번 ${mmdd(st.d0)} · ${swTxt} · `
+    + `기준선 ${fmtWon(st.base)}원 / 윗선(돌파선) ${st.box_hi ? fmtWon(st.box_hi) + '원' : '—'}`
+    + ` — ${st.why}`;
+  return `<div class="hb-row hm-row hp-row${ch ? ' chart' : ''}"${attr}>
+    <div class="hb-name hp-name">${esc(st.name)}<b class="hp-buy">(매수)</b></div>
+    <span class="hm-t ${esc(st.t)}" title="${esc(PICK_TYPE[st.t] || '')}">${esc(st.t)}</span>
+    <span class="hm-st s${st.stage}">${st.stage}단계</span>
+    <div class="hm-sub">
+      <span class="now">${fmtWon(st.now)}원 ${Number(st.chg) > 0 ? '+' : ''}${Number(st.chg || 0).toFixed(1)}%</span>
+      <span class="hp-vol">1번 거래량 ${volTxt}</span>
+      <span class="hp-when">${esc(st.when)}</span>
+      ${b.join('')}
+    </div>
+    <p class="hp-line">${esc(line)}</p>
   </div>`;
 }
 
-async function renderMonthly(){
+async function renderPick(){
   const box = $('#hotBody');
   if(!box) return;
-  document.querySelectorAll('#hotSeg button').forEach(x => x.classList.toggle('on', x.dataset.sec === 'monthly'));
-  if(!hotMonthly){
-    box.innerHTML = `<div class="hm-load">월별 10단계 자료를 받는 중…<br>잠긴 자료를 이 기기에서 풀고 있습니다.</div>`;
-    const got = await ensureMonthly();
+  document.querySelectorAll('#hotSeg button').forEach(x => x.classList.toggle('on', x.dataset.sec === 'pick'));
+  if(!hotPick){
+    box.innerHTML = `<div class="hm-load">매수선별 자료를 받는 중…<br>잠긴 자료를 이 기기에서 풀고 있습니다.</div>`;
+    const got = await ensurePick();
     if(!got){
-      box.innerHTML = `<div class="empty">월별 10단계 자료를 불러오지 못했습니다.<br>잠시 후 다시 열어 주세요.</div>`;
+      box.innerHTML = `<div class="empty">매수선별 자료를 불러오지 못했습니다.<br>잠시 후 다시 열어 주세요.</div>`;
       return;
     }
   }
   if($('#hotScore')) $('#hotScore').innerHTML = scoreHtml((hotbarData || {}).score);
-  const ms = hotMonthly.months || [];
-  if(!ms.length){
-    box.innerHTML = `<div class="empty">월별 자료가 비어 있습니다.</div>`;
-    return;
-  }
-  if(!monSel || !ms.some(m => m.m === monSel)) monSel = ms[0].m;
-  const mm = ms.find(m => m.m === monSel) || ms[0];
-  const all = [];
-  (mm.themes || []).forEach(t => (t.stocks || []).forEach(s => all.push(s)));
-  /* 종목 수는 코드로 한 번만 센다 — 같은 종목이 두 테마에 걸리면 줄은 둘이지만 종목은 하나 */
-  const cnt = f => new Set(all.filter(s => monPass(s, f)).map(s => String(s.code))).size;
-  const chips = ms.map(m => `<button class="hm-mon${m.m === monSel ? ' on' : ''}" type="button" data-m="${esc(m.m)}">`
-    + `${esc(m.label)}<span class="n">${m.stock_count}</span></button>`).join('');
+  const all = pickAll();
+  const themes = hotPick.themes || [];
+  const cnt = hotPick.counts || {};
+  const cntOf = f => all.filter(s => pickPass(s, f)).length;
   const FLT = [['all', '전체'], ['A', '유형 A'], ['B', '유형 B'], ['C', '유형 C'], ['g45', '4→5 황금자리']];
-  const flt = FLT.map(([k, lab]) => `<button type="button" data-f="${k}" class="${monFilter === k ? 'on' : ''}${k === 'g45' ? ' g45' : ''}">`
-    + `${lab} ${cnt(k)}</button>`).join('');
-  const showN = cnt(monFilter);
+  const flt = FLT.map(([k, lab]) => `<button type="button" data-f="${k}" class="`
+    + `${pickFilter === k ? 'on' : ''}${k === 'g45' ? ' g45' : ''}">${lab} ${cntOf(k)}</button>`).join('');
+  if($('#hotSub')) $('#hotSub').textContent =
+    `매수선별 · ${hotPick.base_date_text || ''}${hotPick.generated_at_kst ? ' · ' + hotPick.generated_at_kst + ' 생성' : ''}`;
+  const head = `<div class="hp-head"><b>${all.length}종목 (매수)</b>`
+    + `<span>${esc(hotPick.base_date_text || '')} · 살아있는 테마 ${cnt.live_themes || themes.length}개 · `
+    + `그 안 ${cnt.live_stocks || 0}종목 훑어 ${all.length}개만</span></div>`;
   const groups = [];
-  (mm.themes || []).forEach(t => {
-    const list = (t.stocks || []).filter(s => monPass(s, monFilter));
+  themes.forEach(t => {
+    const list = (t.stocks || []).filter(s => pickPass(s, pickFilter));
     if(!list.length) return;
-    /* 테마 기준월이 이 달과 다르면 작게 적어 둔다 — 그 달에 그 테마 종목이 다시 상한가를 낸 자리 */
-    const label = t.base && t.base !== mm.m
-      ? `<span class="hm-tc" title="테마 기준월 ${esc(t.base)} — 이 달에는 그 테마 종목이 다시 상한가를 낸 자리만 있다">기준 ${esc(t.base.slice(2).replace('-', '.'))}</span>`
-      : '';
     groups.push(`<div class="hm-grp" role="group" aria-label="${esc(t.short)} ${list.length}종목">
-      <div class="hm-gh"><b class="hm-tn" title="${esc(t.name)}">${esc(t.short)}</b>${label}<span class="hm-tc">${list.length}</span></div>
-      ${t.summary ? `<p class="hm-ts">${esc(t.summary)}</p>` : ''}
-      ${list.map(s => monRowHtml(s, mm)).join('')}
+      <div class="hm-gh"><b class="hm-tn" title="${esc(t.name)}">${esc(t.short)}</b>
+        <span class="hm-tc flow">${esc(t.flow || '')}</span>
+        <span class="hm-tc">최근 상한가 ${esc(mmdd(t.last_lu))}</span>
+        <span class="hm-tc">${list.length}</span></div>
+      ${t.summary ? `<p class="hm-ts" title="${esc(t.summary)}">${esc(t.summary)}</p>` : ''}
+      ${list.map(pickRowHtml).join('')}
     </div>`);
   });
-  const sum = `<div class="hm-sum"><span>테마 <b>${mm.theme_count}</b></span><span>종목 <b>${mm.stock_count}</b></span>`
-    + `<span>A <b>${mm.types.A}</b> · B <b>${mm.types.B}</b> · C <b>${mm.types.C}</b></span>`
-    + `<span>2~3회 횡보 <b>${mm.swing}</b> · 4→5 <b>${mm.g45}</b></span></div>`;
-  if($('#hotSub')) $('#hotSub').textContent = `월별 10단계 · ${(hotMonthly.base_date_text || '')} · ${hotMonthly.counts ? hotMonthly.counts.events : 0}건`;
-  box.innerHTML = `<div class="hm-mons" id="hmMons">${chips}</div>
-    <div class="hm-flt" id="hmFlt">${flt}</div>
-    ${sum}
-    ${groups.join('') || `<div class="empty">이 달에는 고른 조건의 종목이 없습니다.</div>`}
-    <p class="hm-note">유형 <b>A</b> 앞 125봉 무상한가 첫 상한가 · <b>B</b> 앞 125봉 안 기존 상한가 뒤 2·3차 · <b>C</b> 큰 조정(8단계 뒤) 하락 멈춤 후 재출발<br>
-    1~10단계 = 1 길목 · 2 핫바 · 3 횡보 · 4 음봉 · 5 돌파 · 6 분출 · 7 숨쉬는 · 8 마지막 분출 · 9 하락·멈춤 · 10 스윙·폐기 — 종목을 누르면 차트</p>`;
-  const sel = $('#hmMons .on');
-  if(sel && sel.scrollIntoView) { try{ sel.scrollIntoView({block:'nearest', inline:'center'}); }catch(e){} }
+  const empty = `<div class="empty">오늘은 조건을 다 통과한 매수 자리가 없습니다.<br>`
+    + `억지로 채우지 않습니다 — 다음 거래일 장 마감 뒤 다시 채워집니다.</div>`;
+  box.innerHTML = `<div class="hm-flt" id="hpFlt">${flt}</div>
+    ${head}
+    ${groups.join('') || (all.length ? `<div class="empty">고른 조건의 종목이 없습니다.</div>` : empty)}
+    <p class="hm-note">살아있는 테마 = 최근 ${hotPick.live_days || 20}거래일 안에 상한가가 난 테마(${esc(hotPick.live_since || '')} 이후)<br>
+    선 = 5일선 &gt; 10일선 &gt; 20일선 &gt; 60일선(정배열) 또는 5&gt;10&gt;20 이면서 20일선 상승(정배열 직전) ·
+    1번 거래량 = 1번 상한가 봉 거래량이 앞 125봉 최대의 1배 이상<br>
+    자리 = 4단계 음봉(4→5 황금자리) · 5단계 돌파 당일 · 3단계 상자(돌파 전) · 2단계에서 3번 반등 양봉이 오늘 — 종목을 누르면 차트</p>`;
 }
 
 /* ---------------- 핫바 카드 → 차트 모달 (일봉 · 주봉 · 월봉) ----------------
@@ -1588,16 +1611,41 @@ function textW(t, fs){
 }
 
 function chartSvgHtml(s){
-  const cs = s.candles || [], n = cs.length;
-  if(!n) return '';
+  const all = s.candles || [];
+  if(!all.length) return '';
+  /* 보이는 봉 — view 가 있으면 최근 그만큼만(매수선별 = 38봉), 없으면 전부 */
+  const viewN = Math.max(8, Math.min(Number(s.view) || all.length, all.length));
+  const off = all.length - viewN;
+  const cs = all.slice(off), n = cs.length;
   const p = periodOf(s);
   const plain = !!s.plain;      /* 다른 메뉴에서 연 공개 주봉 — 기준선·단계 마커 없음 */
   const lineDay = (!plain && p === 'day' && s.line) ? Number(s.line) : 0;   /* 일봉 = 2번 자리(살 줄) */
   const base = plain ? 0 : (lineDay || Number(s.base_open) || 0);
   const refVol = Number(s.ref_vol) || 0;
+  /* 이동평균선 — 일봉이고 60봉 이상 있을 때만(주봉·월봉·공개 차트는 기존대로 깔끔히) */
+  const MAS = (!plain && p === 'day' && s.mas && all.length >= 60)
+    ? [[5, '#ff9ecb'], [10, '#4fd6ff'], [20, '#63e3ae'], [60, '#a78bfa']] : [];
+  const maVal = {};
+  if(MAS.length){
+    const cl = all.map(c => c[4]);
+    MAS.forEach(([k]) => {
+      maVal[k] = [];
+      let sum = 0;
+      for(let i = 0; i < cl.length; i++){
+        sum += cl[i];
+        if(i >= k) sum -= cl[i - k];
+        maVal[k][i] = i >= k - 1 ? sum / k : null;
+      }
+    });
+  }
   let hi = -Infinity, lo = Infinity;
   for(const c of cs){ hi = Math.max(hi, c[2]); lo = Math.min(lo, c[3]); }
   if(base > 0){ hi = Math.max(hi, base); lo = Math.min(lo, base); }
+  if(MAS.length){
+    MAS.forEach(([k]) => { for(let i = off; i < all.length; i++){
+      const v = maVal[k][i]; if(v > 0){ hi = Math.max(hi, v); lo = Math.min(lo, v); }
+    } });
+  }
   let span = hi - lo;
   if(!(span > 0)) span = Math.max(hi, 1);
   hi += span * 0.07; lo -= span * 0.07;
@@ -1624,6 +1672,19 @@ function chartSvgHtml(s){
     const h = Math.max(1, c[5] / vmax * vh);
     g += `<rect x="${(x - bw / 2).toFixed(1)}" y="${(CH_VY1 - h).toFixed(1)}" width="${bw.toFixed(1)}" height="${h.toFixed(1)}" fill="${col}" opacity=".5"/>`;
   });
+  /* 이동평균선 5·10·20·60 — 얇은 색선. 봉 뒤에 깔아 선 흐름(정배열)과 눌림이 한눈에 보이게 */
+  if(MAS.length){
+    MAS.forEach(([k, col]) => {
+      let d = '';
+      for(let i = off; i < all.length; i++){
+        const v = maVal[k][i];
+        if(!(v > 0)) continue;
+        const x = CH_X0 + slot * (i - off) + slot / 2, y = Y(v);
+        d += (d ? 'L' : 'M') + x.toFixed(1) + ' ' + y.toFixed(1) + ' ';
+      }
+      if(d) g += `<path d="${d.trim()}" fill="none" stroke="${col}" stroke-width="1.1" stroke-linejoin="round" opacity=".9"/>`;
+    });
+  }
   /* 가로 줄 — 일봉은 2번 자리(미리 그어 두는 살 줄), 주봉·월봉은 1번 봉.
      2026-11-19 지시: 차트 왼쪽 끝부터 오른쪽 끝까지 가로지르는 선명한 실선 한 줄로 긋고,
      왼쪽 끝에 그 줄 가격 숫자를 또렷하게 붙인다(점선 아님). */
@@ -1698,9 +1759,17 @@ function chartReadText(s, i){
   const ch = prev ? (c[4] / prev - 1) * 100 : 0;
   const cls = ch < 0 ? 'b' : 'r';
   const arrow = ch > 0 ? '▲' : (ch < 0 ? '▼' : '–');
+  let ma = '';
+  if(s.mas && idx >= 4){                       /* 그 봉 시점의 5·20·60일선도 같이 */
+    const v = k => idx + 1 >= k ? cs.slice(idx + 1 - k, idx + 1).reduce((a, x) => a + x[4], 0) / k : null;
+    const m5 = v(5), m20 = v(20), m60 = v(60);
+    ma = ` · <span class="t">5일</span> ${fmtWon(m5)}`
+       + (m20 ? ` <span class="t">20일</span> ${fmtWon(m20)}` : '')
+       + (m60 ? ` <span class="t">60일</span> ${fmtWon(m60)}` : '');
+  }
   return `<span class="t">${barName(s, c[0])}${periodOf(s) === 'week' ? ' 주' : ''}${idx === cs.length - 1 ? ' (최근)' : ''}</span> `
     + `<b>${fmtWon(c[4])}</b> `
-    + `<span class="${cls}">${arrow}${ch > 0 ? '+' : ''}${ch.toFixed(1)}%</span> · 거래량 ${fmtVolK(c[5])}주`;
+    + `<span class="${cls}">${arrow}${ch > 0 ? '+' : ''}${ch.toFixed(1)}%</span> · 거래량 ${fmtVolK(c[5])}주` + ma;
 }
 
 /* 눌린 카드의 종목 — 지금 보고 있는 탭(일봉/주봉/월봉) 안에서 찾는다.
@@ -1737,6 +1806,19 @@ function chartLegendHtml(s){
     const extra = (+k >= 5) ? '' : (LAB[k] || '');
     parts.push(`<span><i class="${cls}">${k}</i>${esc(extra)} ${barName(s, sd[k])}${p === 'week' ? ' 주' : ''}</span>`);
   });
+  if(s.mas){
+    /* 매수선별 일봉 — 5·10·20·60일선 지금 값. 선이 차례로 섰는지 바로 보이게 */
+    const cs = s.candles || [];
+    const val = k => cs.length >= k ? cs.slice(-k).reduce((a, x) => a + x[4], 0) / k : null;
+    [[5, 'm5'], [10, 'm10'], [20, 'm20'], [60, 'm60']].forEach(([k, cls]) => {
+      const v = val(k);
+      if(v) parts.push(`<span><i class="cm ${cls}">${k}일</i>${fmtWon(v)}</span>`);
+    });
+    parts.push(`<span><i class="cb">기준선</i>${fmtWon(s.base_open || 0)}원(1번 시가)</span>`);
+    parts.push('<span style="color:#7e8aa0">선 순서 5&gt;10&gt;20&gt;60 이면 정배열</span>');
+    parts.push(chartDayNote(s));
+    return parts.join('');
+  }
   /* 기준선(2번 줄) — 2번 자리일 때만, 기준 봉이 확실한 양봉/음봉일 때만 그린다(2026-11-19 지시) */
   if(p === 'day' && s.line) parts.push(`<span><i class="cb">2번 줄</i>${fmtWon(s.line)}원</span>`);
   else if(s.base_open) parts.push(`<span><i class="cb">2번 줄</i>${fmtWon(s.base_open)}원</span>`);
@@ -1791,12 +1873,37 @@ function openChart(s){
   $('#chartSvg').innerHTML = chartSvgHtml(s);
   $('#chartSvg').setAttribute('aria-label', `${esc(s.name)} 최근 ${pd.t} 차트`);
   $('#chartLg').innerHTML = chartLegendHtml(s);
+  paintZoom();
   const link = $('#chartNaver');
   link.href = 'https://finance.naver.com/item/main.naver?code=' + encodeURIComponent(String(s.code || ''));
   const ov = $('#chartOv');
   ov.hidden = false;
   requestAnimationFrame(() => ov.classList.add('show'));
   document.body.classList.add('lock');
+}
+
+/* 확대 전환 — 매수선별 일봉은 최근 38봉으로 열리고, 누르면 전체 90봉으로 넓힌다 */
+function paintZoom(){
+  const box = $('#chartTools'), btn = $('#chartZoom'), hint = $('#chartHint');
+  if(!box || !btn) return;
+  const s = chartCur, all = (s && s.candles) || [];
+  const full = Number(s && s.full) || 0;
+  const on = !!full && all.length > Number(s.view || 0);
+  box.hidden = !on;
+  if(!on) return;
+  const viewing = Math.min(Number(s.view) || all.length, all.length);
+  btn.textContent = viewing < full ? `전체 ${full}봉` : `최근 ${38}봉`;
+  if(hint) hint.textContent = viewing < full ? `지금 최근 ${viewing}봉 확대 · 1번 상한가 이후 구간` : `지금 전체 ${full}봉`;
+}
+function toggleZoom(){
+  const s = chartCur;
+  if(!s) return;
+  const full = Number(s.full) || 0;
+  if(!full) return;
+  s.view = (Number(s.view) === full) ? 38 : full;
+  $('#chartSvg').innerHTML = chartSvgHtml(s);
+  $('#chartRead').innerHTML = chartReadText(s);
+  paintZoom();
 }
 
 function closeChart(){
@@ -1812,14 +1919,16 @@ function closeChart(){
 function chartPoint(e){
   const s = chartCur, svg = $('#chartSvg');
   if(!s || !svg) return;
-  const cs = s.candles || [];
-  if(!cs.length) return;
+  const all = s.candles || [];
+  if(!all.length) return;
+  const viewN = Math.max(8, Math.min(Number(s.view) || all.length, all.length));
+  const off = all.length - viewN;
   const r = svg.getBoundingClientRect();
   if(!r.width) return;
   const x = (e.clientX - r.left) * (CH_W / r.width);
-  const slot = (CH_X1 - CH_X0) / cs.length;
-  const i = Math.max(0, Math.min(cs.length - 1, Math.floor((x - CH_X0) / slot)));
-  $('#chartRead').innerHTML = chartReadText(s, i);
+  const slot = (CH_X1 - CH_X0) / viewN;
+  const i = Math.max(0, Math.min(viewN - 1, Math.floor((x - CH_X0) / slot)));
+  $('#chartRead').innerHTML = chartReadText(s, off + i);
   const g = document.getElementById('cGuide');
   if(g){
     const cx = (CH_X0 + slot * i + slot / 2).toFixed(1);
@@ -2060,11 +2169,9 @@ $('#hotScore').addEventListener('click', e => {
   b.textContent = open ? '접기 ▴' : '최근 채점 · 공식 예상 펼치기 ▾';
 });
 $('#hotBody').addEventListener('click', e => {
-  /* 월별 10단계 — 월 칩 · 유형 필터 */
-  const mb = e.target.closest('#hmMons .hm-mon');
-  if(mb){ monSel = mb.dataset.m; renderMonthly(); return; }
-  const fb = e.target.closest('#hmFlt button');
-  if(fb){ monFilter = fb.dataset.f; renderMonthly(); return; }
+  /* 매수선별 — 유형·4→5 필터 */
+  const fb = e.target.closest('#hpFlt button');
+  if(fb){ pickFilter = fb.dataset.f; renderPick(); return; }
   const b = e.target.closest('.hb-more');
   if(b){
     const raw = b.dataset.stage;
@@ -2075,13 +2182,12 @@ $('#hotBody').addEventListener('click', e => {
     if(again) again.scrollIntoView({block:'nearest'});
     return;
   }
-  /* 핫바 카드 → 그 자리(일봉·주봉·월봉·월별) 차트 */
+  /* 핫바 카드 → 그 자리(일봉·주봉·월봉·매수선별) 차트 */
   const row = e.target.closest('.hb-row.chart');
   if(row){
-    if(row.dataset.mon){                       /* 월별 10단계 — 그 달 그 종목의 일봉 */
-      const mm = (hotMonthly && (hotMonthly.months || []).find(m => m.m === row.dataset.mon)) || null;
-      const st = mm && monPick(mm, row.dataset.code);
-      const it = st && monChartItem(st);
+    if(row.closest('.hp-row') || hotbarSec === 'pick'){       /* 매수선별 — 일봉 170봉 */
+      const st = pickAll().find(x => String(x.code) === String(row.dataset.code));
+      const it = st && pickChartItem(st);
       if(it) openChart(it);
       else toast('이 종목 차트 자료가 아직 없습니다');
       return;
@@ -2095,10 +2201,9 @@ $('#hotBody').addEventListener('keydown', e => {
   const row = e.target.closest('.hb-row.chart');
   if(!row) return;
   e.preventDefault();
-  if(row.dataset.mon){
-    const mm = (hotMonthly && (hotMonthly.months || []).find(m => m.m === row.dataset.mon)) || null;
-    const st = mm && monPick(mm, row.dataset.code);
-    const it = st && monChartItem(st);
+  if(row.closest('.hp-row') || hotbarSec === 'pick'){
+    const st = pickAll().find(x => String(x.code) === String(row.dataset.code));
+    const it = st && pickChartItem(st);
     if(it) openChart(it);
     return;
   }
@@ -2113,6 +2218,8 @@ $('#hotBody').addEventListener('keydown', e => {
   if(ov){
     ov.addEventListener('click', e => { if(e.target === ov) closeChart(); });
     $('#chartX').addEventListener('click', closeChart);
+    const z = $('#chartZoom');
+    if(z) z.addEventListener('click', toggleZoom);
     addEventListener('keydown', e => { if(e.key === 'Escape') closeChart(); });
   }
   const svg = $('#chartSvg');
@@ -2197,8 +2304,8 @@ function hotPaint(){
   if(tab) tab.hidden = !on;
   const bar = document.querySelector('.tabs');
   if(bar) bar.classList.toggle('five', on);
-  /* 잠그면 월별 10단계도 기억에서 지운다(다시 열 때 그 기기에서 새로 푼다) */
-  if(!on){ hotMonthly = null; hotMonthlyLoading = null; monSel = null; }
+  /* 잠그면 매수선별도 기억에서 지운다(다시 열 때 그 기기에서 새로 푼다) */
+  if(!on){ hotPick = null; hotPickLoading = null; pickFilter = 'all'; }
   if(!on && state.tab === 'hotbar') switchTab('news');
 }
 /* 비밀코드를 묻고, 맞으면 풀어서 연다(틀리면 아무것도 열리지 않는다) */
