@@ -86,28 +86,28 @@ python3 scripts/build_hotbar_radar.py --no-fetch   # 받아 둔 오늘 시세로
 python3 scripts/build_hotbar_radar.py --debug 095610   # 한 종목 판정 근거 확인
 ```
 
-### 핫바 네 번째 칸 `매수선별` (`scripts/build_hotbar_buy.py`)
+### 핫바 네 번째 칸 `10단계` (`scripts/build_hotbar_buy.py`)
 
-장 마감 뒤 아래 한 줄로 **살아있는 테마 → 정배열 → 1번 거래량 우뚝 → 오늘 시간외·익일 매수 자리** 를
-자동으로 골라 `data/hotbar_monthly.json`(비밀코드 `5696` · AES-256-GCM)에 다시 담는다. 13개월 과거 나열은 없다.
+10년 전수조사(`brain/tools/stage10_core.py`) 기준 그대로 **오늘 4→5 황금자리와 9단계 하락 멈춤 자리**만
+골라 `data/hotbar_monthly.json`(비밀코드 `5696` · AES-256-GCM)에 담는다. 뉴스레이더 지정시간
+(장전·장중 30분·장후 1시간)에 단독으로 10~20초 만에 돌아간다.
 
 ```bash
-bash scripts/daily_hotbar.sh               # 재료 → 핫바(일·주·월봉) → 매수선별 → 커밋·푸시 (한 줄, 무인 실행)
-bash scripts/daily_hotbar.sh --dry         # 매수선별 결과만 확인(파일 안 씀)
-PUSH=0 bash scripts/daily_hotbar.sh        # 깃 커밋·푸시만 건너뛰기
-
-python3 scripts/build_hotbar_radar.py && python3 scripts/build_hotbar_buy.py   # 한 단계씩 돌릴 때
-python3 scripts/build_hotbar_buy.py --dry     # 파일 쓰지 않고 결과만 확인
-python3 scripts/build_hotbar_buy.py --max 5   # 하루 핵심 종목 수 줄이기(기본 8)
+python3 scripts/build_hotbar_buy.py            # 오늘 자리 갱신 + 요약
+python3 scripts/build_hotbar_buy.py --dry      # 파일 쓰지 않고 결과만 확인
+python3 scripts/build_hotbar_buy.py --no-fetch # 오늘 봉을 새로 받지 않고 캐시만으로
+bash scripts/daily_hotbar.sh                   # 재료 → 핫바(일·주·월봉) → 커밋·푸시 (한 줄)
 ```
 
 | 조건 | 잣대 |
 | --- | --- |
-| 살아있는 테마 | theme_db 테마 중 **최근 20거래일** 안에 상한가가 난 테마 |
-| 선 | **완전 정배열** 5일선 > 10일선 > 20일선 > 60일선, 또는 **정배열 직전 시작** 5>10>20 이면서 20일선 상승 |
-| 1번 거래량 | 1번 상한가 봉 거래량이 **앞 125봉(6개월) 최대의 1배 이상**, 또는 앞 125봉 평균의 10배 이상 |
-| 자리 | 4단계 음봉(4→5 황금자리) · 5단계 돌파 당일 · 3단계 상자(돌파 전) · 2단계에서 3번 반등 양봉이 오늘 |
-| 거래 | 마지막 거래일 봉이 있고 3봉 평균 거래대금 3억 이상 |
+| 닻(기준) | 최근 250봉 안, 앞 60봉 무상한가인 마지막 상한가 (앞 125봉 무상한가 = 유형 A, 그 뒤 2·3차 = 유형 B) |
+| 4단계 (4→5 황금자리) | 2번 기준선(1번 봉 시가) 사수 + 상자 안 **2회 이상 왕복** + 최근 1~2일 **거래량 0.7배 이하**로 마른 음봉 |
+| 5단계 | 그 음봉 바로 뒤 오늘 상자 윗선을 넘은 돌파 당일 |
+| 9단계 멈춤 (유형 C) | 분출 고점 대비 **-28% 이상** + **15봉 폭 18% 안** 멈춤 + 거래량 **0.5배 이하** |
+| 테마 | `theme_db.json`에 있는 종목만 (테마명·이슈요약 표시) |
+| 거래 | 3봉 평균 거래대금 3억 이상 (체결이 되는 종목) |
+| 매매 추적 | 오늘 올라온 종목은 `brain/cache/stage10_watchlist.json`에 등록돼 **(매수) → (돌파·보유) → (분출·보유) → (매도)/(손절·매도)** 로 이어지고, 매도 판정 뒤 3거래일 보인 다음 정리된다 |
 | 개수 | 위를 통과한 것 중 점수(자리·2~3회 횡보·4→5·거래량·정배열·유형·거래대금) 순 **상위 2~8종목** |
 
 화면은 종목마다 `종목명 (매수)` + 한 줄(`유형 · 1번 날짜 · 2~3회 횡보 여부 · 기준선/윗선(돌파선) · 매수 관점`)로 보여 주고,

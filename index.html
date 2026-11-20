@@ -380,13 +380,21 @@
   .hb-cl.wait{color:#ffe066;background:rgba(255,224,102,.1);border-color:rgba(255,224,102,.32)}
   .hb-osc[hidden],.hb-cl[hidden]{display:none}
 
-  /* ---------- 핫바 · 매수선별 (비밀 · 살아있는 테마 × 정배열 × 매수 자리) ---------- */
+  /* ---------- 핫바 · 10단계 (비밀 · 4→5 황금자리 × 9단계 멈춤 × 유형 A/B/C × 매도까지) ---------- */
   .hp-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 8px;margin:0 1px 7px;font-size:10px;font-weight:700;color:var(--dim2)}
   .hp-head b{font-size:12.5px;font-weight:900;color:#fff;letter-spacing:-.3px}
   .hp-row{padding:9px 12px}
   .hp-name{white-space:nowrap}
   .hp-buy{display:inline-block;margin-left:3px;vertical-align:1px;font-size:10px;font-weight:900;color:#1a1206;
     letter-spacing:-.2px;background:linear-gradient(135deg,#ffd76a,#ffb02e);padding:0 4px;border-radius:4px}
+  /* 10단계 — 매매 상태 배지 (매수 · 매수대기 · 보유 · 매도 · 손절) */
+  .hp-st{display:inline-block;margin-left:3px;vertical-align:1px;font-size:10px;font-weight:900;
+    letter-spacing:-.2px;padding:0 4px;border-radius:4px}
+  .hp-st.buy{color:#1a1206;background:linear-gradient(135deg,#ffd76a,#ffb02e)}
+  .hp-st.wait{color:#ffe066;background:rgba(255,224,102,.12);border:1px solid rgba(255,224,102,.5)}
+  .hp-st.hold{color:#9fd6ff;background:rgba(79,180,255,.14);border:1px solid rgba(79,180,255,.45)}
+  .hp-st.sell{color:#ffb4bf;background:rgba(255,90,110,.14);border:1px solid rgba(255,90,110,.5)}
+  .hp-st.stop{color:#1a0608;background:linear-gradient(135deg,#ff8a9a,#ff5a6e)}
   .hp-vol{color:#8fb2ff}
   .hp-when{color:#ffd76a}
   .hp-line{flex:0 0 100%;margin:4px 0 0;font-size:9.8px;font-weight:700;line-height:1.5;color:#93a4bf;
@@ -456,6 +464,8 @@
   .hm-b{font-size:9px;font-weight:900;padding:0 5px;border-radius:4px;letter-spacing:-.2px;line-height:14px}
   .hm-b.sw{color:#63e3ae;background:rgba(61,220,151,.12);border:1px solid rgba(61,220,151,.36)}
   .hm-b.g45{color:#1a1206;background:linear-gradient(135deg,#ffd76a,#ffb02e);border:1px solid rgba(255,214,106,.9)}
+  .hm-b.side-f{color:#63e3ae;background:rgba(61,220,151,.12);border:1px solid rgba(61,220,151,.4)}
+  .hm-b.side-b{color:#ffc477;background:rgba(255,179,71,.12);border:1px solid rgba(255,179,71,.4)}
   .hm-note{margin:10px 1px 2px;font-size:9.5px;font-weight:600;line-height:1.5;color:#71809a}
   .hm-note b{color:#a9b8d0}
 
@@ -670,7 +680,7 @@
       <button type="button" data-sec="day" class="on">일봉<span class="s">1 → 2 → 3 → 4 → 5…</span></button>
       <button type="button" data-sec="week">주봉<span class="s">1 → 2 → 3 → 4 → 5…</span></button>
       <button type="button" data-sec="month">월봉<span class="s">1 → 2 → 3 → 4 → 5…</span></button>
-      <button type="button" data-sec="pick">매수선별<span class="s">정배열 · 유형 A/B/C</span></button>
+      <button type="button" data-sec="pick">10단계<span class="s">4→5 황금자리 · 유형 A/B/C</span></button>
     </div>
     <div id="hotScore"></div>
     <div id="hotBody">
@@ -1452,15 +1462,27 @@ async function renderHotbar(){
   box.innerHTML = (sec.stages || []).map(hotStageHtml).join('');
 }
 
-/* ---------------- 매수선별 (2026-11-20 · 네 번째 칸) ----------------
-   월별 13개월 나열은 없앴다. 살아있는 테마(최근 20거래일 안 상한가) 안에서
-     선이 차례로 선 자리(정배열 5>10>20>60)이거나 정배열 직전 시작(5>10>20 · 20선 상승),
-     1번 상한가 거래량이 앞 6개월보다 우뚝,
-     오늘 시간외 · 익일 바로 살 수 있는 자리(4단계 음봉 · 5단계 오늘 돌파 · 3단계 상자 · 2단계 3번 양봉)
-   를 모두 통과한 종목만 점수순 2~8개 담는다. 자료는 data/hotbar_monthly.json 한 벌(비밀코드 5696 잠금).
-   종목을 누르면 일봉 차트가 열린다 — 최근 38봉 확대 + 5·10·20·60일선 + 기준선 + 단계 번호. */
+/* ---------------- 10단계 (2026-11-20 · 네 번째 칸) ----------------
+   10년 전수조사(stage10_core) 기준 그대로 — 오늘 자리가 선 종목만, 매도까지 따라간다.
+     유형 A = 앞 125봉 무상한가 첫 상한가 / B = 그 뒤 2·3차 상한가 / C = 9단계 하락 멈춤
+     4→5 황금자리 = 2번 기준선 사수 + 상자 안 2회 이상 왕복 + 거래량 0.7배 이하로 마른 음봉(4단계)
+                    또는 그 음봉 바로 뒤 윗선을 넘은 5단계 돌파 당일
+     9단계 멈춤  = 분출 뒤 -28% 이상 + 15봉 폭 18% 안 + 거래량 0.5배 이하
+   오늘 올라온 종목은 장부(brain/cache/stage10_watchlist.json)로 (매수) → (돌파·보유) →
+   (분출·보유) → (매도)[8단계 정리 · 목표 +20~30% 뒤 윗꼬리/음봉] 또는 (손절·매도)까지 따라간다.
+   자료는 data/hotbar_monthly.json 한 벌(비밀코드 5696 잠금). */
 let hotPick = null, hotPickLoading = null, pickFilter = 'all';
-const PICK_TYPE = {A: '유형 A · 첫 상한가', B: '유형 B · 연속 파동', C: '유형 C · 9단계 재출발'};
+const PICK_TYPE = {A:'유형 A · 앞 125봉 무상한가 첫 상한가',
+                   B:'유형 B · 앞 125봉 안 2·3차 상한가',
+                   C:'유형 C · 9단계 하락 멈춤(재출발 자리)'};
+const PICK_STATE = {
+  '매수':      {cls:'buy',  txt:'매수',      note:'지금 사는 자리'},
+  '매수대기':  {cls:'wait', txt:'매수대기',  note:'재출발(윗선 돌파) 기다림'},
+  '돌파·보유': {cls:'hold', txt:'돌파·보유', note:'들고 가는 자리'},
+  '분출·보유': {cls:'hold', txt:'분출·보유', note:'들고 가는 자리'},
+  '매도':      {cls:'sell', txt:'매도',      note:'파는 자리'},
+  '손절·매도': {cls:'stop', txt:'손절·매도', note:'기준선 이탈'},
+};
 
 function ymd6(n){
   const s = String(n == null ? '' : n).padStart(6, '0');
@@ -1494,11 +1516,11 @@ function pickAll(){
 
 function pickPass(st, f){
   if(f === 'all') return true;
-  if(f === 'g45') return !!st.b45;
+  if(f === 'g45') return st.t !== 'C' && (st.stage === 4 || st.stage === 5);
   return st.t === f;
 }
 
-/* 매수선별 종목 → 차트 모달(일봉 170봉 · 최근 38봉 확대 + 이평선 + 기준선 + 단계 번호) */
+/* 10단계 종목 → 차트 모달(일봉 170봉 · 최근 38봉 확대 + 5·10·20·60일선 + 기준선 + 단계 번호) */
 function pickChartItem(st){
   const ch = hotPick && (hotPick.charts || {})[String(st.code)];
   if(!ch || !(ch.b || []).length) return null;
@@ -1508,35 +1530,32 @@ function pickChartItem(st){
     view: 38, full: 90, mas: 1,
     price: st.now, price_text: fmtWon(st.now) + '원', chg: st.chg,
     stage: st.stage, stage_dates: st.sd || {}, base_open: st.base,
-    reason: `유형 ${st.t} · ${st.st} · 1번 ${mmdd(st.d0)} · ${st.when}`,
+    reason: `${st.state} · 유형 ${st.t} · ${st.stage_txt} · 1번 ${mmdd(st.d0)}`,
   };
 }
 
 function pickRowHtml(st){
   const ch = hotPick && (hotPick.charts || {})[String(st.code)];
   const attr = ch ? ` data-code="${esc(String(st.code))}" role="button" tabindex="0"` : '';
-  const swTxt = st.sw >= 2 ? `2~3회 횡보 O(${st.sw}회)` : '2~3회 횡보 아직';
-  const b = [];
-  b.push(`<span class="hm-b ${st.sw >= 2 ? 'sw' : 'no'}">${st.sw >= 2 ? '2~3회 횡보' : '횡보 아직'}</span>`);
-  if(st.b45) b.push(`<span class="hm-b g45">4→5 황금자리</span>`);
-  b.push(`<span class="hm-b al">${st.align === 'full' ? '정배열' : '정배열 시작'}</span>`);
-  const volTxt = (st.vol_max && st.vol_max >= 1)
-    ? `앞 6개월 최대의 ${Number(st.vol_max).toFixed(1)}배`
-    : `앞 6개월 평균의 ${Math.round(st.vol_avg || 0)}배`;
-  const line = `유형 ${st.t} · 1번 ${mmdd(st.d0)} · ${swTxt} · `
-    + `기준선 ${fmtWon(st.base)}원 / 윗선(돌파선) ${st.box_hi ? fmtWon(st.box_hi) + '원' : '—'}`
-    + ` — ${st.why}`;
+  const S = PICK_STATE[st.state] || {cls:'buy', txt: st.state || '매수'};
+  const side = st.side === '앞쪽' ? '<span class="hm-b side-f">앞</span>'
+             : (st.side === '뒷쪽' ? '<span class="hm-b side-b">뒤</span>' : '');
+  const swTxt = st.sw != null && st.sw >= 2 ? `2~3회 횡보 ${st.sw}회` : (st.sw != null ? `횡보 ${st.sw}회` : '');
+  const d0 = st.d0 ? `1번 ${mmdd(st.d0)}` : '';
+  const val = st.val3 ? `거래대금 ${st.val3}억` : '';
+  const gain = (st.gain != null && st.entry_price) ? `진입 ${fmtWon(st.entry_price)}원 ${st.gain > 0 ? '+' : ''}${Number(st.gain).toFixed(1)}%` : '';
+  const dday = st.days != null && st.entry_date ? `D+${st.days}` : '';
+  const sub = [d0, dday, swTxt, val, gain].filter(Boolean).join(' · ');
   return `<div class="hb-row hm-row hp-row${ch ? ' chart' : ''}"${attr}>
-    <div class="hb-name hp-name">${esc(st.name)}<b class="hp-buy">(매수)</b></div>
+    <div class="hb-name hp-name">${esc(st.name)}<b class="hp-st ${S.cls}">(${esc(S.txt)})</b></div>
     <span class="hm-t ${esc(st.t)}" title="${esc(PICK_TYPE[st.t] || '')}">${esc(st.t)}</span>
-    <span class="hm-st s${st.stage}">${st.stage}단계</span>
+    <span class="hm-st s${st.stage}">${esc(st.stage_txt)}</span>
+    ${side}
     <div class="hm-sub">
       <span class="now">${fmtWon(st.now)}원 ${Number(st.chg) > 0 ? '+' : ''}${Number(st.chg || 0).toFixed(1)}%</span>
-      <span class="hp-vol">1번 거래량 ${volTxt}</span>
-      <span class="hp-when">${esc(st.when)}</span>
-      ${b.join('')}
+      ${sub ? `<span class="d0">${esc(sub)}</span>` : ''}
     </div>
-    <p class="hp-line">${esc(line)}</p>
+    <p class="hp-line">${esc(st.why || '')}</p>
   </div>`;
 }
 
@@ -1545,10 +1564,10 @@ async function renderPick(){
   if(!box) return;
   document.querySelectorAll('#hotSeg button').forEach(x => x.classList.toggle('on', x.dataset.sec === 'pick'));
   if(!hotPick){
-    box.innerHTML = `<div class="hm-load">매수선별 자료를 받는 중…<br>잠긴 자료를 이 기기에서 풀고 있습니다.</div>`;
+    box.innerHTML = `<div class="hm-load">10단계 자료를 받는 중…<br>잠긴 자료를 이 기기에서 풀고 있습니다.</div>`;
     const got = await ensurePick();
     if(!got){
-      box.innerHTML = `<div class="empty">매수선별 자료를 불러오지 못했습니다.<br>잠시 후 다시 열어 주세요.</div>`;
+      box.innerHTML = `<div class="empty">10단계 자료를 불러오지 못했습니다.<br>잠시 후 다시 열어 주세요.</div>`;
       return;
     }
   }
@@ -1560,11 +1579,12 @@ async function renderPick(){
   const FLT = [['all', '전체'], ['A', '유형 A'], ['B', '유형 B'], ['C', '유형 C'], ['g45', '4→5 황금자리']];
   const flt = FLT.map(([k, lab]) => `<button type="button" data-f="${k}" class="`
     + `${pickFilter === k ? 'on' : ''}${k === 'g45' ? ' g45' : ''}">${lab} ${cntOf(k)}</button>`).join('');
-  if($('#hotSub')) $('#hotSub').textContent =
-    `매수선별 · ${hotPick.base_date_text || ''}${hotPick.generated_at_kst ? ' · ' + hotPick.generated_at_kst + ' 생성' : ''}`;
-  const head = `<div class="hp-head"><b>${all.filter(s => pickPass(s, pickFilter)).length}종목 (매수)</b>`
-    + `<span>${esc(hotPick.base_date_text || '')} · 살아있는 테마 ${cnt.live_themes || themes.length}개 · `
-    + `그 안 ${cnt.live_stocks || 0}종목 훑어 ${all.length}개만${pickFilter === 'all' ? '' : ` (고른 조건만)`}</span></div>`;
+  if($('#hotSub')) $('#hotSub').textContent = `10단계 · ${hotPick.base_date_text || ''}`;
+  const st = cnt.states || {};
+  const head = `<div class="hp-head"><b>${all.filter(s => pickPass(s, pickFilter)).length}종목</b>`
+    + `<span>${esc(hotPick.base_date_text || '')} · 생성 ${esc(hotPick.generated_at_kst || '')} · `
+    + `새로 ${cnt.new || 0} · 매수 ${st['매수'] || 0} · 보유 ${(st['돌파·보유'] || 0) + (st['분출·보유'] || 0)} · `
+    + `매도 ${(st['매도'] || 0) + (st['손절·매도'] || 0)}</span></div>`;
   const groups = [];
   themes.forEach(t => {
     const list = (t.stocks || []).filter(s => pickPass(s, pickFilter));
@@ -1578,15 +1598,15 @@ async function renderPick(){
       ${list.map(pickRowHtml).join('')}
     </div>`);
   });
-  const empty = `<div class="empty">오늘은 조건을 다 통과한 매수 자리가 없습니다.<br>`
-    + `억지로 채우지 않습니다 — 다음 거래일 장 마감 뒤 다시 채워집니다.</div>`;
+  const empty = `<div class="empty">오늘은 10단계 조건에 맞는 자리가 없습니다.<br>`
+    + `억지로 채우지 않습니다 — 다음 지정시간에 다시 확인합니다.</div>`;
+  const r = hotPick.rules || {};
   box.innerHTML = `<div class="hm-flt" id="hpFlt">${flt}</div>
     ${head}
     ${groups.join('') || (all.length ? `<div class="empty">고른 조건의 종목이 없습니다.</div>` : empty)}
-    <p class="hm-note">살아있는 테마 = 최근 ${hotPick.live_days || 20}거래일 안에 상한가가 난 테마(${esc(hotPick.live_since || '')} 이후)<br>
-    선 = 5일선 &gt; 10일선 &gt; 20일선 &gt; 60일선(정배열) 또는 5&gt;10&gt;20 이면서 20일선 상승(정배열 직전) ·
-    1번 거래량 = 1번 상한가 봉 거래량이 앞 125봉 최대의 1배 이상<br>
-    자리 = 4단계 음봉(4→5 황금자리) · 5단계 돌파 당일 · 3단계 상자(돌파 전) · 2단계에서 3번 반등 양봉이 오늘 — 종목을 누르면 차트</p>`;
+    <p class="hm-note"><b>4→5 황금자리</b> = 2번 기준선 사수 + 상자 안 2회 이상 왕복 + 최근 1~2일 거래량 ${r.vol4 || 0.7}배 이하로 마른 음봉(4단계), 또는 그 음봉 바로 뒤 윗선을 넘은 5단계 돌파 당일<br>
+    <b>9단계 멈춤</b> = 분출 뒤 ${Math.round(Math.abs(r.c_dd || 0.28) * 100)}% 이상 빠진 자리에서 15봉 폭 ${Math.round((r.c_rng || 0.18) * 100)}% 안 + 거래량 ${r.c_vol || 0.5}배 이하<br>
+    <b>테마</b> = theme_db 테마에 있는 종목만 · <b>앞/뒤</b> = 주봉 240선·월봉 120선 기준 · 종목을 누르면 일봉 38봉 차트</p>`;
 }
 
 /* ---------------- 핫바 카드 → 차트 모달 (일봉 · 주봉 · 월봉) ----------------
