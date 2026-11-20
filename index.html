@@ -397,17 +397,18 @@
   .hp-st.sell{color:#ffb4bf;background:rgba(255,90,110,.14);border:1px solid rgba(255,90,110,.5)}
   .hp-st.stop{color:#1a0608;background:linear-gradient(135deg,#ff8a9a,#ff5a6e)}
   .hp-st.watch{color:#c2cde0;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.24)}
-  /* 10단계 — 업종지수 배지 (강세 초록 · 바닥 노랑 · 약세 빨강) */
+  /* 10단계 — 업종지수 배지 (한국식: 호재 빨강 · 바닥 노랑 · 약세 파랑) */
   .hp-sec{flex:none;font-size:9.5px;font-weight:900;letter-spacing:-.2px;padding:1px 5px;border-radius:5px;white-space:nowrap}
-  .hp-sec.strong{color:#63e3ae;background:rgba(61,220,151,.12);border:1px solid rgba(61,220,151,.42)}
+  .hp-sec.strong{color:#ff8a9a;background:rgba(255,90,110,.15);border:1px solid rgba(255,90,110,.48)}
   .hp-sec.bottom{color:#ffe066;background:rgba(255,224,102,.1);border:1px solid rgba(255,224,102,.34)}
-  .hp-sec.weak{color:#ff9aa8;background:rgba(255,90,110,.12);border:1px solid rgba(255,90,110,.42)}
+  .hp-sec.weak{color:#93c5ff;background:rgba(79,140,255,.16);border:1px solid rgba(79,140,255,.5)}
   /* 10단계 — 지수 약세 줄 · 관망 접기 */
   .hp-mkt{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 7px;margin:0 1px 6px;font-size:10px;
     font-weight:800;color:#93a4bf;letter-spacing:-.2px}
   .hp-mkt .k{font-size:10px;font-weight:900;padding:1px 6px;border-radius:6px}
-  .hp-mkt .k.weak{color:#ffb4bf;background:rgba(255,90,110,.14);border:1px solid rgba(255,90,110,.45)}
-  .hp-mkt .k.ok{color:#63e3ae;background:rgba(61,220,151,.12);border:1px solid rgba(61,220,151,.4)}
+  /* 지수 배지도 한국식 — 약세는 파랑, 약세가 아닌 날은 혼조(노랑) */
+  .hp-mkt .k.weak{color:#9fc7ff;background:rgba(79,140,255,.16);border:1px solid rgba(79,140,255,.48)}
+  .hp-mkt .k.ok{color:#ffe066;background:rgba(255,224,102,.12);border:1px solid rgba(255,224,102,.4)}
   .hp-mkt b{color:#fff;font-weight:900}
   .hp-wbtn{width:100%;appearance:none;margin:6px 0 2px;border:1px dashed rgba(255,255,255,.2);
     background:rgba(255,255,255,.025);color:#93a4bf;font-family:inherit;font-size:10.5px;font-weight:800;
@@ -568,9 +569,9 @@
   .chart-rs{font-size:10px;color:#8fb2ff;margin-top:3px;line-height:1.4;letter-spacing:-.1px}
   /* 차트 상단 한 줄 — 그 종목이 속한 업종지수 흐름 */
   .chart-sec{font-size:10px;font-weight:800;margin-top:3px;line-height:1.4;letter-spacing:-.1px}
-  .chart-sec.strong{color:#63e3ae}
+  .chart-sec.strong{color:#ff8a9a}
   .chart-sec.bottom{color:#ffe066}
-  .chart-sec.weak{color:#ff9aa8}
+  .chart-sec.weak{color:#93c5ff}
   .chart-x{flex:none;width:28px;height:28px;border-radius:9px;border:1px solid var(--line);
     background:rgba(255,255,255,.05);color:var(--dim);font-size:14px;font-family:inherit;cursor:pointer}
   .chart-x:active{background:rgba(255,255,255,.12)}
@@ -1560,8 +1561,9 @@ function pickChartItem(st){
   };
 }
 
-/* 업종 배지 한 개 — 업종명 + 강세/바닥/약세 */
-const SEC_CLS = {'강세':'strong','바닥':'bottom','약세':'weak'};
+/* 업종 배지 한 개 — 업종명 + 호재/바닥/약세 (한국식 색: 호재 빨강 · 바닥 노랑 · 약세 파랑)
+   예전 자료에 남은 '강세'도 같은 빨강으로 읽는다. */
+const SEC_CLS = {'호재':'strong','강세':'strong','바닥':'bottom','약세':'weak'};
 function sectorBadge(sec){
   if(!sec || !sec.state) return '';
   const c = SEC_CLS[sec.state] || 'weak';
@@ -1674,8 +1676,8 @@ async function renderPick(){
     ${body}
     <p class="hm-note"><b>4→5 황금자리</b> = 2번 기준선 사수 + 상자 안 2회 이상 왕복 + 최근 1~2일 거래량 ${r.vol4 || 0.7}배 이하로 마른 음봉(4단계), 또는 그 음봉 바로 뒤 윗선을 넘은 5단계 돌파 당일<br>
     <b>9단계 멈춤</b> = 분출 뒤 ${Math.round(Math.abs(r.c_dd || 0.28) * 100)}% 이상 빠진 자리에서 15봉 폭 ${Math.round((r.c_rng || 0.18) * 100)}% 안 + 거래량 ${r.c_vol || 0.5}배 이하<br>
-    <b>관망</b> = 지수가 약세(당일 ${flt2.weak_day || -2}% 이하 또는 5일선&lt;20일선)인 날, 지수와 같이 꺾여 밀린 종목 — 지수보다 ${flt2.elite_gap || 2.5}%p 이상 덜 빠지고 앞쪽·기준선 +${flt2.base_margin || 5}% 위이거나 업종이 강세/바닥으로 버텨야 (매수)<br>
-    <b>업종</b> = 네이버 업종지수 흐름 강세(초록)·바닥(노랑)·약세(빨강) · <b>테마</b> = theme_db 테마에 있는 종목만 · <b>앞/뒤</b> = 주봉 240선·월봉 120선 기준 · 종목을 누르면 일봉 38봉 차트</p>`;
+    <b>관망</b> = 지수가 약세(당일 ${flt2.weak_day || -2}% 이하 또는 5일선&lt;20일선)인 날, 지수와 같이 꺾여 밀린 종목 — 지수보다 ${flt2.elite_gap || 2.5}%p 이상 덜 빠지고 앞쪽·기준선 +${flt2.base_margin || 5}% 위이거나 업종이 호재/바닥으로 버텨야 (매수)<br>
+    <b>업종</b> = 네이버 업종지수 흐름 호재(빨강)·바닥(노랑)·약세(파랑) · <b>테마</b> = theme_db 테마에 있는 종목만 · <b>앞/뒤</b> = 주봉 240선·월봉 120선 기준 · 종목을 누르면 일봉 38봉 차트</p>`;
   const wb = $('#hpWbtn'), wp = $('#hpWatch');
   if(wb && wp) wb.onclick = () => {
     const open = wp.hasAttribute('hidden');
