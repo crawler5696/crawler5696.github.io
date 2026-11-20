@@ -83,11 +83,15 @@
   .refresh{width:29px;height:29px;border-radius:9px;border:1px solid var(--line);background:var(--card);
     color:var(--dim);display:grid;place-items:center;font-size:14px;flex:none;cursor:pointer;transition:.2s}
   .refresh:active{transform:scale(.92);background:var(--card2)}
+  /* 공지 다시 보기 — 헤더의 작은 📢 */
+  .ntbtn{width:29px;height:29px;border-radius:9px;border:1px solid var(--line);background:var(--card);
+    color:var(--dim);display:grid;place-items:center;font-size:13px;flex:none;cursor:pointer;transition:.2s}
+  .ntbtn:active{transform:scale(.92);background:var(--card2)}
   .refresh.spinning{animation:spin .8s linear infinite}
   @keyframes spin{to{transform:rotate(360deg)}}
 
-  /* ---------- 탭 (비밀 모드에서만 핫바가 더 붙는다) ---------- */
-  .tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;padding:0 0 6px}
+  /* ---------- 탭 (다섯 칸 고정 — 핫바는 잠긴 채로 늘 보이고, 눌러야 잠금 화면이 뜬다) ---------- */
+  .tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:3px;padding:0 0 6px}
   .tab{
     appearance:none;border:1px solid var(--line);background:rgba(255,255,255,.03);
     color:var(--dim);font-family:inherit;font-size:12px;font-weight:700;letter-spacing:-.3px;
@@ -309,10 +313,32 @@
     background:rgba(255,255,255,.04);border:1px solid var(--line);
     padding:1px 5px;border-radius:5px;white-space:nowrap}
 
-  /* ---------- 핫바 (비밀 모드에서만 보인다) ---------- */
-  .tabs.five{grid-template-columns:repeat(5,1fr)}
+  /* ---------- 핫바 (본인 전용 — 잠긴 동안은 잠금 화면만) ---------- */
   .tab[hidden]{display:none}
-  @media (max-width:410px){ .tabs.five .tab{font-size:10.4px;letter-spacing:-.5px} }
+  /* 잠긴 핫바 탭 — 다른 탭과 같은 모양이되 열쇠가 붙고, 선택돼도 파랗게 빛나지 않는다 */
+  .tab.hot .lk{font-size:10px;line-height:1;opacity:.9;font-weight:400}
+  .tab.hot[aria-selected="true"]{background:linear-gradient(135deg,#243049,#332b52);
+    box-shadow:none;color:#cfd8ea;border-color:rgba(255,255,255,.14)}
+  @media (max-width:410px){ .tabs .tab{font-size:10.4px;letter-spacing:-.4px;padding:6px 1px} }
+  @media (max-width:360px){ .tabs .tab{font-size:9.8px;letter-spacing:-.5px} }
+  /* 잠금 화면 — 핫바 안쪽 자료 자리에 앉는다(자료는 아예 그리지 않는다) */
+  .hot-lock{display:none;max-width:340px;margin:34px auto 0;text-align:center;padding:0 6px}
+  #view-hotbar.locked .hot-lock{display:block}
+  .hot-lock .ico{font-size:30px;line-height:1;margin-bottom:8px;filter:saturate(.9)}
+  .hot-lock b{display:block;font-size:14.5px;font-weight:900;letter-spacing:-.4px;color:#e8eefc}
+  .hot-lock p{font-size:11.5px;font-weight:600;color:var(--dim2);line-height:1.6;margin:7px 0 0}
+  .hl-row{display:flex;gap:5px;margin-top:14px}
+  .hl-row input{flex:1;min-width:0;appearance:none;border:1px solid var(--line);border-radius:10px;
+    background:rgba(255,255,255,.04);color:var(--txt);font-family:inherit;font-size:15px;
+    font-weight:800;letter-spacing:5px;text-align:center;padding:9px 8px}
+  .hl-row input:focus{outline:none;border-color:rgba(79,140,255,.6);background:rgba(79,140,255,.08)}
+  .hl-row button{flex:none;appearance:none;border:1px solid transparent;border-radius:10px;
+    background:linear-gradient(135deg,#4f8cff,#7c5cff);color:#fff;font-family:inherit;
+    font-size:12.5px;font-weight:800;padding:0 16px;cursor:pointer}
+  .hl-row button:active{opacity:.85}
+  .hl-err{color:#ff9aa8 !important;font-size:11px !important;margin-top:8px !important;font-weight:800 !important}
+  .hot-lock .hl-tip{margin-top:12px;font-size:10.5px;color:#5f6f8c}
+  #view-hotbar.locked #hotInner{display:none}
   .hb-seg{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin:2px 0 6px}
   .hb-seg button{appearance:none;border:1px solid var(--line);background:rgba(255,255,255,.03);
     color:var(--dim);font-family:inherit;font-size:11.6px;font-weight:800;letter-spacing:-.3px;
@@ -637,6 +663,37 @@
     opacity:0;pointer-events:none;z-index:30;transition:opacity .16s ease,transform .16s ease}
   .toast.show{opacity:1;transform:translate(-50%,0)}
   @media (prefers-reduced-motion:reduce){ .toast{transition:none} }
+
+  /* ---------- 공지사항 창 (처음 한 번 · 헤더 📢 로 다시 보기) ---------- */
+  .nt-ov{position:fixed;inset:0;z-index:45;display:flex;align-items:center;justify-content:center;padding:14px;
+    background:rgba(4,8,18,.78);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);
+    opacity:0;transition:opacity .16s ease}
+  .nt-ov[hidden]{display:none}
+  .nt-ov.show{opacity:1}
+  .nt-box{width:100%;max-width:400px;max-height:calc(100dvh - 28px);overflow:auto;
+    background:linear-gradient(180deg,#141d33,#0e1730);border:1px solid rgba(255,255,255,.12);
+    border-radius:16px;padding:15px 15px 13px;box-shadow:0 22px 60px rgba(0,0,0,.6);
+    transform:translateY(8px) scale(.98);transition:transform .18s ease}
+  .nt-ov.show .nt-box{transform:none}
+  .nt-top{display:flex;align-items:center;gap:7px}
+  .nt-top .ico{font-size:18px;line-height:1}
+  .nt-top h2{flex:1;margin:0;font-size:15.5px;font-weight:900;letter-spacing:-.4px;color:#fff}
+  .nt-x{flex:none;width:26px;height:26px;border-radius:8px;border:1px solid var(--line);
+    background:rgba(255,255,255,.04);color:var(--dim);font-family:inherit;font-size:13px;cursor:pointer}
+  .nt-sub{margin:4px 0 11px;font-size:10.5px;font-weight:700;color:var(--dim2);letter-spacing:-.1px}
+  .nt-it{display:flex;gap:8px;padding:9px 0;border-top:1px solid rgba(255,255,255,.065)}
+  .nt-n{flex:none;width:18px;height:18px;margin-top:1px;border-radius:6px;display:grid;place-items:center;
+    font-size:10px;font-weight:900;color:#9dbcff;background:rgba(79,140,255,.16);border:1px solid rgba(79,140,255,.45)}
+  .nt-c{flex:1;min-width:0}
+  .nt-c b{display:block;font-size:12.5px;font-weight:900;letter-spacing:-.2px;color:#e8eefc}
+  .nt-c p{margin:2px 0 0;font-size:11.3px;line-height:1.6;color:#a9b7cd;letter-spacing:-.1px;word-break:keep-all}
+  .nt-c p em{font-style:normal;color:#9fc0ff;font-weight:800}
+  .nt-ok{width:100%;margin-top:13px;appearance:none;border:0;border-radius:12px;cursor:pointer;
+    background:linear-gradient(135deg,#4f8cff,#7c5cff);color:#fff;font-family:inherit;
+    font-size:13.5px;font-weight:900;letter-spacing:-.2px;padding:12px;
+    box-shadow:0 4px 16px rgba(79,140,255,.32)}
+  .nt-ok:active{opacity:.86}
+  .nt-foot{margin-top:7px;text-align:center;font-size:9.5px;font-weight:600;color:#5f6f8c;letter-spacing:-.1px}
 </style>
 </head>
 <body>
@@ -649,6 +706,7 @@
       <span class="mood" id="moodUs" hidden></span>
       <div class="spacer"></div>
       <div class="live" id="live"><span class="dot"></span><span id="liveTxt">LIVE</span></div>
+      <button class="ntbtn" id="btnNotice" type="button" aria-label="공지사항 보기" title="공지사항">📢</button>
       <button class="refresh" id="btnRefresh" aria-label="새로고침" title="새로고침 — 최신 뉴스를 지금 다시 받아옵니다">⟳</button>
     </div>
     <div class="kkwrap"><a class="kk" href="https://open.kakao.com/o/gcRXomRg" target="_blank" rel="noopener noreferrer" aria-label="발몽레정 카카오톡 오픈채팅방 열기">💬 발몽레정 여기로 놀러오세요! 👉 <b>클릭</b></a></div>
@@ -657,7 +715,7 @@
       <button class="tab" role="tab" data-tab="upper" aria-selected="false">🚀 상한가</button>
       <button class="tab" role="tab" data-tab="calendar" aria-selected="false">📅 테마달력</button>
       <button class="tab radar" role="tab" data-tab="radar" aria-selected="false" aria-label="레이더">레이더<span class="rdot" id="radarDot" aria-hidden="true"></span></button>
-      <button class="tab hot" role="tab" data-tab="hotbar" aria-selected="false" hidden>핫바</button>
+      <button class="tab hot" role="tab" data-tab="hotbar" aria-selected="false" aria-label="핫바(비밀번호 필요)"><span class="lk" id="hotLk" aria-hidden="true">🔒</span>핫바</button>
     </div>
   </div>
 </header>
@@ -701,6 +759,18 @@
   </section>
 
   <section class="view" data-view="hotbar" id="view-hotbar" hidden>
+    <div class="hot-lock" id="hotLock">
+      <div class="ico">🔒</div>
+      <b>핫바는 본인 전용입니다</b>
+      <p>뉴스 · 상한가 · 테마달력 · 레이더와 일봉 125봉 차트는 누구나 볼 수 있습니다.<br>핫바는 비밀코드를 넣어야 열립니다.</p>
+      <div class="hl-row">
+        <input id="hotCode" type="password" inputmode="numeric" autocomplete="off" enterkeyhint="go" placeholder="비밀코드" maxlength="12" aria-label="비밀코드">
+        <button id="hotGo" type="button">열기</button>
+      </div>
+      <p class="hl-err" id="hotErr" hidden>비밀코드가 맞지 않습니다</p>
+      <p class="hl-tip">본인이면 상단 <b>LIVE</b> 배지를 1.5초 안에 세 번 눌러도 열 수 있습니다.</p>
+    </div>
+    <div id="hotInner">
     <div class="viewhead"><b>핫바</b><span id="hotSub"></span></div>
     <div class="hb-seg" id="hotSeg">
       <button type="button" data-sec="day" class="on">일봉</button>
@@ -711,6 +781,7 @@
     <div id="hotScore"></div>
     <div id="hotBody">
       <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
+    </div>
     </div>
   </section>
 
@@ -744,6 +815,35 @@
   </div>
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<!-- 공지사항 — 처음 한 번 뜨고, [확인] 을 누르면 그 기기에서는 다시 뜨지 않는다 (헤더 📢 로 언제든 다시 보기) -->
+<div class="nt-ov" id="noticeOv" hidden>
+  <div class="nt-box" role="dialog" aria-modal="true" aria-labelledby="ntTitle">
+    <div class="nt-top">
+      <span class="ico" aria-hidden="true">📢</span>
+      <h2 id="ntTitle">뉴스레이더 안내</h2>
+      <button class="nt-x" id="ntX" type="button" aria-label="공지 닫기">✕</button>
+    </div>
+    <p class="nt-sub">처음 한 번만 뜨는 안내입니다 · <b>[확인]</b> 을 누르면 다시 뜨지 않습니다</p>
+    <div class="nt-it">
+      <span class="nt-n">1</span>
+      <div class="nt-c"><b>지인 공개</b>
+        <p><em>뉴스 · 상한가 · 테마달력 · 레이더</em> 네 메뉴와 종목별 <em>일봉 125봉 차트(5·10·20·60일선)</em> 는 누구나 바로 볼 수 있습니다. <em>🔒 핫바</em> 탭만 비밀번호로 잠긴 개인 전용입니다.</p></div>
+    </div>
+    <div class="nt-it">
+      <span class="nt-n">2</span>
+      <div class="nt-c"><b>지정시간 자동 업데이트</b>
+        <p>평일 지정시간마다 뉴스와 차트가 자동으로 갱신됩니다. 화면 위 <em>⟳</em> 를 누르면 지금 바로 새로 받아옵니다.</p></div>
+    </div>
+    <div class="nt-it">
+      <span class="nt-n">3</span>
+      <div class="nt-c"><b>투자 참고용</b>
+        <p>이 사이트의 모든 정보는 개인 학습·참고용이며 <em>투자 권유가 아닙니다</em>. 판단과 책임은 투자자 본인에게 있습니다.</p></div>
+    </div>
+    <button class="nt-ok" id="ntOk" type="button">확인 (다시 보지 않기)</button>
+    <p class="nt-foot">다시 보려면 화면 위 📢 를 누르세요</p>
+  </div>
+</div>
 
 <script>
 const state = { data:null, calendar:null, radar:null, month:null, tab:'news', more:false, open:new Set(), hotOpen:new Set() };
@@ -805,7 +905,6 @@ function issueList(){
 /* ---------------- 탭 ---------------- */
 function switchTab(name, keepScroll){
   if(!TABS.includes(name)) name = 'news';
-  if(name === 'hotbar' && !visOn()) name = 'news';   /* 핫바는 비밀 모드에서만 */
   state.tab = name;
   document.querySelectorAll('.tab').forEach(b => b.setAttribute('aria-selected', b.dataset.tab === name));
   document.querySelectorAll('.view').forEach(v => { v.hidden = v.dataset.view !== name; });
@@ -822,7 +921,7 @@ function switchTab(name, keepScroll){
 function leadBadge(leaders){
   const names = (leaders||[]).filter(Boolean).slice(0,2);
   if(!names.length) return '';
-  const html = names.map(nm => `<span class="lead-c" data-name="${esc(nm)}" role="button" tabindex="0" title="주봉 차트 보기">${esc(nm)}</span>`).join(' · ');
+  const html = names.map(nm => `<span class="lead-c" data-name="${esc(nm)}" role="button" tabindex="0" title="일봉 125봉 차트 보기">${esc(nm)}</span>`).join(' · ');
   return `<span class="sep">·</span><span class="lead" title="${esc(names.join(' · '))}"><b>🏢</b>${html}</span>`;
 }
 
@@ -1022,7 +1121,7 @@ function upperCardHtml(it, i){
   return `<article class="up-card">
     <div class="up-top">
       <span class="up-no">${i + 1}</span>
-      <span class="up-name"${it.code ? ` data-code="${esc(it.code)}" data-name="${esc(it.name || '')}" role="button" tabindex="0" title="주봉 차트 보기"` : ''}>${esc(it.name)}</span>
+      <span class="up-name"${it.code ? ` data-code="${esc(it.code)}" data-name="${esc(it.name || '')}" role="button" tabindex="0" title="일봉 125봉 차트 보기"` : ''}>${esc(it.name)}</span>
       <span class="up-mk">${esc(it.market || '')}</span>
       <span class="up-price">${esc(it.price_text || '')}원</span>
       <span class="up-rate">+${rate}%</span>
@@ -1075,7 +1174,7 @@ function stkHtml(s){
   const ds = s.dates || [];
   const show = ds.slice(-4).map(d => { const p = String(d).split('-'); return (+p[1]) + '/' + (+p[2]); });
   const more = ds.length > 4 ? ` +${ds.length - 4}` : '';
-  return `<span class="stk"${s.code ? ` data-code="${esc(s.code)}" data-name="${esc(s.name)}" role="button" tabindex="0" title="주봉 차트 보기"` : ''}><b>${esc(s.name)}</b><i>${show.join('·')}${more}</i></span>`;
+  return `<span class="stk"${s.code ? ` data-code="${esc(s.code)}" data-name="${esc(s.name)}" role="button" tabindex="0" title="일봉 125봉 차트 보기"` : ''}><b>${esc(s.name)}</b><i>${show.join('·')}${more}</i></span>`;
 }
 
 async function renderCalendar(){
@@ -1177,7 +1276,7 @@ async function ensureRadar(){
 
 function radarStockHtml(s){
   const drop = (s.drop === 0 || s.drop) ? String(s.drop) : '';
-  return `<div class="rd-stk"${s.code ? ` data-code="${esc(s.code)}" data-name="${esc(s.name)}" role="button" tabindex="0" title="주봉 차트 보기"` : ''}><b>${esc(s.name)}</b>` +
+  return `<div class="rd-stk"${s.code ? ` data-code="${esc(s.code)}" data-name="${esc(s.name)}" role="button" tabindex="0" title="일봉 125봉 차트 보기"` : ''}><b>${esc(s.name)}</b>` +
     (s.price_text ? `<span class="px">${esc(s.price_text)}</span>` : '') +
     (drop ? `<span class="drp" title="1년 고점 대비 ${esc(drop)} 내려온 자리">${esc(drop)}</span>` : '') +
     `</div>`;
@@ -1471,7 +1570,11 @@ function scoreHtml(sc){
 }
 
 async function renderHotbar(){
-  if(!visOn()) return;
+  if(!visOn()){                       /* 잠겨 있으면 잠금 화면만 — 안쪽 자료는 그리지 않는다 */
+    const box = $('#hotBody');
+    if(box) box.innerHTML = '';
+    return;
+  }
   const box = $('#hotBody');
   if(!box) return;
   if(hotbarSec === 'pick'){ await renderPick(); return; }
@@ -1725,8 +1828,8 @@ function chartSvgHtml(s){
   const lineDay = (!plain && p === 'day' && s.line) ? Number(s.line) : 0;   /* 일봉 = 2번 자리(살 줄) */
   const base = plain ? 0 : (lineDay || Number(s.base_open) || 0);
   const refVol = Number(s.ref_vol) || 0;
-  /* 이동평균선 — 일봉이고 60봉 이상 있을 때만(주봉·월봉·공개 차트는 기존대로 깔끔히) */
-  const MAS = (!plain && p === 'day' && s.mas && all.length >= 60)
+  /* 이동평균선 5·10·20·60 — 일봉이고 60봉 이상일 때. 공개 일봉 125봉 차트에도 같은 선을 깐다 */
+  const MAS = (p === 'day' && s.mas && all.length >= 60)
     ? [[5, '#ff9ecb'], [10, '#4fd6ff'], [20, '#63e3ae'], [60, '#a78bfa']] : [];
   const maVal = {};
   if(MAS.length){
@@ -1851,7 +1954,7 @@ function chartDayNote(s){
   try{ today = new Date().toLocaleDateString('en-CA', {timeZone:'Asia/Seoul'}); }catch(e){ today = ''; }
   const last = String(cs[cs.length - 1][0] || '');
   if(!today || last === today) return '';
-  return `<span class="chart-note">차트는 ${barName(s, last)} 종가까지 · 오늘 장중 가격은 위 현재가</span>`;
+  return `<span class="chart-note">차트는 ${barName(s, last)} 종가까지${s.plain ? '' : ' · 오늘 장중 가격은 위 현재가'}</span>`;
 }
 
 function chartReadText(s, i){
@@ -1895,11 +1998,18 @@ function hotbarStock(code, secKey){
 function chartLegendHtml(s){
   const p = periodOf(s), pd = PERIOD[p];
   if(s.plain){
-    /* 공개 주봉 — 시세만. 기준선·단계 번호 같은 개인 자는 하나도 그리지 않는다 */
-    return [`<span>${pd.t} ${(s.candles || []).length}봉 · 종가와 거래량만</span>`,
-            `<span>기준선 없음</span>`,
-            `<span style="color:#ff8a9a">■ 양봉</span><span style="color:#7fa8ff">■ 음봉</span>`,
-            chartDayNote(s)].join('');
+    /* 공개 일봉 125봉 — 시세와 5·10·20·60일선만. 기준선·단계 번호 같은 개인 자는 하나도 그리지 않는다 */
+    const cs = s.candles || [];
+    const val = k => cs.length >= k ? cs.slice(-k).reduce((a, x) => a + x[4], 0) / k : null;
+    const parts = [`<span>${pd.t} ${cs.length}봉 · 종가와 거래량</span>`];
+    [[5, 'm5'], [10, 'm10'], [20, 'm20'], [60, 'm60']].forEach(([k, cls]) => {
+      const v = val(k);
+      if(v) parts.push(`<span><i class="cm ${cls}">${k}일</i>${fmtWon(v)}</span>`);
+    });
+    parts.push('<span style="color:#7e8aa0">선 순서 5&gt;10&gt;20&gt;60 이면 정배열</span>');
+    parts.push('<span style="color:#ff8a9a">■ 양봉</span><span style="color:#7fa8ff">■ 음봉</span>');
+    parts.push(chartDayNote(s));
+    return parts.join('');
   }
   const parts = [];
   const sd = s.stage_dates || {};
@@ -1970,7 +2080,7 @@ function openChart(s){
     `<div class="chart-nm" id="chartNm">${esc(s.name)}${s.aplus === 'A++' ? '<span class="hb-aplus">A++</span>' : ''}<span class="chart-cd">${esc(String(s.code || ''))}</span><span class="chart-pd">${pd.t}</span></div>`
     + `<div class="chart-px"><b>${esc(s.price_text || (fmtWon(s.price) + '원'))}</b>`
     + `<span class="chart-chg ${cls}">${chg > 0 ? '+' : ''}${chg.toFixed(1)}%</span>`
-    + ((s.plain && s.dd != null) ? `<span class="chart-dd">${s.dd.toFixed(1)}%</span>` : '')
+    + ((s.plain && s.dd != null) ? `<span class="chart-dd" title="차트 안 최고가 대비">${s.dd.toFixed(1)}%</span>` : '')
     + `</div>`
     + (s.reason ? `<div class="chart-rs">${esc(s.reason)}</div>` : '')
     + (s.sector && s.sector.state
@@ -1992,25 +2102,27 @@ function openChart(s){
   document.body.classList.add('lock');
 }
 
-/* 확대 전환 — 매수선별 일봉은 최근 38봉으로 열리고, 누르면 전체 90봉으로 넓힌다 */
+/* 확대 전환 — 매수선별 일봉은 최근 38봉, 공개 일봉 125봉은 최근 60봉으로 좁혀 보고,
+   누르면 전체로 넓힌다 */
 function paintZoom(){
   const box = $('#chartTools'), btn = $('#chartZoom'), hint = $('#chartHint');
   if(!box || !btn) return;
   const s = chartCur, all = (s && s.candles) || [];
   const full = Number(s && s.full) || 0;
-  const on = !!full && all.length > Number(s.view || 0);
+  const zt = Number(s && s.zoomTo) || 38;
+  const on = !!full && full > zt;
   box.hidden = !on;
   if(!on) return;
   const viewing = Math.min(Number(s.view) || all.length, all.length);
-  btn.textContent = viewing < full ? `전체 ${full}봉` : `최근 ${38}봉`;
-  if(hint) hint.textContent = viewing < full ? `지금 최근 ${viewing}봉 확대 · 1번 상한가 이후 구간` : `지금 전체 ${full}봉`;
+  btn.textContent = viewing < full ? `전체 ${full}봉` : `최근 ${zt}봉`;
+  if(hint) hint.textContent = viewing < full ? `지금 최근 ${viewing}봉 확대` : `지금 전체 ${full}봉`;
 }
 function toggleZoom(){
   const s = chartCur;
   if(!s) return;
-  const full = Number(s.full) || 0;
-  if(!full) return;
-  s.view = (Number(s.view) === full) ? 38 : full;
+  const full = Number(s.full) || 0, zt = Number(s.zoomTo) || 38;
+  if(!full || full <= zt) return;
+  s.view = (Number(s.view) === full) ? zt : full;
   $('#chartSvg').innerHTML = chartSvgHtml(s);
   $('#chartRead').innerHTML = chartReadText(s);
   paintZoom();
@@ -2047,56 +2159,62 @@ function chartPoint(e){
   }
 }
 
-/* ---------------- 다른 메뉴의 종목 → 기준선 없는 주봉 차트 ----------------
-   뉴스·상한가·테마달력·레이더는 누구나 보는 공개 화면이다. 여기서 여는 차트에는
-   기준선·1~10단계·앞쪽/뒷쪽·유형 같은 개인 자를 하나도 넣지 않고, 공개 시세만 담은
-   data/week.json(종목별 주봉 52주)으로 시세와 거래량만 그린다.
+/* ---------------- 다른 메뉴의 종목 → 공개 일봉 125봉 차트 ----------------
+   뉴스·상한가·테마달력·레이더는 누구나 보는 공개 화면이다. 여기서 종목을 누르면
+   공개 시세만 담은 data/day125.json(종목별 일봉 125봉)으로 일봉 차트를 그리고,
+   그 위에 5·10·20·60일 이동평균선을 깐다(2026-11-21 지시: 주봉 52주 → 일봉 125봉 통일).
+   기준선·1~10단계·앞쪽/뒷쪽·유형·점수 같은 개인 자는 하나도 그리지 않는다.
    비밀 핫바가 잠겨 있어도, 열려 있어도 이 차트는 같은 공개 자료만 본다. */
-let weekDoc = null, weekLoading = null;
-const WEEK_CODE_KEY = 'newsradar_week';
+let dayDoc = null, dayLoading = null;
+const DAY_CODE_KEY = 'newsradar_day125';
 
-async function ensureWeek(){
-  if(weekDoc) return weekDoc;
-  if(weekLoading) return weekLoading;
-  weekLoading = (async () => {
+async function ensureDay(){
+  if(dayDoc) return dayDoc;
+  if(dayLoading) return dayLoading;
+  dayLoading = (async () => {
     try{
-      const res = await fetch('data/week.json?_=' + Date.now(), {cache:'no-store'});
+      const res = await fetch('data/day125.json?_=' + Date.now(), {cache:'no-store'});
       if(res.ok){
-        weekDoc = await res.json();
-        try{ localStorage.setItem(WEEK_CODE_KEY, JSON.stringify(weekDoc)); }catch(e){}
+        dayDoc = await res.json();
+        try{ localStorage.setItem(DAY_CODE_KEY, JSON.stringify(dayDoc)); }catch(e){}
       }
-    }catch(e){ weekDoc = null; }
-    if(!weekDoc){
-      try{ weekDoc = JSON.parse(localStorage.getItem(WEEK_CODE_KEY) || 'null'); }catch(e){}
+    }catch(e){ dayDoc = null; }
+    if(!dayDoc){
+      try{ dayDoc = JSON.parse(localStorage.getItem(DAY_CODE_KEY) || 'null'); }catch(e){}
     }
-    weekLoading = null;
-    return weekDoc;
+    dayLoading = null;
+    return dayDoc;
   })();
-  return weekLoading;
+  return dayLoading;
 }
 
-function weekItem(code, name){
-  const s = weekDoc && weekDoc.stocks && weekDoc.stocks[String(code)];
+/* 종목 하나의 봉 — 날짜는 한 벌(dayDoc.dates)에 있고, 종목은 그 안의 자리(o0 / x)만 갖는다 */
+function dayItem(code, name){
+  const s = dayDoc && dayDoc.stocks && dayDoc.stocks[String(code)];
   if(!s || !(s.b || []).length) return null;
-  const cs = s.b.map((x, i) => [ymd6(s.d[i]), x[0], x[1], x[2], x[3], x[4]]);
+  const dates = dayDoc.dates || [];
+  const xs = s.x || s.b.map((_, i) => (Number(s.o0) || 0) + i);
+  const cs = s.b.map((x, i) => [ymd6(dates[xs[i]]), x[0], x[1], x[2], x[3], x[4]]);
   const last = cs[cs.length - 1], prev = cs[cs.length - 2] || last;
-  /* 52주(차트에 담긴 주봉) 최고가와 지금 종가의 거리 — "최고가 대비 -XX.X%" */
+  /* 125봉 안 최고가와 지금 종가의 거리 — "최고가 대비 -XX.X%" */
   let hi = cs[0];
   cs.forEach(c => { if(c[2] > hi[2]) hi = c; });
   const dd = hi[2] ? (last[4] / hi[2] - 1) * 100 : null;
   return {
-    code: String(code), name: name || s.n || '', period: 'week', plain: 1, candles: cs,
+    code: String(code), name: name || s.n || '', period: 'day', plain: 1, mas: 1,
+    candles: cs, full: cs.length, view: cs.length, zoomTo: 60,
     price: last[4], price_text: fmtWon(last[4]) + '원',
     chg: prev[4] ? (last[4] / prev[4] - 1) * 100 : 0,
     hi_price: hi[2], hi_date: hi[0], dd: dd, bars: cs.length,
   };
 }
 
-async function openWeekChart(code, name){
-  if(!weekDoc) toast('주봉 차트 불러오는 중…');
-  const d = await ensureWeek();
-  const it = weekItem(code, name);
-  if(!it){ toast('이 종목 주봉 시세가 아직 없습니다'); return; }
+async function openDayChart(code, name){
+  const have = dayDoc && dayDoc.stocks && dayDoc.stocks[String(code)];
+  if(!have) toast('일봉 차트 불러오는 중…');
+  await ensureDay();
+  const it = dayItem(code, name);
+  if(!it){ toast('이 종목 일봉 시세가 아직 없습니다'); return; }
   openChart(it);
 }
 
@@ -2104,7 +2222,7 @@ async function openWeekChart(code, name){
 function codeOfName(nm){
   nm = String(nm || '').trim();
   if(!nm) return '';
-  if(weekDoc && weekDoc.names && weekDoc.names[nm]) return weekDoc.names[nm];
+  if(dayDoc && dayDoc.names && dayDoc.names[nm]) return dayDoc.names[nm];
   const cal = state.calendar;
   for(const m of ((cal && cal.months) || [])){
     for(const t of (m.themes || [])){
@@ -2122,7 +2240,7 @@ function codeOfName(nm){
   return '';
 }
 
-/* 다른 메뉴의 종목 이름·칩을 누르면 그 자리에서 주봉 차트가 열린다 */
+/* 다른 메뉴의 종목 이름·칩을 누르면 그 자리에서 일봉 125봉 차트가 열린다 */
 function bindStockChart(sel){
   const el = $(sel);
   if(!el) return;
@@ -2132,10 +2250,10 @@ function bindStockChart(sel){
     if(t.dataset && t.dataset.code === '') { /* 코드를 모르는 자리 */ }
     const code = t.dataset.code || codeOfName(t.dataset.name);
     const name = t.dataset.name || (t.textContent || '').trim();
-    if(!code) { toast('이 종목 주봉 시세가 아직 없습니다'); e.preventDefault(); e.stopPropagation(); return; }
+    if(!code) { toast('이 종목 일봉 시세가 아직 없습니다'); e.preventDefault(); e.stopPropagation(); return; }
     e.preventDefault();
     e.stopPropagation();
-    openWeekChart(code, name);
+    openDayChart(code, name);
   });
 }
 
@@ -2412,16 +2530,23 @@ function visPaint(){
   if(!visBadge.hidden) visNumber();
   hotPaint();
 }
-/* 핫바도 같은 비밀 인증을 따른다 — 켜져 있을 때만 탭이 나타나고, 끄면 탭째로 사라진다 */
+/* 핫바도 같은 비밀 인증을 따른다 — 탭은 늘 보이되, 잠겨 있으면 열쇠가 붙고 잠금 화면만 뜬다 */
 function hotPaint(){
   const on = visOn();
   const tab = document.querySelector('.tab.hot');
-  if(tab) tab.hidden = !on;
-  const bar = document.querySelector('.tabs');
-  if(bar) bar.classList.toggle('five', on);
-  /* 잠그면 매수선별도 기억에서 지운다(다시 열 때 그 기기에서 새로 푼다) */
-  if(!on){ hotPick = null; hotPickLoading = null; pickFilter = 'all'; }
-  if(!on && state.tab === 'hotbar') switchTab('news');
+  if(tab) tab.classList.toggle('locked', !on);
+  const lk = $('#hotLk');
+  if(lk) lk.textContent = on ? '' : '🔒';
+  const view = $('#view-hotbar');
+  if(view) view.classList.toggle('locked', !on);
+  /* 잠그면 매수선별도 기억에서 지우고, 화면에 남은 자료도 바로 지운다 */
+  if(!on){
+    hotPick = null; hotPickLoading = null; pickFilter = 'all';
+    ['#hotBody', '#hotScore'].forEach(sel => { const el = $(sel); if(el) el.innerHTML = ''; });
+    const sub = $('#hotSub'); if(sub) sub.textContent = '';
+  }
+  /* 핫바 탭에 서 있으면 그 자리 화면을 다시 그린다 — 잠겼으면 잠금 화면, 열렸으면 자료 */
+  if(state.tab === 'hotbar') renderHotbar();
 }
 /* 비밀코드를 묻고, 맞으면 풀어서 연다(틀리면 아무것도 열리지 않는다) */
 function visToggle(){
@@ -2457,6 +2582,64 @@ async function unlockHotbar(code){
   }catch(e){ return false; }
 }
 visPaint();
+/* 잠금 화면 — 비밀코드를 넣으면 그 기기에서만 열린다(틀리면 아무것도 열리지 않는다) */
+(function(){
+  const go = $('#hotGo'), inp = $('#hotCode'), err = $('#hotErr');
+  if(!go || !inp) return;
+  async function tryOpen(){
+    const code = String(inp.value || '').trim();
+    if(!code){ try{ inp.focus(); }catch(e){} return; }
+    if(err) err.hidden = true;
+    go.disabled = true;
+    let ok = false;
+    try{ ok = await unlockHotbar(code); }catch(e){ ok = false; }
+    go.disabled = false;
+    if(ok){
+      inp.value = '';
+      visPaint();
+      toast('핫바 열림');
+      renderHotbar();
+    } else {
+      if(err) err.hidden = false;
+      try{ inp.select(); }catch(e){}
+    }
+  }
+  go.addEventListener('click', tryOpen);
+  inp.addEventListener('keydown', e => { if(e.key === 'Enter'){ e.preventDefault(); tryOpen(); } });
+})();
+
+/* ---------------- 공지사항 창 (처음 한 번 · [확인] 을 누르면 다시 뜨지 않는다) ---------------- */
+const NOTICE_KEY = 'newsradar_notice_v1_ack';
+let noticeOv = $('#noticeOv');
+function noticeSeen(){
+  try{ return !!localStorage.getItem(NOTICE_KEY); }catch(e){ return false; }
+}
+function noticeShow(){
+  if(!noticeOv) return;
+  noticeOv.hidden = false;
+  requestAnimationFrame(() => noticeOv.classList.add('show'));
+  document.body.classList.add('lock');
+}
+function noticeHide(){
+  if(!noticeOv || noticeOv.hidden) return;
+  noticeOv.classList.remove('show');
+  const ch = $('#chartOv');
+  if(!ch || ch.hidden) document.body.classList.remove('lock');
+  setTimeout(() => { if(noticeOv && !noticeOv.classList.contains('show')) noticeOv.hidden = true; }, 180);
+}
+function noticeAck(){
+  try{ localStorage.setItem(NOTICE_KEY, String(Date.now())); }catch(e){}
+  noticeHide();
+}
+if(noticeOv){
+  const ok = $('#ntOk'), x = $('#ntX');
+  if(ok) ok.addEventListener('click', noticeAck);
+  if(x) x.addEventListener('click', noticeHide);      /* ✕ 는 그냥 닫기 — 다음에 또 띄운다 */
+  noticeOv.addEventListener('click', e => { if(e.target === noticeOv) noticeHide(); });
+  const btn = $('#btnNotice');
+  if(btn) btn.addEventListener('click', () => { noticeShow(); });
+  if(!noticeSeen()) setTimeout(() => { if(!noticeSeen()) noticeShow(); }, 450);
+}
 /* 주소에 ?me=비밀코드 가 있으면 그 코드로 연다. 저장된 코드가 있으면 그것으로 조용히 연다 */
 (async function(){
   const wantHash = (location.hash || '').replace('#', '');   /* 시작 탭은 풀기 전에 적어 둔다 */
