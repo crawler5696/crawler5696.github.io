@@ -2872,7 +2872,7 @@ function noticeHide(){
   noticeOv.classList.remove('show');
   const ch = $('#chartOv');
   if(!ch || ch.hidden) document.body.classList.remove('lock');
-  setTimeout(() => { if(noticeOv && !noticeOv.classList.contains('show')) noticeOv.hidden = true; }, 180);
+  setTimeout(() => { if(noticeOv && !noticeOv.classList.contains('show')){ noticeOv.hidden = true; onceShow(); } }, 180);
 }
 function noticeAck(){
   try{ localStorage.setItem(NOTICE_KEY, String(Date.now())); }catch(e){}
