@@ -2153,6 +2153,7 @@ function chartLegendHtml(s){
     else if(s.stage === 2) parts.push(`<span>1번 봉이 6개월 최대의 ${x}배${s.bar_partial ? ` (진행 중 환산 ${Number(s.ratio_pace || 0).toFixed(1)}배)` : ''}</span>`);
     else parts.push(`<span>이번 ${p === 'week' ? '주' : '달'} 거래량 ${x}배</span>`);
   }
+  if(p === 'day') parts.push('<span style="color:#fde047">▼ 상한가</span>');
   parts.push(`<span style="color:#ff8a9a">■ 양봉</span><span style="color:#7fa8ff">■ 음봉</span>`);
   parts.push(chartDayNote(s));
   return parts.join('');
