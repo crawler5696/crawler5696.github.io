@@ -857,16 +857,21 @@
     <p class="nt-sub">처음 한 번만 뜨는 안내입니다 · <b>[확인]</b> 을 누르면 다시 뜨지 않습니다</p>
     <div class="nt-it">
       <span class="nt-n">1</span>
-      <div class="nt-c"><b>지인 공개</b>
-        <p><em>뉴스 · 상한가 · 테마달력 · 레이더</em> 네 메뉴와 종목별 <em>일봉 125봉 차트(5·10·20·60일선)</em> 는 누구나 바로 볼 수 있습니다. <em>🔒 핫바</em> 탭만 비밀번호로 잠긴 개인 전용입니다.</p></div>
+      <div class="nt-c"><b>이번 업데이트 (11.21) · 상한가 봉 표시</b>
+        <p>종목을 눌러 여는 <em>일봉 125봉 차트</em>에 <em>노란 화살표 ▼</em> 를 새로 붙였습니다. 전날 종가보다 28% 넘게 오른 <em>상한가 봉의 꼭대기 위</em>에 노란 화살표가 서서, 5·10·20·60일선 사이에서 상한가가 어디서 났는지 한눈에 보입니다. 차트 아래 범례에도 <em>▼ 상한가</em> 로 적혀 있습니다.</p></div>
     </div>
     <div class="nt-it">
       <span class="nt-n">2</span>
+      <div class="nt-c"><b>종목 차트 보는 법</b>
+        <p><em>뉴스 · 상한가 · 테마달력 · 레이더</em> 어느 화면에서든 종목 이름을 누르면 그 종목의 <em>일봉 125봉 차트</em> 가 열립니다. 봉을 짚으면 그날 종가·등락률·거래량과 5·10·20·60일선 값이 위에 뜨고, <em>전체 125봉 / 최근 60봉</em> 버튼으로 넓혀 보거나 좁혀 볼 수 있습니다.</p></div>
+    </div>
+    <div class="nt-it">
+      <span class="nt-n">3</span>
       <div class="nt-c"><b>지정시간 자동 업데이트</b>
         <p>평일 지정시간마다 뉴스와 차트가 자동으로 갱신됩니다. 화면 위 <em>⟳</em> 를 누르면 지금 바로 새로 받아옵니다.</p></div>
     </div>
     <div class="nt-it">
-      <span class="nt-n">3</span>
+      <span class="nt-n">4</span>
       <div class="nt-c"><b>투자 참고용</b>
         <p>이 사이트의 모든 정보는 개인 학습·참고용이며 <em>투자 권유가 아닙니다</em>. 판단과 책임은 투자자 본인에게 있습니다.</p></div>
     </div>
@@ -1982,9 +1987,10 @@ function chartSvgHtml(s){
     g += `<rect x="${CH_X1 - tw2 - 1}" y="${(yv - 10.5).toFixed(1)}" width="${tw2.toFixed(1)}" height="9.5" rx="2" fill="rgba(11,17,32,.85)"/>`;
     g += `<text x="${CH_X1 - 2}" y="${(yv - 3).toFixed(1)}" font-size="7.6" font-weight="700" fill="#9fc0ff" text-anchor="end">${tv}</text>`;
   }
-  /* 1번 봉 · 3번 봉 표시 */
+  /* 1번 봉 · 3번 봉 표시 — 자리(봉 번호)를 먼저 모아 두고, 상한가 화살표가 같은 봉의
+     동그라미와 겹치지 않게 그 위로 비켜 서도록 쓴다 */
   const idxOf = d => { const k = String(d || ''); return k ? cs.findIndex(c => c[0] === k) : -1; };
-  const mark = (i, label, col) => {
+  const markAt = (i, label, col) => {
     if(i < 0) return '';
     const x = CH_X0 + slot * i + slot / 2;
     const y = Math.max(CH_PY0 - 8, Y(cs[i][2]) - 9);
@@ -1993,14 +1999,40 @@ function chartSvgHtml(s){
   };
   const sd = plain ? {} : (s.stage_dates || {});
   const COL = {'1':'#9dbcff','2':'#ffc477','3':'#63e3ae','4':'#c4b5fd'};
+  const markList = [];
   Object.keys(sd).sort((a, b) => (+a) - (+b)).forEach(k => {
-    const col = COL[k] || '#9fd6ff';
-    g += mark(idxOf(sd[k]), k, col);
+    markList.push([idxOf(sd[k]), k, COL[k] || '#9fd6ff']);
   });
   if(!plain && !Object.keys(sd).length){
-    g += mark(idxOf(s.lu_date), '1', '#9dbcff');
-    g += mark(idxOf(s.rb_date), '3', '#63e3ae');
+    markList.push([idxOf(s.lu_date), '1', '#9dbcff']);
+    markList.push([idxOf(s.rb_date), '3', '#63e3ae']);
   }
+  const markIdx = new Set(markList.map(x => x[0]).filter(i => i >= 0));
+
+  /* 상한가 봉 위 노란 화살표 ▼ (2026-11-21 지시) — 일봉만.
+     전일 종가 대비 +28.5% 이상 오른 봉(첫 봉은 시가 대비). 거래정지로 앞 봉과 열흘 넘게
+     벌어진 봉은 하루 등락이 아니므로 건너뛴다. ①·③ 동그라미가 붙은 봉은 화살표를
+     동그라미 위로 한 칸 더 올려 겹치지 않게 한다. */
+  if(p === 'day'){
+    const LU = 0.285;
+    cs.forEach((c, i) => {
+      const pi = off + i - 1, prev = pi >= 0 ? all[pi] : null;
+      const pc = prev ? Number(prev[4]) : Number(c[1]);
+      if(!(pc > 0)) return;
+      if(prev){
+        const d0 = Date.parse(String(prev[0])), d1 = Date.parse(String(c[0]));
+        if(d0 && d1 && (d1 - d0) > 12 * 864e5) return;
+      }
+      if((Number(c[4]) / pc - 1) < LU) return;
+      const x = CH_X0 + slot * i + slot / 2;
+      let tip = Y(c[2]) - 2.4;                     /* 윗꼬리 끝 바로 위 */
+      if(markIdx.has(i)) tip = Math.min(tip, Math.max(CH_PY0 - 8, Y(c[2]) - 9) - 6.8 - 2.2);
+      const w = Math.min(6, Math.max(4.6, slot * 0.5)), h = w * 1.25;
+      tip = Math.max(tip, h + 3);                  /* 화면 위로 잘리지 않게 */
+      g += `<path d="M${(x - w).toFixed(1)} ${(tip - h).toFixed(1)} L${(x + w).toFixed(1)} ${(tip - h).toFixed(1)} L${x.toFixed(1)} ${tip.toFixed(1)} Z" fill="#fde047" stroke="rgba(11,17,32,.85)" stroke-width=".7" stroke-linejoin="round"/>`;
+    });
+  }
+  markList.forEach(x => { g += markAt(x[0], x[1], x[2]); });
   /* 날짜 눈금 — 처음·가운데·끝 */
   const ax = d => p === 'month' ? String(d).slice(2,7).replace('-','.') : mmdd(d);
   g += `<text x="${CH_X0}" y="${CH_VY1 + 12}" font-size="8" fill="#6b778f">${ax(cs[0][0])}</text>`;
@@ -2081,6 +2113,7 @@ function chartLegendHtml(s){
       if(v) parts.push(`<span><i class="cm ${cls}">${k}일</i>${fmtWon(v)}</span>`);
     });
     parts.push('<span style="color:#7e8aa0">5&gt;10&gt;20&gt;60 선이 차례로 선 자리</span>');
+    parts.push('<span style="color:#fde047">▼ 상한가</span>');
     parts.push('<span style="color:#ff8a9a">■ 양봉</span><span style="color:#7fa8ff">■ 음봉</span>');
     parts.push(chartDayNote(s));
     return parts.join('');
@@ -2104,6 +2137,7 @@ function chartLegendHtml(s){
     });
     parts.push(`<span><i class="cb">기준선</i>${fmtWon(s.base_open || 0)}원(2번 줄)</span>`);
     parts.push('<span style="color:#7e8aa0">5&gt;10&gt;20&gt;60 선이 차례로 선 자리</span>');
+    if(p === 'day') parts.push('<span style="color:#fde047">▼ 상한가</span>');
     parts.push(chartDayNote(s));
     return parts.join('');
   }
@@ -2678,7 +2712,7 @@ visPaint();
 })();
 
 /* ---------------- 공지사항 창 (처음 한 번 · [확인] 을 누르면 다시 뜨지 않는다) ---------------- */
-const NOTICE_KEY = 'newsradar_notice_v1_ack';
+const NOTICE_KEY = 'newsradar_notice_v2_ack';
 let noticeOv = $('#noticeOv');
 function noticeSeen(){
   try{ return !!localStorage.getItem(NOTICE_KEY); }catch(e){ return false; }
