@@ -2064,7 +2064,16 @@ function cfCheck(){
   const d = String((hotPick || {}).base_date || '');
   if(d && cfAckDate() === d) return;             /* 그날 이미 [확인] 을 눌렀다 */
   const list = cfConfirmed();
-  if(list.length) cfShow(list);
+  if(list.length){ cfShow(list); return; }
+  /* 10단계 자료에 테마 구분(theme_kind)이 아직 없으면 달력 자료의 테마구분을 받아 한 번 더 본다
+     — 개별상한가 테마를 동반으로 잘못 통과시키지 않기 위해 */
+  if(pickAll().some(s => !s.theme_kind)){
+    ensureCalendar().then(() => {
+      if(cfDone || !visOn() || !hotPick) return;
+      const again = cfConfirmed();
+      if(again.length) cfShow(again);
+    }).catch(() => {});
+  }
 }
 (function bindConfirmed(){
   const ov = $('#cfOv');
