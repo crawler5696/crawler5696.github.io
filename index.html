@@ -2149,7 +2149,7 @@ function chartSvgHtml(s){
     cs.forEach((c, i) => {
       if(!pset.has(String(c[0]))) return;
       const x = CH_X0 + slot * i + slot / 2;
-      const w = Math.min(5.2, Math.max(4.1, slot * 0.46)), h = w * 1.2;
+      const w = Math.min(6, Math.max(4.6, slot * 0.5)), h = w * 1.25;   /* 노란 ▼ 와 같은 크기 */
       const top = Y(c[3]) + 2.8;                          /* 아랫꼬리 끝 바로 아래에 꼭대기 */
       const baseY = Math.min(top + h, CH_VY0 - 2.4);      /* 거래량 칸으로 넘어가지 않게 */
       g += `<path d="M${x.toFixed(1)} ${top.toFixed(1)} L${(x - w).toFixed(1)} ${baseY.toFixed(1)} L${(x + w).toFixed(1)} ${baseY.toFixed(1)} Z" fill="#f472b6" stroke="rgba(11,17,32,.9)" stroke-width=".6" stroke-linejoin="round"/>`;
