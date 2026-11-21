@@ -425,6 +425,19 @@
   .hp-st.stop{color:#1a0608;background:linear-gradient(135deg,#ff8a9a,#ff5a6e)}
   .hp-st.watch{color:#c2cde0;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.24)}
   /* 10단계 — 업종지수 배지 (한국식: 호재 빨강 · 바닥 노랑 · 약세 파랑) */
+  /* 10단계 — 3번 첫 거래 판정 배지 (글자만 · 가격·% 없음) */
+  .hp-judge{flex:0 0 100%;display:flex;flex-wrap:wrap;align-items:center;gap:3px;margin:4px 0 0}
+  .hp-judge i{font-style:normal;font-size:9.5px;font-weight:900;letter-spacing:-.2px;padding:1px 5px;
+    border-radius:5px;white-space:nowrap;color:#c2cde0;background:rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.2)}
+  .hp-judge i.gA{color:#1a1206;background:linear-gradient(135deg,#8ef0c4,#3ddc97);border-color:transparent}
+  .hp-judge i.gB{color:#1a1206;background:linear-gradient(135deg,#b9f0a0,#8dd85a);border-color:transparent}
+  .hp-judge i.gC{color:#ffe066;background:rgba(255,224,102,.12);border-color:rgba(255,224,102,.45)}
+  .hp-judge i.gD{color:#ffb4bf;background:rgba(255,90,110,.12);border-color:rgba(255,90,110,.45)}
+  .hp-judge i.wait{color:#ffe066;background:rgba(255,224,102,.1);border-color:rgba(255,224,102,.35)}
+  .hp-judge i.up{color:#ff8a9a;background:rgba(255,90,110,.12);border-color:rgba(255,90,110,.4)}
+  .hp-judge i.dn{color:#93c5ff;background:rgba(79,140,255,.14);border-color:rgba(79,140,255,.4)}
+  .hp-judge i.big{color:#1a1206;background:linear-gradient(135deg,#ffd76a,#ffb02e);border-color:transparent}
   .hp-sec{flex:none;font-size:9.5px;font-weight:900;letter-spacing:-.2px;padding:1px 5px;border-radius:5px;white-space:nowrap}
   .hp-sec.strong{color:#ff8a9a;background:rgba(255,90,110,.15);border:1px solid rgba(255,90,110,.48)}
   .hp-sec.bottom{color:#ffe066;background:rgba(255,224,102,.1);border:1px solid rgba(255,224,102,.34)}
@@ -709,7 +722,7 @@
       <button class="ntbtn" id="btnNotice" type="button" aria-label="공지사항 보기" title="공지사항">📢</button>
       <button class="refresh" id="btnRefresh" aria-label="새로고침" title="새로고침 — 최신 뉴스를 지금 다시 받아옵니다">⟳</button>
     </div>
-    <div class="kkwrap"><a class="kk" href="https://open.kakao.com/o/gcRXomRg" target="_blank" rel="noopener noreferrer" aria-label="발몽레정 카카오톡 오픈채팅방 열기">💬 발몽레정 여기로 놀러오세요! 👉 <b>클릭</b></a></div>
+    <div class="kkwrap"><a class="kk" href="https://www.youtube.com/@ytnnews24/live" target="_blank" rel="noopener noreferrer" aria-label="24시간 실시간 뉴스 보기">📺 실시간 뉴스 · <b>뉴스보기</b></a></div>
     <div class="tabs" role="tablist" aria-label="화면 전환">
       <button class="tab" role="tab" data-tab="news" aria-selected="true">📰 뉴스</button>
       <button class="tab" role="tab" data-tab="upper" aria-selected="false">🚀 상한가</button>
@@ -1520,7 +1533,7 @@ function hotStageHtml(st){
   const show = open ? stocks : stocks.slice(0, HOT_SHOW);
   const rest = stocks.length - show.length;
   return `<div class="hb-grp" role="group" aria-label="${st.stage}번 ${esc(st.desc)} ${stocks.length}종목">
-    <div class="hb-head${st.stage === 4 ? ' pick' : ''}"><span class="hb-badge s${st.stage}">${st.stage}</span>
+    <div class="hb-head${st.stage === 4 ? ' pick' : ''}"${st.help ? ` title="${esc(st.help)}"` : ''}><span class="hb-badge s${st.stage}">${st.stage}</span>
       <span class="hb-desc">${esc(st.desc)}</span><span class="hb-cnt">${cnt}</span></div>
     ${show.map(s => hotRowHtml(s)).join('')}
     ${rest > 0 ? `<button class="hb-more" type="button" data-stage="${st.stage}">${rest}종목 더 보기 ▾</button>` : ''}
@@ -1586,7 +1599,12 @@ async function renderHotbar(){
   const sec = (d.sections || []).find(x => x.key === hotbarSec) || d.sections[0];
   hotbarSec = sec.key;
   if($('#hotScore')) $('#hotScore').innerHTML = scoreHtml(d.score);
-  if($('#hotSub')) $('#hotSub').textContent = (sec.sub ? sec.sub + ' · ' : '') + (d.base_date_text || '') + (d.universe ? ` · ${d.universe}종목` : '');
+  if($('#hotSub')){
+    const subEl = $('#hotSub');
+    subEl.textContent = (sec.sub ? sec.sub + ' · ' : '') + (d.base_date_text || '') + (d.universe ? ` · ${d.universe}종목` : '');
+    /* 주봉·월봉 '첫 거래량 6개월 최대 2배' 같은 잣대 설명은 기본 화면에서 접어 두고 tooltip 에서만 본다 */
+    subEl.title = sec.sub_help || '';
+  }
   document.querySelectorAll('#hotSeg button').forEach(b => b.classList.toggle('on', b.dataset.sec === sec.key));
   box.innerHTML = (sec.stages || []).map(hotStageHtml).join('');
 }
@@ -1659,9 +1677,10 @@ function pickChartItem(st){
     code: String(st.code), name: st.name, period: 'day', plain: 0, candles: cs,
     view: 38, full: 90, mas: 1,
     price: st.now, price_text: fmtWon(st.now) + '원', chg: st.chg,
-    stage: st.stage, stage_dates: st.sd || {}, base_open: st.base,
+    stage: st.stage, stage_dates: st.sd || {}, base_open: st.base, line: st.base,
+    judge: st.judge || null,
     sector: st.sector || null, market: (hotPick || {}).market || null,
-    reason: `${st.state} · 유형 ${st.t} · ${st.stage_txt} · 1번 ${mmdd(st.d0)}`,
+    reason: `${st.alert || st.state} · 유형 ${st.t} · ${st.stage_txt} · 1번 ${mmdd(st.d0)}`,
   };
 }
 
@@ -1678,6 +1697,12 @@ function pickRowHtml(st){
   const ch = hotPick && (hotPick.charts || {})[String(st.code)];
   const attr = ch ? ` data-code="${esc(String(st.code))}" role="button" tabindex="0"` : '';
   const S = PICK_STATE[st.state] || {cls:'buy', txt: st.state || '매수'};
+  /* 3번·4번 알림 분리(2026-11-21 지시) — 3번은 크기와 함께, 4번은 '추가매수'로만 부른다 */
+  const j = st.judge || {};
+  const alert = String(st.alert || '');
+  const stTxt = alert || S.txt;
+  const stCls = alert ? 'buy' : S.cls;
+  const sizeTxt = (j.size && (alert === '3번 매수' || !alert)) ? ` · ${j.size}` : '';
   const side = st.side === '앞쪽' ? '<span class="hm-b side-f">앞</span>'
              : (st.side === '뒷쪽' ? '<span class="hm-b side-b">뒤</span>' : '');
   const d0 = st.d0 ? `1번 ${mmdd(st.d0)}${st.lu_days != null ? ` (D+${st.lu_days})` : ''}` : '';
@@ -1685,12 +1710,27 @@ function pickRowHtml(st){
   const gain = (st.days > 0 && st.entry_price)
     ? `진입 ${fmtWon(st.entry_price)}원 ${st.gain > 0 ? '+' : ''}${Number(st.gain).toFixed(1)}% (D+${st.days})` : '';
   const sub = [d0, val, gain].filter(Boolean).join(' · ');
+  /* 3번 첫 거래 판정 — 글자만 보인다(가격·% 없음). 주봉 첫 거래량은 변별력이 없어 싣지 않는다 */
+  const chips = [];
+  if(j.grade){
+    const g = String(j.grade);
+    const cls = g === 'A' ? 'gA' : g === 'B' ? 'gB' : g === 'C' ? 'gC' : (g === 'D' ? 'gD' : 'wait');
+    const lab = g === '대기' ? '3번 대기' : `3번 ${g}`;
+    chips.push(`<i class="${cls}" title="3번 첫 거래 판정 — A 월봉 터짐·3번 큼·지수 안 꺾임 / B 월봉 터짐·3번 큼 / C 3번 큼·월봉 아직 / D 3번 작음(사지 않는 자리)">${esc(lab)}</i>`);
+  } else if(!j.size){
+    chips.push(`<i class="wait">3번 대기</i>`);
+  }
+  if(j.size) chips.push(`<i class="${j.size === '큼' ? 'big' : ''}" title="3번 크기 — 3번이 2번 저점 위에서 얼마나 크게 올라섰나">3번 ${esc(j.size)}</i>`);
+  if(j.ma240) chips.push(`<i class="${j.ma240 === '위' ? 'up' : 'dn'}" title="일봉 240선 위/아래 (상한가 전날 종가로 잰다)">240선 ${esc(j.ma240)}</i>`);
+  if(j.wvol) chips.push(`<i class="${j.wvol === '터짐' ? 'up' : 'dn'}" title="월봉 첫 거래량 — 3번 날까지 그 달 누적이 앞 6개월 최대를 넘었나">월봉 ${esc(j.wvol)}</i>`);
+  const jl = `<div class="hp-judge">${chips.join('')}</div>`;
   return `<div class="hb-row hm-row hp-row${ch ? ' chart' : ''}"${attr}>
-    <div class="hb-name hp-name">${esc(st.name)}<b class="hp-st ${S.cls}">(${esc(S.txt)})</b></div>
+    <div class="hb-name hp-name">${esc(st.name)}<b class="hp-st ${stCls}">(${esc(stTxt + sizeTxt)})</b></div>
     <span class="hm-t ${esc(st.t)}" title="${esc(PICK_TYPE[st.t] || '')}">${esc(st.t)}</span>
-    <span class="hm-st s${st.stage}">${esc(st.stage_txt)}</span>
+    <span class="hm-st s${st.stage}" title="${esc(st.stage_txt)}">${esc(st.stage_txt)}</span>
     ${side}
     ${sectorBadge(st.sector)}
+    ${jl}
     <div class="hm-sub">
       <span class="now">${fmtWon(st.now)}원 ${Number(st.chg) > 0 ? '+' : ''}${Number(st.chg || 0).toFixed(1)}%</span>
       ${sub ? `<span class="d0">${esc(sub)}</span>` : ''}
@@ -1778,9 +1818,12 @@ async function renderPick(){
     ${mktLine}
     ${head}
     ${body}
-    <p class="hm-note"><b>4→5 황금자리</b> = 2번 기준선 사수 + 상자 안 2회 이상 왕복 + 최근 1~2일 거래량 ${r.vol4 || 0.7}배 이하로 마른 음봉(4단계), 또는 그 음봉 바로 뒤 윗선을 넘은 5단계 돌파 당일<br>
+    <p class="hm-note"><b>기준선</b> = ① 상한가 → ② 하락 음봉 → ③ 반등 양봉이 나온 뒤 ② 저점에 긋는 그림 줄. ③이 없으면 긋지 않고 3번 대기 · ④ 그 줄까지 다시 내려오면 4번 추가매수<br>
+    <b>3번 첫 거래 판정</b> = A 월봉 터짐·3번 큼·지수 안 꺾임 / B 월봉 터짐·3번 큼 / C 3번 큼·월봉 아직 / D 3번 작음(사지 않는 자리) · <b>3번 크기</b> = 2번 저점 위에서 올라선 정도(큼·보통·약함)<br>
+    <b>4→5 황금자리</b> = 2번 줄 사수 + 상자 2회 이상 왕복 + 거래량 ${r.vol4 || 0.7}배 이하 마른 음봉(4단계), 또는 그 음봉 바로 뒤 윗선 돌파 당일<br>
+    <b>240선 흐름</b> = 240선 위에서 테마가 서면 한두 달 바짝 하고 빠지는 자리 — 끝자리 추격 대신, 240선 아래로 다시 흘러 바닥에서 멈추면 9단계 C(바닥 대기)로 본다<br>
     <b>9단계 멈춤</b> = 분출 뒤 ${Math.round(Math.abs(r.c_dd || 0.28) * 100)}% 이상 빠진 자리에서 15봉 폭 ${Math.round((r.c_rng || 0.18) * 100)}% 안 + 거래량 ${r.c_vol || 0.5}배 이하<br>
-    <b>관망</b> = 지수가 약세(당일 ${flt2.weak_day || -2}% 이하 또는 5일선&lt;20일선)인 날, 지수와 같이 꺾여 밀린 종목 — 지수보다 ${flt2.elite_gap || 2.5}%p 이상 덜 빠지고 앞쪽·기준선 +${flt2.base_margin || 5}% 위이거나 업종이 호재/바닥으로 버텨야 (매수)<br>
+    <b>관망</b> = 지수가 약세(당일 ${flt2.weak_day || -2}% 이하 또는 5일선&lt;20일선)인 날, 지수와 같이 꺾여 밀린 종목 — 지수보다 ${flt2.elite_gap || 2.5}%p 이상 덜 빠지고 앞쪽·2번 줄 +${flt2.base_margin || 5}% 위이거나 업종이 호재/바닥으로 버텨야 (매수)<br>
     <b>업종</b> = 네이버 업종지수 흐름 호재(빨강)·바닥(노랑)·약세(파랑) · <b>테마</b> = theme_db 테마에 있는 종목만 · <b>앞/뒤</b> = 주봉 240선·월봉 120선 기준 · 종목을 누르면 일봉 38봉 차트</p>`;
   const wb = $('#hpWbtn'), wp = $('#hpWatch');
   if(wb && wp) wb.onclick = () => {
@@ -2028,17 +2071,15 @@ function chartLegendHtml(s){
       const v = val(k);
       if(v) parts.push(`<span><i class="cm ${cls}">${k}일</i>${fmtWon(v)}</span>`);
     });
-    parts.push(`<span><i class="cb">기준선</i>${fmtWon(s.base_open || 0)}원(1번 시가)</span>`);
+    parts.push(`<span><i class="cb">기준선</i>${fmtWon(s.base_open || 0)}원(2번 줄)</span>`);
     parts.push('<span style="color:#7e8aa0">선 순서 5&gt;10&gt;20&gt;60 이면 정배열</span>');
     parts.push(chartDayNote(s));
     return parts.join('');
   }
-  /* 기준선(2번 줄) — 2번 자리일 때만, 기준 봉이 확실한 양봉/음봉일 때만 그린다(2026-11-19 지시) */
-  if(p === 'day' && s.line) parts.push(`<span><i class="cb">2번 줄</i>${fmtWon(s.line)}원</span>`);
-  else if(s.base_open) parts.push(`<span><i class="cb">2번 줄</i>${fmtWon(s.base_open)}원</span>`);
-  else if(Number(s.stage) >= 3) parts.push(`<span style="color:#7e8aa0">기준선 거둠(3번 진행)</span>`);
-  else if(Number(s.stage) === 2) parts.push(`<span style="color:#7e8aa0">기준 봉이 도지 — 줄 안 그음</span>`);
-  else parts.push(`<span style="color:#7e8aa0">기준선은 2번 자리에서 긋는다</span>`);
+  /* 그림 기준선(② 눌림 저점) — ③ 반등 양봉이 나온 뒤에만 긋는다(2026-11-21 지시) */
+  if(s.line) parts.push(`<span><i class="cb">기준선</i>${fmtWon(s.line)}원(2번 줄)</span>`);
+  else if(s.base_open) parts.push(`<span><i class="cb">기준선</i>${fmtWon(s.base_open)}원(2번 줄)</span>`);
+  else parts.push(`<span style="color:#7e8aa0">3번 대기 — 반등 양봉이 나오면 2번 줄에 기준선</span>`);
   if(s.ref_vol) parts.push(`<span><i class="cv">1번</i>거래량 ${fmtVolK(s.ref_vol)}주 = 앞 6개월 최대</span>`);
   if(p !== 'day' && s.pos2) parts.push(`<span>${s.pos2 === '앞쪽' ? '앞쪽' : '뒤쪽'}${(s.pos2_why || []).length ? ' · ' + esc((s.pos2_why || []).join(' · ')) : ''}</span>`);
   if(s.ratio && p !== 'day'){
