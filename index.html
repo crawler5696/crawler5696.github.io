@@ -407,8 +407,23 @@
     border:1px solid rgba(61,220,151,.4);padding:0 5px;border-radius:4px;white-space:nowrap}
   .hb-cl.wait{color:#ffe066;background:rgba(255,224,102,.1);border-color:rgba(255,224,102,.32)}
   .hb-osc[hidden],.hb-cl[hidden]{display:none}
+  /* 1단계 첫 단추 — 테마 크기 · 240선 위/아래 · 첫 거래량 */
+  .hb-first{flex:0 0 100%;display:flex;flex-wrap:wrap;align-items:center;gap:3px;margin-top:4px}
+  .hb-first i{font-style:normal;font-size:9.5px;font-weight:900;letter-spacing:-.2px;padding:1px 5px;
+    border-radius:5px;white-space:nowrap;color:#c2cde0;background:rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.2)}
+  .hb-first i.big{color:#1a1206;background:linear-gradient(135deg,#8ef0c4,#3ddc97);border-color:transparent}
+  .hb-first i.mid{color:#ffe066;background:rgba(255,224,102,.1);border-color:rgba(255,224,102,.35)}
+  .hb-first i.small{color:#93a4bf}
+  .hb-first i.up{color:#ff8a9a;background:rgba(255,90,110,.12);border-color:rgba(255,90,110,.4)}
+  .hb-first i.dn{color:#93c5ff;background:rgba(79,140,255,.14);border-color:rgba(79,140,255,.4)}
+  .hb-first i.fire{color:#1a1206;background:linear-gradient(135deg,#ffd76a,#ffb02e);border-color:transparent}
 
   /* ---------- 핫바 · 10단계 (비밀 · 4→5 황금자리 × 9단계 멈춤 × 유형 A/B/C × 매도까지) ---------- */
+  /* 10단계 — 상단 안내 한 줄 (2026-11-21 지시: 시작 → 분출 → 스윙·폐기) */
+  .hp-guide{margin:0 1px 7px;font-size:9.8px;font-weight:800;line-height:1.45;letter-spacing:-.2px;
+    color:#a9b8d0;background:rgba(167,139,250,.07);border:1px solid rgba(167,139,250,.24);
+    border-radius:8px;padding:5px 8px;word-break:keep-all;overflow-wrap:anywhere}
   .hp-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 8px;margin:0 1px 7px;font-size:10px;font-weight:700;color:var(--dim2)}
   .hp-head b{font-size:12.5px;font-weight:900;color:#fff;letter-spacing:-.3px}
   .hp-row{padding:9px 12px}
@@ -438,6 +453,9 @@
   .hp-judge i.up{color:#ff8a9a;background:rgba(255,90,110,.12);border-color:rgba(255,90,110,.4)}
   .hp-judge i.dn{color:#93c5ff;background:rgba(79,140,255,.14);border-color:rgba(79,140,255,.4)}
   .hp-judge i.big{color:#1a1206;background:linear-gradient(135deg,#ffd76a,#ffb02e);border-color:transparent}
+  .hp-judge i.mid{color:#ffe066;background:rgba(255,224,102,.1);border-color:rgba(255,224,102,.35)}
+  .hp-judge i.small{color:#93a4bf}
+  .hp-judge i.fire{color:#1a1206;background:linear-gradient(135deg,#ffd76a,#ffb02e);border-color:transparent}
   .hp-sec{flex:none;font-size:9.5px;font-weight:900;letter-spacing:-.2px;padding:1px 5px;border-radius:5px;white-space:nowrap}
   .hp-sec.strong{color:#ff8a9a;background:rgba(255,90,110,.15);border:1px solid rgba(255,90,110,.48)}
   .hp-sec.bottom{color:#ffe066;background:rgba(255,224,102,.1);border:1px solid rgba(255,224,102,.34)}
@@ -1508,11 +1526,25 @@ function hotRowHtml(s){
   /* 주봉 240주 선뭉침 — 선은 뭉쳤는데 거래량이 아직이면 '불씨전'(노랑) */
   const cl = s.cl ? `<span class="hb-cl" title="${esc(`주봉 240주 하단 선뭉침 — 선 간격 ${s.cl_sp}% · 하단 ${s.cl_pos}% · 거래량 240주 최대의 ${s.cl_vol}배 (${s.cl_at})`)}">선뭉침</span>`
            : (s.cl_wait ? `<span class="hb-cl wait" title="${esc(`선은 뭉쳤는데 거래량이 240주 최대의 ${s.cl_vol}배 — 아직 불씨 전 (선 간격 ${s.cl_sp}% · 하단 ${s.cl_pos}%)`)}">선뭉침·불씨전</span>` : '');
+  /* 1단계 첫 단추 — 테마 크기 · 일봉 240선 위/아래 · 첫 거래량 (2026-11-21 지시) */
+  const firstC = [];
+  if(periodOf(s) === 'day' && Number(s.stage) === 1 && (s.t_n != null || s.ma240 || s.fvol)){
+    if(s.t_n != null){
+      const cls = s.t_n >= 4 ? 'big' : (s.t_n >= 2 ? 'mid' : 'small');
+      firstC.push(`<i class="${cls}" title="테마 크기 — 같은 테마에서 최근 1주 안에 상한가 낸 종목 수(나 포함)">테마 ${s.t_n}종목</i>`);
+    }
+    if(s.ma240) firstC.push(`<i class="${s.ma240 === '위' ? 'up' : 'dn'}" title="일봉 240선 ${s.ma240} — 상한가 전날 종가로 잰다">240 ${esc(s.ma240)}</i>`);
+    if(s.fvol) firstC.push(s.fvol === '첫'
+      ? `<i class="fire" title="첫 거래량 — 상한가 봉 거래량이 앞 125봉 최대의 ${s.v1x}배">첫 거래량 ${s.v1x}배</i>`
+      : `<i class="small" title="첫 거래량 아직 — 상한가 봉 거래량이 앞 125봉 최대의 ${s.v1x}배">거래량 아직</i>`);
+  }
+  const first = firstC.length ? `<div class="hb-first">${firstC.join('')}</div>` : '';
   const meta = (osc || cl) ? `<div class="hb-meta">${osc}${cl}</div>` : '';
   return `<div class="${cls}"${attrs}>
     <div class="hb-name">${esc(s.name)}${ap}</div>
     ${pos}
     <div class="hb-th${grp ? '' : ' indiv'}" title="${esc(s.theme || s.reason || '')}">${esc(th)}</div>
+    ${first}
     ${meta}
     ${issue ? `<div class="hb-iss" title="${esc(s.reason)}">${esc(issue)}</div>` : ''}
   </div>`;
@@ -1624,7 +1656,8 @@ const PICK_TYPE = {A:'유형 A · 앞 125봉 무상한가 첫 상한가',
                    C:'유형 C · 9단계 하락 멈춤(재출발 자리)'};
 const PICK_STATE = {
   '매수':      {cls:'buy',  txt:'매수',      note:'지금 사는 자리'},
-  '매수대기':  {cls:'wait', txt:'매수대기',  note:'재출발(윗선 돌파) 기다림'},
+  '9단계 매수': {cls:'buy', txt:'9단계 매수', note:'9단계 멈춤 — 윗선 돌파를 기다리는 사는 자리'},
+  '매수대기':  {cls:'buy',  txt:'9단계 매수', note:'9단계 멈춤 — 윗선 돌파를 기다리는 사는 자리'},  /* 예전 자료 호환 */
   '돌파·보유': {cls:'hold', txt:'돌파·보유', note:'들고 가는 자리'},
   '분출·보유': {cls:'hold', txt:'분출·보유', note:'들고 가는 자리'},
   '매도':      {cls:'sell', txt:'매도',      note:'파는 자리'},
@@ -1702,7 +1735,6 @@ function pickRowHtml(st){
   const alert = String(st.alert || '');
   const stTxt = alert || S.txt;
   const stCls = alert ? 'buy' : S.cls;
-  const sizeTxt = (j.size && (alert === '3번 매수' || !alert)) ? ` · ${j.size}` : '';
   const side = st.side === '앞쪽' ? '<span class="hm-b side-f">앞</span>'
              : (st.side === '뒷쪽' ? '<span class="hm-b side-b">뒤</span>' : '');
   const d0 = st.d0 ? `1번 ${mmdd(st.d0)}${st.lu_days != null ? ` (D+${st.lu_days})` : ''}` : '';
@@ -1710,22 +1742,21 @@ function pickRowHtml(st){
   const gain = (st.days > 0 && st.entry_price)
     ? `진입 ${fmtWon(st.entry_price)}원 ${st.gain > 0 ? '+' : ''}${Number(st.gain).toFixed(1)}% (D+${st.days})` : '';
   const sub = [d0, val, gain].filter(Boolean).join(' · ');
-  /* 3번 첫 거래 판정 — 글자만 보인다(가격·% 없음). 주봉 첫 거래량은 변별력이 없어 싣지 않는다 */
+  /* 첫 단추(1단계 그대로) — 테마 크기 · 240선 위/아래 · 첫 거래량 → 3번 판정 A/B/C (2026-11-21 지시)
+     '3번 대기' 같은 꼬리말은 두지 않는다. D는 사지 않는 자리라 목록에서 이미 빠져 있다. */
   const chips = [];
-  if(j.grade){
+  if(st.t_n) chips.push(`<i class="${st.t_n >= 4 ? 'big' : (st.t_n >= 2 ? 'mid' : 'small')}" title="테마 크기 — 같은 테마에서 최근 1주 안에 상한가 낸 종목 수(나 포함)">테마 ${st.t_n}종목</i>`);
+  if(j.ma240) chips.push(`<i class="${j.ma240 === '위' ? 'up' : 'dn'}" title="일봉 240선 ${j.ma240} — 상한가 전날 종가로 잰다">240 ${esc(j.ma240)}</i>`);
+  if(j.v1 != null) chips.push(j.v1 >= 1
+    ? `<i class="fire" title="첫 거래량 — 상한가 봉 거래량이 앞 125봉 최대의 ${j.v1}배">첫 거래량 ${j.v1}배</i>`
+    : `<i class="small" title="첫 거래량 아직 — 상한가 봉 거래량이 앞 125봉 최대의 ${j.v1}배">거래량 아직</i>`);
+  if(j.grade && ['A', 'B', 'C'].includes(String(j.grade))){
     const g = String(j.grade);
-    const cls = g === 'A' ? 'gA' : g === 'B' ? 'gB' : g === 'C' ? 'gC' : (g === 'D' ? 'gD' : 'wait');
-    const lab = g === '대기' ? '3번 대기' : `3번 ${g}`;
-    chips.push(`<i class="${cls}" title="3번 첫 거래 판정 — A 월봉 터짐·3번 큼·지수 안 꺾임 / B 월봉 터짐·3번 큼 / C 3번 큼·월봉 아직 / D 3번 작음(사지 않는 자리)">${esc(lab)}</i>`);
-  } else if(!j.size){
-    chips.push(`<i class="wait">3번 대기</i>`);
+    chips.push(`<i class="g${g}" title="3번 첫 거래 판정 — A 월봉 터짐·3번 큼·지수 안 꺾임 / B 월봉 터짐·3번 큼 / C 3번 큼·월봉 아직">3번 ${g}</i>`);
   }
-  if(j.size) chips.push(`<i class="${j.size === '큼' ? 'big' : ''}" title="3번 크기 — 3번이 2번 저점 위에서 얼마나 크게 올라섰나">3번 ${esc(j.size)}</i>`);
-  if(j.ma240) chips.push(`<i class="${j.ma240 === '위' ? 'up' : 'dn'}" title="일봉 240선 위/아래 (상한가 전날 종가로 잰다)">240선 ${esc(j.ma240)}</i>`);
-  if(j.wvol) chips.push(`<i class="${j.wvol === '터짐' ? 'up' : 'dn'}" title="월봉 첫 거래량 — 3번 날까지 그 달 누적이 앞 6개월 최대를 넘었나">월봉 ${esc(j.wvol)}</i>`);
-  const jl = `<div class="hp-judge">${chips.join('')}</div>`;
+  const jl = chips.length ? `<div class="hp-judge">${chips.join('')}</div>` : '';
   return `<div class="hb-row hm-row hp-row${ch ? ' chart' : ''}"${attr}>
-    <div class="hb-name hp-name">${esc(st.name)}<b class="hp-st ${stCls}">(${esc(stTxt + sizeTxt)})</b></div>
+    <div class="hb-name hp-name">${esc(st.name)}<b class="hp-st ${stCls}">(${esc(stTxt)})</b></div>
     <span class="hm-t ${esc(st.t)}" title="${esc(PICK_TYPE[st.t] || '')}">${esc(st.t)}</span>
     <span class="hm-st s${st.stage}" title="${esc(st.stage_txt)}">${esc(st.stage_txt)}</span>
     ${side}
@@ -1766,9 +1797,10 @@ async function renderPick(){
     + `${pickFilter === k ? 'on' : ''}${k === 'g45' ? ' g45' : ''}">${lab} ${cntOf(k)}</button>`).join('');
   if($('#hotSub')) $('#hotSub').textContent = `10단계 · ${hotPick.base_date_text || ''}`;
   const st = cnt.states || {};
+  const buyN = (st['매수'] || 0) + (st['9단계 매수'] || 0) + (st['매수대기'] || 0);
   const head = `<div class="hp-head"><b>${(pickFilter === 'watch' ? watch : core.filter(s => pickPass(s, pickFilter))).length}종목</b>`
     + `<span>${esc(hotPick.base_date_text || '')} · 생성 ${esc(hotPick.generated_at_kst || '')} · `
-    + `새로 ${cnt.new || 0} · 매수 ${st['매수'] || 0} · 보유 ${(st['돌파·보유'] || 0) + (st['분출·보유'] || 0)} · `
+    + `새로 ${cnt.new || 0} · 매수 ${buyN} · 보유 ${(st['돌파·보유'] || 0) + (st['분출·보유'] || 0)} · `
     + `매도 ${(st['매도'] || 0) + (st['손절·매도'] || 0)}</span></div>`;
   /* 지수 한 줄 — 오늘 지수가 약세면 왜 종목을 걸렀는지 화면 맨 위에 바로 보이게 */
   let mktLine = '';
@@ -1815,11 +1847,13 @@ async function renderPick(){
     }
   }
   box.innerHTML = `<div class="hm-flt" id="hpFlt">${flt}</div>
+    <div class="hp-guide">뉴스로 자금이 들어온 상한가 테마의 시작(240선 위·아래 / 첫 거래량) → 분출 → 스윙·폐기까지 추적</div>
     ${mktLine}
     ${head}
     ${body}
-    <p class="hm-note"><b>기준선</b> = ① 상한가 → ② 하락 음봉 → ③ 반등 양봉이 나온 뒤 ② 저점에 긋는 그림 줄. ③이 없으면 긋지 않고 3번 대기 · ④ 그 줄까지 다시 내려오면 4번 추가매수<br>
-    <b>3번 첫 거래 판정</b> = A 월봉 터짐·3번 큼·지수 안 꺾임 / B 월봉 터짐·3번 큼 / C 3번 큼·월봉 아직 / D 3번 작음(사지 않는 자리) · <b>3번 크기</b> = 2번 저점 위에서 올라선 정도(큼·보통·약함)<br>
+    <p class="hm-note"><b>기준선</b> = ① 상한가 → ② 하락 음봉 → ③ 반등 양봉이 나온 뒤 ② 저점에 긋는 그림 줄. ③이 아직 없으면 선을 긋지 않는다 · ④ 그 줄까지 다시 내려오면 4번 추가매수<br>
+    <b>3번 첫 거래 판정</b> = A 월봉 터짐·3번 큼·지수 안 꺾임 / B 월봉 터짐·3번 큼 / C 3번 큼·월봉 아직 — D(3번 작음)는 사지 않는 자리라 <b>목록에서 빼요</b><br>
+    <b>첫 단추</b> = 테마 크기(같은 테마에서 최근 1주 안에 상한가 낸 종목 수·나 포함) · 240선 위/아래(상한가 전날 종가) · 첫 거래량(상한가 봉 거래량 ÷ 앞 125봉 최대)<br>
     <b>4→5 황금자리</b> = 2번 줄 사수 + 상자 2회 이상 왕복 + 거래량 ${r.vol4 || 0.7}배 이하 마른 음봉(4단계), 또는 그 음봉 바로 뒤 윗선 돌파 당일<br>
     <b>240선 흐름</b> = 240선 위에서 테마가 서면 한두 달 바짝 하고 빠지는 자리 — 끝자리 추격 대신, 240선 아래로 다시 흘러 바닥에서 멈추면 9단계 C(바닥 대기)로 본다<br>
     <b>9단계 멈춤</b> = 분출 뒤 ${Math.round(Math.abs(r.c_dd || 0.28) * 100)}% 이상 빠진 자리에서 15봉 폭 ${Math.round((r.c_rng || 0.18) * 100)}% 안 + 거래량 ${r.c_vol || 0.5}배 이하<br>
@@ -2079,7 +2113,7 @@ function chartLegendHtml(s){
   /* 그림 기준선(② 눌림 저점) — ③ 반등 양봉이 나온 뒤에만 긋는다(2026-11-21 지시) */
   if(s.line) parts.push(`<span><i class="cb">기준선</i>${fmtWon(s.line)}원(2번 줄)</span>`);
   else if(s.base_open) parts.push(`<span><i class="cb">기준선</i>${fmtWon(s.base_open)}원(2번 줄)</span>`);
-  else parts.push(`<span style="color:#7e8aa0">3번 대기 — 반등 양봉이 나오면 2번 줄에 기준선</span>`);
+  else parts.push(`<span style="color:#7e8aa0">2번 줄은 3번(반등 양봉)이 나온 뒤에 긋는다</span>`);
   if(s.ref_vol) parts.push(`<span><i class="cv">1번</i>거래량 ${fmtVolK(s.ref_vol)}주 = 앞 6개월 최대</span>`);
   if(p !== 'day' && s.pos2) parts.push(`<span>${s.pos2 === '앞쪽' ? '앞쪽' : '뒤쪽'}${(s.pos2_why || []).length ? ' · ' + esc((s.pos2_why || []).join(' · ')) : ''}</span>`);
   if(s.ratio && p !== 'day'){
