@@ -2698,6 +2698,14 @@ if(noticeOv){
   if(!code) code = saved;
   if(!code) return;
   let ok = await unlockHotbar(code);
+  /* 첫 로드에서는 서비스워커가 자리 잡기 전이라 자료 받기가 실패할 수 있다 — 잠긴 화면에 멈추지 않게 몇 번 더 시도한다 */
+  if(!ok && fromUrl){
+    for(const ms of [400, 900, 1600]){
+      await new Promise(r => setTimeout(r, ms));
+      ok = await unlockHotbar(code);
+      if(ok) break;
+    }
+  }
   if(!ok && fromUrl && saved && saved !== code) ok = await unlockHotbar(saved);
   if(!ok){ if(fromUrl) toast('비밀코드가 맞지 않습니다'); return; }
   visPaint();
