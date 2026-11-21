@@ -264,6 +264,22 @@
     border:1px solid var(--line);background:rgba(255,255,255,.03);padding:2px 6px;border-radius:6px;
     cursor:pointer;font-family:inherit}
   .th-card{background:var(--card);border:1px solid var(--line);border-radius:10px;margin-bottom:5px;overflow:hidden}
+  /* 테마 구분 필터 — 기본은 동반테마(진짜 테마부터) */
+  .cal-flt{display:flex;gap:4px;margin:0 0 7px}
+  .cal-flt button{flex:1;appearance:none;font-family:inherit;cursor:pointer;
+    border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--dim);
+    font-size:11px;font-weight:800;letter-spacing:-.3px;padding:6px 2px;border-radius:8px;
+    display:flex;align-items:center;justify-content:center;gap:3px;transition:.15s}
+  .cal-flt button i{font-style:normal;font-size:9.5px;font-weight:800;color:var(--dim2)}
+  .cal-flt button:active{transform:scale(.97)}
+  .cal-flt button[aria-pressed="true"]{color:#fff;border-color:transparent;
+    background:linear-gradient(135deg,#4f8cff,#7c5cff);box-shadow:0 3px 12px rgba(79,140,255,.28)}
+  .cal-flt button[aria-pressed="true"] i{color:rgba(255,255,255,.88)}
+  .cal-note{font-size:10px;color:#7f8ca4;line-height:1.45;margin:-1px 1px 8px;letter-spacing:-.2px}
+  .th-badge{flex:none;font-size:9px;font-weight:800;padding:1px 5px;border-radius:5px;letter-spacing:-.2px}
+  .th-badge.bd{color:#9fe4c0;background:rgba(45,200,130,.13);border:1px solid rgba(45,200,130,.34)}
+  .th-badge.bg{color:#ffc98a;background:rgba(255,165,70,.12);border:1px solid rgba(255,165,70,.32)}
+  .th-why{font-size:10px;color:#8c9ab2;line-height:1.45;margin:0 0 7px;letter-spacing:-.2px}
   .th-head{width:100%;appearance:none;border:0;background:transparent;color:inherit;font-family:inherit;
     display:flex;align-items:center;gap:6px;padding:8px 9px;text-align:left;cursor:pointer}
   .th-head:active{opacity:.8}
@@ -834,6 +850,12 @@
 
   <section class="view" data-view="calendar" id="view-calendar" hidden>
     <div class="viewhead"><b>📅 테마달력</b><span id="calSub"></span></div>
+    <div class="cal-flt" id="calFlt" role="group" aria-label="테마 구분 필터">
+      <button type="button" data-k="동반테마" aria-pressed="true">동반테마 <i>0</i></button>
+      <button type="button" data-k="개별상한가" aria-pressed="false">개별상한가 <i>0</i></button>
+      <button type="button" data-k="전체" aria-pressed="false">전체 <i>0</i></button>
+    </div>
+    <p class="cal-note">동반테마 = 같은 테마 종목이 상한가일 ±3거래일 안에 함께 15% 이상 오른 테마 · 개별상한가 = 실적·계약·인수·임상·허가·기술수출·경영권·자사주·신작·특허 등 단독 재료로 한 종목만 오른 경우</p>
     <div class="mon-grid" id="monGrid"></div>
     <div class="cal-head"><b id="calMonthTitle">–</b><span id="calMonthSub"></span>
       <button class="cal-all" id="calAll" type="button">모두 펼치기</button>
@@ -879,16 +901,21 @@
     </div>
     <div class="nt-it">
       <span class="nt-n">2</span>
+      <div class="nt-c"><b>이번 업데이트 (11.21) · 테마달력에 '동반테마 / 개별상한가' 구분 필터</b>
+        <p><em>테마달력</em> 위에 <em>[동반테마] [개별상한가] [전체]</em> 칩을 달았습니다. 처음에는 <em>동반테마</em>가 선택돼 있어 같은 테마 종목들이 <em>함께 오른 진짜 테마</em>부터 보입니다. <em>개별상한가</em>를 누르면 실적·계약·인수·임상·허가·기술수출·경영권·자사주·신작·특허 같은 <em>단독 재료</em>로 한 종목만 오른 경우를 볼 수 있습니다. 테마 이름 앞 배지(동반 / 개별)와 펼친 안의 근거 줄로 왜 그렇게 갈렸는지 확인할 수 있습니다.</p></div>
+    </div>
+    <div class="nt-it">
+      <span class="nt-n">3</span>
       <div class="nt-c"><b>종목 차트 보는 법</b>
         <p><em>뉴스 · 상한가 · 테마달력 · 레이더</em> 어느 화면에서든 종목 이름을 누르면 그 종목의 <em>일봉 125봉 차트</em> 가 열립니다. 봉을 짚으면 그날 종가·등락률·거래량과 5·10·20·60일선 값이 위에 뜨고, <em>전체 125봉 / 최근 60봉</em> 버튼으로 넓혀 보거나 좁혀 볼 수 있습니다.</p></div>
     </div>
     <div class="nt-it">
-      <span class="nt-n">3</span>
+      <span class="nt-n">4</span>
       <div class="nt-c"><b>지정시간 자동 업데이트</b>
         <p>평일 지정시간마다 뉴스와 차트가 자동으로 갱신됩니다. 화면 위 <em>⟳</em> 를 누르면 지금 바로 새로 받아옵니다.</p></div>
     </div>
     <div class="nt-it">
-      <span class="nt-n">4</span>
+      <span class="nt-n">5</span>
       <div class="nt-c"><b>투자 참고용</b>
         <p>이 사이트의 모든 정보는 개인 학습·참고용이며 <em>투자 권유가 아닙니다</em>. 판단과 책임은 투자자 본인에게 있습니다.</p></div>
     </div>
@@ -928,7 +955,7 @@
 </div>
 
 <script>
-const state = { data:null, calendar:null, radar:null, month:null, tab:'news', more:false, open:new Set(), hotOpen:new Set() };
+const state = { data:null, calendar:null, radar:null, month:null, tab:'news', more:false, open:new Set(), hotOpen:new Set(), calKind:'동반테마' };
 const TABS = ['news','upper','calendar','radar','hotbar'];
 const FIRST_ISSUES = 14;   // 이슈 순위 첫 화면 14건 (속보 6건과 3:7)
 
@@ -1239,6 +1266,9 @@ function renderUpper(){
 }
 
 /* ---------------- 테마달력 ---------------- */
+/* 테마 이름 → 구분(동반테마 / 개별상한가). 달력 자료를 받을 때 함께 채운다.
+   비밀 핫바 10단계 확정 알림의 '테마 동반' 판정에서, 자료에 theme_kind가 없을 때 대신 쓴다. */
+const CAL_KIND = Object.create(null);
 async function ensureCalendar(){
   if(state.calendar) return state.calendar;
   try{
@@ -1248,6 +1278,12 @@ async function ensureCalendar(){
     try{ localStorage.setItem('newsradar_cal', JSON.stringify(state.calendar)); }catch(e){}
   }catch(err){
     try{ state.calendar = JSON.parse(localStorage.getItem('newsradar_cal') || 'null'); }catch(e){}
+  }
+  for(const m of ((state.calendar && state.calendar.months) || [])){
+    for(const t of (m.themes || [])){
+      const n = String(t.name || '').trim();
+      if(n && t.kind) CAL_KIND[n] = t.kind;
+    }
   }
   return state.calendar;
 }
@@ -1287,24 +1323,54 @@ async function renderCalendar(){
       `<span class="m">${esc(m.label)}</span><span class="n">${m.theme_count}</span></button>`).join('');
   }
   const mm = months.find(m => m.month === sel) || months[months.length - 1];
-  if($('#calMonthTitle')) $('#calMonthTitle').textContent = `${mm.month_name} 테마 ${mm.theme_count}개`;
-  if($('#calMonthSub')) $('#calMonthSub').textContent = `상한가 종목 ${mm.stock_count}건`;
+  const kc = mm.kind_count || {};
+  const nD = kc['동반테마'] || 0, nG = kc['개별상한가'] || 0;
+  const flt = $('#calFlt');
+  if(flt){
+    flt.querySelectorAll('button').forEach(b => {
+      const k = b.dataset.k;
+      const n = k === '동반테마' ? nD : k === '개별상한가' ? nG : (mm.theme_count || 0);
+      b.setAttribute('aria-pressed', String(k === state.calKind));
+      const i = b.querySelector('i');
+      if(i) i.textContent = n;
+    });
+  }
+  const all = mm.themes || [];
+  const list = state.calKind === '전체' ? all
+    : all.filter(t => ((t.kind || '동반테마') === state.calKind));
+  const kindLabel = state.calKind === '전체' ? '테마' : state.calKind;
+  if($('#calMonthTitle')) $('#calMonthTitle').textContent = `${mm.month_name} ${kindLabel} ${list.length}개`;
+  if($('#calMonthSub')){
+    const st = list.reduce((a, t) => a + (t.count || 0), 0);
+    $('#calMonthSub').textContent = `상한가 종목 ${st}건`;
+  }
   if($('#calAll')) $('#calAll').textContent = '모두 펼치기';
-  if(!(mm.themes || []).length){
-    box.innerHTML = `<div class="empty">이 달에 기록된 상한가 테마가 없습니다.</div>`;
+  if(!list.length){
+    const noMsg = state.calKind === '전체'
+      ? '이 달에 기록된 상한가 테마가 없습니다.'
+      : `이 달에는 ${esc(state.calKind)} 테마가 없습니다.<br>[전체] 칩을 누르면 이 달 테마를 모두 볼 수 있습니다.`;
+    box.innerHTML = `<div class="empty">${noMsg}</div>`;
     return;
   }
-  box.innerHTML = mm.themes.map(t => `<article class="th-card">
+  box.innerHTML = list.map(t => {
+    const individual = t.kind === '개별상한가';
+    const tip = individual
+      ? '개별상한가 — 실적·계약·인수·임상·허가·기술수출·경영권·자사주·신작·특허 등 단독 재료로 한 종목만 상한가(같은 테마 ±3거래일 동반 상승 없음)'
+      : '동반테마 — 같은 테마 종목이 상한가일 ±3거래일 안에 함께 15% 이상 올랐습니다';
+    return `<article class="th-card">
       <button class="th-head" type="button">
+        <span class="th-badge ${individual ? 'bg' : 'bd'}" title="${esc(tip)}">${individual ? '개별' : '동반'}</span>
         <span class="th-name">${esc(t.name)}</span>
         <span class="th-cnt">${t.count}</span>
         <span class="th-exp">▾</span>
       </button>
       <div class="th-body">
+        ${t.why ? `<p class="th-why">${individual ? '개별 근거' : '동반 근거'} — ${esc(t.why)}</p>` : ''}
         ${t.summary ? `<p class="th-sum">${esc(t.summary)}</p>` : ''}
         <div class="stk-grid">${t.stocks.map(stkHtml).join('')}</div>
       </div>
-    </article>`).join('');
+    </article>`;
+  }).join('');
 }
 
 
@@ -1733,6 +1799,8 @@ async function ensurePick(){
       hotPick = (Number(sealed.enc) === 1) ? await hotDecrypt(sealed, code) : sealed;
     }catch(e){ hotPick = null; }
     hotPickLoading = null;
+    /* 테마 구분(동반 / 개별)이 자료에 없을 때 달력 자료로 보충한다 — 확정 알림 ④ 판정용 */
+    if(hotPick) ensureCalendar();
     return hotPick;
   })();
   return hotPickLoading;
@@ -1926,19 +1994,31 @@ async function renderPick(){
     ① 잠금이 풀린 비밀 핫바에서만(공개 화면·잠금 화면에는 절대 못 뜨게 visOn() 으로 막는다)
     ② 10단계 상태가 (매수) — 관망·매도·손절·보유는 아니다
     ③ 분홍↑가 최근 5거래일 안에 떴다
-    ④ 테마 동반 — 같은 테마에서 최근 1주 안 상한가 2종목 이상, 또는 테마 DB 상한가 종목 2종목 이상
+    ④ 테마 동반 — 같은 테마에서 최근 1주 안 상한가 2종목 이상(t_n), 또는
+       테마 DB 상한가 종목 2종목 이상(theme_n). 단 테마가 '개별상한가'(실적·계약·인수·임상·
+       세계최초 등 단독 재료)로 분류된 테마는 theme_n만으로는 동반 요건을 채우지 못한다 —
+       같은 테마 종목이 최근 1주 안에 실제로 함께 상한가를 쳐 t_n ≥ 2 가 될 때만 동반으로 본다
+       (2026-11-21 지시: 개별상한가 단독 종목은 바닥권 동반 테마 합류 전까지 동반 요건 미충족).
     ⑤ 3번 첫 거래 판정 A 또는 B (D는 사지 않는 자리, C는 월봉 아직)
    [확인] 을 누르면 그 기준일(base_date)을 localStorage 에 남겨 그날은 다시 뜨지 않는다
    — 다음 거래일이 되면 기준일이 바뀌므로 새로 한 번 더 뜬다. */
 const CF_KEY = 'newsradar_confirmed_ack';
 let cfDone = false;
 function cfAckDate(){ try{ return localStorage.getItem(CF_KEY) || ''; }catch(e){ return ''; } }
+function cfThemeKind(s){
+  const k = String(s.theme_kind || '');
+  if(k) return k;
+  const nm = String(((s.theme || {}).name) || '').trim();
+  return CAL_KIND[nm] || '';
+}
 function cfConfirmed(){
   return pickAll().filter(s => {
     const st = String(s.state || '');
     if(!(st === '매수' || st === '9단계 매수')) return false;         /* ② 매수 계열만 */
     if(!s.pink_arrow_date || s.pink_arrow_days == null || Number(s.pink_arrow_days) > 5) return false;   /* ③ */
-    const dup = Number(s.t_n || 0) >= 2 || Number(s.theme_n || 0) >= 2;    /* ④ */
+    const themeN = Number(s.theme_n || 0);
+    const dup = Number(s.t_n || 0) >= 2
+      || (cfThemeKind(s) !== '개별상한가' && themeN >= 2);             /* ④ */
     if(!dup) return false;
     const g = String(((s.judge || {}).grade) || '');                    /* ⑤ */
     return g === 'A' || g === 'B';
@@ -2617,6 +2697,13 @@ $('#upperList').addEventListener('click', e => {
   const open = card.classList.toggle('open');
   btn.textContent = open ? '접기 ▴' : '더 보기 ▾';
 });
+/* 테마달력: 구분 필터(동반테마·개별상한가·전체) */
+$('#calFlt').addEventListener('click', e => {
+  const b = e.target.closest('button[data-k]');
+  if(!b) return;
+  state.calKind = b.dataset.k;
+  renderCalendar();
+});
 /* 테마달력: 달 선택 · 테마 아코디언 */
 $('#monGrid').addEventListener('click', e => {
   const b = e.target.closest('.mon');
@@ -2856,7 +2943,7 @@ visPaint();
 })();
 
 /* ---------------- 공지사항 창 (처음 한 번 · [확인] 을 누르면 다시 뜨지 않는다) ---------------- */
-const NOTICE_KEY = 'newsradar_notice_v2_ack';
+const NOTICE_KEY = 'newsradar_notice_v3_ack';
 let noticeOv = $('#noticeOv');
 function noticeSeen(){
   try{ return !!localStorage.getItem(NOTICE_KEY); }catch(e){ return false; }
