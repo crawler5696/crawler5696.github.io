@@ -809,7 +809,6 @@
       <button type="button" data-sec="month">월봉</button>
       <button type="button" data-sec="pick">10단계<span class="s">4→5 · A/B/C</span></button>
     </div>
-    <div id="hotScore"></div>
     <div id="hotBody">
       <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
     </div>
@@ -1630,7 +1629,6 @@ async function renderHotbar(){
   }
   const sec = (d.sections || []).find(x => x.key === hotbarSec) || d.sections[0];
   hotbarSec = sec.key;
-  if($('#hotScore')) $('#hotScore').innerHTML = scoreHtml(d.score);
   if($('#hotSub')){
     const subEl = $('#hotSub');
     subEl.textContent = (sec.sub ? sec.sub + ' · ' : '') + (d.base_date_text || '') + (d.universe ? ` · ${d.universe}종목` : '');
@@ -1782,7 +1780,6 @@ async function renderPick(){
       return;
     }
   }
-  if($('#hotScore')) $('#hotScore').innerHTML = scoreHtml((hotbarData || {}).score);
   const all = pickAll();
   const themes = hotPick.themes || [];
   const cnt = hotPick.counts || {};
@@ -1851,7 +1848,7 @@ async function renderPick(){
     ${mktLine}
     ${head}
     ${body}
-    <p class="hm-note"><b>기준선</b> = ① 상한가 → ② 하락 음봉 → ③ 반등 양봉이 나온 뒤 ② 저점에 긋는 그림 줄. ③이 아직 없으면 선을 긋지 않는다 · ④ 그 줄까지 다시 내려오면 4번 추가매수<br>
+    <p class="hm-note"><b>기준선</b> = ① 상한가 → ② 하락 음봉 → ③ 윗꼬리 긴 반등 양봉이 나온 뒤 ② 저점에 긋는 그림 줄. 더 높은 자리에서 다시 ②③이 나오면 <b>그 ②③ 아래로 갱신</b>(한싹 11-17→11-18) · 아직 없으면 선을 긋지 않는다 · 줄까지 다시 내려오면 4번 추가매수<br>
     <b>3번 첫 거래 판정</b> = A 월봉 터짐·3번 큼·지수 안 꺾임 / B 월봉 터짐·3번 큼 / C 3번 큼·월봉 아직 — D(3번 작음)는 사지 않는 자리라 <b>목록에서 빼요</b><br>
     <b>첫 단추</b> = 테마 크기(같은 테마에서 최근 1주 안에 상한가 낸 종목 수·나 포함) · 240선 위/아래(상한가 전날 종가) · 첫 거래량(상한가 봉 거래량 ÷ 앞 125봉 최대)<br>
     <b>4→5 황금자리</b> = 2번 줄 사수 + 상자 2회 이상 왕복 + 거래량 ${r.vol4 || 0.7}배 이하 마른 음봉(4단계), 또는 그 음봉 바로 뒤 윗선 돌파 당일<br>
@@ -1955,7 +1952,7 @@ function chartSvgHtml(s){
     const h = Math.max(1, c[5] / vmax * vh);
     g += `<rect x="${(x - bw / 2).toFixed(1)}" y="${(CH_VY1 - h).toFixed(1)}" width="${bw.toFixed(1)}" height="${h.toFixed(1)}" fill="${col}" opacity=".5"/>`;
   });
-  /* 이동평균선 5·10·20·60 — 얇은 색선. 봉 뒤에 깔아 선 흐름(정배열)과 눌림이 한눈에 보이게 */
+  /* 이동평균선 5·10·20·60 — 얇은 색선. 봉 뒤에 깔아 선이 차례로 선 자리와 눌림이 한눈에 보이게 */
   if(MAS.length){
     MAS.forEach(([k, col]) => {
       let d = '';
@@ -2083,7 +2080,7 @@ function chartLegendHtml(s){
       const v = val(k);
       if(v) parts.push(`<span><i class="cm ${cls}">${k}일</i>${fmtWon(v)}</span>`);
     });
-    parts.push('<span style="color:#7e8aa0">선 순서 5&gt;10&gt;20&gt;60 이면 정배열</span>');
+    parts.push('<span style="color:#7e8aa0">5&gt;10&gt;20&gt;60 선이 차례로 선 자리</span>');
     parts.push('<span style="color:#ff8a9a">■ 양봉</span><span style="color:#7fa8ff">■ 음봉</span>');
     parts.push(chartDayNote(s));
     return parts.join('');
@@ -2106,7 +2103,7 @@ function chartLegendHtml(s){
       if(v) parts.push(`<span><i class="cm ${cls}">${k}일</i>${fmtWon(v)}</span>`);
     });
     parts.push(`<span><i class="cb">기준선</i>${fmtWon(s.base_open || 0)}원(2번 줄)</span>`);
-    parts.push('<span style="color:#7e8aa0">선 순서 5&gt;10&gt;20&gt;60 이면 정배열</span>');
+    parts.push('<span style="color:#7e8aa0">5&gt;10&gt;20&gt;60 선이 차례로 선 자리</span>');
     parts.push(chartDayNote(s));
     return parts.join('');
   }
@@ -2471,15 +2468,8 @@ $('#hotSeg').addEventListener('click', e => {
   state.hotOpen.clear();
   renderHotbar();
 });
-/* 진화 점수판 펼치기/접기 — 다시 그리지 않고 그 자리에서 열고 닫는다 */
-$('#hotScore').addEventListener('click', e => {
-  const b = e.target.closest('.sc-toggle');
-  if(!b) return;
-  const box = b.closest('.sc');
-  if(!box) return;
-  const open = box.classList.toggle('open');
-  b.textContent = open ? '접기 ▴' : '최근 채점 · 공식 예상 펼치기 ▾';
-});
+/* 진화 점수판은 화면에서 걷어냈다(2026-11-21 지시 — 이제 공부가 아니라 실전).
+   숫자(score)는 자료 안에 그대로 남아 있으므로 필요해지면 다시 그린다. */
 $('#hotBody').addEventListener('click', e => {
   /* 매수선별 — 유형·4→5 필터 */
   const fb = e.target.closest('#hpFlt button');
