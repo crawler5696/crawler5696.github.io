@@ -455,6 +455,7 @@
   .hp-judge i.big{color:#1a1206;background:linear-gradient(135deg,#ffd76a,#ffb02e);border-color:transparent}
   .hp-judge i.mid{color:#ffe066;background:rgba(255,224,102,.1);border-color:rgba(255,224,102,.35)}
   .hp-judge i.small{color:#93a4bf}
+  .hp-judge i.pk{color:#ffd0e6;background:rgba(244,114,182,.16);border-color:rgba(244,114,182,.55)}
   .hp-judge i.fire{color:#1a1206;background:linear-gradient(135deg,#ffd76a,#ffb02e);border-color:transparent}
   .hp-sec{flex:none;font-size:9.5px;font-weight:900;letter-spacing:-.2px;padding:1px 5px;border-radius:5px;white-space:nowrap}
   .hp-sec.strong{color:#ff8a9a;background:rgba(255,90,110,.15);border:1px solid rgba(255,90,110,.48)}
@@ -725,6 +726,18 @@
     box-shadow:0 4px 16px rgba(79,140,255,.32)}
   .nt-ok:active{opacity:.86}
   .nt-foot{margin-top:7px;text-align:center;font-size:9.5px;font-weight:600;color:#5f6f8c;letter-spacing:-.1px}
+  /* ---------- 확정 알림 (비밀 핫바 10단계 · 모든 조건 충족 때만) ---------- */
+  .cf-box{max-width:400px}
+  .cf-it{padding:9px 0;border-top:1px solid rgba(255,255,255,.065)}
+  .cf-it:first-child{border-top:0;padding-top:2px}
+  .cf-top{display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+  .cf-top b{font-size:13px;font-weight:900;color:#fff;letter-spacing:-.2px}
+  .cf-g{font-size:9.5px;font-weight:900;padding:1px 5px;border-radius:5px;color:#1a1206;
+    background:linear-gradient(135deg,#8ef0c4,#3ddc97)}
+  .cf-pk{font-size:9.5px;font-weight:900;padding:1px 5px;border-radius:5px;color:#ffd0e6;
+    background:rgba(244,114,182,.16);border:1px solid rgba(244,114,182,.55)}
+  .cf-th{margin-top:3px;font-size:10.5px;font-weight:800;color:#93a4bf;letter-spacing:-.2px}
+  .cf-why{margin:3px 0 0;font-size:11px;line-height:1.55;color:#c2cde0;letter-spacing:-.1px;word-break:keep-all}
 </style>
 </head>
 <body>
@@ -877,6 +890,22 @@
     </div>
     <button class="nt-ok" id="ntOk" type="button">확인 (다시 보지 않기)</button>
     <p class="nt-foot">다시 보려면 화면 위 📢 를 누르세요</p>
+  </div>
+</div>
+
+<!-- 확정 알림 — 비밀 핫바 10단계에서 매수 · 분홍↑ 최근 5거래일 · 테마 동반 · 3번 판정 A/B 가
+     모두 맞는 종목이 있을 때만 뜨고, [확인] 을 누르면 그 기준일에는 다시 뜨지 않는다. -->
+<div class="nt-ov" id="cfOv" hidden>
+  <div class="nt-box cf-box" role="dialog" aria-modal="true" aria-labelledby="cfTitle">
+    <div class="nt-top">
+      <span class="ico" aria-hidden="true">🌸</span>
+      <h2 id="cfTitle">확정 알림 · 10단계</h2>
+      <button class="nt-x" id="cfX" type="button" aria-label="알림 닫기">✕</button>
+    </div>
+    <p class="nt-sub" id="cfSub"></p>
+    <div id="cfList"></div>
+    <button class="nt-ok" id="cfOk" type="button">확인 (오늘은 다시 보지 않기)</button>
+    <p class="nt-foot">조건 — 10단계 (매수) · 분홍↑ 최근 5거래일 · 테마 동반 · 3번 판정 A/B</p>
   </div>
 </div>
 
@@ -1714,6 +1743,7 @@ function pickChartItem(st){
     view: 38, full: 90, mas: 1,
     price: st.now, price_text: fmtWon(st.now) + '원', chg: st.chg,
     stage: st.stage, stage_dates: st.sd || {}, base_open: st.base, line: st.base,
+    pink: st.pink || [],
     judge: st.judge || null,
     sector: st.sector || null, market: (hotPick || {}).market || null,
     reason: `${st.alert || st.state} · 유형 ${st.t} · ${st.stage_txt} · 1번 ${mmdd(st.d0)}`,
@@ -1757,6 +1787,9 @@ function pickRowHtml(st){
     const g = String(j.grade);
     chips.push(`<i class="g${g}" title="3번 첫 거래 판정 — A 월봉 터짐·3번 큼·지수 안 꺾임 / B 월봉 터짐·3번 큼 / C 3번 큼·월봉 아직">3번 ${g}</i>`);
   }
+  /* 분홍 ↑ — 240·448선 아래 바닥에서 5·20·33·전환·기준선을 한꺼번에 넘어선 양봉이 최근 5거래일
+     안에 떴을 때만 보이는 보조 배지(2026-11-21 지시). 기존 A/B/C 결정문은 그대로 둔다. */
+  if(st.pink_arrow_date) chips.push(`<i class="pk" title="분홍↑ — 240·448선 아래 바닥에서 5·20·33일선과 전환선(9)·기준선(26)을 한꺼번에 넘어선 양봉">분홍↑ ${mmdd(st.pink_arrow_date)}</i>`);
   const jl = chips.length ? `<div class="hp-judge">${chips.join('')}</div>` : '';
   return `<div class="hb-row hm-row hp-row${ch ? ' chart' : ''}"${attr}>
     <div class="hb-name hp-name">${esc(st.name)}<b class="hp-st ${stCls}">(${esc(stTxt)})</b></div>
@@ -1867,7 +1900,82 @@ async function renderPick(){
     if(open){ wp.removeAttribute('hidden'); wb.setAttribute('aria-expanded', 'true'); wb.textContent = `지수 약세로 관망 ${watch.length}종목 접기 ▴`; }
     else{ wp.setAttribute('hidden', ''); wb.setAttribute('aria-expanded', 'false'); wb.textContent = `지수 약세로 관망 ${watch.length}종목 보기 ▾`; }
   };
+  cfCheck();
 }
+
+/* ---------------- 확정 알림 — 비밀 핫바 10단계의 '모든 조건' 종목 (2026-11-21 지시) ----------------
+   뜨는 조건(하나라도 빠지면 안 뜬다)
+    ① 잠금이 풀린 비밀 핫바에서만(공개 화면·잠금 화면에는 절대 못 뜨게 visOn() 으로 막는다)
+    ② 10단계 상태가 (매수) — 관망·매도·손절·보유는 아니다
+    ③ 분홍↑가 최근 5거래일 안에 떴다
+    ④ 테마 동반 — 같은 테마에서 최근 1주 안 상한가 2종목 이상, 또는 테마 DB 상한가 종목 2종목 이상
+    ⑤ 3번 첫 거래 판정 A 또는 B (D는 사지 않는 자리, C는 월봉 아직)
+   [확인] 을 누르면 그 기준일(base_date)을 localStorage 에 남겨 그날은 다시 뜨지 않는다
+   — 다음 거래일이 되면 기준일이 바뀌므로 새로 한 번 더 뜬다. */
+const CF_KEY = 'newsradar_confirmed_ack';
+let cfDone = false;
+function cfAckDate(){ try{ return localStorage.getItem(CF_KEY) || ''; }catch(e){ return ''; } }
+function cfConfirmed(){
+  return pickAll().filter(s => {
+    const st = String(s.state || '');
+    if(!(st === '매수' || st === '9단계 매수')) return false;         /* ② 매수 계열만 */
+    if(!s.pink_arrow_date || s.pink_arrow_days == null || Number(s.pink_arrow_days) > 5) return false;   /* ③ */
+    const dup = Number(s.t_n || 0) >= 2 || Number(s.theme_n || 0) >= 2;    /* ④ */
+    if(!dup) return false;
+    const g = String(((s.judge || {}).grade) || '');                    /* ⑤ */
+    return g === 'A' || g === 'B';
+  });
+}
+function cfShow(list){
+  const ov = $('#cfOv'), box = $('#cfList'), sub = $('#cfSub');
+  if(!ov || !list.length) return;
+  if(sub) sub.textContent = `${(hotPick || {}).base_date_text || ''} · 모든 조건이 맞은 ${list.length}종목`;
+  if(box) box.innerHTML = list.map(s => {
+    const g = String(((s.judge || {}).grade) || '');
+    const th = String(((s.theme || {}).name) || '').split(' — ')[0].split(' (')[0];
+    const n = Number(s.t_n || s.theme_n || 0) || 1;
+    return `<div class="cf-it">
+      <div class="cf-top"><b>${esc(s.name)}</b>
+        <span class="cf-g">3번 ${esc(g)}</span>
+        <span class="cf-pk">분홍↑ ${mmdd(s.pink_arrow_date)}</span>
+      </div>
+      <div class="cf-th">${esc(th || '테마 미상')} · 테마 ${n}종목 · ${esc(String(s.state || ''))}</div>
+      <p class="cf-why">${esc(s.alert || s.why || '')}</p>
+    </div>`;
+  }).join('');
+  cfDone = true;
+  ov.hidden = false;
+  requestAnimationFrame(() => ov.classList.add('show'));
+  document.body.classList.add('lock');
+}
+function cfHide(){
+  const ov = $('#cfOv');
+  if(!ov || ov.hidden) return;
+  ov.classList.remove('show');
+  const ch = $('#chartOv'), nt = $('#noticeOv');
+  if((!ch || ch.hidden) && (!nt || nt.hidden)) document.body.classList.remove('lock');
+  setTimeout(() => { if(ov && !ov.classList.contains('show')) ov.hidden = true; }, 180);
+}
+function cfAck(){
+  const d = String((hotPick || {}).base_date || '');
+  try{ localStorage.setItem(CF_KEY, d || '1'); }catch(e){}
+  cfHide();
+}
+function cfCheck(){
+  if(cfDone || !visOn() || !hotPick) return;      /* ① 잠금이 풀린 비밀 핫바에서만 */
+  const d = String((hotPick || {}).base_date || '');
+  if(d && cfAckDate() === d) return;             /* 그날 이미 [확인] 을 눌렀다 */
+  const list = cfConfirmed();
+  if(list.length) cfShow(list);
+}
+(function bindConfirmed(){
+  const ov = $('#cfOv');
+  if(!ov) return;
+  const ok = $('#cfOk'), x = $('#cfX');
+  if(ok) ok.addEventListener('click', cfAck);
+  if(x) x.addEventListener('click', cfHide);      /* ✕ 는 그냥 닫기 — 오늘 접속하면 또 뜬다 */
+  ov.addEventListener('click', e => { if(e.target === ov) cfHide(); });
+})();
 
 /* ---------------- 핫바 카드 → 차트 모달 (일봉 · 주봉 · 월봉) ----------------
    hotbar.json 의 candles 로 그린다 — 일봉 1·2·3·4는 45봉 안팎, 주봉 1·2·3은 52주봉,
@@ -2032,6 +2140,21 @@ function chartSvgHtml(s){
       g += `<path d="M${(x - w).toFixed(1)} ${(tip - h).toFixed(1)} L${(x + w).toFixed(1)} ${(tip - h).toFixed(1)} L${x.toFixed(1)} ${tip.toFixed(1)} Z" fill="#fde047" stroke="rgba(11,17,32,.85)" stroke-width=".7" stroke-linejoin="round"/>`;
     });
   }
+  /* 분홍 ↑ (후보 G) — 240·448선 아래 바닥에서 5·20·33일선과 전환선(9)·기준선(26)을 한꺼번에
+     넘어선 양봉. 노란 ▼(상한가)는 봉 위, 분홍 ▲는 봉 아래라 겹치지 않고, ①·③ 동그라미
+     (봉 위)와도 자리가 갈린다. **비밀 핫바 일봉 차트에만** 그린다 — 공개 일봉 125봉(plain)
+     이나 공개 4개 탭에는 절대 넣지 않는다(2026-11-21 지시). */
+  if(!plain && p === 'day' && Array.isArray(s.pink) && s.pink.length){
+    const pset = new Set(s.pink.map(d => String(d)));
+    cs.forEach((c, i) => {
+      if(!pset.has(String(c[0]))) return;
+      const x = CH_X0 + slot * i + slot / 2;
+      const w = Math.min(5.2, Math.max(4.1, slot * 0.46)), h = w * 1.2;
+      const top = Y(c[3]) + 2.8;                          /* 아랫꼬리 끝 바로 아래에 꼭대기 */
+      const baseY = Math.min(top + h, CH_VY0 - 2.4);      /* 거래량 칸으로 넘어가지 않게 */
+      g += `<path d="M${x.toFixed(1)} ${top.toFixed(1)} L${(x - w).toFixed(1)} ${baseY.toFixed(1)} L${(x + w).toFixed(1)} ${baseY.toFixed(1)} Z" fill="#f472b6" stroke="rgba(11,17,32,.9)" stroke-width=".6" stroke-linejoin="round"/>`;
+    });
+  }
   markList.forEach(x => { g += markAt(x[0], x[1], x[2]); });
   /* 날짜 눈금 — 처음·가운데·끝 */
   const ax = d => p === 'month' ? String(d).slice(2,7).replace('-','.') : mmdd(d);
@@ -2138,6 +2261,7 @@ function chartLegendHtml(s){
     parts.push(`<span><i class="cb">기준선</i>${fmtWon(s.base_open || 0)}원(2번 줄)</span>`);
     parts.push('<span style="color:#7e8aa0">5&gt;10&gt;20&gt;60 선이 차례로 선 자리</span>');
     if(p === 'day') parts.push('<span style="color:#fde047">▼ 상한가</span>');
+    if(p === 'day') parts.push('<span style="color:#f472b6">▲ 분홍신호(240선 아래)</span>');
     parts.push(chartDayNote(s));
     return parts.join('');
   }
@@ -2154,6 +2278,7 @@ function chartLegendHtml(s){
     else parts.push(`<span>이번 ${p === 'week' ? '주' : '달'} 거래량 ${x}배</span>`);
   }
   if(p === 'day') parts.push('<span style="color:#fde047">▼ 상한가</span>');
+  if(p === 'day') parts.push('<span style="color:#f472b6">▲ 분홍신호(240선 아래)</span>');
   parts.push(`<span style="color:#ff8a9a">■ 양봉</span><span style="color:#7fa8ff">■ 음봉</span>`);
   parts.push(chartDayNote(s));
   return parts.join('');
