@@ -726,6 +726,10 @@
     box-shadow:0 4px 16px rgba(79,140,255,.32)}
   .nt-ok:active{opacity:.86}
   .nt-foot{margin-top:7px;text-align:center;font-size:9.5px;font-weight:600;color:#5f6f8c;letter-spacing:-.1px}
+  /* ---------- 1회성 안내 (11.21 실시간 뉴스 링크 교체 · 한 번만 뜨고 사라진다) ---------- */
+  .once-box{max-width:340px}
+  .once-p{margin:11px 0 0;font-size:12.5px;line-height:1.65;color:#c2cde0;letter-spacing:-.1px;word-break:keep-all}
+  .once-p em{font-style:normal;color:#9fc0ff;font-weight:800}
   /* ---------- 확정 알림 (비밀 핫바 10단계 · 모든 조건 충족 때만) ---------- */
   .cf-box{max-width:400px}
   .cf-it{padding:9px 0;border-top:1px solid rgba(255,255,255,.065)}
@@ -890,6 +894,20 @@
     </div>
     <button class="nt-ok" id="ntOk" type="button">확인 (다시 보지 않기)</button>
     <p class="nt-foot">다시 보려면 화면 위 📢 를 누르세요</p>
+  </div>
+</div>
+
+<!-- 1회성 안내 (11.21 상단 실시간 뉴스 링크 교체) — 한 번만 뜨고 [확인] · ✕ 로 닫으면 그 기기에서는
+     다시 뜨지 않는다. 공지 목록(📢)에는 넣지 않는다 — 여기서만 보여 주고 사라진다. -->
+<div class="nt-ov" id="onceOv" hidden>
+  <div class="nt-box once-box" role="dialog" aria-modal="true" aria-labelledby="onceTitle">
+    <div class="nt-top">
+      <span class="ico" aria-hidden="true">📢</span>
+      <h2 id="onceTitle">안내</h2>
+      <button class="nt-x" id="onceX" type="button" aria-label="안내 닫기">✕</button>
+    </div>
+    <p class="once-p">상단 <em>'실시간 뉴스 · 뉴스보기'</em> 링크가 <em>바로 재생되는 실시간 방송</em>으로 교체되었습니다.</p>
+    <button class="nt-ok" id="onceOk" type="button">확인</button>
   </div>
 </div>
 
@@ -1952,8 +1970,8 @@ function cfHide(){
   const ov = $('#cfOv');
   if(!ov || ov.hidden) return;
   ov.classList.remove('show');
-  const ch = $('#chartOv'), nt = $('#noticeOv');
-  if((!ch || ch.hidden) && (!nt || nt.hidden)) document.body.classList.remove('lock');
+  const ch = $('#chartOv'), nt = $('#noticeOv'), once = document.getElementById('onceOv');
+  if((!ch || ch.hidden) && (!nt || nt.hidden) && (!once || once.hidden)) document.body.classList.remove('lock');
   setTimeout(() => { if(ov && !ov.classList.contains('show')) ov.hidden = true; }, 180);
 }
 function cfAck(){
@@ -2867,7 +2885,46 @@ if(noticeOv){
   noticeOv.addEventListener('click', e => { if(e.target === noticeOv) noticeHide(); });
   const btn = $('#btnNotice');
   if(btn) btn.addEventListener('click', () => { noticeShow(); });
-  if(!noticeSeen()) setTimeout(() => { if(!noticeSeen()) noticeShow(); }, 450);
+  if(!noticeSeen()) setTimeout(() => { if(!noticeSeen()) noticeShow(); else onceShow(); }, 450);
+}
+
+/* ---------------- 1회성 안내 (11.21 · 상단 실시간 뉴스 링크 교체) ----------------
+   공지 목록(📢)에는 올리지 않고, 이 기기에서 딱 한 번만 띄운다.
+   기존 공지(v2)가 아직 안 떴으면 그 공지를 닫은 뒤에 이어서 뜬다. */
+const ONCE_KEY = 'newsradar_once_live_link_1121';
+let onceOv = $('#onceOv');
+function onceSeen(){
+  try{ return !!localStorage.getItem(ONCE_KEY); }catch(e){ return false; }
+}
+function onceShow(){
+  if(!onceOv || onceSeen() || !onceOv.hidden) return;
+  if(noticeOv && !noticeOv.hidden) return;          /* 공지 창이 떠 있으면 그게 닫힌 뒤에 */
+  onceOv.hidden = false;
+  requestAnimationFrame(() => onceOv.classList.add('show'));
+  document.body.classList.add('lock');
+}
+function onceHide(){
+  if(!onceOv || onceOv.hidden) return;
+  onceOv.classList.remove('show');
+  const ch = $('#chartOv'), nt = $('#noticeOv');
+  if((!ch || ch.hidden) && (!nt || nt.hidden)) document.body.classList.remove('lock');
+  setTimeout(() => { if(onceOv && !onceOv.classList.contains('show')) onceOv.hidden = true; }, 180);
+}
+function onceAck(){                                    /* [확인] · ✕ 둘 다 다시 보지 않는다 */
+  try{ localStorage.setItem(ONCE_KEY, '1'); }catch(e){}
+  onceHide();
+}
+if(onceOv){
+  const ok = $('#onceOk'), x = $('#onceX');
+  if(ok) ok.addEventListener('click', onceAck);
+  if(x) x.addEventListener('click', onceAck);
+  onceOv.addEventListener('click', e => { if(e.target === onceOv) onceAck(); });
+  /* 공지 창이 닫힌 뒤(닫기·[확인]·바깥 클릭)에 1회성 안내를 이어서 띄운다 */
+  if(noticeOv){
+    const nt = $('#noticeOv');
+    new MutationObserver(() => { if(nt.hidden){ onceShow(); } }).observe(nt, {attributes:true, attributeFilter:['hidden']});
+  }
+  if(!onceSeen()) setTimeout(() => { onceShow(); }, 1200);   /* 공지가 안 뜨는 기기(이미 본 기기)에서도 한 번 */
 }
 /* 주소에 ?me=비밀코드 가 있으면 그 코드로 연다. 저장된 코드가 있으면 그것으로 조용히 연다 */
 (async function(){
