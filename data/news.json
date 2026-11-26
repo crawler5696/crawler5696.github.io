@@ -1,21 +1,21 @@
 {
- "generated_at": "2026-11-27T08:01:17.145303+09:00",
- "generated_at_kst": "2026.11.27 08:01",
+ "generated_at": "2026-11-27T08:31:05.726502+09:00",
+ "generated_at_kst": "2026.11.27 08:31",
  "flash_count": 3,
  "flash_fresh_min": 60,
  "flash_fresh_count": 3,
- "flash_updated": "2026-11-27T08:01:07+09:00",
- "count": 30,
- "article_count": 60,
+ "flash_updated": "2026-11-27T08:26:11+09:00",
+ "count": 28,
+ "article_count": 57,
  "main_source": {
   "presses": 83,
-  "collected": 410,
-  "dropped": 306,
-  "cards": 19,
+  "collected": 411,
+  "dropped": 309,
+  "cards": 22,
   "sections": 180,
   "civic": 72,
-  "ytn": 71,
-  "civic_cards": 2
+  "ytn": 73,
+  "civic_cards": 0
  },
  "themes": [
   {
@@ -28,12 +28,6 @@
    "id": "defense",
    "label": "방산·우주",
    "color": "#f0a35e",
-   "count": 3
-  },
-  {
-   "id": "battery",
-   "label": "2차전지·에너지",
-   "color": "#8bd450",
    "count": 3
   },
   {
@@ -67,16 +61,16 @@
    "count": 3
   },
   {
-   "id": "bio",
-   "label": "바이오·헬스케어",
-   "color": "#e564b8",
+   "id": "battery",
+   "label": "2차전지·에너지",
+   "color": "#8bd450",
    "count": 2
   },
   {
    "id": "disaster",
    "label": "재난·안전",
    "color": "#ffb27a",
-   "count": 1
+   "count": 2
   },
   {
    "id": "etc",
@@ -93,27 +87,28 @@
    "count": 3,
    "recent_6h": 3,
    "recent_6h_ratio": 7,
-   "day_count": 43,
-   "hot": 28,
+   "day_count": 44,
+   "hot": 29,
    "presses": 27,
-   "span_hours": 7.9,
+   "span_hours": 19.5,
    "keywords": [
-    "금리",
     "증시",
-    "코스피"
+    "코스피",
+    "금리",
+    "지수"
    ],
    "headlines": [
-    {
-     "title": "국내은행 1∼3분기 이자이익 또 역대 최대치…“대출확대·금리인상 영향”",
-     "url": "https://n.news.naver.com/mnews/article/028/0002834226",
-     "press": "한겨레",
-     "time": "2026-11-27T06:02:09+09:00"
-    },
     {
      "title": "생방송 중 울먹인 증시 전문가…삼성전자 레버리지 하루 만에 19% 폭락 [숫자 뒤의 진실]",
      "url": "https://n.news.naver.com/article/022/0004178502",
      "press": "세계일보",
      "time": "2026-11-27T05:03:09+09:00"
+    },
+    {
+     "title": "기준금리 연 3.25%로 인상...내년 초도 금리 오를까?",
+     "url": "https://n.news.naver.com/article/052/0002438667",
+     "press": "YTN",
+     "time": "2026-11-26T22:06:59+09:00"
     }
    ],
    "leaders": [
@@ -125,7 +120,7 @@
    "hint": {
     "type": "medium",
     "label": "중기 흐름",
-    "reason": "보도 폭 24.0시간 · 18개 시간대 · 매체 27곳 · 24시간 43건 · 최근 6시간 3건(7%) · 업황·정책 표현 6건"
+    "reason": "보도 폭 24.0시간 · 18개 시간대 · 매체 27곳 · 24시간 44건 · 최근 6시간 3건(7%) · 업황·정책 표현 6건"
    },
    "rank": 1
   },
@@ -134,30 +129,30 @@
    "label": "AI·보안",
    "color": "#6fd0ff",
    "count": 3,
-   "recent_6h": 4,
-   "recent_6h_ratio": 9,
-   "day_count": 45,
+   "recent_6h": 6,
+   "recent_6h_ratio": 13,
+   "day_count": 47,
    "hot": 23,
-   "presses": 29,
-   "span_hours": 6.7,
+   "presses": 30,
+   "span_hours": 2.1,
    "keywords": [
-    "수능",
     "커닝",
-    "시험",
-    "부정행위"
+    "부정행위",
+    "수능",
+    "시험"
    ],
    "headlines": [
     {
-     "title": "수능 커닝 신고 포상금 최대 5억에…\"친구랑 짜고 반씩 나눌 것\" 자조",
-     "url": "https://n.news.naver.com/article/421/0009313238",
-     "press": "뉴스1",
-     "time": "2026-11-27T05:20:00+09:00"
+     "title": "토익도 'AI 커닝' 차단…안경에 스티커·샤프 금지",
+     "url": "https://www.ytn.co.kr/_ln/0104_20261127072705",
+     "press": "YTN",
+     "time": "2026-11-27T07:27:05+09:00"
     },
     {
-     "title": "“수능으론 잠재력 평가 못해… 대학이 돈·시간 들여 시스템 만들어야”",
-     "url": "https://n.news.naver.com/article/023/0004012041",
-     "press": "조선일보",
-     "time": "2026-11-27T00:48:13+09:00"
+     "title": "“교수님도 AI 부정행위 했잖아요!”…학계는 ‘AI 표절’ 비상[점선면]",
+     "url": "https://n.news.naver.com/article/032/0003485456",
+     "press": "경향신문",
+     "time": "2026-11-27T07:00:00+09:00"
     }
    ],
    "leaders": [
@@ -168,7 +163,7 @@
    "hint": {
     "type": "medium",
     "label": "중기 흐름",
-    "reason": "보도 폭 24.0시간 · 19개 시간대 · 매체 29곳 · 24시간 45건 · 최근 6시간 4건(9%) · 업황·정책 표현 2건"
+    "reason": "보도 폭 25.0시간 · 20개 시간대 · 매체 30곳 · 24시간 47건 · 최근 6시간 6건(13%) · 업황·정책 표현 2건"
    },
    "rank": 2
   },
@@ -177,24 +172,24 @@
    "label": "반도체·AI",
    "color": "#5b8cff",
    "count": 3,
-   "recent_6h": 3,
-   "recent_6h_ratio": 7,
-   "day_count": 42,
-   "hot": 18,
-   "presses": 26,
-   "span_hours": 23.0,
+   "recent_6h": 4,
+   "recent_6h_ratio": 9,
+   "day_count": 44,
+   "hot": 19,
+   "presses": 28,
+   "span_hours": 11.1,
    "keywords": [
     "반도체",
-    "삼성전자",
     "엔비디아",
-    "AI"
+    "AI",
+    "메모리"
    ],
    "headlines": [
     {
-     "title": "한은 총재도 설명하지 못한 이 현상…“반도체 기업 시총이 왜 수익의 3배밖에 안될까”",
-     "url": "https://n.news.naver.com/article/021/0002835875",
-     "press": "문화일보",
-     "time": "2026-11-27T06:02:15+09:00"
+     "title": "중국 다녀온 장관의 아찔한 발언... 그 시간 서울 한복판서 벌어진 일 [반도체 특별과외]",
+     "url": "https://n.news.naver.com/article/047/0002537419",
+     "press": "오마이뉴스",
+     "time": "2026-11-27T07:32:05.726502+09:00"
     },
     {
      "title": "\"中에 하나라도 임대하면 칩 못팔아\"…엔비디아 판매상 강경방침",
@@ -211,7 +206,7 @@
    "hint": {
     "type": "medium",
     "label": "중기 흐름",
-    "reason": "보도 폭 24.0시간 · 18개 시간대 · 매체 26곳 · 24시간 42건 · 최근 6시간 3건(7%) · 업황·정책 표현 15건"
+    "reason": "보도 폭 25.0시간 · 19개 시간대 · 매체 28곳 · 24시간 44건 · 최근 6시간 4건(9%) · 업황·정책 표현 16건"
    },
    "rank": 3
   },
@@ -262,32 +257,36 @@
    "label": "실적·공시·수급",
    "color": "#f5d06b",
    "count": 3,
-   "recent_6h": 2,
-   "recent_6h_ratio": 5,
-   "day_count": 38,
-   "hot": 11,
-   "presses": 21,
-   "span_hours": 7.0,
-   "keywords": [],
+   "recent_6h": 3,
+   "recent_6h_ratio": 8,
+   "day_count": 39,
+   "hot": 12,
+   "presses": 22,
+   "span_hours": 0.5,
+   "keywords": [
+    "실적",
+    "목표주가",
+    "인수"
+   ],
    "headlines": [
     {
      "title": "대웅·유한·일양까지 “해외 계약 파기 뒤늦게 공개”…불량 공시에 우는 개미들",
      "url": "https://n.news.naver.com/article/366/0001207661",
      "press": "조선비즈",
-     "time": "2026-11-27T07:01:17.145303+09:00"
+     "time": "2026-11-27T06:01:36+09:00"
     },
     {
      "title": "\"주가 급락에 약정금 3억 날렸다\"…주식 팔아 집 사기도 옛말",
      "url": "https://n.news.naver.com/article/003/0014348399",
      "press": "뉴시스",
-     "time": "2026-11-27T05:00:00+09:00"
+     "time": "2026-11-27T05:31:05.726502+09:00"
     }
    ],
    "leaders": [],
    "hint": {
     "type": "medium",
     "label": "중기 흐름",
-    "reason": "보도 폭 24.0시간 · 16개 시간대 · 매체 21곳 · 24시간 38건 · 최근 6시간 2건(5%) · 업황·정책 표현 11건"
+    "reason": "보도 폭 25.0시간 · 17개 시간대 · 매체 22곳 · 24시간 39건 · 최근 6시간 3건(8%) · 업황·정책 표현 11건"
    },
    "rank": 5
   },
@@ -296,30 +295,29 @@
    "label": "남북·지정학",
    "color": "#ff8b8b",
    "count": 3,
-   "recent_6h": 4,
-   "recent_6h_ratio": 10,
-   "day_count": 39,
+   "recent_6h": 6,
+   "recent_6h_ratio": 15,
+   "day_count": 41,
    "hot": 9,
-   "presses": 17,
-   "span_hours": 8.8,
+   "presses": 18,
+   "span_hours": 11.5,
    "keywords": [
     "관세",
     "러시아",
-    "트럼프",
-    "북한"
+    "트럼프"
    ],
    "headlines": [
     {
-     "title": "핵시설 찾은 김정은 “핵보유국 부정은 선전포고” 위협",
-     "url": "https://n.news.naver.com/mnews/article/081/0003703663",
-     "press": "서울신문",
-     "time": "2026-11-27T05:02:43+09:00"
+     "title": "\"위험한 상황\"...나토에 러시아 핵 위협 '심각' [자막뉴스]",
+     "url": "https://www.ytn.co.kr/_ln/0134_20261127080256",
+     "press": "YTN",
+     "time": "2026-11-27T08:02:56+09:00"
     },
     {
-     "title": "러시아, 유럽에 핵 위협…미국 \"푸틴이 참고 있다\"",
-     "url": "https://www.ytn.co.kr/_ln/0104_20261127042631",
-     "press": "YTN",
-     "time": "2026-11-27T04:26:31+09:00"
+     "title": "관세·中 공세에도 LG전자 美 법인 ‘흑자 전환’… 3분기 누적 순이익 1조원 돌파",
+     "url": "https://n.news.naver.com/article/366/0001207666",
+     "press": "조선비즈",
+     "time": "2026-11-27T06:31:05.726502+09:00"
     }
    ],
    "leaders": [
@@ -330,7 +328,7 @@
    "hint": {
     "type": "medium",
     "label": "중기 흐름",
-    "reason": "보도 폭 23.0시간 · 17개 시간대 · 매체 17곳 · 24시간 39건 · 최근 6시간 4건(10%) · 업황·정책 표현 3건"
+    "reason": "보도 폭 26.0시간 · 19개 시간대 · 매체 18곳 · 24시간 41건 · 최근 6시간 6건(15%) · 업황·정책 표현 3건"
    },
    "rank": 6
   },
@@ -344,25 +342,24 @@
    "day_count": 46,
    "hot": 5,
    "presses": 19,
-   "span_hours": 0.4,
+   "span_hours": 1.5,
    "keywords": [
-    "장관",
     "정부",
     "대통령",
     "재개발"
    ],
    "headlines": [
     {
-     "title": "'청해부대 임무 구역 확대' 상임위 통과…한-이란 외교장관 통화",
-     "url": "https://www.ytn.co.kr/_ln/0104_20261127063100",
-     "press": "YTN",
-     "time": "2026-11-27T06:31:00+09:00"
-    },
-    {
      "title": "“‘주식 망가지는건 정부탓’…자신과 싸우는 李대통령” 이성권의 말",
      "url": "https://n.news.naver.com/article/021/0002835876",
      "press": "문화일보",
-     "time": "2026-11-27T06:11:13+09:00"
+     "time": "2026-11-27T06:31:05.726502+09:00"
+    },
+    {
+     "title": "\"한국은 가난한 사람 길에 버리는 나라 같다\"…이태원 재개발, 밀려나는 원주민",
+     "url": "https://n.news.naver.com/article/002/0002467838",
+     "press": "프레시안",
+     "time": "2026-11-27T06:04:16+09:00"
     }
    ],
    "leaders": [
@@ -380,30 +377,31 @@
    "id": "battery",
    "label": "2차전지·에너지",
    "color": "#8bd450",
-   "count": 3,
+   "count": 2,
    "recent_6h": 2,
    "recent_6h_ratio": 9,
    "day_count": 22,
    "hot": 3,
    "presses": 19,
-   "span_hours": 12.6,
+   "span_hours": 6.5,
    "keywords": [
     "수소",
     "충전",
-    "태양광"
+    "태양광",
+    "유가"
    ],
    "headlines": [
-    {
-     "title": "수소탄-전술핵 줄줄이 과시한 北… 김정은 “南, 가장 위해한 적국”",
-     "url": "https://n.news.naver.com/mnews/article/020/0003765638",
-     "press": "동아일보",
-     "time": "2026-11-27T04:35:23+09:00"
-    },
     {
      "title": "대낮에 문 닫는 충전소...수소 수급난에 '발 동동'",
      "url": "https://n.news.naver.com/article/655/0000033716",
      "press": "CJB청주방송",
-     "time": "2026-11-26T21:41:10+09:00"
+     "time": "2026-11-26T22:31:05.726502+09:00"
+    },
+    {
+     "title": "[오늘의증시] 삼전17만·SK하닉105만 사수…우주·태양광 '빨간불'",
+     "url": "https://n.news.naver.com/article/243/0000106347",
+     "press": "이코노미스트",
+     "time": "2026-11-26T16:00:11+09:00"
     }
    ],
    "leaders": [
@@ -419,64 +417,28 @@
    "rank": 8
   },
   {
-   "id": "bio",
-   "label": "바이오·헬스케어",
-   "color": "#e564b8",
-   "count": 2,
-   "recent_6h": 5,
-   "recent_6h_ratio": 18,
-   "day_count": 28,
-   "hot": 15,
-   "presses": 16,
-   "span_hours": 0.5,
-   "keywords": [
-    "임상",
-    "바이오",
-    "알테오젠",
-    "신약"
-   ],
-   "headlines": [
-    {
-     "title": "알테오젠 기술 엔허투SC 임상 환자 축소는 악재?…사례 찾아보니",
-     "url": "https://n.news.naver.com/mnews/article/018/0006416351",
-     "press": "이데일리",
-     "time": "2026-11-27T07:32:15+09:00"
-    },
-    {
-     "title": "현금 대신 지분…달라진 K바이오 수출공식",
-     "url": "https://n.news.naver.com/mnews/article/011/0004686746",
-     "press": "서울경제",
-     "time": "2026-11-27T07:00:25+09:00"
-    }
-   ],
-   "leaders": [
-    "알테오젠",
-    "HLB",
-    "삼성바이오로직스"
-   ],
-   "hint": {
-    "type": "medium",
-    "label": "중기 흐름",
-    "reason": "보도 폭 25.0시간 · 13개 시간대 · 매체 16곳 · 24시간 28건 · 최근 6시간 5건(18%) · 업황·정책 표현 9건"
-   },
-   "rank": 9
-  },
-  {
    "id": "disaster",
    "label": "재난·안전",
    "color": "#ffb27a",
-   "count": 1,
-   "recent_6h": 1,
-   "recent_6h_ratio": 12,
-   "day_count": 8,
+   "count": 2,
+   "recent_6h": 2,
+   "recent_6h_ratio": 22,
+   "day_count": 9,
    "hot": 2,
-   "presses": 8,
-   "span_hours": 0.0,
+   "presses": 9,
+   "span_hours": 1.4,
    "keywords": [
     "폭설",
-    "기상청"
+    "기상청",
+    "한파"
    ],
    "headlines": [
+    {
+     "title": "전국에 곧 재난문자 울린다…심상치 않은 ‘슈퍼 엘니뇨’에 역대급 폭설 온다",
+     "url": "https://n.news.naver.com/article/011/0004686754",
+     "press": "서울경제",
+     "time": "2026-11-27T07:24:13+09:00"
+    },
     {
      "title": "‘슈퍼엘니뇨’에 폭설?…시간당 5cm 눈 오면 문자 온다",
      "url": "https://n.news.naver.com/article/056/0012302291",
@@ -492,9 +454,9 @@
    "hint": {
     "type": "medium",
     "label": "중기 흐름",
-    "reason": "보도 폭 24.0시간 · 8개 시간대 · 매체 8곳 · 24시간 8건 · 최근 6시간 1건(12%) · 업황·정책 표현 2건"
+    "reason": "보도 폭 25.0시간 · 9개 시간대 · 매체 9곳 · 24시간 9건 · 최근 6시간 2건(22%) · 업황·정책 표현 2건"
    },
-   "rank": 10
+   "rank": 9
   }
  ],
  "upper_limits": {
@@ -508,27 +470,27 @@
   "items": []
  },
  "market_mood": {
-  "generated_at": "2026-11-27T08:01:17.145303+09:00",
+  "generated_at": "2026-11-27T08:31:05.726502+09:00",
   "kr": {
    "key": "mid",
    "label": "혼조",
    "why": "코스피 +0.00% · 코스닥 +0.00% (평균 +0.00%)",
    "avg": 0.0,
    "live": false,
-   "as_of_kst": "11-27 08:02",
+   "as_of_kst": "11-27 08:32",
    "kospi": {
     "name": "코스피",
     "value": 4711.21,
     "chg": 0.0,
     "status": "PREOPEN",
-    "as_of": "2026-11-27T08:02:21+09:00"
+    "as_of": "2026-11-27T08:32:54+09:00"
    },
    "kosdaq": {
     "name": "코스닥",
     "value": 655.71,
     "chg": 0.0,
     "status": "PREOPEN",
-    "as_of": "2026-11-27T08:02:22+09:00"
+    "as_of": "2026-11-27T08:32:55+09:00"
    }
   },
   "us": {
@@ -898,6 +860,22 @@
     0,
     0,
     0
+   ],
+   [
+    "658/0000162430",
+    "2026-11-26T20",
+    "국제신문",
+    1,
+    1,
+    0
+   ],
+   [
+    "047/0002537419",
+    "2026-11-27T07",
+    "오마이뉴스",
+    0,
+    0,
+    0
    ]
   ],
   "earnings": [
@@ -1204,6 +1182,14 @@
     0,
     0,
     1
+   ],
+   [
+    "009/0005769784",
+    "2026-11-27T08",
+    "매일경제",
+    1,
+    0,
+    0
    ]
   ],
   "bio": [
@@ -1954,6 +1940,14 @@
     1,
     0,
     1
+   ],
+   [
+    "138/0002249975",
+    "2026-11-26T09",
+    "디지털데일리",
+    1,
+    0,
+    0
    ]
   ],
   "policy": [
@@ -2686,6 +2680,22 @@
     0,
     0,
     0
+   ],
+   [
+    "ytn/0104_20261127072705",
+    "2026-11-27T07",
+    "YTN",
+    0,
+    0,
+    0
+   ],
+   [
+    "032/0003485456",
+    "2026-11-27T07",
+    "경향신문",
+    0,
+    0,
+    0
    ]
   ],
   "disaster": [
@@ -2749,6 +2759,14 @@
     "056/0012302291",
     "2026-11-27T06",
     "KBS",
+    0,
+    0,
+    0
+   ],
+   [
+    "011/0004686754",
+    "2026-11-27T07",
+    "서울경제",
     0,
     0,
     0
@@ -3066,6 +3084,22 @@
     1,
     0,
     0
+   ],
+   [
+    "ytn/0134_20261127080256",
+    "2026-11-27T08",
+    "YTN",
+    0,
+    0,
+    0
+   ],
+   [
+    "366/0001207666",
+    "2026-11-27T06",
+    "조선비즈",
+    0,
+    0,
+    1
    ]
   ],
   "defense": [
@@ -3467,6 +3501,21 @@
  },
  "flash": [
   {
+   "id": "008/0005447224",
+   "title": "\"에이피알의 닥터멜란신 인수, 주가 트리거 될 것\"-교보",
+   "press": "머니투데이",
+   "time": "2026-11-27T08:26:11+09:00",
+   "url": "https://n.news.naver.com/article/008/0005447224",
+   "summary": "교보증권은 27일 에이피알이 닥터멜란신 운영사 브랜드 501의 지분 인수를 통해 단일 브랜드 의존도에 대한 우려를 완화시킬 것이라고 전망했다. 에이피알은 전날 공시를 통해 501의 지분 87.3%를 3900억원에 취득한다고 발표했다.",
+   "theme": "earnings",
+   "theme_label": "실적·공시·수급",
+   "theme_color": "#f5d06b",
+   "leaders": [],
+   "hot": 2.0,
+   "fresh": true,
+   "breaking": false
+  },
+  {
    "id": "018/0006416366",
    "title": "동아제약, 지주사 할인 해소...목표가 15만원 신규 제시-DS",
    "press": "이데일리",
@@ -3485,242 +3534,79 @@
    "breaking": false
   },
   {
-   "id": "018/0006416354",
-   "title": "AI 조정장에 흔들리지 말라…에드 야데니 \"금융·헬스케어 주목\"",
-   "press": "이데일리",
-   "time": "2026-11-27T07:37:11+09:00",
-   "url": "https://n.news.naver.com/article/018/0006416354",
-   "summary": "“많은 투자자가 AI 인프라 구축의 지속 가능성을 우려하고 있습니다. 하지만 장기적인 관점에서 AI 산업은 여전히 성공할 것으로 봅니다.” 월가의 대표 전략가이자 시장 분석업체 야데니리서치 대표인 에드 야데니는 이데일리TV와 단독 인터뷰에서 이같이 밝혔다.",
-   "theme": "bio",
-   "theme_label": "바이오·헬스케어",
-   "theme_color": "#e564b8",
+   "id": "648/0000053035",
+   "title": "대만은 전날 종가, 한국은 직전 체결가…공매도 규제 뭐가 다르나",
+   "press": "비즈워치",
+   "time": "2026-11-27T07:50:16+09:00",
+   "url": "https://n.news.naver.com/article/648/0000053035",
+   "summary": "인공지능(AI) 반도체주 폭락은 한국만의 문제가 아니다. 한국처럼 반도체주 비중이 높은 대만 증시도 동반 급락한 가운데 양국 금융당국의 대응에는 차이가 나타나고 있다.",
+   "theme": "macro",
+   "theme_label": "거시·환율·금리",
+   "theme_color": "#7fd3e8",
    "leaders": [],
-   "hot": 2.0,
-   "fresh": true,
-   "breaking": false
-  },
-  {
-   "id": "015/0005358874",
-   "title": "\"한컴, 노마디안 해외 확대 비용에 반영…목표가↓\"-키움",
-   "press": "한국경제",
-   "time": "2026-11-27T07:31:13+09:00",
-   "url": "https://n.news.naver.com/article/015/0005358874",
-   "summary": "키움증권은 27일 한컴에 대해 인공지능(AI) 워크포스 플랫폼 '노마디안'을 앞세운 해외 AI 매출 확대를 준비하면서 늘어난 비용이 최근 기대치에 못 미치는 실적으로 이어졌다며 목표주가를 기존 3만4000원에서 2만8000원으로 내렸다.",
-   "theme": "earnings",
-   "theme_label": "실적·공시·수급",
-   "theme_color": "#f5d06b",
-   "leaders": [],
-   "hot": 2.0,
+   "hot": 12.5,
    "fresh": true,
    "breaking": false
   }
  ],
  "issues": [
   {
-   "id": "037/0000039213",
-   "title": "삼성전자 정기 임원 인사… 승진자 53%는 반도체 부문",
-   "url": "https://n.news.naver.com/article/037/0000039213",
-   "press": "주간동아",
-   "time": "2026-11-26T07:02:15+09:00",
+   "id": "658/0000162430",
+   "title": "이재용, 머스크의 반도체 장기 구매 제안에 \"뭘 더 해줄 수 있는데\"",
+   "url": "https://n.news.naver.com/article/658/0000162430",
+   "press": "국제신문",
+   "time": "2026-11-26T20:27:12+09:00",
    "section": "네이버 메인",
    "source": "main",
    "main_rank": 1,
    "theme": "semiconductor",
    "theme_label": "반도체·AI",
    "tags": [
-    "반도체",
-    "삼성전자"
+    "반도체"
    ],
-   "presses": 12,
+   "presses": 13,
    "press_list": [
-    "주간동아",
     "국제신문",
-    "경향신문",
     "경기일보",
+    "경향신문",
     "아이뉴스24",
-    "동아일보"
+    "조선일보",
+    "서울신문"
    ],
    "related": [
     {
-     "title": "이재용, 머스크의 반도체 장기 구매 제안에 \"뭘 더 해줄 수 있는데\"",
-     "press": "국제신문",
-     "url": "https://n.news.naver.com/article/658/0000162430",
-     "time": "2026-11-26T21:01:17.145303+09:00"
+     "title": "머스크 제안에 이재용 “뭘 더 해줄 수 있나”…반도체 칩 구하려 진땀 뺀 테슬라",
+     "press": "경기일보",
+     "url": "https://n.news.naver.com/article/666/0000134038",
+     "time": "2026-11-27T06:31:05.726502+09:00"
     },
     {
      "title": "“머스크 ‘삼성전자 칩 장기구매’ 제안에···이재용 ‘뭐 더 해줄 건데’”",
      "press": "경향신문",
      "url": "https://n.news.naver.com/article/032/0003485367",
-     "time": "2026-11-26T21:01:17.145303+09:00"
+     "time": "2026-11-26T20:31:05.726502+09:00"
     },
     {
-     "title": "머스크 제안에 이재용 “뭘 더 해줄 수 있나”…반도체 칩 구하려 진땀 뺀 테슬라",
-     "press": "경기일보",
-     "url": "https://n.news.naver.com/article/666/0000134038",
-     "time": "2026-11-27T07:01:17.145303+09:00"
+     "title": "머스크 \"반도체 좀 팔아줘\"…이재용 \"그럼 뭘 해줄건데\"",
+     "press": "아이뉴스24",
+     "url": "https://n.news.naver.com/article/031/0001078900",
+     "time": "2026-11-26T21:31:05.726502+09:00"
     }
    ],
-   "article_count": 12,
+   "article_count": 13,
    "breaking": false,
-   "relevance": 40,
+   "relevance": 34,
    "civic": false,
    "summary": "전 세계적인 메모리 반도체 품귀 현상 속에서 일론 머스크 테슬라 최고경영자(CEO)마저 삼성전자의 문을 두드리며 물량 확보에 총력을 기울이고 있다는 소식이 전해졌지만, 정작 국내 증시에서 삼성전자의 주가는 기대만큼",
    "leaders": [
-    "삼성전자",
     "한미반도체",
     "이수페타시스",
-    "가온칩스"
+    "가온칩스",
+    "티엘비"
    ],
    "issue_rank": 1,
    "db_themes": [
     "반도체·HBM 메모리 대표주 (삼전·하이닉스·HBM 장비)"
-   ]
-  },
-  {
-   "id": "081/0003703663",
-   "title": "핵시설 찾은 김정은 “핵보유국 부정은 선전포고” 위협",
-   "url": "https://n.news.naver.com/mnews/article/081/0003703663",
-   "press": "서울신문",
-   "time": "2026-11-27T05:02:43+09:00",
-   "section": "정치",
-   "source": "civic",
-   "main_rank": null,
-   "theme": "geopolitics",
-   "theme_label": "남북·지정학",
-   "tags": [
-    "북한"
-   ],
-   "presses": 3,
-   "press_list": [
-    "서울신문",
-    "동아일보",
-    "YTN"
-   ],
-   "related": [
-    {
-     "title": "北 김정은 “핵보유국 지위 부정은 선전포고”",
-     "press": "동아일보",
-     "url": "https://n.news.naver.com/mnews/article/020/0003765633",
-     "time": ""
-    },
-    {
-     "title": "김정은, 핵시설 연달아 시찰...\"핵보유국 부정, 선전포고\"",
-     "press": "YTN",
-     "url": "https://www.ytn.co.kr/_ln/0101_20261126224213",
-     "time": "2026-11-26T22:42:13+09:00"
-    }
-   ],
-   "article_count": 3,
-   "breaking": false,
-   "relevance": 13,
-   "civic": true,
-   "summary": "김정은 북한 국무위원장이 핵물질 생산기지와 핵무기 연구소 등을 점검한 뒤 북한의 핵보유국 지위를 부정하는 시도를 “공공연한 선전포고”로 간주하겠다고 엄포를 놨다. 북미 대화를 하더라도 비핵화가 아닌 핵보유를 전제로",
-   "leaders": [
-    "인디에프",
-    "좋은사람들",
-    "코데즈컴바인",
-    "아난티"
-   ],
-   "issue_rank": 2,
-   "db_themes": []
-  },
-  {
-   "id": "028/0002834226",
-   "title": "국내은행 1∼3분기 이자이익 또 역대 최대치…“대출확대·금리인상 영향”",
-   "url": "https://n.news.naver.com/mnews/article/028/0002834226",
-   "press": "한겨레",
-   "time": "2026-11-27T06:02:09+09:00",
-   "section": "금융",
-   "source": "section",
-   "main_rank": null,
-   "theme": "macro",
-   "theme_label": "거시·환율·금리",
-   "tags": [
-    "금리"
-   ],
-   "presses": 8,
-   "press_list": [
-    "한겨레",
-    "매일경제",
-    "아시아경제",
-    "헤럴드경제",
-    "이데일리",
-    "조선비즈"
-   ],
-   "related": [
-    {
-     "title": "대출 늘린 은행들 ‘이자 장사’로 돈 벌었다…3분기 누적 순익 21.5조",
-     "press": "매일경제",
-     "url": "https://n.news.naver.com/mnews/article/009/0005769773",
-     "time": ""
-    },
-    {
-     "title": "국내은행 3분기까지 21.5조 벌었다…이자이익 48.4조 '역대 최대'",
-     "press": "아시아경제",
-     "url": "https://n.news.naver.com/mnews/article/277/0005848530",
-     "time": ""
-    },
-    {
-     "title": "은행권 3분기까지 이자이익만 48.4조…역대 최대",
-     "press": "헤럴드경제",
-     "url": "https://n.news.naver.com/mnews/article/016/0002729197",
-     "time": ""
-    }
-   ],
-   "article_count": 8,
-   "breaking": false,
-   "relevance": 31,
-   "civic": false,
-   "summary": "올해 1∼9월 국내은행의 이자이익이 올 상반기에 이어 같은 기간 기준 역대 최대치를 기록했다. 27일 금융감독원이 발표한 ‘2026년 1~3분기 국내은행 영업실적’을 보면, 올해 1∼3분기 국내은행의 당기순이익은 2",
-   "leaders": [],
-   "issue_rank": 3,
-   "db_themes": []
-  },
-  {
-   "id": "022/0004178502",
-   "title": "생방송 중 울먹인 증시 전문가…삼성전자 레버리지 하루 만에 19% 폭락 [숫자 뒤의 진실]",
-   "url": "https://n.news.naver.com/article/022/0004178502",
-   "press": "세계일보",
-   "time": "2026-11-27T05:03:09+09:00",
-   "section": "네이버 메인",
-   "source": "main",
-   "main_rank": 2,
-   "theme": "macro",
-   "theme_label": "거시·환율·금리",
-   "tags": [
-    "증시"
-   ],
-   "presses": 3,
-   "press_list": [
-    "세계일보",
-    "전자신문",
-    "뉴스1"
-   ],
-   "related": [
-    {
-     "title": "“삼성전자 15% 폭락 차트 보더니 결국 눈물”…생방송 중 무너진 증시 진행자, 무슨 일이",
-     "press": "전자신문",
-     "url": "https://n.news.naver.com/article/030/0003490497",
-     "time": "2026-11-26T18:01:17.145303+09:00"
-    },
-    {
-     "title": "\"생방송 전문가도 울었다\"…삼전 레버리지 15% 폭락, 차트 보며 눈물",
-     "press": "뉴스1",
-     "url": "https://n.news.naver.com/mnews/article/421/0009313360",
-     "time": ""
-    }
-   ],
-   "article_count": 3,
-   "breaking": false,
-   "relevance": 16,
-   "civic": false,
-   "summary": "코스피가 하루 만에 6% 넘게 급락한 날 삼성전자 단일종목 레버리지 상품에 대해 설명을 이어가던 증권 전문가가 생방송 도중 눈물을 보였다. 26일 각종 온라인 커뮤니티와 사회관계망서비스(SNS)에는 전날 방송된 서울",
-   "leaders": [
-    "삼성전자"
-   ],
-   "issue_rank": 4,
-   "db_themes": [
-    "증권·보험 (3차 상법개정·코스피 5,600 돌파)"
    ]
   },
   {
@@ -3768,8 +3654,271 @@
     "가온칩스",
     "티엘비"
    ],
-   "issue_rank": 5,
+   "issue_rank": 2,
    "db_themes": []
+  },
+  {
+   "id": "138/0002249975",
+   "title": "美 증시 낙폭 축소에 반도체주 반등…코스피, 4745.10에 상승 출발",
+   "url": "https://n.news.naver.com/article/138/0002249975",
+   "press": "디지털데일리",
+   "time": "2026-11-26T09:33:08+09:00",
+   "section": "네이버 메인",
+   "source": "main",
+   "main_rank": 3,
+   "theme": "macro",
+   "theme_label": "거시·환율·금리",
+   "tags": [
+    "코스피",
+    "증시"
+   ],
+   "presses": 6,
+   "press_list": [
+    "디지털데일리",
+    "연합뉴스",
+    "이데일리",
+    "뉴시스",
+    "아시아경제",
+    "뉴스1"
+   ],
+   "related": [
+    {
+     "title": "[마켓뷰] '찔끔' 반등한 코스피, 상승 출발할 듯…전강후약 벗어날까?",
+     "press": "연합뉴스",
+     "url": "https://n.news.naver.com/mnews/article/001/0016466853",
+     "time": ""
+    },
+    {
+     "title": "\"美 휴장 속 유가 상승·AI 규제 잔존…반도체 매도 완화 관건\"-iM證",
+     "press": "이데일리",
+     "url": "https://n.news.naver.com/mnews/article/018/0006416385",
+     "time": ""
+    },
+    {
+     "title": "[오늘의 증시]뉴욕 휴장 속 유럽증시 일제 상승…코스피 반등 기대감",
+     "press": "뉴시스",
+     "url": "https://n.news.naver.com/mnews/article/003/0014348515",
+     "time": ""
+    }
+   ],
+   "article_count": 7,
+   "breaking": false,
+   "relevance": 34,
+   "civic": false,
+   "summary": "미국 증시 휴장·유럽 상승…국내 야간 선물 0.17% 올라 \"외국인 매수 전환 여부 및 자동차·방산 등 매수세 확산 여부 주목\" 27일 코스피는 반발 매수세 유입으로 상승 출발할 것으로 예상된다.",
+   "leaders": [
+    "한미반도체",
+    "이수페타시스",
+    "가온칩스",
+    "티엘비"
+   ],
+   "issue_rank": 3,
+   "db_themes": []
+  },
+  {
+   "id": "022/0004178502",
+   "title": "생방송 중 울먹인 증시 전문가…삼성전자 레버리지 하루 만에 19% 폭락 [숫자 뒤의 진실]",
+   "url": "https://n.news.naver.com/article/022/0004178502",
+   "press": "세계일보",
+   "time": "2026-11-27T05:03:09+09:00",
+   "section": "네이버 메인",
+   "source": "main",
+   "main_rank": 2,
+   "theme": "macro",
+   "theme_label": "거시·환율·금리",
+   "tags": [
+    "증시"
+   ],
+   "presses": 3,
+   "press_list": [
+    "세계일보",
+    "전자신문",
+    "뉴스1"
+   ],
+   "related": [
+    {
+     "title": "“삼성전자 15% 폭락 차트 보더니 결국 눈물”…생방송 중 무너진 증시 진행자, 무슨 일이",
+     "press": "전자신문",
+     "url": "https://n.news.naver.com/article/030/0003490497",
+     "time": "2026-11-26T18:31:05.726502+09:00"
+    },
+    {
+     "title": "\"생방송 전문가도 울었다\"…삼전 레버리지 15% 폭락, 차트 보며 눈물",
+     "press": "뉴스1",
+     "url": "https://n.news.naver.com/mnews/article/421/0009313360",
+     "time": ""
+    }
+   ],
+   "article_count": 3,
+   "breaking": false,
+   "relevance": 16,
+   "civic": false,
+   "summary": "코스피가 하루 만에 6% 넘게 급락한 날 삼성전자 단일종목 레버리지 상품에 대해 설명을 이어가던 증권 전문가가 생방송 도중 눈물을 보였다. 26일 각종 온라인 커뮤니티와 사회관계망서비스(SNS)에는 전날 방송된 서울",
+   "leaders": [
+    "삼성전자"
+   ],
+   "issue_rank": 4,
+   "db_themes": [
+    "증권·보험 (3차 상법개정·코스피 5,600 돌파)"
+   ]
+  },
+  {
+   "id": "052/0002438667",
+   "title": "기준금리 연 3.25%로 인상...내년 초도 금리 오를까?",
+   "url": "https://n.news.naver.com/article/052/0002438667",
+   "press": "YTN",
+   "time": "2026-11-26T22:06:59+09:00",
+   "section": "네이버 메인",
+   "source": "main",
+   "main_rank": 2,
+   "theme": "macro",
+   "theme_label": "거시·환율·금리",
+   "tags": [
+    "기준금리",
+    "금리"
+   ],
+   "presses": 4,
+   "press_list": [
+    "YTN",
+    "더스쿠프",
+    "비즈워치",
+    "SBS"
+   ],
+   "related": [
+    {
+     "title": "대출금리 5% 시대에 금리 인상… 한은이 보낸 '무거운 청구서'",
+     "press": "더스쿠프",
+     "url": "https://n.news.naver.com/article/665/0000008652",
+     "time": "2026-11-26T18:31:05.726502+09:00"
+    },
+    {
+     "title": "한은, 기준금리 3.25%로 인상…'반도체 호황' 내년 성장률 4%대로",
+     "press": "비즈워치",
+     "url": "https://n.news.naver.com/article/648/0000053004",
+     "time": "2026-11-26T12:31:05.726502+09:00"
+    },
+    {
+     "title": "[글로벌 마켓시황] 추수감사절 휴장…금리 인상 전망 ↑",
+     "press": "SBS",
+     "url": "https://n.news.naver.com/mnews/article/055/0001406237",
+     "time": ""
+    }
+   ],
+   "article_count": 4,
+   "breaking": false,
+   "relevance": 28,
+   "civic": false,
+   "summary": "글로벌 시황입니다. 미국 뉴욕증시가 추수감사절을 맞아 휴장했습니다. 다만 주가지수 선물시장은 단축 거래를 진행했는데요. 트럼프 대통령의 추가 관세가 기존 관세에 중복 부과되지 않을 것이라는 소식에 투자 심리가 개선됐",
+   "leaders": [],
+   "issue_rank": 5,
+   "db_themes": [
+    "관세·트럼프 통상"
+   ]
+  },
+  {
+   "id": "ytn/0104_20261127072705",
+   "title": "토익도 'AI 커닝' 차단…안경에 스티커·샤프 금지",
+   "url": "https://www.ytn.co.kr/_ln/0104_20261127072705",
+   "press": "YTN",
+   "time": "2026-11-27T07:27:05+09:00",
+   "section": "YTN 국제",
+   "source": "press",
+   "main_rank": null,
+   "theme": "aisec",
+   "theme_label": "AI·보안",
+   "tags": [
+    "커닝"
+   ],
+   "presses": 1,
+   "press_list": [
+    "YTN"
+   ],
+   "related": [],
+   "article_count": 1,
+   "breaking": false,
+   "relevance": 10,
+   "civic": true,
+   "summary": "",
+   "leaders": [
+    "지슨",
+    "라온시큐어",
+    "샌즈랩",
+    "한싹"
+   ],
+   "issue_rank": 6,
+   "db_themes": [
+    "AI 시험 부정행위 대응·전파탐지/물리보안"
+   ]
+  },
+  {
+   "id": "032/0003485456",
+   "title": "“교수님도 AI 부정행위 했잖아요!”…학계는 ‘AI 표절’ 비상[점선면]",
+   "url": "https://n.news.naver.com/article/032/0003485456",
+   "press": "경향신문",
+   "time": "2026-11-27T07:00:00+09:00",
+   "section": "네이버 메인",
+   "source": "main",
+   "main_rank": 4,
+   "theme": "aisec",
+   "theme_label": "AI·보안",
+   "tags": [
+    "부정행위"
+   ],
+   "presses": 1,
+   "press_list": [
+    "경향신문"
+   ],
+   "related": [],
+   "article_count": 1,
+   "breaking": false,
+   "relevance": 10,
+   "civic": false,
+   "summary": "우수학술지 논문 10개 중 1개 ‘AI 표절’ 의심 ‘환각’으로 만든 없는 참고문헌, 검증도 안해 “AI의 환각보다 더 무서운 것은 우리의 환각” Gettyimage 요즘 AI 이야기를 부쩍 자주 전해드립니다.",
+   "leaders": [
+    "지슨",
+    "라온시큐어",
+    "샌즈랩",
+    "한싹"
+   ],
+   "issue_rank": 7,
+   "db_themes": [
+    "AI 시험 부정행위 대응·전파탐지/물리보안"
+   ]
+  },
+  {
+   "id": "366/0001207661",
+   "title": "대웅·유한·일양까지 “해외 계약 파기 뒤늦게 공개”…불량 공시에 우는 개미들",
+   "url": "https://n.news.naver.com/article/366/0001207661",
+   "press": "조선비즈",
+   "time": "2026-11-27T06:01:36+09:00",
+   "section": "네이버 메인",
+   "source": "main",
+   "main_rank": 4,
+   "theme": "earnings",
+   "theme_label": "실적·공시·수급",
+   "tags": [
+    "공시"
+   ],
+   "presses": 1,
+   "press_list": [
+    "조선비즈"
+   ],
+   "related": [],
+   "article_count": 1,
+   "breaking": false,
+   "relevance": 10,
+   "civic": false,
+   "summary": "신약 임상 변경 늑장 공시 공시 한줄에 주가 휘청이는데 갈길 먼 투자자 신뢰 회복 유한양행 자회사 이뮨온시아. /이뮨온시아 홈페이지 국내 제약·바이오 기업들이 연달아 불성실 공시 법인으로 지정되며 투자자들 우려가 커지고 있다.",
+   "leaders": [
+    "알테오젠",
+    "HLB",
+    "삼성바이오로직스"
+   ],
+   "issue_rank": 8,
+   "db_themes": [
+    "글로벌 신약 기술수출·임상 (릴리 3.8조·WHO 성분명 등재)",
+    "경기방어주 순환매 (AI 거품 우려 속 제약·바이오)"
+   ]
   },
   {
    "id": "421/0009313238",
@@ -3802,63 +3951,10 @@
     "샌즈랩",
     "한싹"
    ],
-   "issue_rank": 6,
+   "issue_rank": 9,
    "db_themes": [
     "AI 시험 부정행위 대응·전파탐지/물리보안"
    ]
-  },
-  {
-   "id": "052/0002438667",
-   "title": "기준금리 연 3.25%로 인상...내년 초도 금리 오를까?",
-   "url": "https://n.news.naver.com/article/052/0002438667",
-   "press": "YTN",
-   "time": "2026-11-26T22:06:59+09:00",
-   "section": "네이버 메인",
-   "source": "main",
-   "main_rank": 1,
-   "theme": "macro",
-   "theme_label": "거시·환율·금리",
-   "tags": [
-    "기준금리",
-    "금리"
-   ],
-   "presses": 6,
-   "press_list": [
-    "YTN",
-    "더스쿠프",
-    "비즈워치",
-    "대전일보",
-    "동행미디어 시대",
-    "SBS Biz"
-   ],
-   "related": [
-    {
-     "title": "대출금리 5% 시대에 금리 인상… 한은이 보낸 '무거운 청구서'",
-     "press": "더스쿠프",
-     "url": "https://n.news.naver.com/article/665/0000008652",
-     "time": "2026-11-26T19:01:17.145303+09:00"
-    },
-    {
-     "title": "한은, 기준금리 3.25%로 인상…'반도체 호황' 내년 성장률 4%대로",
-     "press": "비즈워치",
-     "url": "https://n.news.naver.com/article/648/0000053004",
-     "time": "2026-11-26T12:01:17.145303+09:00"
-    },
-    {
-     "title": "한은 기준금리 3.25% 인상…충청 가계 '이자 부담' 더 커진다",
-     "press": "대전일보",
-     "url": "https://n.news.naver.com/article/656/0000193646",
-     "time": "2026-11-26T16:01:17.145303+09:00"
-    }
-   ],
-   "article_count": 6,
-   "breaking": false,
-   "relevance": 34,
-   "civic": false,
-   "summary": "■ 모닝벨 '마켓 프리뷰' - 송재경 디멘젼투자자문 투자부문대표 Q. 먼저 어제(26일) 흐름부터 보면, 상승 마감했지만 아쉬움이 남습니다. 전강후약으로 힘이 빠지는 모습이었는데요.",
-   "leaders": [],
-   "issue_rank": 7,
-   "db_themes": []
   },
   {
    "id": "008/0005447213",
@@ -3885,7 +3981,7 @@
    "civic": false,
    "summary": "스페이스X의 기업 가치가 현재 전 세계 경제 규모의 100만배까지 커질 것이라고 일론 머스크 스페이스X·테슬라 최고경영자(CEO)가 26일(현지시간) 주장했다. 머스크는 이날 소셜미디어 X(옛 트위터)에 올린 글에서",
    "leaders": [],
-   "issue_rank": 8,
+   "issue_rank": 10,
    "db_themes": [
     "스페이스X IPO·우주항공 공급망 (위성·발사체·특수소재)",
     "스페이스X·우주항공 (위성·발사체 공급망)"
@@ -3897,9 +3993,9 @@
    "url": "https://n.news.naver.com/mnews/article/015/0005358864",
    "press": "한국경제",
    "time": "2026-11-27T06:24:15+09:00",
-   "section": "글로벌 경제",
-   "source": "section",
-   "main_rank": null,
+   "section": "네이버 메인",
+   "source": "main",
+   "main_rank": 5,
    "theme": "defense",
    "theme_label": "방산·우주",
    "tags": [
@@ -3916,21 +4012,170 @@
    "civic": false,
    "summary": "세계에서 가장 재산이 많은 인물 중 한명인 일론 머스크가 미국의 모든 어린이에게 스페이스X 주식을 기부하기로 한 가운데, 스페이스X의 기업가치가 장차 수백경 달러에 이를 것이라고 자신했다.",
    "leaders": [],
-   "issue_rank": 9,
+   "issue_rank": 11,
    "db_themes": [
     "스페이스X IPO·우주항공 공급망 (위성·발사체·특수소재)",
     "스페이스X·우주항공 (위성·발사체 공급망)"
    ]
   },
   {
+   "id": "ytn/0134_20261127080256",
+   "title": "\"위험한 상황\"...나토에 러시아 핵 위협 '심각' [자막뉴스]",
+   "url": "https://www.ytn.co.kr/_ln/0134_20261127080256",
+   "press": "YTN",
+   "time": "2026-11-27T08:02:56+09:00",
+   "section": "YTN 최신",
+   "source": "press",
+   "main_rank": null,
+   "theme": "geopolitics",
+   "theme_label": "남북·지정학",
+   "tags": [
+    "러시아"
+   ],
+   "presses": 1,
+   "press_list": [
+    "YTN"
+   ],
+   "related": [],
+   "article_count": 1,
+   "breaking": false,
+   "relevance": 7,
+   "civic": true,
+   "summary": "지난 21일 발트해 핀란드만 공해상에서 러시아 화물선 '스파르타 2호'가 우...",
+   "leaders": [],
+   "issue_rank": 12,
+   "db_themes": []
+  },
+  {
+   "id": "047/0002537419",
+   "title": "중국 다녀온 장관의 아찔한 발언... 그 시간 서울 한복판서 벌어진 일 [반도체 특별과외]",
+   "url": "https://n.news.naver.com/article/047/0002537419",
+   "press": "오마이뉴스",
+   "time": "2026-11-27T07:32:05.726502+09:00",
+   "section": "네이버 메인",
+   "source": "main",
+   "main_rank": 1,
+   "theme": "semiconductor",
+   "theme_label": "반도체·AI",
+   "tags": [
+    "반도체"
+   ],
+   "presses": 1,
+   "press_list": [
+    "오마이뉴스"
+   ],
+   "related": [],
+   "article_count": 1,
+   "breaking": false,
+   "relevance": 10,
+   "civic": false,
+   "summary": "",
+   "leaders": [
+    "한미반도체",
+    "이수페타시스",
+    "가온칩스",
+    "티엘비"
+   ],
+   "issue_rank": 13,
+   "db_themes": []
+  },
+  {
+   "id": "011/0004686754",
+   "title": "전국에 곧 재난문자 울린다…심상치 않은 ‘슈퍼 엘니뇨’에 역대급 폭설 온다",
+   "url": "https://n.news.naver.com/article/011/0004686754",
+   "press": "서울경제",
+   "time": "2026-11-27T07:24:13+09:00",
+   "section": "네이버 메인",
+   "source": "main",
+   "main_rank": 5,
+   "theme": "disaster",
+   "theme_label": "재난·안전",
+   "tags": [
+    "폭설"
+   ],
+   "presses": 1,
+   "press_list": [
+    "서울경제"
+   ],
+   "related": [],
+   "article_count": 1,
+   "breaking": false,
+   "relevance": 10,
+   "civic": false,
+   "summary": "폭설 속 출근 차량 행렬, 연합뉴스 올겨울 폭설 같은 위험기상이 닥치기 전에 기상청이 재난문자와 한파 정보를 더 빠르고 촘촘하게 보내기로 했다. 대설 안전안내문자는 전국으로 넓히고, 한파 정보는 고령층과 외국인 근로자에게 직접 전달한다.",
+   "leaders": [
+    "삼영엠텍",
+    "파라텍",
+    "포메탈"
+   ],
+   "issue_rank": 14,
+   "db_themes": []
+  },
+  {
+   "id": "366/0001207666",
+   "title": "관세·中 공세에도 LG전자 美 법인 ‘흑자 전환’… 3분기 누적 순이익 1조원 돌파",
+   "url": "https://n.news.naver.com/article/366/0001207666",
+   "press": "조선비즈",
+   "time": "2026-11-27T06:31:05.726502+09:00",
+   "section": "네이버 메인",
+   "source": "main",
+   "main_rank": 5,
+   "theme": "geopolitics",
+   "theme_label": "남북·지정학",
+   "tags": [
+    "관세"
+   ],
+   "presses": 1,
+   "press_list": [
+    "조선비즈"
+   ],
+   "related": [],
+   "article_count": 1,
+   "breaking": false,
+   "relevance": 10,
+   "civic": false,
+   "summary": "",
+   "leaders": [
+    "LG전자"
+   ],
+   "issue_rank": 15,
+   "db_themes": []
+  },
+  {
+   "id": "014/0005610576",
+   "title": "\"마이너스 90% 찍자 모든 게 싫었다\"…3억 잃은 투자자의 고백",
+   "url": "https://n.news.naver.com/article/014/0005610576",
+   "press": "파이낸셜뉴스",
+   "time": "2026-11-27T06:31:05.726502+09:00",
+   "section": "네이버 메인",
+   "source": "main",
+   "main_rank": 2,
+   "theme": "etc",
+   "theme_label": "기타",
+   "tags": [],
+   "presses": 1,
+   "press_list": [
+    "파이낸셜뉴스"
+   ],
+   "related": [],
+   "article_count": 1,
+   "breaking": false,
+   "relevance": 0,
+   "civic": false,
+   "summary": "",
+   "leaders": [],
+   "issue_rank": 16,
+   "db_themes": []
+  },
+  {
    "id": "021/0002835876",
    "title": "“‘주식 망가지는건 정부탓’…자신과 싸우는 李대통령” 이성권의 말",
    "url": "https://n.news.naver.com/article/021/0002835876",
    "press": "문화일보",
-   "time": "2026-11-27T06:11:13+09:00",
+   "time": "2026-11-27T06:31:05.726502+09:00",
    "section": "네이버 메인",
    "source": "main",
-   "main_rank": 4,
+   "main_rank": 5,
    "theme": "policy",
    "theme_label": "정책·건설",
    "tags": [
@@ -3946,204 +4191,9 @@
    "breaking": false,
    "relevance": 7,
    "civic": false,
-   "summary": "26일 서울 중구 하나은행 딜링룸 전광판에 주요 지수가 표시 되고 있다. 뉴시스 이성권 국민의힘 의원은 26일 과거 ‘주식시장 망가지는 건 정부 탓’이라고 했던 이재명 대통령을 향해 “자신의 발언과 싸우는 이 대통령의 모습이 이젠 새롭지도 않다”고 비판했다.",
-   "leaders": [],
-   "issue_rank": 10,
-   "db_themes": [
-    "탈모 치료·모발이식 (이재명 대통령 \"탈모는 생존\" 발언)"
-   ]
-  },
-  {
-   "id": "021/0002835875",
-   "title": "한은 총재도 설명하지 못한 이 현상…“반도체 기업 시총이 왜 수익의 3배밖에 안될까”",
-   "url": "https://n.news.naver.com/article/021/0002835875",
-   "press": "문화일보",
-   "time": "2026-11-27T06:02:15+09:00",
-   "section": "네이버 메인",
-   "source": "main",
-   "main_rank": 2,
-   "theme": "semiconductor",
-   "theme_label": "반도체·AI",
-   "tags": [
-    "반도체"
-   ],
-   "presses": 2,
-   "press_list": [
-    "문화일보",
-    "프레시안"
-   ],
-   "related": [
-    {
-     "title": "[속보] 한은 총재도 설명 힘든 국내주식 \"반도체 영업이익 700조인데, 시총 2000조라니…\"",
-     "press": "프레시안",
-     "url": "https://n.news.naver.com/article/002/0002467777",
-     "time": "2026-11-26T17:01:17.145303+09:00"
-    }
-   ],
-   "article_count": 2,
-   "breaking": false,
-   "relevance": 13,
-   "civic": false,
-   "summary": "연합뉴스 신현송 한국은행 총재가 최근 국내 증시 급락과 관련해 반도체 기업들의 막대한 영업이익에 비해 시가총액이 낮게 형성돼 있다는 점을 지적했다. 국내 경제의 견조한 성장세를 고려하면 주식시장에도 추가 성장 여력이 있다는 진단이다.",
-   "leaders": [
-    "한미반도체",
-    "이수페타시스",
-    "가온칩스",
-    "티엘비"
-   ],
-   "issue_rank": 11,
-   "db_themes": []
-  },
-  {
-   "id": "023/0004012041",
-   "title": "“수능으론 잠재력 평가 못해… 대학이 돈·시간 들여 시스템 만들어야”",
-   "url": "https://n.news.naver.com/article/023/0004012041",
-   "press": "조선일보",
-   "time": "2026-11-27T00:48:13+09:00",
-   "section": "네이버 메인",
-   "source": "main",
-   "main_rank": 3,
-   "theme": "aisec",
-   "theme_label": "AI·보안",
-   "tags": [
-    "수능"
-   ],
-   "presses": 1,
-   "press_list": [
-    "조선일보"
-   ],
-   "related": [],
-   "article_count": 1,
-   "breaking": false,
-   "relevance": 7,
-   "civic": false,
-   "summary": "[흔들리는 수능, 전문가 긴급 진단] <4> 배상훈 성균관대 교수 지난 23일 수시 논술고사가 치러진 서울 노원구 서울과학기술대 내 건물에 ‘수험생 외 학부모 등 출입금지’가 쓰인 안내문이 붙어 있다.",
-   "leaders": [],
-   "issue_rank": 12,
-   "db_themes": [
-    "AI 시험 부정행위 대응·전파탐지/물리보안"
-   ]
-  },
-  {
-   "id": "018/0006416351",
-   "title": "알테오젠 기술 엔허투SC 임상 환자 축소는 악재?…사례 찾아보니",
-   "url": "https://n.news.naver.com/mnews/article/018/0006416351",
-   "press": "이데일리",
-   "time": "2026-11-27T07:32:15+09:00",
-   "section": "경제 일반",
-   "source": "section",
-   "main_rank": null,
-   "theme": "bio",
-   "theme_label": "바이오·헬스케어",
-   "tags": [
-    "임상",
-    "알테오젠"
-   ],
-   "presses": 1,
-   "press_list": [
-    "이데일리"
-   ],
-   "related": [],
-   "article_count": 1,
-   "breaking": false,
-   "relevance": 19,
-   "civic": false,
-   "summary": "이 기사는 2026년11월26일 07시30분에 팜이데일리 프리미엄 콘텐츠로 선공개 되었습니다. 알테오젠의 피하주사(SC) 제형 전환 기술이 적용된 다이이찌산쿄의 항체약물접합체(ADC) 치료제 ‘엔허투SC’ 임상 1상",
-   "leaders": [
-    "알테오젠",
-    "HLB",
-    "삼성바이오로직스"
-   ],
-   "issue_rank": 13,
-   "db_themes": []
-  },
-  {
-   "id": "366/0001207661",
-   "title": "대웅·유한·일양까지 “해외 계약 파기 뒤늦게 공개”…불량 공시에 우는 개미들",
-   "url": "https://n.news.naver.com/article/366/0001207661",
-   "press": "조선비즈",
-   "time": "2026-11-27T07:01:17.145303+09:00",
-   "section": "네이버 메인",
-   "source": "main",
-   "main_rank": 3,
-   "theme": "earnings",
-   "theme_label": "실적·공시·수급",
-   "tags": [
-    "공시"
-   ],
-   "presses": 1,
-   "press_list": [
-    "조선비즈"
-   ],
-   "related": [],
-   "article_count": 1,
-   "breaking": false,
-   "relevance": 10,
-   "civic": false,
    "summary": "",
    "leaders": [],
-   "issue_rank": 14,
-   "db_themes": []
-  },
-  {
-   "id": "011/0004686746",
-   "title": "현금 대신 지분…달라진 K바이오 수출공식",
-   "url": "https://n.news.naver.com/mnews/article/011/0004686746",
-   "press": "서울경제",
-   "time": "2026-11-27T07:00:25+09:00",
-   "section": "증권",
-   "source": "section",
-   "main_rank": null,
-   "theme": "bio",
-   "theme_label": "바이오·헬스케어",
-   "tags": [
-    "바이오",
-    "신약"
-   ],
-   "presses": 1,
-   "press_list": [
-    "서울경제"
-   ],
-   "related": [],
-   "article_count": 1,
-   "breaking": false,
-   "relevance": 17,
-   "civic": false,
-   "summary": "국내 상장 바이오 기업들이 신약 후보물질을 기술이전하면서 계약 대가의 일부를 현금 대신 지분으로 확보하는 사례가 잇따르고 있다. 선급금과 단계별 기술료(마일스톤) 등 기존 기술이전 수익에 더해 향후 파트너사의 기업가",
-   "leaders": [
-    "알테오젠",
-    "HLB",
-    "삼성바이오로직스"
-   ],
-   "issue_rank": 15,
-   "db_themes": []
-  },
-  {
-   "id": "ytn/0104_20261127063100",
-   "title": "'청해부대 임무 구역 확대' 상임위 통과…한-이란 외교장관 통화",
-   "url": "https://www.ytn.co.kr/_ln/0104_20261127063100",
-   "press": "YTN",
-   "time": "2026-11-27T06:31:00+09:00",
-   "section": "YTN 국제",
-   "source": "press",
-   "main_rank": null,
-   "theme": "policy",
-   "theme_label": "정책·건설",
-   "tags": [
-    "장관"
-   ],
-   "presses": 1,
-   "press_list": [
-    "YTN"
-   ],
-   "related": [],
-   "article_count": 1,
-   "breaking": false,
-   "relevance": 4,
-   "civic": true,
-   "summary": "",
-   "leaders": [],
-   "issue_rank": 16,
+   "issue_rank": 17,
    "db_themes": []
   },
   {
@@ -4154,7 +4204,7 @@
    "time": "2026-11-27T06:04:16+09:00",
    "section": "네이버 메인",
    "source": "main",
-   "main_rank": 2,
+   "main_rank": 1,
    "theme": "policy",
    "theme_label": "정책·건설",
    "tags": [
@@ -4175,32 +4225,6 @@
     "대우건설",
     "DL이앤씨"
    ],
-   "issue_rank": 17,
-   "db_themes": []
-  },
-  {
-   "id": "014/0005610576",
-   "title": "\"마이너스 90% 찍자 모든 게 싫었다\"…3억 잃은 투자자의 고백",
-   "url": "https://n.news.naver.com/article/014/0005610576",
-   "press": "파이낸셜뉴스",
-   "time": "2026-11-27T06:01:12+09:00",
-   "section": "네이버 메인",
-   "source": "main",
-   "main_rank": 3,
-   "theme": "etc",
-   "theme_label": "기타",
-   "tags": [],
-   "presses": 1,
-   "press_list": [
-    "파이낸셜뉴스"
-   ],
-   "related": [],
-   "article_count": 1,
-   "breaking": false,
-   "relevance": 0,
-   "civic": false,
-   "summary": "(출처=연합뉴스) [파이낸셜뉴스] 주식 두 종목에 약 3억원을 투자했다가 한 종목은 청산되고 다른 종목은 주가가 90% 폭락하는 피해를 겪었다는 투자자의 사연이 전해졌다.",
-   "leaders": [],
    "issue_rank": 18,
    "db_themes": []
   },
@@ -4241,7 +4265,7 @@
    "title": "\"주가 급락에 약정금 3억 날렸다\"…주식 팔아 집 사기도 옛말",
    "url": "https://n.news.naver.com/article/003/0014348399",
    "press": "뉴시스",
-   "time": "2026-11-27T05:00:00+09:00",
+   "time": "2026-11-27T05:31:05.726502+09:00",
    "section": "네이버 메인",
    "source": "main",
    "main_rank": 1,
@@ -4260,63 +4284,80 @@
    "breaking": false,
    "relevance": 16,
    "civic": false,
-   "summary": "금융자산 매각대금 5개월 사이 73% 감소 5월 집 사는 데 쓰인 주식 등 매각대금 2조 10월 5000억원대로 감소…5개월 새 73%↓ 매수 포기 사례도…\"내 집 마련 미룰 수밖에\" [서울=뉴시스]정유선 기자 = · [서울=뉴시스] 김혜진 기자 = 26일 서울 중구 하나은행 딜링룸 전광판에…",
+   "summary": "",
    "leaders": [],
    "issue_rank": 20,
    "db_themes": []
   },
   {
-   "id": "020/0003765638",
-   "title": "수소탄-전술핵 줄줄이 과시한 北… 김정은 “南, 가장 위해한 적국”",
-   "url": "https://n.news.naver.com/mnews/article/020/0003765638",
-   "press": "동아일보",
-   "time": "2026-11-27T04:35:23+09:00",
-   "section": "정치",
-   "source": "civic",
+   "id": "009/0005769784",
+   "title": "에이피알, 틱톡숍서 맞붙던 경쟁사 품었다…목표가↑",
+   "url": "https://n.news.naver.com/mnews/article/009/0005769784",
+   "press": "매일경제",
+   "time": "",
+   "section": "증권",
+   "source": "section",
    "main_rank": null,
-   "theme": "battery",
-   "theme_label": "2차전지·에너지",
+   "theme": "earnings",
+   "theme_label": "실적·공시·수급",
    "tags": [
-    "수소"
+    "실적",
+    "목표주가",
+    "주가"
    ],
-   "presses": 1,
+   "presses": 3,
    "press_list": [
-    "동아일보"
+    "매일경제",
+    "서울경제",
+    "한국경제"
    ],
-   "related": [],
-   "article_count": 1,
+   "related": [
+    {
+     "title": "닥터멜락신 품자 주가 10% ‘쑥’…“에이피알, 제2의 성장동력 생겼다” [줍줍 리포트]",
+     "press": "서울경제",
+     "url": "https://n.news.naver.com/mnews/article/011/0004686761",
+     "time": ""
+    },
+    {
+     "title": "\"에이피알, 닥터멜락신 품었다…제2 성장동력 기대\"-다올",
+     "press": "한국경제",
+     "url": "https://n.news.naver.com/mnews/article/015/0005358877",
+     "time": ""
+    }
+   ],
+   "article_count": 3,
    "breaking": false,
-   "relevance": 10,
-   "civic": true,
-   "summary": "북한이 26일 새 우라늄 농축시설과 함께 크기와 모양이 다른 ‘화산’ 계열 핵탄두를 공개했다. 소형 수소탄으로 추정되는 ‘화산-25’와 핵추진잠수함용 원자로로 추정되는 장비도 처음 모습을 드러냈다.",
+   "relevance": 24,
+   "civic": false,
+   "summary": "삼성증권은 27일 에이피알에 대해 경재사인 닥터멜락신의 운영사 ‘브랜드501’ 인수로 2027년 연결 실적이 개선되고 광고·물류 비용 효율도 높아질 것으로 예상된다며 목표주가를 기존 40만원에서 45만원으로 상향 조",
    "leaders": [],
    "issue_rank": 21,
    "db_themes": []
   },
   {
-   "id": "ytn/0104_20261127042631",
-   "title": "러시아, 유럽에 핵 위협…미국 \"푸틴이 참고 있다\"",
-   "url": "https://www.ytn.co.kr/_ln/0104_20261127042631",
+   "id": "ytn/0102_20261127050302",
+   "title": "정부와 교섭 불발…학교 비정규직, 오늘 총파업",
+   "url": "https://www.ytn.co.kr/_ln/0102_20261127050302",
    "press": "YTN",
-   "time": "2026-11-27T04:26:31+09:00",
-   "section": "YTN 국제",
+   "time": "2026-11-27T05:03:02+09:00",
+   "section": "YTN 경제",
    "source": "press",
    "main_rank": null,
-   "theme": "geopolitics",
-   "theme_label": "남북·지정학",
+   "theme": "policy",
+   "theme_label": "정책·건설",
    "tags": [
-    "러시아"
+    "정부"
    ],
    "presses": 1,
    "press_list": [
     "YTN"
    ],
    "related": [],
-   "article_count": 1,
+   "article_count": 2,
    "breaking": false,
-   "relevance": 7,
+   "relevance": 4,
    "civic": true,
-   "summary": "",
+   "summary": "[앵커] 급식과 돌봄, 특수교육 등을 담당하는 학교 비정규직 노조가 교육...",
    "leaders": [],
    "issue_rank": 22,
    "db_themes": []
@@ -4326,10 +4367,10 @@
    "title": "트럼프, 중간선거 졌는데도 관세는 '마이웨이'…14개국 과잉생산 관세, 한국은 15%[트럼프 2기]",
    "url": "https://n.news.naver.com/article/002/0002467822",
    "press": "프레시안",
-   "time": "2026-11-26T20:13:11+09:00",
+   "time": "2026-11-26T20:31:05.726502+09:00",
    "section": "네이버 메인",
    "source": "main",
-   "main_rank": 1,
+   "main_rank": 3,
    "theme": "geopolitics",
    "theme_label": "남북·지정학",
    "tags": [
@@ -4345,7 +4386,7 @@
    "breaking": false,
    "relevance": 16,
    "civic": false,
-   "summary": "기존 합의 불만족 땐 25% 인상 여지…민주당 의회 권력 잡았지만 트럼프 '거부권'으로 관세 뒤집기 쉽지 않을 듯 미국이 한국 포함 14개 경제권에 상호관세를 대체하는 과잉생산 관세 부과를 발표했다.",
+   "summary": "",
    "leaders": [],
    "issue_rank": 23,
    "db_themes": [
@@ -4353,75 +4394,12 @@
    ]
   },
   {
-   "id": "ytn/0104_20261126223947",
-   "title": "토익도 'AI 커닝' 차단…안경에 스티커·샤프 금지",
-   "url": "https://www.ytn.co.kr/_ln/0104_20261126223947",
-   "press": "YTN",
-   "time": "2026-11-26T22:39:47+09:00",
-   "section": "YTN 국제",
-   "source": "press",
-   "main_rank": null,
-   "theme": "aisec",
-   "theme_label": "AI·보안",
-   "tags": [
-    "커닝"
-   ],
-   "presses": 1,
-   "press_list": [
-    "YTN"
-   ],
-   "related": [],
-   "article_count": 1,
-   "breaking": false,
-   "relevance": 10,
-   "civic": true,
-   "summary": "",
-   "leaders": [
-    "지슨",
-    "라온시큐어",
-    "샌즈랩",
-    "한싹"
-   ],
-   "issue_rank": 24,
-   "db_themes": [
-    "AI 시험 부정행위 대응·전파탐지/물리보안"
-   ]
-  },
-  {
-   "id": "003/0014348367",
-   "title": "\"두 달 만에 20억 빠졌는데\"…강남 집값 급락, 하락장 신호일까",
-   "url": "https://n.news.naver.com/article/003/0014348367",
-   "press": "뉴시스",
-   "time": "2026-11-27T00:00:00+09:00",
-   "section": "네이버 메인",
-   "source": "main",
-   "main_rank": 3,
-   "theme": "earnings",
-   "theme_label": "실적·공시·수급",
-   "tags": [
-    "급락"
-   ],
-   "presses": 1,
-   "press_list": [
-    "뉴시스"
-   ],
-   "related": [],
-   "article_count": 1,
-   "breaking": false,
-   "relevance": 10,
-   "civic": false,
-   "summary": "압구정 아파트 두 달 새 20억원 빠진 곳도 \"강남 눌려도 서울 전체 하락은 아닐 것\" 10억~15억원대 서울 외곽 수요 확대 전망 [서울=뉴시스] 김금보 기자 = 12일 서울 시내 한 고가 아파트 밀집지역 공인중개사무소에 급매물이 나와 있다.",
-   "leaders": [],
-   "issue_rank": 25,
-   "db_themes": []
-  },
-  {
-   "id": "ytn/0102_20261126223456",
+   "id": "ytn/0106_20261127001554",
    "title": "강유정 \"한중 후속대책 빨리 마련…2배속 일하겠다\"",
-   "url": "https://www.ytn.co.kr/_ln/0102_20261126223456",
+   "url": "https://www.ytn.co.kr/_ln/0106_20261127001554",
    "press": "YTN",
-   "time": "2026-11-26T22:34:56+09:00",
-   "section": "YTN 경제",
+   "time": "2026-11-27T00:15:54+09:00",
+   "section": "YTN 문화",
    "source": "press",
    "main_rank": null,
    "theme": "etc",
@@ -4432,13 +4410,13 @@
     "YTN"
    ],
    "related": [],
-   "article_count": 1,
+   "article_count": 2,
    "breaking": false,
    "relevance": 0,
    "civic": true,
    "summary": "",
    "leaders": [],
-   "issue_rank": 26,
+   "issue_rank": 24,
    "db_themes": []
   },
   {
@@ -4446,7 +4424,7 @@
    "title": "대낮에 문 닫는 충전소...수소 수급난에 '발 동동'",
    "url": "https://n.news.naver.com/article/655/0000033716",
    "press": "CJB청주방송",
-   "time": "2026-11-26T21:41:10+09:00",
+   "time": "2026-11-26T22:31:05.726502+09:00",
    "section": "네이버 메인",
    "source": "main",
    "main_rank": 3,
@@ -4465,36 +4443,47 @@
    "breaking": false,
    "relevance": 13,
    "civic": false,
-   "summary": "<앵커> 수소차 보급이 늘면서 충전 수요도 커지고 있지만, 정작 공급은 이를 따라가지 못하고 있습니다. 최근에는 주요 생산시설의 정비까지 겹치면서 청주지역 수소충전소 곳곳에서 운영이 중단되는 사태까지 벌어졌는데요.",
+   "summary": "",
    "leaders": [],
-   "issue_rank": 27,
+   "issue_rank": 25,
    "db_themes": []
   },
   {
-   "id": "215/0001274130",
-   "title": "61만원→53만원 목표가 낮추더니…\"매수 기회\"라는 종목 [주식R]",
-   "url": "https://n.news.naver.com/article/215/0001274130",
-   "press": "한국경제TV",
-   "time": "2026-11-26T21:00:00+09:00",
+   "id": "243/0000106347",
+   "title": "[오늘의증시] 삼전17만·SK하닉105만 사수…우주·태양광 '빨간불'",
+   "url": "https://n.news.naver.com/article/243/0000106347",
+   "press": "이코노미스트",
+   "time": "2026-11-26T16:00:11+09:00",
    "section": "네이버 메인",
    "source": "main",
    "main_rank": 5,
-   "theme": "etc",
-   "theme_label": "기타",
-   "tags": [],
+   "theme": "battery",
+   "theme_label": "2차전지·에너지",
+   "tags": [
+    "태양광"
+   ],
    "presses": 1,
    "press_list": [
-    "한국경제TV"
+    "이코노미스트"
    ],
    "related": [],
    "article_count": 1,
    "breaking": false,
-   "relevance": 0,
+   "relevance": 10,
    "civic": false,
-   "summary": "다만 사업 외적 요인에 따른 일시적인 실적 부진은 매수 기회라며 투자의견은 '매수'를 유지했다. 조대형 DS투자증권 연구원은 \"괴리율을 고려해 목표주가를 하향하나 일회적 요인에 따른 실적 부진은 매수 기회로 삼아야 한다는 판단\"이라고 밝혔다.",
-   "leaders": [],
-   "issue_rank": 28,
-   "db_themes": []
+   "summary": "美 코어위브발 AI 투자심리 회복 스페이스X 호재...우주·태양광 급등 중동 유가 불안...항공주 약세 코스피가 강보합 마감한 26일 서울 중구 하나은행 딜링룸 현황판에 코스피 종가가 표시돼있다.",
+   "leaders": [
+    "SK하이닉스",
+    "삼성전자",
+    "쎄트렉아이",
+    "한국항공우주"
+   ],
+   "issue_rank": 26,
+   "db_themes": [
+    "항공·유가 하락 (미-이란 긴장 완화·항공사 통합)",
+    "스페이스X IPO·우주항공 공급망 (위성·발사체·특수소재)",
+    "스페이스X·우주항공 (위성·발사체 공급망)"
+   ]
   },
   {
    "id": "584/0000040337",
@@ -4524,107 +4513,105 @@
     "쎄트렉아이",
     "한국항공우주"
    ],
-   "issue_rank": 29,
+   "issue_rank": 27,
    "db_themes": []
   },
   {
-   "id": "243/0000106347",
-   "title": "[오늘의증시] 삼전17만·SK하닉105만 사수…우주·태양광 '빨간불'",
-   "url": "https://n.news.naver.com/article/243/0000106347",
-   "press": "이코노미스트",
-   "time": "2026-11-26T16:01:17.145303+09:00",
+   "id": "024/0000109910",
+   "title": "개인 순매수 10개 종목 ‘와르르’…기관은 인버스로 벌었다",
+   "url": "https://n.news.naver.com/article/024/0000109910",
+   "press": "매경이코노미",
+   "time": "2026-11-26T17:21:07+09:00",
    "section": "네이버 메인",
    "source": "main",
-   "main_rank": 5,
-   "theme": "battery",
-   "theme_label": "2차전지·에너지",
-   "tags": [
-    "태양광"
-   ],
+   "main_rank": 2,
+   "theme": "etc",
+   "theme_label": "기타",
+   "tags": [],
    "presses": 1,
    "press_list": [
-    "이코노미스트"
+    "매경이코노미"
    ],
    "related": [],
    "article_count": 1,
    "breaking": false,
-   "relevance": 10,
+   "relevance": 0,
    "civic": false,
-   "summary": "",
-   "leaders": [
-    "SK하이닉스",
-    "삼성전자",
-    "쎄트렉아이",
-    "한국항공우주"
-   ],
-   "issue_rank": 30,
+   "summary": "개인·외인 순매수 톱10 평균 손실 기관 순매수 톱10 ETF 5.91%↑ 기관 상위 ETF 4개 ‘인버스’ 코스피가 강보합 마감한 26일 서울 중구 하나은행 딜링룸 현황판에 코스피·코스닥 종가가 표시돼있다.",
+   "leaders": [],
+   "issue_rank": 28,
    "db_themes": []
   }
  ],
  "articles": [
   {
-   "id": "037/0000039213",
-   "title": "삼성전자 정기 임원 인사… 승진자 53%는 반도체 부문",
+   "id": "658/0000162430",
+   "title": "이재용, 머스크의 반도체 장기 구매 제안에 \"뭘 더 해줄 수 있는데\"",
    "summary": "전 세계적인 메모리 반도체 품귀 현상 속에서 일론 머스크 테슬라 최고경영자(CEO)마저 삼성전자의 문을 두드리며 물량 확보에 총력을 기울이고 있다는 소식이 전해졌지만, 정작 국내 증시에서 삼성전자의 주가는 기대만큼",
-   "press": "주간동아",
-   "time": "2026-11-26T07:02:15+09:00",
-   "url": "https://n.news.naver.com/article/037/0000039213",
+   "press": "국제신문",
+   "time": "2026-11-26T20:27:12+09:00",
+   "url": "https://n.news.naver.com/article/658/0000162430",
    "theme": "semiconductor",
    "theme_label": "반도체·AI",
    "tags": [
-    "반도체",
-    "삼성전자"
+    "반도체"
    ],
    "section": "네이버 메인",
-   "relevance": 40,
+   "relevance": 34,
    "source": "main",
    "leaders": [
-    "삼성전자",
     "한미반도체",
     "이수페타시스",
-    "가온칩스"
+    "가온칩스",
+    "티엘비"
    ],
    "issue_rank": 1
   },
   {
-   "id": "081/0003703663",
-   "title": "핵시설 찾은 김정은 “핵보유국 부정은 선전포고” 위협",
-   "summary": "김정은 북한 국무위원장이 핵물질 생산기지와 핵무기 연구소 등을 점검한 뒤 북한의 핵보유국 지위를 부정하는 시도를 “공공연한 선전포고”로 간주하겠다고 엄포를 놨다. 북미 대화를 하더라도 비핵화가 아닌 핵보유를 전제로",
-   "press": "서울신문",
-   "time": "2026-11-27T05:02:43+09:00",
-   "url": "https://n.news.naver.com/mnews/article/081/0003703663",
-   "theme": "geopolitics",
-   "theme_label": "남북·지정학",
+   "id": "374/0000546192",
+   "title": "\"中에 하나라도 임대하면 칩 못팔아\"…엔비디아 판매상 강경방침",
+   "summary": "엔비디아의 인공지능(AI) 반도체 판매상들이 중국 기업에 연산 자원을 일부라도 임대하는 클라우드 업체에는 칩을 공급하지 않기로 통보했다고 미 경제방송 CNBC가 복수의 소식통을 인용해 26일(현지시간) 보도했다.",
+   "press": "SBS Biz",
+   "time": "2026-11-27T04:27:09+09:00",
+   "url": "https://n.news.naver.com/article/374/0000546192",
+   "theme": "semiconductor",
+   "theme_label": "반도체·AI",
    "tags": [
-    "북한"
+    "엔비디아"
    ],
-   "section": "정치",
-   "relevance": 13,
-   "source": "civic",
+   "section": "네이버 메인",
+   "relevance": 16,
+   "source": "main",
    "leaders": [
-    "인디에프",
-    "좋은사람들",
-    "코데즈컴바인",
-    "아난티"
+    "한미반도체",
+    "이수페타시스",
+    "가온칩스",
+    "티엘비"
    ],
    "issue_rank": 2
   },
   {
-   "id": "028/0002834226",
-   "title": "국내은행 1∼3분기 이자이익 또 역대 최대치…“대출확대·금리인상 영향”",
-   "summary": "올해 1∼9월 국내은행의 이자이익이 올 상반기에 이어 같은 기간 기준 역대 최대치를 기록했다. 27일 금융감독원이 발표한 ‘2026년 1~3분기 국내은행 영업실적’을 보면, 올해 1∼3분기 국내은행의 당기순이익은 2",
-   "press": "한겨레",
-   "time": "2026-11-27T06:02:09+09:00",
-   "url": "https://n.news.naver.com/mnews/article/028/0002834226",
+   "id": "138/0002249975",
+   "title": "美 증시 낙폭 축소에 반도체주 반등…코스피, 4745.10에 상승 출발",
+   "summary": "미국 증시 휴장·유럽 상승…국내 야간 선물 0.17% 올라 \"외국인 매수 전환 여부 및 자동차·방산 등 매수세 확산 여부 주목\" 27일 코스피는 반발 매수세 유입으로 상승 출발할 것으로 예상된다.",
+   "press": "디지털데일리",
+   "time": "2026-11-26T09:33:08+09:00",
+   "url": "https://n.news.naver.com/article/138/0002249975",
    "theme": "macro",
    "theme_label": "거시·환율·금리",
    "tags": [
-    "금리"
+    "코스피",
+    "증시"
    ],
-   "section": "금융",
-   "relevance": 31,
-   "source": "section",
-   "leaders": [],
+   "section": "네이버 메인",
+   "relevance": 34,
+   "source": "main",
+   "leaders": [
+    "한미반도체",
+    "이수페타시스",
+    "가온칩스",
+    "티엘비"
+   ],
    "issue_rank": 3
   },
   {
@@ -4648,27 +4635,91 @@
    "issue_rank": 4
   },
   {
-   "id": "374/0000546192",
-   "title": "\"中에 하나라도 임대하면 칩 못팔아\"…엔비디아 판매상 강경방침",
-   "summary": "엔비디아의 인공지능(AI) 반도체 판매상들이 중국 기업에 연산 자원을 일부라도 임대하는 클라우드 업체에는 칩을 공급하지 않기로 통보했다고 미 경제방송 CNBC가 복수의 소식통을 인용해 26일(현지시간) 보도했다.",
-   "press": "SBS Biz",
-   "time": "2026-11-27T04:27:09+09:00",
-   "url": "https://n.news.naver.com/article/374/0000546192",
-   "theme": "semiconductor",
-   "theme_label": "반도체·AI",
+   "id": "052/0002438667",
+   "title": "기준금리 연 3.25%로 인상...내년 초도 금리 오를까?",
+   "summary": "글로벌 시황입니다. 미국 뉴욕증시가 추수감사절을 맞아 휴장했습니다. 다만 주가지수 선물시장은 단축 거래를 진행했는데요. 트럼프 대통령의 추가 관세가 기존 관세에 중복 부과되지 않을 것이라는 소식에 투자 심리가 개선됐",
+   "press": "YTN",
+   "time": "2026-11-26T22:06:59+09:00",
+   "url": "https://n.news.naver.com/article/052/0002438667",
+   "theme": "macro",
+   "theme_label": "거시·환율·금리",
    "tags": [
-    "엔비디아"
+    "기준금리",
+    "금리"
    ],
    "section": "네이버 메인",
-   "relevance": 16,
+   "relevance": 28,
+   "source": "main",
+   "leaders": [],
+   "issue_rank": 5
+  },
+  {
+   "id": "ytn/0104_20261127072705",
+   "title": "토익도 'AI 커닝' 차단…안경에 스티커·샤프 금지",
+   "summary": "",
+   "press": "YTN",
+   "time": "2026-11-27T07:27:05+09:00",
+   "url": "https://www.ytn.co.kr/_ln/0104_20261127072705",
+   "theme": "aisec",
+   "theme_label": "AI·보안",
+   "tags": [
+    "커닝"
+   ],
+   "section": "YTN 국제",
+   "relevance": 10,
+   "source": "press",
+   "leaders": [
+    "지슨",
+    "라온시큐어",
+    "샌즈랩",
+    "한싹"
+   ],
+   "issue_rank": 6
+  },
+  {
+   "id": "032/0003485456",
+   "title": "“교수님도 AI 부정행위 했잖아요!”…학계는 ‘AI 표절’ 비상[점선면]",
+   "summary": "우수학술지 논문 10개 중 1개 ‘AI 표절’ 의심 ‘환각’으로 만든 없는 참고문헌, 검증도 안해 “AI의 환각보다 더 무서운 것은 우리의 환각” Gettyimage 요즘 AI 이야기를 부쩍 자주 전해드립니다.",
+   "press": "경향신문",
+   "time": "2026-11-27T07:00:00+09:00",
+   "url": "https://n.news.naver.com/article/032/0003485456",
+   "theme": "aisec",
+   "theme_label": "AI·보안",
+   "tags": [
+    "부정행위"
+   ],
+   "section": "네이버 메인",
+   "relevance": 10,
    "source": "main",
    "leaders": [
-    "한미반도체",
-    "이수페타시스",
-    "가온칩스",
-    "티엘비"
+    "지슨",
+    "라온시큐어",
+    "샌즈랩",
+    "한싹"
    ],
-   "issue_rank": 5
+   "issue_rank": 7
+  },
+  {
+   "id": "366/0001207661",
+   "title": "대웅·유한·일양까지 “해외 계약 파기 뒤늦게 공개”…불량 공시에 우는 개미들",
+   "summary": "신약 임상 변경 늑장 공시 공시 한줄에 주가 휘청이는데 갈길 먼 투자자 신뢰 회복 유한양행 자회사 이뮨온시아. /이뮨온시아 홈페이지 국내 제약·바이오 기업들이 연달아 불성실 공시 법인으로 지정되며 투자자들 우려가 커지고 있다.",
+   "press": "조선비즈",
+   "time": "2026-11-27T06:01:36+09:00",
+   "url": "https://n.news.naver.com/article/366/0001207661",
+   "theme": "earnings",
+   "theme_label": "실적·공시·수급",
+   "tags": [
+    "공시"
+   ],
+   "section": "네이버 메인",
+   "relevance": 10,
+   "source": "main",
+   "leaders": [
+    "알테오젠",
+    "HLB",
+    "삼성바이오로직스"
+   ],
+   "issue_rank": 8
   },
   {
    "id": "421/0009313238",
@@ -4692,26 +4743,7 @@
     "샌즈랩",
     "한싹"
    ],
-   "issue_rank": 6
-  },
-  {
-   "id": "052/0002438667",
-   "title": "기준금리 연 3.25%로 인상...내년 초도 금리 오를까?",
-   "summary": "■ 모닝벨 '마켓 프리뷰' - 송재경 디멘젼투자자문 투자부문대표 Q. 먼저 어제(26일) 흐름부터 보면, 상승 마감했지만 아쉬움이 남습니다. 전강후약으로 힘이 빠지는 모습이었는데요.",
-   "press": "YTN",
-   "time": "2026-11-26T22:06:59+09:00",
-   "url": "https://n.news.naver.com/article/052/0002438667",
-   "theme": "macro",
-   "theme_label": "거시·환율·금리",
-   "tags": [
-    "기준금리",
-    "금리"
-   ],
-   "section": "네이버 메인",
-   "relevance": 34,
-   "source": "main",
-   "leaders": [],
-   "issue_rank": 7
+   "issue_rank": 9
   },
   {
    "id": "008/0005447213",
@@ -4729,7 +4761,7 @@
    "relevance": 10,
    "source": "section",
    "leaders": [],
-   "issue_rank": 8
+   "issue_rank": 10
   },
   {
    "id": "015/0005358864",
@@ -4743,18 +4775,117 @@
    "tags": [
     "스페이스X"
    ],
-   "section": "글로벌 경제",
+   "section": "네이버 메인",
    "relevance": 7,
-   "source": "section",
+   "source": "main",
    "leaders": [],
-   "issue_rank": 9
+   "issue_rank": 11
+  },
+  {
+   "id": "ytn/0134_20261127080256",
+   "title": "\"위험한 상황\"...나토에 러시아 핵 위협 '심각' [자막뉴스]",
+   "summary": "지난 21일 발트해 핀란드만 공해상에서 러시아 화물선 '스파르타 2호'가 우...",
+   "press": "YTN",
+   "time": "2026-11-27T08:02:56+09:00",
+   "url": "https://www.ytn.co.kr/_ln/0134_20261127080256",
+   "theme": "geopolitics",
+   "theme_label": "남북·지정학",
+   "tags": [
+    "러시아"
+   ],
+   "section": "YTN 최신",
+   "relevance": 7,
+   "source": "press",
+   "leaders": [],
+   "issue_rank": 12
+  },
+  {
+   "id": "047/0002537419",
+   "title": "중국 다녀온 장관의 아찔한 발언... 그 시간 서울 한복판서 벌어진 일 [반도체 특별과외]",
+   "summary": "",
+   "press": "오마이뉴스",
+   "time": "2026-11-27T07:32:05.726502+09:00",
+   "url": "https://n.news.naver.com/article/047/0002537419",
+   "theme": "semiconductor",
+   "theme_label": "반도체·AI",
+   "tags": [
+    "반도체"
+   ],
+   "section": "네이버 메인",
+   "relevance": 10,
+   "source": "main",
+   "leaders": [
+    "한미반도체",
+    "이수페타시스",
+    "가온칩스",
+    "티엘비"
+   ],
+   "issue_rank": 13
+  },
+  {
+   "id": "011/0004686754",
+   "title": "전국에 곧 재난문자 울린다…심상치 않은 ‘슈퍼 엘니뇨’에 역대급 폭설 온다",
+   "summary": "폭설 속 출근 차량 행렬, 연합뉴스 올겨울 폭설 같은 위험기상이 닥치기 전에 기상청이 재난문자와 한파 정보를 더 빠르고 촘촘하게 보내기로 했다. 대설 안전안내문자는 전국으로 넓히고, 한파 정보는 고령층과 외국인 근로자에게 직접 전달한다.",
+   "press": "서울경제",
+   "time": "2026-11-27T07:24:13+09:00",
+   "url": "https://n.news.naver.com/article/011/0004686754",
+   "theme": "disaster",
+   "theme_label": "재난·안전",
+   "tags": [
+    "폭설"
+   ],
+   "section": "네이버 메인",
+   "relevance": 10,
+   "source": "main",
+   "leaders": [
+    "삼영엠텍",
+    "파라텍",
+    "포메탈"
+   ],
+   "issue_rank": 14
+  },
+  {
+   "id": "366/0001207666",
+   "title": "관세·中 공세에도 LG전자 美 법인 ‘흑자 전환’… 3분기 누적 순이익 1조원 돌파",
+   "summary": "",
+   "press": "조선비즈",
+   "time": "2026-11-27T06:31:05.726502+09:00",
+   "url": "https://n.news.naver.com/article/366/0001207666",
+   "theme": "geopolitics",
+   "theme_label": "남북·지정학",
+   "tags": [
+    "관세"
+   ],
+   "section": "네이버 메인",
+   "relevance": 10,
+   "source": "main",
+   "leaders": [
+    "LG전자"
+   ],
+   "issue_rank": 15
+  },
+  {
+   "id": "014/0005610576",
+   "title": "\"마이너스 90% 찍자 모든 게 싫었다\"…3억 잃은 투자자의 고백",
+   "summary": "",
+   "press": "파이낸셜뉴스",
+   "time": "2026-11-27T06:31:05.726502+09:00",
+   "url": "https://n.news.naver.com/article/014/0005610576",
+   "theme": "etc",
+   "theme_label": "기타",
+   "tags": [],
+   "section": "네이버 메인",
+   "relevance": 0,
+   "source": "main",
+   "leaders": [],
+   "issue_rank": 16
   },
   {
    "id": "021/0002835876",
    "title": "“‘주식 망가지는건 정부탓’…자신과 싸우는 李대통령” 이성권의 말",
-   "summary": "26일 서울 중구 하나은행 딜링룸 전광판에 주요 지수가 표시 되고 있다. 뉴시스 이성권 국민의힘 의원은 26일 과거 ‘주식시장 망가지는 건 정부 탓’이라고 했던 이재명 대통령을 향해 “자신의 발언과 싸우는 이 대통령의 모습이 이젠 새롭지도 않다”고 비판했다.",
+   "summary": "",
    "press": "문화일보",
-   "time": "2026-11-27T06:11:13+09:00",
+   "time": "2026-11-27T06:31:05.726502+09:00",
    "url": "https://n.news.naver.com/article/021/0002835876",
    "theme": "policy",
    "theme_label": "정책·건설",
@@ -4766,130 +4897,7 @@
    "relevance": 7,
    "source": "main",
    "leaders": [],
-   "issue_rank": 10
-  },
-  {
-   "id": "021/0002835875",
-   "title": "한은 총재도 설명하지 못한 이 현상…“반도체 기업 시총이 왜 수익의 3배밖에 안될까”",
-   "summary": "연합뉴스 신현송 한국은행 총재가 최근 국내 증시 급락과 관련해 반도체 기업들의 막대한 영업이익에 비해 시가총액이 낮게 형성돼 있다는 점을 지적했다. 국내 경제의 견조한 성장세를 고려하면 주식시장에도 추가 성장 여력이 있다는 진단이다.",
-   "press": "문화일보",
-   "time": "2026-11-27T06:02:15+09:00",
-   "url": "https://n.news.naver.com/article/021/0002835875",
-   "theme": "semiconductor",
-   "theme_label": "반도체·AI",
-   "tags": [
-    "반도체"
-   ],
-   "section": "네이버 메인",
-   "relevance": 13,
-   "source": "main",
-   "leaders": [
-    "한미반도체",
-    "이수페타시스",
-    "가온칩스",
-    "티엘비"
-   ],
-   "issue_rank": 11
-  },
-  {
-   "id": "023/0004012041",
-   "title": "“수능으론 잠재력 평가 못해… 대학이 돈·시간 들여 시스템 만들어야”",
-   "summary": "[흔들리는 수능, 전문가 긴급 진단] <4> 배상훈 성균관대 교수 지난 23일 수시 논술고사가 치러진 서울 노원구 서울과학기술대 내 건물에 ‘수험생 외 학부모 등 출입금지’가 쓰인 안내문이 붙어 있다.",
-   "press": "조선일보",
-   "time": "2026-11-27T00:48:13+09:00",
-   "url": "https://n.news.naver.com/article/023/0004012041",
-   "theme": "aisec",
-   "theme_label": "AI·보안",
-   "tags": [
-    "수능"
-   ],
-   "section": "네이버 메인",
-   "relevance": 7,
-   "source": "main",
-   "leaders": [],
-   "issue_rank": 12
-  },
-  {
-   "id": "018/0006416351",
-   "title": "알테오젠 기술 엔허투SC 임상 환자 축소는 악재?…사례 찾아보니",
-   "summary": "이 기사는 2026년11월26일 07시30분에 팜이데일리 프리미엄 콘텐츠로 선공개 되었습니다. 알테오젠의 피하주사(SC) 제형 전환 기술이 적용된 다이이찌산쿄의 항체약물접합체(ADC) 치료제 ‘엔허투SC’ 임상 1상",
-   "press": "이데일리",
-   "time": "2026-11-27T07:32:15+09:00",
-   "url": "https://n.news.naver.com/mnews/article/018/0006416351",
-   "theme": "bio",
-   "theme_label": "바이오·헬스케어",
-   "tags": [
-    "임상",
-    "알테오젠"
-   ],
-   "section": "경제 일반",
-   "relevance": 19,
-   "source": "section",
-   "leaders": [
-    "알테오젠",
-    "HLB",
-    "삼성바이오로직스"
-   ],
-   "issue_rank": 13
-  },
-  {
-   "id": "366/0001207661",
-   "title": "대웅·유한·일양까지 “해외 계약 파기 뒤늦게 공개”…불량 공시에 우는 개미들",
-   "summary": "",
-   "press": "조선비즈",
-   "time": "2026-11-27T07:01:17.145303+09:00",
-   "url": "https://n.news.naver.com/article/366/0001207661",
-   "theme": "earnings",
-   "theme_label": "실적·공시·수급",
-   "tags": [
-    "공시"
-   ],
-   "section": "네이버 메인",
-   "relevance": 10,
-   "source": "main",
-   "leaders": [],
-   "issue_rank": 14
-  },
-  {
-   "id": "011/0004686746",
-   "title": "현금 대신 지분…달라진 K바이오 수출공식",
-   "summary": "국내 상장 바이오 기업들이 신약 후보물질을 기술이전하면서 계약 대가의 일부를 현금 대신 지분으로 확보하는 사례가 잇따르고 있다. 선급금과 단계별 기술료(마일스톤) 등 기존 기술이전 수익에 더해 향후 파트너사의 기업가",
-   "press": "서울경제",
-   "time": "2026-11-27T07:00:25+09:00",
-   "url": "https://n.news.naver.com/mnews/article/011/0004686746",
-   "theme": "bio",
-   "theme_label": "바이오·헬스케어",
-   "tags": [
-    "바이오",
-    "신약"
-   ],
-   "section": "증권",
-   "relevance": 17,
-   "source": "section",
-   "leaders": [
-    "알테오젠",
-    "HLB",
-    "삼성바이오로직스"
-   ],
-   "issue_rank": 15
-  },
-  {
-   "id": "ytn/0104_20261127063100",
-   "title": "'청해부대 임무 구역 확대' 상임위 통과…한-이란 외교장관 통화",
-   "summary": "",
-   "press": "YTN",
-   "time": "2026-11-27T06:31:00+09:00",
-   "url": "https://www.ytn.co.kr/_ln/0104_20261127063100",
-   "theme": "policy",
-   "theme_label": "정책·건설",
-   "tags": [
-    "장관"
-   ],
-   "section": "YTN 국제",
-   "relevance": 4,
-   "source": "press",
-   "leaders": [],
-   "issue_rank": 16
+   "issue_rank": 17
   },
   {
    "id": "002/0002467838",
@@ -4911,22 +4919,6 @@
     "대우건설",
     "DL이앤씨"
    ],
-   "issue_rank": 17
-  },
-  {
-   "id": "014/0005610576",
-   "title": "\"마이너스 90% 찍자 모든 게 싫었다\"…3억 잃은 투자자의 고백",
-   "summary": "(출처=연합뉴스) [파이낸셜뉴스] 주식 두 종목에 약 3억원을 투자했다가 한 종목은 청산되고 다른 종목은 주가가 90% 폭락하는 피해를 겪었다는 투자자의 사연이 전해졌다.",
-   "press": "파이낸셜뉴스",
-   "time": "2026-11-27T06:01:12+09:00",
-   "url": "https://n.news.naver.com/article/014/0005610576",
-   "theme": "etc",
-   "theme_label": "기타",
-   "tags": [],
-   "section": "네이버 메인",
-   "relevance": 0,
-   "source": "main",
-   "leaders": [],
    "issue_rank": 18
   },
   {
@@ -4954,9 +4946,9 @@
   {
    "id": "003/0014348399",
    "title": "\"주가 급락에 약정금 3억 날렸다\"…주식 팔아 집 사기도 옛말",
-   "summary": "금융자산 매각대금 5개월 사이 73% 감소 5월 집 사는 데 쓰인 주식 등 매각대금 2조 10월 5000억원대로 감소…5개월 새 73%↓ 매수 포기 사례도…\"내 집 마련 미룰 수밖에\" [서울=뉴시스]정유선 기자 = · [서울=뉴시스] 김혜진 기자 = 26일 서울 중구 하나은행 딜링룸 전광판에…",
+   "summary": "",
    "press": "뉴시스",
-   "time": "2026-11-27T05:00:00+09:00",
+   "time": "2026-11-27T05:31:05.726502+09:00",
    "url": "https://n.news.naver.com/article/003/0014348399",
    "theme": "earnings",
    "theme_label": "실적·공시·수급",
@@ -4971,37 +4963,39 @@
    "issue_rank": 20
   },
   {
-   "id": "020/0003765638",
-   "title": "수소탄-전술핵 줄줄이 과시한 北… 김정은 “南, 가장 위해한 적국”",
-   "summary": "북한이 26일 새 우라늄 농축시설과 함께 크기와 모양이 다른 ‘화산’ 계열 핵탄두를 공개했다. 소형 수소탄으로 추정되는 ‘화산-25’와 핵추진잠수함용 원자로로 추정되는 장비도 처음 모습을 드러냈다.",
-   "press": "동아일보",
-   "time": "2026-11-27T04:35:23+09:00",
-   "url": "https://n.news.naver.com/mnews/article/020/0003765638",
-   "theme": "battery",
-   "theme_label": "2차전지·에너지",
+   "id": "009/0005769784",
+   "title": "에이피알, 틱톡숍서 맞붙던 경쟁사 품었다…목표가↑",
+   "summary": "삼성증권은 27일 에이피알에 대해 경재사인 닥터멜락신의 운영사 ‘브랜드501’ 인수로 2027년 연결 실적이 개선되고 광고·물류 비용 효율도 높아질 것으로 예상된다며 목표주가를 기존 40만원에서 45만원으로 상향 조",
+   "press": "매일경제",
+   "time": "",
+   "url": "https://n.news.naver.com/mnews/article/009/0005769784",
+   "theme": "earnings",
+   "theme_label": "실적·공시·수급",
    "tags": [
-    "수소"
+    "실적",
+    "목표주가",
+    "주가"
    ],
-   "section": "정치",
-   "relevance": 10,
-   "source": "civic",
+   "section": "증권",
+   "relevance": 24,
+   "source": "section",
    "leaders": [],
    "issue_rank": 21
   },
   {
-   "id": "ytn/0104_20261127042631",
-   "title": "러시아, 유럽에 핵 위협…미국 \"푸틴이 참고 있다\"",
-   "summary": "",
+   "id": "ytn/0102_20261127050302",
+   "title": "정부와 교섭 불발…학교 비정규직, 오늘 총파업",
+   "summary": "[앵커] 급식과 돌봄, 특수교육 등을 담당하는 학교 비정규직 노조가 교육...",
    "press": "YTN",
-   "time": "2026-11-27T04:26:31+09:00",
-   "url": "https://www.ytn.co.kr/_ln/0104_20261127042631",
-   "theme": "geopolitics",
-   "theme_label": "남북·지정학",
+   "time": "2026-11-27T05:03:02+09:00",
+   "url": "https://www.ytn.co.kr/_ln/0102_20261127050302",
+   "theme": "policy",
+   "theme_label": "정책·건설",
    "tags": [
-    "러시아"
+    "정부"
    ],
-   "section": "YTN 국제",
-   "relevance": 7,
+   "section": "YTN 경제",
+   "relevance": 4,
    "source": "press",
    "leaders": [],
    "issue_rank": 22
@@ -5009,9 +5003,9 @@
   {
    "id": "002/0002467822",
    "title": "트럼프, 중간선거 졌는데도 관세는 '마이웨이'…14개국 과잉생산 관세, 한국은 15%[트럼프 2기]",
-   "summary": "기존 합의 불만족 땐 25% 인상 여지…민주당 의회 권력 잡았지만 트럼프 '거부권'으로 관세 뒤집기 쉽지 않을 듯 미국이 한국 포함 14개 경제권에 상호관세를 대체하는 과잉생산 관세 부과를 발표했다.",
+   "summary": "",
    "press": "프레시안",
-   "time": "2026-11-26T20:13:11+09:00",
+   "time": "2026-11-26T20:31:05.726502+09:00",
    "url": "https://n.news.naver.com/article/002/0002467822",
    "theme": "geopolitics",
    "theme_label": "남북·지정학",
@@ -5026,68 +5020,27 @@
    "issue_rank": 23
   },
   {
-   "id": "ytn/0104_20261126223947",
-   "title": "토익도 'AI 커닝' 차단…안경에 스티커·샤프 금지",
-   "summary": "",
-   "press": "YTN",
-   "time": "2026-11-26T22:39:47+09:00",
-   "url": "https://www.ytn.co.kr/_ln/0104_20261126223947",
-   "theme": "aisec",
-   "theme_label": "AI·보안",
-   "tags": [
-    "커닝"
-   ],
-   "section": "YTN 국제",
-   "relevance": 10,
-   "source": "press",
-   "leaders": [
-    "지슨",
-    "라온시큐어",
-    "샌즈랩",
-    "한싹"
-   ],
-   "issue_rank": 24
-  },
-  {
-   "id": "003/0014348367",
-   "title": "\"두 달 만에 20억 빠졌는데\"…강남 집값 급락, 하락장 신호일까",
-   "summary": "압구정 아파트 두 달 새 20억원 빠진 곳도 \"강남 눌려도 서울 전체 하락은 아닐 것\" 10억~15억원대 서울 외곽 수요 확대 전망 [서울=뉴시스] 김금보 기자 = 12일 서울 시내 한 고가 아파트 밀집지역 공인중개사무소에 급매물이 나와 있다.",
-   "press": "뉴시스",
-   "time": "2026-11-27T00:00:00+09:00",
-   "url": "https://n.news.naver.com/article/003/0014348367",
-   "theme": "earnings",
-   "theme_label": "실적·공시·수급",
-   "tags": [
-    "급락"
-   ],
-   "section": "네이버 메인",
-   "relevance": 10,
-   "source": "main",
-   "leaders": [],
-   "issue_rank": 25
-  },
-  {
-   "id": "ytn/0102_20261126223456",
+   "id": "ytn/0106_20261127001554",
    "title": "강유정 \"한중 후속대책 빨리 마련…2배속 일하겠다\"",
    "summary": "",
    "press": "YTN",
-   "time": "2026-11-26T22:34:56+09:00",
-   "url": "https://www.ytn.co.kr/_ln/0102_20261126223456",
+   "time": "2026-11-27T00:15:54+09:00",
+   "url": "https://www.ytn.co.kr/_ln/0106_20261127001554",
    "theme": "etc",
    "theme_label": "기타",
    "tags": [],
-   "section": "YTN 경제",
+   "section": "YTN 문화",
    "relevance": 0,
    "source": "press",
    "leaders": [],
-   "issue_rank": 26
+   "issue_rank": 24
   },
   {
    "id": "655/0000033716",
    "title": "대낮에 문 닫는 충전소...수소 수급난에 '발 동동'",
-   "summary": "<앵커> 수소차 보급이 늘면서 충전 수요도 커지고 있지만, 정작 공급은 이를 따라가지 못하고 있습니다. 최근에는 주요 생산시설의 정비까지 겹치면서 청주지역 수소충전소 곳곳에서 운영이 중단되는 사태까지 벌어졌는데요.",
+   "summary": "",
    "press": "CJB청주방송",
-   "time": "2026-11-26T21:41:10+09:00",
+   "time": "2026-11-26T22:31:05.726502+09:00",
    "url": "https://n.news.naver.com/article/655/0000033716",
    "theme": "battery",
    "theme_label": "2차전지·에너지",
@@ -5099,23 +5052,30 @@
    "relevance": 13,
    "source": "main",
    "leaders": [],
-   "issue_rank": 27
+   "issue_rank": 25
   },
   {
-   "id": "215/0001274130",
-   "title": "61만원→53만원 목표가 낮추더니…\"매수 기회\"라는 종목 [주식R]",
-   "summary": "다만 사업 외적 요인에 따른 일시적인 실적 부진은 매수 기회라며 투자의견은 '매수'를 유지했다. 조대형 DS투자증권 연구원은 \"괴리율을 고려해 목표주가를 하향하나 일회적 요인에 따른 실적 부진은 매수 기회로 삼아야 한다는 판단\"이라고 밝혔다.",
-   "press": "한국경제TV",
-   "time": "2026-11-26T21:00:00+09:00",
-   "url": "https://n.news.naver.com/article/215/0001274130",
-   "theme": "etc",
-   "theme_label": "기타",
-   "tags": [],
+   "id": "243/0000106347",
+   "title": "[오늘의증시] 삼전17만·SK하닉105만 사수…우주·태양광 '빨간불'",
+   "summary": "美 코어위브발 AI 투자심리 회복 스페이스X 호재...우주·태양광 급등 중동 유가 불안...항공주 약세 코스피가 강보합 마감한 26일 서울 중구 하나은행 딜링룸 현황판에 코스피 종가가 표시돼있다.",
+   "press": "이코노미스트",
+   "time": "2026-11-26T16:00:11+09:00",
+   "url": "https://n.news.naver.com/article/243/0000106347",
+   "theme": "battery",
+   "theme_label": "2차전지·에너지",
+   "tags": [
+    "태양광"
+   ],
    "section": "네이버 메인",
-   "relevance": 0,
+   "relevance": 10,
    "source": "main",
-   "leaders": [],
-   "issue_rank": 28
+   "leaders": [
+    "SK하이닉스",
+    "삼성전자",
+    "쎄트렉아이",
+    "한국항공우주"
+   ],
+   "issue_rank": 26
   },
   {
    "id": "584/0000040337",
@@ -5136,30 +5096,23 @@
     "쎄트렉아이",
     "한국항공우주"
    ],
-   "issue_rank": 29
+   "issue_rank": 27
   },
   {
-   "id": "243/0000106347",
-   "title": "[오늘의증시] 삼전17만·SK하닉105만 사수…우주·태양광 '빨간불'",
-   "summary": "",
-   "press": "이코노미스트",
-   "time": "2026-11-26T16:01:17.145303+09:00",
-   "url": "https://n.news.naver.com/article/243/0000106347",
-   "theme": "battery",
-   "theme_label": "2차전지·에너지",
-   "tags": [
-    "태양광"
-   ],
+   "id": "024/0000109910",
+   "title": "개인 순매수 10개 종목 ‘와르르’…기관은 인버스로 벌었다",
+   "summary": "개인·외인 순매수 톱10 평균 손실 기관 순매수 톱10 ETF 5.91%↑ 기관 상위 ETF 4개 ‘인버스’ 코스피가 강보합 마감한 26일 서울 중구 하나은행 딜링룸 현황판에 코스피·코스닥 종가가 표시돼있다.",
+   "press": "매경이코노미",
+   "time": "2026-11-26T17:21:07+09:00",
+   "url": "https://n.news.naver.com/article/024/0000109910",
+   "theme": "etc",
+   "theme_label": "기타",
+   "tags": [],
    "section": "네이버 메인",
-   "relevance": 10,
+   "relevance": 0,
    "source": "main",
-   "leaders": [
-    "SK하이닉스",
-    "삼성전자",
-    "쎄트렉아이",
-    "한국항공우주"
-   ],
-   "issue_rank": 30
+   "leaders": [],
+   "issue_rank": 28
   }
  ]
 }
