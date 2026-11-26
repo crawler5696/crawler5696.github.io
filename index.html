@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- 뉴스레이더 newsradar-v129 — 공개 화면. 비공개 탭(레이더·실전·결과) 코드는 data/private_ui.json 안에 잠겨 있다. -->
+<!-- 뉴스레이더 newsradar-v130 — 공개 화면. 비공개 탭(레이더·실전·결과) 코드는 data/private_ui.json 안에 잠겨 있다. -->
 <html lang="ko">
 <head>
 <meta charset="utf-8">
@@ -338,6 +338,8 @@
   .th-name b{font-size:12.5px;font-weight:700;line-height:1.35;
     display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
   .th-cnt{flex:none;font-size:9.5px;font-weight:800;color:#9fc0ff;background:rgba(79,140,255,.12);
+  .th-bat{flex:none;font-size:9px;font-weight:800;line-height:1;letter-spacing:-1.5px;color:#d7e3f7;opacity:.95}
+  .th-bat.off{opacity:.7}
     border:1px solid rgba(79,140,255,.28);padding:1px 5px;border-radius:5px}
   /* 2026-11-24 지시(#14138) — 테마명 안에 그 달 대표 상한가 이름·날짜를 함께 */
   .th-rep{display:block;font-size:10.5px;font-weight:800;color:#ffd35c;letter-spacing:-.2px;
@@ -1468,6 +1470,18 @@ function stkTierOf(s){
   return stkTier(stkAgo(s));
 }
 
+/* 재료 살아있음 배터리(🔋 칸수) — v130(2026-11-27). 테마 카드 제목 옆 배지 하나.
+   3칸 🔋🔋🔋 · 2칸 🔋🔋 · 1칸 🔋 · 0칸 🪫. 사유는 손가락으로 짚었을 때(title)만 — 중립 표현만 쓴다. */
+function batGlyph(n){
+  const k = Number(n);
+  return k >= 3 ? '🔋🔋🔋' : (k === 2 ? '🔋🔋' : (k === 1 ? '🔋' : '🪫'));
+}
+function batBadge(t){
+  const b = t && t.bat;
+  if(!b || b.n == null) return '';
+  return `<span class="th-bat${Number(b.n) > 0 ? '' : ' off'}" title="${esc('재료 살아있음 — ' + (b.why || ''))}">${batGlyph(b.n)}</span>`;
+}
+
 function stkHtml(s, themeNm){
   const tier = stkTierOf(s);
   const pk = s.pinkArrow
@@ -1597,6 +1611,7 @@ async function renderCalendar(){
       <button class="th-head" type="button">
         <span class="th-badge ${individual ? 'bg' : 'bd'}" title="${esc(tip)}">${individual ? '개별' : '동반'}</span>
         <span class="th-name"><b>${esc(t.name)}</b>${repTxt && !repDup ? `<span class="th-rep">${repTxt}</span>` : ''}</span>
+        ${batBadge(t)}
         ${leadTxt}
         <span class="th-cnt">${t.count}</span>
         <span class="th-exp">▾</span>
