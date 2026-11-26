@@ -1,0 +1,3054 @@
+<!DOCTYPE html>
+<!-- 뉴스레이더 newsradar-v129 — 공개 화면. 비공개 탭(레이더·실전·결과) 코드는 data/private_ui.json 안에 잠겨 있다. -->
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>뉴스레이더 — 증시 실시간 뉴스 · 테마달력 · 오늘 상한가</title>
+<meta name="description" content="국내 증시 실시간 주요 뉴스·이슈와 오늘 상한가, 최근 1년 상한가 테마달력을 한 화면에 보여주는 무료 뉴스 대시보드">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="뉴스레이더">
+<meta property="og:title" content="뉴스레이더 — 증시 실시간 뉴스 · 테마달력 · 오늘 상한가">
+<meta property="og:description" content="국내 증시 실시간 주요 뉴스·이슈와 오늘 상한가, 최근 1년 상한가 테마달력">
+<meta property="og:url" content="https://crawler5696.github.io/">
+<meta property="og:image" content="https://crawler5696.github.io/icons/icon-512.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="뉴스레이더 — 증시 실시간 뉴스 · 테마달력 · 오늘 상한가">
+<meta name="twitter:description" content="국내 증시 실시간 주요 뉴스·이슈와 오늘 상한가, 최근 1년 상한가 테마달력">
+<meta name="theme-color" content="#0b1120">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="뉴스레이더">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icons/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<style>  :root{
+    --bg:#0b1120; --bg2:#0e1730; --card:#141d33; --card2:#18233d;
+    --line:rgba(255,255,255,.08); --txt:#eef2fa; --dim:#8f9bb3; --dim2:#6b778f;
+    --accent:#4f8cff; --up:#ff5a6e; --ok:#3ddc97;
+    --radius:11px;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;padding:0}
+  body{
+    background:
+      radial-gradient(1200px 500px at 50% -200px, rgba(79,140,255,.20), transparent 70%),
+      linear-gradient(180deg,var(--bg) 0%, var(--bg2) 100%);
+    background-attachment:fixed;
+    color:var(--txt);
+    font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",Roboto,sans-serif;
+    font-size:14px;line-height:1.45;
+    -webkit-font-smoothing:antialiased;
+    padding-bottom: calc(20px + env(safe-area-inset-bottom));
+  }
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:640px;margin:0 auto;padding:0 9px}
+
+  /* ---------- header ---------- */
+  header{
+    position:sticky;top:0;z-index:20;
+    backdrop-filter:saturate(160%) blur(14px);
+    -webkit-backdrop-filter:saturate(160%) blur(14px);
+    background:linear-gradient(180deg, rgba(11,17,32,.95), rgba(11,17,32,.84));
+    border-bottom:1px solid var(--line);
+    padding-top:env(safe-area-inset-top);
+  }
+  .top{display:flex;align-items:center;gap:8px;padding:6px 0 4px}
+  .logo{width:26px;height:26px;border-radius:8px;background:linear-gradient(135deg,#4f8cff,#8b5cf6);
+    display:grid;place-items:center;font-size:14px;box-shadow:0 4px 12px rgba(79,140,255,.38);flex:none}
+  .brand{font-size:15px;font-weight:800;letter-spacing:-.4px;white-space:nowrap;line-height:1.15}
+  .brand small{display:block;font-size:9.5px;font-weight:600;color:var(--dim2);letter-spacing:0}
+  /* 제목 앞 이름 — 작은 폰에서도 한 줄에 들어가게 크기를 맞춘다 */
+  .brand .who{display:inline-block;font-weight:900;color:#fff;letter-spacing:-.5px;
+    margin-right:5px;padding:0 5px;border-radius:7px;vertical-align:1px;
+    background:linear-gradient(135deg,rgba(79,140,255,.34),rgba(124,92,255,.34));
+    border:1px solid rgba(150,170,255,.6);text-shadow:0 1px 6px rgba(120,150,255,.5)}
+  @media (max-width:430px){ .brand small{display:none} .brand{font-size:14.5px} }
+  @media (max-width:400px){ .brand .who{font-size:12.5px;padding:0 4px;margin-right:4px} }
+  /* 제목 바로 밑 — 카카오톡 오픈채팅방 버튼(카카오 노랑 알약, 누르면 새 창) */
+  .kkwrap{display:flex;justify-content:center;margin:0 0 6px}
+  .kk{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:999px;
+    background:#FEE500;color:#191919;font-weight:700;font-size:11px;letter-spacing:-.3px;
+    white-space:nowrap;text-decoration:none;border:1px solid #f2d900;
+    box-shadow:0 2px 10px rgba(254,229,0,.26);transition:transform .12s,box-shadow .15s}
+  .kk b{font-weight:900;color:#191919}
+  .kk:hover{box-shadow:0 3px 14px rgba(254,229,0,.42)}
+  .kk:active{transform:scale(.97)}
+  @media (max-width:400px){ .kk{font-size:10.5px;padding:4px 9px;gap:3px} }
+  .spacer{flex:1}
+  .live{display:flex;align-items:center;gap:4px;font-size:10px;color:var(--ok);
+    background:rgba(61,220,151,.1);border:1px solid rgba(61,220,151,.25);
+    padding:3px 7px;border-radius:20px;white-space:nowrap}
+  .dot{width:5px;height:5px;border-radius:50%;background:var(--ok);animation:pulse 1.8s infinite}
+  @keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(61,220,151,.5)}50%{opacity:.5;box-shadow:0 0 0 4px rgba(61,220,151,0)}}
+  .refresh{width:29px;height:29px;border-radius:9px;border:1px solid var(--line);background:var(--card);
+    color:var(--dim);display:grid;place-items:center;font-size:14px;flex:none;cursor:pointer;transition:.2s}
+  .refresh:active{transform:scale(.92);background:var(--card2)}
+  /* 공지 다시 보기 — 헤더의 작은 📢 */
+  .ntbtn{width:29px;height:29px;border-radius:9px;border:1px solid var(--line);background:var(--card);
+    color:var(--dim);display:grid;place-items:center;font-size:13px;flex:none;cursor:pointer;transition:.2s}
+  .ntbtn:active{transform:scale(.92);background:var(--card2)}
+  .refresh.spinning{animation:spin .8s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+
+  /* ---------- 인앱 브라우저(카톡·네이버) → 크롬 · 원터치 앱 설치 줄 ----------
+     인앱에서 열렸거나 설치를 권할 때만 헤더 맨 위에 한 번 뜬다(✕ 로 닫으면 그 기기에서는 다시 안 뜬다).
+     384px 폭에서도 두 버튼이 한 줄에 들어가도록 글자·여백을 작게 잡았다. */
+  .ib{display:flex;flex-direction:column;gap:5px;margin:2px 0 6px;padding:6px 7px 7px;border-radius:10px;
+    border:1px solid rgba(79,140,255,.34);
+    background:linear-gradient(135deg,rgba(79,140,255,.17),rgba(124,92,255,.14))}
+  .ib[hidden]{display:none}
+  .ib-t{display:flex;align-items:center;gap:4px;min-width:0;font-size:10.6px;font-weight:700;line-height:1.35;
+    color:#c9d6ee;letter-spacing:-.2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .ib-t .ic{flex:none;font-size:11px;line-height:1}
+  .ib-t b{color:#fff;font-weight:900}
+  .ib-row{display:flex;align-items:center;gap:4px}
+  .ib-btn{flex:1 1 0;min-width:0;appearance:none;cursor:pointer;font-family:inherit;
+    display:inline-flex;align-items:center;justify-content:center;gap:3px;
+    border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);color:#dbe4f5;
+    font-size:11px;font-weight:800;letter-spacing:-.4px;padding:6px 3px;border-radius:8px;
+    white-space:nowrap;text-decoration:none}
+  .ib-btn[hidden]{display:none}
+  .ib-btn.go{flex:1.45 1 0;border-color:transparent;color:#fff;
+    background:linear-gradient(135deg,#4f8cff,#7c5cff);box-shadow:0 3px 12px rgba(79,140,255,.3)}
+  .ib-btn:active{transform:scale(.98)}
+  .ib-x{flex:none;width:24px;height:26px;border-radius:8px;border:1px solid rgba(255,255,255,.12);
+    background:rgba(255,255,255,.04);color:#93a4bf;font-family:inherit;font-size:12px;line-height:1;cursor:pointer}
+  @media (max-width:360px){ .ib-t{font-size:10px} .ib-btn{font-size:10.2px;letter-spacing:-.5px} }
+
+  /* ---------- 탭 (다섯 칸 — 잠긴 탭도 늘 보이고, 눌러야 잠금 화면이 뜬다) ---------- */
+  /* 2026-11-24 지시 — 상단은 네 칸(📰 뉴스 · 📡 레이더 · 📅 테마달력 · 🎯 실전)뿐이다.
+     오늘 상한가는 뉴스 칸 안으로 옮겨 탭을 네 개로 줄였다.
+     2026-11-26 지시 — 🔒 실전 바로 옆에 🔒 결과 탭을 신설해 다섯 칸이 됐다(픽 올린 종목의 월별 상태·경과). */
+  .tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:2px;padding:0 0 5px}
+  /* 탭 바로 아래 한 줄 — 지금 칸이 무엇을 보는 자리인지(역할 분담) */
+  .tabrole{padding:0 1px 4px;font-size:10px;font-weight:700;letter-spacing:-.2px;line-height:1.4;
+    color:#93a4bf;word-break:keep-all}
+  .tabrole b{color:#cbd8ee;font-weight:900}
+  .tab{
+    appearance:none;border:1px solid var(--line);background:rgba(255,255,255,.03);
+    color:var(--dim);font-family:inherit;font-size:12px;font-weight:700;letter-spacing:-.3px;
+    padding:6px 2px;border-radius:9px;cursor:pointer;white-space:nowrap;transition:.15s;
+    display:flex;align-items:center;justify-content:center;gap:2px;
+  }
+  .tab:active{transform:scale(.97)}
+  .tab[aria-selected="true"]{
+    color:#fff;border-color:transparent;background:linear-gradient(135deg,#4f8cff,#7c5cff);
+    box-shadow:0 3px 12px rgba(79,140,255,.32);
+  }
+  /* 레이더 — 글씨는 다른 탭과 같게 두고, 옆의 작은 빨간 등이 켜진다 */
+  .rdot{width:6px;height:6px;border-radius:50%;flex:none;background:#46506a;
+    transition:background .25s ease;box-shadow:none}
+  .rdot.on{background:#ff3b4e;animation:rdpulse 1.8s ease-out infinite}
+  .rdot.hot{background:#ff2d44;box-shadow:0 0 6px rgba(255,45,68,.85);animation:rdpulse 1s ease-out infinite}</style>
+<style class="nrpriv"></style>
+<style>
+  @keyframes rdpulse{
+    0%{box-shadow:0 0 0 0 rgba(255,59,78,.7)}
+    70%{box-shadow:0 0 0 5px rgba(255,59,78,0)}
+    100%{box-shadow:0 0 0 0 rgba(255,59,78,0)}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .rdot.on,.rdot.hot{animation:none;box-shadow:0 0 5px rgba(255,45,68,.8)}
+  }
+  @media (max-width:410px){ .tab{font-size:11.2px;padding:6px 1px;gap:1px;letter-spacing:-.4px} }
+  /* 다섯 칸이 된 뒤 좁은 폰 — 글자를 한 단계만 줄여 한 줄에 들어오게 (2026-11-26) */
+  @media (max-width:374px){ .tabs .tab{font-size:9.6px;letter-spacing:-.6px} .tabs .tab .lk{font-size:9px} }
+
+  /* ---------- controls ---------- */
+  .meta{display:flex;flex-wrap:wrap;row-gap:2px;align-items:center;gap:6px;font-size:11.5px;color:var(--dim2);padding:5px 1px 4px}
+  .meta b{color:var(--dim);font-weight:600}
+  /* 비밀 방문자 수 배지 — 관리자가 켰을 때만 보인다 */
+  .vbadge{display:inline-flex;align-items:center;gap:3px;margin-left:auto;flex:none;white-space:nowrap;
+    font-size:10.5px;font-weight:600;color:var(--dim2);text-decoration:none;
+    border:1px solid var(--line);background:rgba(255,255,255,.02);
+    padding:1px 6px;border-radius:20px;transition:color .15s,border-color .15s}
+  .vbadge:hover{color:var(--dim);border-color:rgba(79,140,255,.45)}
+  .vbadge span{color:var(--dim);font-weight:700}
+  .vbadge[hidden]{display:none}
+  /* 호재·혼조·악재 전광판 — 헤더의 '뉴스레이더' 제목 바로 옆에 🇰🇷 · 🇺🇸 두 개 */
+  .mood{display:inline-flex;align-items:center;gap:3px;flex:none;white-space:nowrap;
+    font-size:10.5px;font-weight:700;letter-spacing:-.2px;
+    border:1px solid var(--line);background:rgba(255,255,255,.03);
+    padding:1px 6px 1px 4px;border-radius:20px;transition:color .2s,border-color .2s}
+  .mood[hidden]{display:none}
+  .mood .flag{font-size:11px;line-height:1;font-weight:400;letter-spacing:0}
+  .mood.good{color:#ff6b7a;border-color:rgba(255,107,122,.75);background:rgba(127,29,29,.5)}
+  .mood.mid{color:#ffe066;border-color:rgba(255,224,102,.75);background:rgba(133,77,14,.48)}
+  .mood.bad{color:#66b2ff;border-color:rgba(102,178,255,.75);background:rgba(30,58,138,.5)}
+  /* 좌은 폰 폭에서는 헤더 간격까지 좀혀 한 줄을 지는다 */
+  @media (max-width:430px){ .top{gap:6px} }
+  @media (max-width:380px){ .vbadge{font-size:10px;padding:1px 5px;gap:2px}
+    .mood{font-size:10px;padding:1px 5px 1px 3px;gap:2px}
+    .mood .flag{font-size:10px}
+    .brand{font-size:14px} }
+
+
+  /* ---------- 구역 머리 — 챗방처럼 얇은 한 줄 (2026-11-20 개편) ---------- */
+  main{padding-top:1px}
+  .sechead{display:flex;align-items:center;gap:6px;margin:13px 1px 0;font-size:11.5px;font-weight:800;
+    color:#aab7cc;letter-spacing:-.2px}
+  .sechead .bar{display:none}</style>
+<style class="nrpriv"></style>
+<style>
+  .sechead::after{content:"";flex:1;height:1px;background:var(--line)}
+
+  /* ---------- 뉴스 — 채팅방처럼 한 줄씩 (2026-11-20 개편) ----------
+     박스·왼쪽 색띠·번호 배지·중복 딱지를 걷어내고 왼쪽에 시간(이슈는 순위), 오른쪽에 제목·매체·관련 종목.
+     줄 사이는 얇은 선 하나. 누르면 요약과 다른 매체 기사가 그 자리에서 내려온다(답장처럼). */
+  .cl{display:flex;flex-direction:column}
+  .cl-it{display:flex;gap:8px;padding:9px 2px;border-bottom:1px solid rgba(255,255,255,.055)}
+  .cl-it:last-child{border-bottom:0}
+  a.cl-it{text-decoration:none}
+  .cl-it:active{background:rgba(255,255,255,.02)}
+  .cl-t{flex:none;width:29px;padding-top:2px;font-size:10.5px;font-weight:700;color:var(--dim2);
+    font-variant-numeric:tabular-nums;letter-spacing:-.2px}
+  .cl-b{flex:1;min-width:0}
+  .cl-tt{display:block;font-size:14px;font-weight:600;line-height:1.36;letter-spacing:-.3px;color:var(--txt);
+    word-break:keep-all;overflow-wrap:anywhere}
+  a.cl-tt:active{opacity:.72}
+  .cl-it.brk .cl-tt{color:#ffdde2}
+  .cl-it.brk .cl-t{color:#ff8b9c;font-weight:900}
+  .cl-meta{display:flex;align-items:center;gap:5px;margin-top:3px;font-size:10.5px;color:var(--dim2);min-width:0}
+  .cl-meta .src{color:var(--dim);font-weight:700;white-space:nowrap}
+  .cl-meta .sep{color:#39435a}
+  .lead{display:inline-flex;align-items:center;gap:3px;font-size:10.5px;font-weight:700;color:#9fc0ff;
+    min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .lead b{font-weight:800;color:#7fa8ff;font-size:9.5px}
+  .rankp{font-size:10px;font-weight:800;color:#8fb2ff;white-space:nowrap}
+  .cl-th{flex:none;font-size:9.5px;font-weight:800;color:#9fc0ff;border:1px solid rgba(79,140,255,.35);
+    background:rgba(79,140,255,.08);border-radius:4px;padding:0 4px;line-height:14px;white-space:nowrap;
+    max-width:46%;overflow:hidden;text-overflow:ellipsis}
+  .brk{display:none}
+  .presses{appearance:none;font-family:inherit;font-size:10px;font-weight:700;color:#8fb2ff;
+    background:transparent;border:0;padding:0;cursor:pointer;white-space:nowrap}
+  .cl-exp{flex:none;margin-left:auto;appearance:none;border:0;background:transparent;color:#5f6f8c;
+    font-size:12px;padding:0 2px;cursor:pointer;font-family:inherit;line-height:1}
+  .cl-det{display:none;margin-top:7px;padding-left:9px;border-left:2px solid rgba(79,140,255,.3)}
+  .cl-it.open .cl-det{display:block}
+  /* 같은 테마 뉴스 접기/펼치기 (2026-11-22 지시) — 대표 카드 아래 한 줄 + 펼친 기사 */
+  .same-t{display:block;width:100%;appearance:none;border:1px dashed rgba(255,90,110,.38);
+    background:rgba(255,90,110,.07);color:#ffb9c2;font-family:inherit;font-size:10.5px;font-weight:800;
+    letter-spacing:-.2px;padding:4px 8px;border-radius:8px;margin:-2px 0 6px 0;text-align:left;cursor:pointer}
+  .same-t.on{background:rgba(255,90,110,.13);color:#ffd6dc}
+  .newseed{flex:none;font-size:9.5px;font-weight:900;color:#1a1206;background:linear-gradient(135deg,#8ef0c4,#3ddc97);
+    padding:1px 5px;border-radius:5px;white-space:nowrap}
+  .cl-same{margin:0 0 6px 10px;padding-left:6px;border-left:1px solid rgba(255,90,110,.26)}
+  .cl-same[hidden]{display:none}
+  .cl-same .icard{padding:6px 2px}
+  .cl-same .cl-tt{font-size:11.8px}
+  .cl-same .cl-it{border-bottom:none}
+  .cl-sum{font-size:11.8px;color:#a9b7cd;line-height:1.5;margin:0}
+  .cl-rel{display:block;margin-top:2px}
+  .cl-rel a{display:block;font-size:11.5px;color:#9fb0c8;padding:5px 0 4px;border-top:1px dashed var(--line);line-height:1.4}
+  .cl-rel a .rp{color:#6b778f;font-size:9.5px}
+  .more{width:100%;appearance:none;border:1px solid var(--line);background:rgba(255,255,255,.03);
+    color:var(--dim);font-family:inherit;font-size:12px;font-weight:700;padding:8px;border-radius:9px;
+    margin-top:8px;cursor:pointer}
+  .more:active{background:var(--card2)}
+  .mini-empty{font-size:11px;color:var(--dim2);padding:10px 4px}
+
+  /* ---------- 공통 ---------- */
+  .viewhead{display:flex;align-items:baseline;gap:7px;padding:10px 2px 7px}
+  .viewhead b{font-size:14px;letter-spacing:-.2px;flex:none;white-space:nowrap}
+  .viewhead span{font-size:11px;color:var(--dim2);min-width:0}
+
+  /* ---------- 오늘 상한가 ---------- */
+  .upper-bar{display:flex;align-items:center;gap:5px;flex-wrap:wrap;padding:0 1px 7px}
+  .badge-d{display:inline-flex;align-items:center;gap:3px;font-size:10.5px;font-weight:800;
+    color:#ffd166;background:rgba(255,209,102,.12);border:1px solid rgba(255,209,102,.32);
+    padding:2px 7px;border-radius:7px;white-space:nowrap}
+  .badge-d.prev{color:#ffb27a;background:rgba(255,138,76,.13);border-color:rgba(255,138,76,.34)}
+  .badge-d.cnt{color:#9fc0ff;background:rgba(79,140,255,.12);border-color:rgba(79,140,255,.32)}
+  .up-card{position:relative;background:var(--card);border:1px solid var(--line);border-radius:11px;
+    padding:8px 9px 7px 12px;margin-bottom:6px;overflow:hidden}
+  .up-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;
+    background:linear-gradient(180deg,#ff5a6e,#ffb27a)}
+  .up-top{display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+  .up-no{flex:none;font-size:10px;font-weight:800;color:#7c8ba6;min-width:13px}
+  .up-name{font-size:14px;font-weight:800;letter-spacing:-.3px;color:#fff;line-height:1.2}
+  .up-mk{font-size:9.5px;font-weight:700;color:var(--dim);background:rgba(255,255,255,.06);
+    border:1px solid var(--line);padding:1px 5px;border-radius:5px;white-space:nowrap}
+  .up-price{margin-left:auto;font-size:13.5px;font-weight:800;color:#ff7285;white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  .up-rate{font-size:10.5px;font-weight:800;color:#fff;background:rgba(255,90,110,.2);
+    border:1px solid rgba(255,90,110,.38);padding:1px 5px;border-radius:5px;white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  .up-tags{display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin-top:4px}
+  .up-theme{font-size:10px;font-weight:800;color:#c9a2ff;background:rgba(201,162,255,.13);
+    border:1px solid rgba(201,162,255,.32);padding:1px 6px;border-radius:5px;white-space:nowrap}
+  .up-val{font-size:10px;color:var(--dim)}
+  .up-sum{font-size:11.8px;color:#c8d2e4;line-height:1.5;margin:5px 0 0;
+    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .up-card.open .up-sum{-webkit-line-clamp:unset;display:block}
+  .up-card .u-full{display:none;margin-top:5px;padding-top:5px;border-top:1px dashed var(--line)}
+  .up-card.open .u-full{display:block}
+  .u-full a{display:block;font-size:11px;color:#a9b7cd;line-height:1.4;text-decoration:none}
+  .up-src{display:flex;align-items:center;gap:4px;margin-top:6px;padding-top:5px;
+    border-top:1px solid var(--line);font-size:10.5px;color:var(--dim2)}
+  .up-src .p{color:var(--dim);font-weight:700}
+  .up-src a{margin-left:auto;color:#9fc0ff;font-weight:800;text-decoration:none;white-space:nowrap;
+    padding-left:6px}
+  .up-more{appearance:none;border:0;background:transparent;color:#7c8ba6;font-family:inherit;
+    font-size:10px;font-weight:800;padding:0 0 0 4px;cursor:pointer;white-space:nowrap}
+
+  /* ---------- 테마달력 ---------- */
+  .mon-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:4px;margin:1px 0 9px}
+  .mon{appearance:none;border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--dim);
+    font-family:inherit;border-radius:9px;padding:5px 0 4px;cursor:pointer;
+    display:flex;flex-direction:column;align-items:center;gap:1px;transition:.15s}
+  .mon .m{font-size:11px;font-weight:800;letter-spacing:-.3px;line-height:1.1}
+  .mon .n{font-size:9px;font-weight:700;color:var(--dim2)}
+  .mon:active{transform:scale(.96)}
+  .mon[aria-pressed="true"]{color:#fff;border-color:transparent;
+    background:linear-gradient(135deg,#4f8cff,#7c5cff);box-shadow:0 3px 12px rgba(79,140,255,.3)}
+  .mon[aria-pressed="true"] .n{color:rgba(255,255,255,.85)}
+  @media (max-width:360px){ .mon-grid{gap:3px} .mon .m{font-size:10.5px} .mon .n{font-size:8.5px} }
+
+  .cal-head{display:flex;align-items:center;gap:6px;margin:0 1px 5px}
+  .cal-head b{font-size:13px;font-weight:800;letter-spacing:-.2px}
+  .cal-head span{font-size:10.5px;color:var(--dim2)}
+  .cal-head .cal-all{margin-left:auto;font-size:10px;font-weight:700;color:#7c8ba6;
+    border:1px solid var(--line);background:rgba(255,255,255,.03);padding:2px 6px;border-radius:6px;
+    cursor:pointer;font-family:inherit}
+  .th-card{background:var(--card);border:1px solid var(--line);border-radius:10px;margin-bottom:5px;overflow:hidden}
+  /* 테마 구분 필터 — 기본은 동반테마(진짜 테마부터) */
+  .cal-flt{display:flex;gap:4px;margin:0 0 7px}
+  .cal-flt button{flex:1;appearance:none;font-family:inherit;cursor:pointer;
+    border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--dim);
+    font-size:11px;font-weight:800;letter-spacing:-.3px;padding:6px 2px;border-radius:8px;
+    display:flex;align-items:center;justify-content:center;gap:3px;transition:.15s}
+  .cal-flt button i{font-style:normal;font-size:9.5px;font-weight:800;color:var(--dim2)}
+  .cal-flt button:active{transform:scale(.97)}
+  .cal-flt button[aria-pressed="true"]{color:#fff;border-color:transparent;
+    background:linear-gradient(135deg,#4f8cff,#7c5cff);box-shadow:0 3px 12px rgba(79,140,255,.28)}
+  .cal-flt button[aria-pressed="true"] i{color:rgba(255,255,255,.88)}
+  /* 2026-11-24 지시 — 테마달력 '오늘 상한가' 보기에서는 월 그리드·테마 목록을 접고 상한가 카드만 보인다 */
+  #view-calendar.cal-upper #calCal{display:none}
+  .cal-note{font-size:10px;color:#7f8ca4;line-height:1.45;margin:-1px 1px 8px;letter-spacing:-.2px}
+  .th-badge{flex:none;font-size:9px;font-weight:800;padding:1px 5px;border-radius:5px;letter-spacing:-.2px}
+  .th-badge.bd{color:#9fe4c0;background:rgba(45,200,130,.13);border:1px solid rgba(45,200,130,.34)}
+  .th-badge.bg{color:#ffc98a;background:rgba(255,165,70,.12);border:1px solid rgba(255,165,70,.32)}
+  .th-why{font-size:10px;color:#8c9ab2;line-height:1.45;margin:0 0 7px;letter-spacing:-.2px}
+  .th-head{width:100%;appearance:none;border:0;background:transparent;color:inherit;font-family:inherit;
+    display:flex;align-items:center;gap:6px;padding:8px 9px;text-align:left;cursor:pointer}
+  .th-head:active{opacity:.8}
+  .th-name{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px;letter-spacing:-.2px}
+  .th-name b{font-size:12.5px;font-weight:700;line-height:1.35;
+    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .th-cnt{flex:none;font-size:9.5px;font-weight:800;color:#9fc0ff;background:rgba(79,140,255,.12);
+    border:1px solid rgba(79,140,255,.28);padding:1px 5px;border-radius:5px}
+  /* 2026-11-24 지시(#14138) — 테마명 안에 그 달 대표 상한가 이름·날짜를 함께 */
+  .th-rep{display:block;font-size:10.5px;font-weight:800;color:#ffd35c;letter-spacing:-.2px;
+    margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .th-rep i{font-style:normal;color:#8b98ae;font-weight:700}</style>
+<style class="nrpriv"></style>
+<style>
+  .stk.lead{background:linear-gradient(135deg,rgba(255,196,64,.26),rgba(255,146,66,.14));
+    border-color:rgba(255,208,90,.75);box-shadow:0 0 0 1px rgba(255,208,90,.18) inset}
+  .stk.lead b{color:#fff8e3;font-weight:800}
+  .th-lead{display:inline-flex;align-items:center;gap:3px;flex:none;font-size:9.5px;font-weight:800;
+    color:#ffd35c;background:rgba(255,196,64,.12);border:1px solid rgba(255,208,90,.34);
+    padding:1px 5px;border-radius:5px;letter-spacing:-.2px;max-width:44%;overflow:hidden;
+    text-overflow:ellipsis;white-space:nowrap}
+  /* 2026-11-25 지시 — 테마 1·2·3등 대장주 배지 + 불씨→확산 줄 */
+  .th-leaders{display:flex;flex-wrap:wrap;align-items:center;gap:4px;margin:7px 0 6px}
+  .th-leaders>span{display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:800;
+    color:#ffd35c;background:rgba(255,196,64,.10);border:1px solid rgba(255,208,90,.26);
+    border-radius:5px;padding:1px 5px;letter-spacing:-.2px;max-width:100%;overflow:hidden;
+    text-overflow:ellipsis;white-space:nowrap}</style>
+<style class="nrpriv"></style>
+<style>
+  .th-leaders>span>em{font-style:normal;flex:none;font-size:8.5px;font-weight:900;line-height:1;
+    padding:1px 3px;border-radius:3px;letter-spacing:-.3px}</style>
+<style class="nrpriv"></style>
+<style>
+  .th-fire{display:flex;align-items:center;flex-wrap:wrap;gap:4px;font-size:10px;font-weight:800;
+    color:#ffb27a;background:rgba(255,120,60,.07);border:1px solid rgba(255,120,60,.18);
+    border-radius:6px;padding:3px 6px;margin:0 0 6px;letter-spacing:-.2px;line-height:1.4}
+  .th-fire b{color:#ff8b5a;font-weight:900}
+  .th-fire .sp{color:#8c9ab2;font-weight:700}
+  .stk em.rk{font-style:normal;flex:none;align-self:center;font-size:8px;font-weight:900;line-height:1;
+    padding:1px 3px;border-radius:3px;letter-spacing:-.3px}
+  .stk em.rk.r1{color:#1c1405;background:linear-gradient(135deg,#ffd35c,#ffb02e)}
+  .stk em.rk.r2{color:#0e1420;background:#c6d2e4}
+  .stk em.rk.r3{color:#1a1208;background:#d2a07a}
+  .th-exp{flex:none;font-size:10px;color:#5f6f8c;transition:transform .15s}
+  .th-card.open .th-exp{transform:rotate(180deg)}
+  .th-body{display:none;padding:0 9px 8px;border-top:1px solid var(--line)}
+  .th-card.open .th-body{display:block}
+  .th-sum{font-size:11.5px;color:#b9c6da;line-height:1.55;margin:7px 0 7px;letter-spacing:-.1px}
+  /* 2026-11-23 지시(#11988) — 날짜가 같은 동반 종목은 한 묶음 상자로, 묶음끼리는 옆으로 흐른다 */
+  .stk-grid{display:flex;flex-wrap:wrap;gap:4px}</style>
+<style class="nrpriv"></style>
+<style>
+  .stk{display:inline-flex;align-items:baseline;gap:4px;background:rgba(255,255,255,.04);
+    border:1px solid var(--line);border-radius:7px;padding:3px 6px}
+  .stk b{font-size:11px;font-weight:700;color:#e8eefc}
+  .stk i{font-style:normal;font-size:9.5px;color:#ff9aa8;font-weight:700;white-space:nowrap}
+  /* 2026-11-22 지시(#10938) — 종목 칩 색: 최근 상한가일수록 진하다 · 오래전은 차분한 회색
+     t1 = 2주~이번 달(선명한 노랑) / t2 = 1~3개월(주황 중간 톤) / t3 = 3개월 이상(어두운 회색) */
+  .stk.t1{background:rgba(255,196,64,.17);border-color:rgba(255,208,90,.62);
+    box-shadow:inset 0 0 0 1px rgba(255,208,90,.10)}
+  .stk.t1 b{color:#fff6dd}
+  .stk.t1 i{color:#ffd35c}
+  .stk.t2{background:rgba(255,146,66,.085);border-color:rgba(255,158,80,.30)}
+  .stk.t2 b{color:#e9eefb}
+  .stk.t2 i{color:#ffab6a}
+  .stk.t3{background:rgba(255,255,255,.022);border-color:rgba(255,255,255,.065)}
+  .stk.t3 b{color:#94a1b7}
+  .stk.t3 i{color:#79839a}
+  /* ↑ 표시 — 색만 두고 판정 조건은 ****** (2026-11-26 정리) */
+  /* ↑ 색 — 빨강·주황·노랑과 헷갈리지 않게 라임(#39ff14 계열) */
+  .stk em.pk{font-style:normal;font-size:10.5px;font-weight:900;line-height:1.05;color:#0b1120;
+    background:linear-gradient(135deg,#9dff4a,#39ff14);border-radius:4px;padding:1px 3px 0;
+    box-shadow:0 0 9px rgba(57,255,20,.62),inset 0 0 0 1px rgba(255,255,255,.28);align-self:center}
+  /* 종목 칩 색 범례 — 테마달력 상단 한 줄 */
+  .cal-leg{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:1px 1px 7px;
+    font-size:9.6px;font-weight:700;color:#8b98ae;letter-spacing:-.25px;line-height:1.2}
+  .cal-leg span{display:inline-flex;align-items:center;gap:3px}
+  .cal-leg .arr{color:#5c6a82;font-weight:900}
+  .cal-leg i{width:8px;height:8px;border-radius:3px;display:inline-block;font-style:normal;flex:none}
+  .cal-leg i.d1{background:rgba(255,196,64,.8);border:1px solid rgba(255,208,90,.95)}
+  .cal-leg i.d2{background:rgba(255,146,66,.55);border:1px solid rgba(255,158,80,.7)}
+  .cal-leg i.d3{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.22)}
+  .cal-leg em{font-style:normal;color:#0b1120;background:linear-gradient(135deg,#9dff4a,#39ff14);
+    border-radius:4px;padding:0 3px;font-weight:900;font-size:9.5px;
+    box-shadow:0 0 7px rgba(57,255,20,.55),inset 0 0 0 1px rgba(255,255,255,.25)}
+
+  /* ---------- 레이더 ---------- */
+  .rd-card{position:relative;background:var(--card);border:1px solid var(--line);
+    border-radius:11px;padding:9px 10px 8px 13px;margin-bottom:7px;overflow:hidden}
+  .rd-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--c,#4f8cff)}
+  .rd-top{display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+  .rd-rank{flex:none;font-size:10px;font-weight:800;color:#fff;background:var(--c,#4f8cff);
+    padding:1px 6px;border-radius:5px;letter-spacing:-.2px}
+  .rd-theme{font-size:13.5px;font-weight:800;letter-spacing:-.3px;line-height:1.25}</style>
+<style class="nrpriv"></style>
+<style>
+  .rd-stks{display:flex;flex-direction:column;gap:4px}
+  .rd-stk{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.035);
+    border:1px solid var(--line);border-radius:8px;padding:5px 8px;min-width:0}
+  .rd-stk b{font-size:12.5px;font-weight:700;color:#eef2fa;letter-spacing:-.2px;
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .rd-stk .px{font-size:10.5px;color:var(--dim2);font-weight:600;white-space:nowrap;flex:none}</style>
+<style class="nrpriv"></style>
+<style>
+  .rd-dot{width:7px;height:7px;border-radius:50%;flex:none}
+  .rd-dot.on{background:#ff2d44;box-shadow:0 0 6px rgba(255,45,68,.9);animation:rdpulse 1s ease-out infinite}
+  .rd-dot.off{background:transparent;border:1.5px solid #4a5570}
+  .rd-hit{flex:none;font-size:9.5px;font-weight:800;color:#ff8b9c;
+    background:rgba(255,90,110,.13);border:1px solid rgba(255,90,110,.34);
+    padding:1px 5px;border-radius:5px;white-space:nowrap}</style>
+<style class="nrpriv"></style>
+<style>
+  /* 레이더 — 오늘 뉴스가 부른 테마 (2026-11-22 · 뉴스 → 테마 → 레이더) */
+  .rd-nh{display:flex;align-items:baseline;gap:6px;flex-wrap:wrap;margin:2px 0 6px}
+  .rd-nh b{font-size:12.5px;font-weight:900;color:#ffd6dc;letter-spacing:-.3px}
+  .rd-nh span{font-size:10px;font-weight:600;color:var(--dim2)}
+  /* 투자 유의 문구 — 제목 아래 한 줄 고정 (2026-11-22 문구 교체 · 테마별 .rd-warn 과 별개 클래스) */
+  .rd-inv{display:flex;gap:5px;align-items:flex-start;margin:0 0 8px;padding:5px 8px 5px 7px;
+    border:1px solid rgba(255,196,84,.26);border-radius:8px;background:rgba(255,196,84,.065);
+    font-size:10.2px;font-weight:700;color:#efd9a6;line-height:1.45;letter-spacing:-.2px;word-break:keep-all}
+  .rd-ncard{--c:#ff6b7a;background:linear-gradient(180deg,rgba(255,90,110,.07),rgba(255,255,255,.03))}
+  .rd-rank.nwb{background:linear-gradient(135deg,#ff4d63,#ff8a4c)}
+  .rd-issue{font-size:11.8px;line-height:1.45;color:#e6ecf8;margin:5px 0 4px;letter-spacing:-.2px}
+  .rd-issue a{color:#eef2fa;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.18)}
+  .rd-issue a:active{opacity:.8}
+  .rd-more{display:inline-block;margin-left:5px;font-size:9.5px;font-weight:800;color:#ff9aa8}
+  .rd-kw{display:flex;gap:4px;flex-wrap:wrap;margin:0 0 6px}
+  .rd-kw span{font-size:9.5px;font-weight:700;color:#c9d4e8;background:rgba(255,255,255,.06);
+    border:1px solid var(--line);border-radius:5px;padding:0 5px}</style>
+<style class="nrpriv"></style>
+<style>
+
+  /* ---------- 잠긴 탭 (본인 전용 — 잠긴 동안은 잠금 화면만) ---------- */
+  .tab[hidden]{display:none}
+  /* 잠긴 탭(레이더·실전) — 다른 탭과 같은 모양이되 열쇠가 붙고, 선택돼도 파랗게 빛나지 않는다.
+     2026-11-24 지시: 테마달력은 공개, 레이더가 비공개로 바뀌었다. */
+  .tab.hot .lk,.tab.radar .lk,.tab.res .lk{font-size:10px;line-height:1;opacity:.9;font-weight:400}
+  .tab.hot[aria-selected="true"],.tab.radar[aria-selected="true"],.tab.res[aria-selected="true"]{background:linear-gradient(135deg,#243049,#332b52);
+    box-shadow:none;color:#cfd8ea;border-color:rgba(255,255,255,.14)}
+  @media (max-width:410px){ .tabs .tab{font-size:10.4px;letter-spacing:-.4px;padding:6px 1px} }
+  @media (max-width:360px){ .tabs .tab{font-size:9.8px;letter-spacing:-.5px} }
+  /* 잠금 화면 — 잠긴 탭 안쪽 자료 자리에 앉는다(자료는 아예 그리지 않는다) */
+  .hot-lock{display:none;max-width:340px;margin:34px auto 0;text-align:center;padding:0 6px}
+  #view-hotbar.locked .hot-lock,#view-radar.locked .hot-lock,#view-result.locked .hot-lock{display:block}
+  .hot-lock .ico{font-size:30px;line-height:1;margin-bottom:8px;filter:saturate(.9)}
+  .hot-lock b{display:block;font-size:14.5px;font-weight:900;letter-spacing:-.4px;color:#e8eefc}
+  .hot-lock p{font-size:11.5px;font-weight:600;color:var(--dim2);line-height:1.6;margin:7px 0 0}
+  .hl-row{display:flex;gap:5px;margin-top:14px}
+  .hl-row input{flex:1;min-width:0;appearance:none;border:1px solid var(--line);border-radius:10px;
+    background:rgba(255,255,255,.04);color:var(--txt);font-family:inherit;font-size:15px;
+    font-weight:800;letter-spacing:5px;text-align:center;padding:9px 8px}
+  .hl-row input:focus{outline:none;border-color:rgba(79,140,255,.6);background:rgba(79,140,255,.08)}
+  .hl-row button{flex:none;appearance:none;border:1px solid transparent;border-radius:10px;
+    background:linear-gradient(135deg,#4f8cff,#7c5cff);color:#fff;font-family:inherit;
+    font-size:12.5px;font-weight:800;padding:0 16px;cursor:pointer}
+  .hl-row button:active{opacity:.85}
+  .hl-err{color:#ff9aa8 !important;font-size:11px !important;margin-top:8px !important;font-weight:800 !important}
+  .hot-lock .hl-tip{margin-top:12px;font-size:10.5px;color:#5f6f8c}
+  #view-hotbar.locked #hotInner{display:none}
+  #view-radar.locked #radarInner{display:none}
+  #view-result.locked #resInner{display:none}</style>
+<style class="nrpriv"></style>
+<style>
+  @media (max-width:410px){ .hb-seg button{font-size:11.8px;letter-spacing:-.4px} }</style>
+<style class="nrpriv"></style>
+<style>
+  /* A++ — 직접 뉴스·차트를 검수해 손으로 찍은 도장만(최우수 자리, 금색) */
+  .hb-aplus{display:inline-block;margin-left:5px;padding:0 5px;border-radius:5px;white-space:nowrap;
+    font-size:9.5px;font-weight:900;letter-spacing:-.1px;vertical-align:1px;
+    color:#1a1206;background:linear-gradient(135deg,#ffd76a,#ffb02e);
+    border:1px solid rgba(255,214,106,.95);box-shadow:0 0 7px rgba(255,190,60,.45)}</style>
+<style class="nrpriv"></style>
+<style>
+
+  /* 차트 모달 — 최근 38봉 확대 / 전체 90봉 전환 · 이평선 범례 */
+  .chart-tools{display:flex;align-items:center;gap:6px;margin:6px 1px 2px}
+  .chart-tools[hidden]{display:none}
+  .chart-zoom{appearance:none;border:1px solid rgba(143,178,255,.45);background:rgba(79,140,255,.14);
+    color:#bcd0ff;font-family:inherit;font-size:10px;font-weight:800;letter-spacing:-.2px;
+    padding:4px 9px;border-radius:8px;cursor:pointer}
+  .chart-zoom:active{opacity:.7}
+  .chart-tools .hint{font-size:9.5px;font-weight:700;color:var(--dim2)}
+  .chart-lg i.cm{width:auto;padding:0 4px;border-radius:4px;font-style:normal;font-size:9px;font-weight:900}
+  .chart-lg i.cm.m5{color:#ff9ecb;background:rgba(255,158,203,.12);border:1px solid rgba(255,158,203,.45)}
+  .chart-lg i.cm.m10{color:#4fd6ff;background:rgba(79,214,255,.12);border:1px solid rgba(79,214,255,.45)}
+  .chart-lg i.cm.m20{color:#63e3ae;background:rgba(99,227,174,.12);border:1px solid rgba(99,227,174,.45)}
+  .chart-lg i.cm.m60{color:#a78bfa;background:rgba(167,139,250,.14);border:1px solid rgba(167,139,250,.45)}
+  .chart-lg i.cm.sky{color:#38bdf8;background:rgba(56,189,248,.14);border:1px solid rgba(56,189,248,.5)}</style>
+<style class="nrpriv"></style>
+<style>
+
+  /* 다른 메뉴(뉴스·상한가·테마달력·레이더)의 종목 이름 → 공개 주봉 차트 */
+  .up-name[data-code],.stk[data-code],.rd-stk[data-code],.lead-c[data-code]{cursor:pointer}</style>
+<style class="nrpriv"></style>
+<style>
+  .stk[data-code]{border-bottom:1px dashed rgba(143,178,255,.42)}
+  .rd-stk[data-code]{border-bottom:1px dashed rgba(143,178,255,.34)}
+  .up-name[data-code]{border-bottom:1px dashed rgba(255,255,255,.3)}
+  .lead-c[data-code]{border-bottom:1px dashed rgba(143,178,255,.4)}</style>
+<style class="nrpriv"></style>
+<style>
+  .v.hit{color:#63e3ae;background:rgba(61,220,151,.14);border:1px solid rgba(61,220,151,.35)}</style>
+<style class="nrpriv"></style>
+<style>
+  body.lock{overflow:hidden}
+  .chart-ov{position:fixed;inset:0;z-index:40;display:flex;align-items:center;justify-content:center;padding:9px;
+    background:rgba(4,8,18,.76);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);
+    opacity:0;transition:opacity .15s ease}
+  .chart-ov[hidden]{display:none}
+  .chart-ov.show{opacity:1}
+  .chart-box{width:100%;max-width:520px;max-height:calc(100dvh - 18px);overflow:auto;
+    background:linear-gradient(180deg,#121a2f,#0d1424);border:1px solid rgba(255,255,255,.11);
+    border-radius:14px;padding:11px 11px 10px;box-shadow:0 20px 60px rgba(0,0,0,.62);
+    transform:translateY(6px) scale(.985);transition:transform .16s ease}
+  .chart-ov.show .chart-box{transform:none}
+  .chart-top{display:flex;align-items:flex-start;gap:8px}
+  .chart-hd{min-width:0;flex:1}
+  .chart-nm{font-size:15.5px;font-weight:900;letter-spacing:-.4px;line-height:1.2}
+  .chart-cd{font-size:9.5px;font-weight:700;color:var(--dim2);margin-left:5px;letter-spacing:0}
+  .chart-px{display:flex;align-items:baseline;gap:6px;margin-top:2px}
+  .chart-px b{font-size:16px;font-weight:900;letter-spacing:-.4px}
+  .chart-chg{font-size:11px;font-weight:800}
+  .chart-chg.up{color:var(--up)} .chart-chg.dn{color:#5a8cff}</style>
+<style class="nrpriv"></style>
+<style>
+  /* 차트 상단 한 줄 — 그 종목이 속한 업종지수 흐름 */
+  .chart-sec{font-size:10px;font-weight:800;margin-top:3px;line-height:1.4;letter-spacing:-.1px}
+  .chart-sec.strong{color:#ff8a9a}
+  .chart-sec.bottom{color:#ffe066}
+  .chart-sec.weak{color:#93c5ff}
+  .chart-x{flex:none;width:28px;height:28px;border-radius:9px;border:1px solid var(--line);
+    background:rgba(255,255,255,.05);color:var(--dim);font-size:14px;font-family:inherit;cursor:pointer}
+  .chart-x:active{background:rgba(255,255,255,.12)}
+  .chart-read{margin:8px 1px 4px;font-size:10.5px;font-weight:700;color:#c2cde0;letter-spacing:-.1px;
+    line-height:1.45;font-variant-numeric:tabular-nums}
+  /* 차트 위 한 줄 — 잠금이 풀린 본인 화면에서만 채워진다 */
+  .chart-pos{margin:8px 1px 0;font-size:10px;font-weight:700;color:#aab7cc;letter-spacing:-.1px}</style>
+<style class="nrpriv"></style>
+<style>
+  .chart-pos .cl{font-size:9px;font-weight:900;color:#63e3ae;background:rgba(61,220,151,.12);
+    border:1px solid rgba(61,220,151,.4);padding:0 4px;border-radius:4px}</style>
+<style class="nrpriv"></style>
+<style>
+  .chart-pos[hidden]{display:none}
+  .chart-read .t{color:var(--dim2);font-weight:800}
+  .chart-read .r{color:var(--up)} .chart-read .b{color:#5a8cff}
+  .chart-svg{display:block;width:100%;height:auto;touch-action:pan-y;
+    background:rgba(255,255,255,.015);border-radius:9px}
+  .chart-lg{display:flex;flex-wrap:wrap;align-items:center;gap:4px 9px;margin:7px 1px 8px;
+    font-size:10px;font-weight:700;color:var(--dim)}
+  .chart-lg span{white-space:nowrap}
+  .chart-lg i{display:inline-grid;place-items:center;width:14px;height:14px;border-radius:4px;
+    font-style:normal;font-size:8.5px;font-weight:900;margin-right:4px;vertical-align:-2px}</style>
+<style class="nrpriv"></style>
+<style>
+  .chart-lg i.cp{color:#c4b5fd;background:rgba(167,139,250,.16);border:1px solid rgba(167,139,250,.5)}
+  .chart-lg i.lbl{width:auto;padding:0 4px;letter-spacing:-.2px}</style>
+<style class="nrpriv"></style>
+<style>
+  .chart-pd{flex:none;padding:2px 7px;border-radius:7px;font-size:9.5px;font-weight:900;letter-spacing:-.2px;
+    color:#dbe6ff;background:rgba(124,92,255,.2);border:1px solid rgba(124,92,255,.45);margin-left:6px;
+    vertical-align:2px}
+  /* 차트 안 주기 전환 — 일봉 · 주봉 · 월봉 (2026-11-23 지시 #12008) */
+  .chart-pg{display:flex;gap:5px;margin:8px 0 2px}
+  .chart-pg button{appearance:none;flex:1;border:1px solid var(--line);background:rgba(255,255,255,.04);
+    color:var(--dim);font-family:inherit;font-size:11.2px;font-weight:900;letter-spacing:-.2px;
+    padding:5px 0;border-radius:8px;cursor:pointer;transition:.15s;white-space:nowrap}
+  .chart-pg button i{font-style:normal;font-size:9px;font-weight:800;opacity:.7;margin-left:3px}
+  .chart-pg button.on{color:#fff;border-color:transparent;
+    background:linear-gradient(135deg,#4f8cff,#7c5cff);box-shadow:0 2px 8px rgba(79,140,255,.28)}
+  .chart-pg button.on i{opacity:.85}
+  .chart-pg button:disabled{opacity:.32;cursor:default}
+  .chart-pg button:active:not(:disabled){transform:scale(.98)}
+  .chart-note{flex-basis:100%;font-size:9.5px;font-weight:700;color:var(--dim2);letter-spacing:-.1px}</style>
+<style class="nrpriv"></style>
+<style>
+
+  .empty{text-align:center;color:var(--dim2);padding:40px 16px;font-size:12px;line-height:1.7}
+  .skeleton{height:56px;border-radius:10px;background:linear-gradient(90deg,#141d33,#1b2743,#141d33);
+    background-size:200% 100%;animation:sk 1.4s infinite;margin-bottom:6px}
+  @keyframes sk{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+  #top{position:fixed;right:12px;bottom:calc(14px + env(safe-area-inset-bottom));width:36px;height:36px;
+    border-radius:50%;border:1px solid var(--line);background:rgba(20,29,51,.9);color:var(--dim);
+    display:none;place-items:center;font-size:14px;backdrop-filter:blur(8px);cursor:pointer;z-index:15}
+  #top.show{display:grid}
+  /* 새로고침 결과 토스트 — 손가락 밑(맨 위로 버튼 위쪽)에 잠깐 떴다 사라진다 */
+  .toast{position:fixed;left:50%;bottom:calc(58px + env(safe-area-inset-bottom));transform:translate(-50%,10px);
+    max-width:calc(100vw - 32px);padding:9px 14px;border-radius:12px;
+    background:rgba(16,24,42,.97);border:1px solid var(--line);color:#e8eefc;
+    font-size:12.5px;font-weight:700;letter-spacing:-.2px;line-height:1.35;text-align:center;
+    box-shadow:0 8px 26px rgba(0,0,0,.48);backdrop-filter:blur(10px);
+    opacity:0;pointer-events:none;z-index:30;transition:opacity .16s ease,transform .16s ease}
+  .toast.show{opacity:1;transform:translate(-50%,0)}
+  @media (prefers-reduced-motion:reduce){ .toast{transition:none} }
+
+  /* ---------- 공지사항 창 (처음 한 번 · 헤더 📢 로 다시 보기) ---------- */
+  .nt-ov{position:fixed;inset:0;z-index:45;display:flex;align-items:center;justify-content:center;padding:14px;
+    background:rgba(4,8,18,.78);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);
+    opacity:0;transition:opacity .16s ease}
+  .nt-ov[hidden]{display:none}
+  .nt-ov.show{opacity:1}
+  .nt-box{width:100%;max-width:400px;max-height:calc(100dvh - 28px);overflow:auto;
+    background:linear-gradient(180deg,#141d33,#0e1730);border:1px solid rgba(255,255,255,.12);
+    border-radius:16px;padding:15px 15px 13px;box-shadow:0 22px 60px rgba(0,0,0,.6);
+    transform:translateY(8px) scale(.98);transition:transform .18s ease}
+  .nt-ov.show .nt-box{transform:none}
+  .nt-top{display:flex;align-items:center;gap:7px}
+  .nt-top .ico{font-size:18px;line-height:1}
+  .nt-top h2{flex:1;margin:0;font-size:15.5px;font-weight:900;letter-spacing:-.4px;color:#fff}
+  .nt-x{flex:none;width:26px;height:26px;border-radius:8px;border:1px solid var(--line);
+    background:rgba(255,255,255,.04);color:var(--dim);font-family:inherit;font-size:13px;cursor:pointer}
+  .nt-sub{margin:4px 0 11px;font-size:10.5px;font-weight:700;color:var(--dim2);letter-spacing:-.1px}
+  .nt-it{display:flex;gap:8px;padding:9px 0;border-top:1px solid rgba(255,255,255,.065)}
+  .nt-n{flex:none;width:18px;height:18px;margin-top:1px;border-radius:6px;display:grid;place-items:center;
+    font-size:10px;font-weight:900;color:#9dbcff;background:rgba(79,140,255,.16);border:1px solid rgba(79,140,255,.45)}
+  .nt-c{flex:1;min-width:0}
+  .nt-c b{display:block;font-size:12.5px;font-weight:900;letter-spacing:-.2px;color:#e8eefc}
+  .nt-c p{margin:2px 0 0;font-size:11.3px;line-height:1.6;color:#a9b7cd;letter-spacing:-.1px;word-break:keep-all}
+  .nt-c p em{font-style:normal;color:#9fc0ff;font-weight:800}
+  /* 지난 공지 접기 — 최신 1~2건만 보이고 그 아래는 [지난 공지 n건 더보기] 로 펼친다 (2026-11-22) */
+  .nt-more{width:100%;margin:7px 0 0;appearance:none;cursor:pointer;font-family:inherit;
+    display:flex;align-items:center;justify-content:center;gap:5px;
+    border:1px dashed rgba(255,255,255,.16);background:rgba(255,255,255,.03);
+    color:#a9b7cd;font-size:11.3px;font-weight:800;letter-spacing:-.2px;padding:8px 6px;border-radius:10px}
+  .nt-more:active{opacity:.85;background:rgba(255,255,255,.06)}
+  .nt-more .ar{font-size:9px;opacity:.75;transition:transform .15s ease}
+  .nt-more[aria-expanded="true"] .ar{transform:rotate(180deg)}
+  .nt-old[hidden]{display:none}
+  /* 공지창 머리 고정 — 제목·투자 안내는 늘 위에 있고, 공지 목록만 스크롤된다 (2026-11-22) */
+  .nt-main{display:flex;flex-direction:column;padding:0;overflow:hidden}
+  .nt-main .nt-top{padding:15px 15px 0}
+  .nt-main .nt-sub{margin:4px 15px 10px}
+  .nt-head{padding:0 15px}
+  .nt-body{flex:1 1 auto;min-height:0;overflow-y:auto;padding:1px 15px 0;-webkit-overflow-scrolling:touch}
+  .nt-body .nt-it:first-child{border-top:0;padding-top:4px}
+  .nt-main .nt-ok{width:auto;margin:11px 15px 0}
+  .nt-main .nt-foot{margin:7px 15px 13px}
+  /* 화면이 아주 낮으면(가로모드·키보드 올라온 상태) 머리만 남고 목록이 0높이가 되므로,
+     그때만 창 전체가 스크롤되게 바꿔 공지를 읽을 수 있게 한다 */
+  @media (max-height:430px){
+    .nt-main{overflow-y:auto}
+    .nt-body{overflow:visible;flex:0 0 auto}
+  }
+  .nt-legal{margin:0;padding:7px 9px;border-radius:9px;
+    border:1px solid rgba(255,196,84,.22);background:rgba(255,196,84,.06);
+    font-size:10.3px;font-weight:700;line-height:1.5;color:#efd9a6;letter-spacing:-.15px;word-break:keep-all}
+  .nt-legal em{font-style:normal;color:#ffd9a0;font-weight:900}
+  .nt-ok{width:100%;margin-top:13px;appearance:none;border:0;border-radius:12px;cursor:pointer;
+    background:linear-gradient(135deg,#4f8cff,#7c5cff);color:#fff;font-family:inherit;
+    font-size:13.5px;font-weight:900;letter-spacing:-.2px;padding:12px;
+    box-shadow:0 4px 16px rgba(79,140,255,.32)}
+  .nt-ok:active{opacity:.86}
+  .nt-foot{margin-top:7px;text-align:center;font-size:9.5px;font-weight:600;color:#5f6f8c;letter-spacing:-.1px}
+  /* ---------- 1회성 안내 (11.21 실시간 뉴스 링크 교체 · 한 번만 뜨고 사라진다) ---------- */
+  .once-box{max-width:340px}
+  .once-p{margin:11px 0 0;font-size:12.5px;line-height:1.65;color:#c2cde0;letter-spacing:-.1px;word-break:keep-all}
+  .once-p em{font-style:normal;color:#9fc0ff;font-weight:800}
+  /* ---------- 앱 설치 방법 안내 (설치 창이 아직 없을 때 순서를 보여 준다) ---------- */
+  .inst-box{max-width:360px}
+  .inst-st{margin:10px 0 0;padding-left:18px;font-size:12px;line-height:1.75;color:#c2cde0;letter-spacing:-.1px;word-break:keep-all}
+  .inst-st li{margin:0 0 4px}
+  .inst-st b{color:#fff;font-weight:900}
+  .inst-tip{margin:9px 0 0;padding:7px 9px;border-radius:9px;border:1px solid rgba(255,196,84,.22);
+    background:rgba(255,196,84,.06);font-size:10.5px;font-weight:700;line-height:1.5;color:#efd9a6;
+    letter-spacing:-.15px;word-break:keep-all}
+  .inst-tip b{color:#ffd9a0;font-weight:900}</style>
+<style class="nrpriv"></style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <!-- 카톡·네이버 앱 안에서 열렸을 때만 뜨는 안내 — 크롬으로 바로 열기 · 주소 복사 -->
+    <div class="ib" id="inappBar" hidden>
+      <div class="ib-t"><span class="ic" aria-hidden="true">💬</span><span id="inappTx">카톡 안에서는 앱 설치가 안 됩니다</span></div>
+      <div class="ib-row">
+        <a class="ib-btn go" id="inappGo" href="https://crawler5696.github.io/" rel="noopener noreferrer">🌐 크롬으로 바로 열기</a>
+        <button class="ib-btn" id="inappCopy" type="button">📋 주소 복사</button>
+        <button class="ib-x" id="inappX" type="button" aria-label="안내 닫기">✕</button>
+      </div>
+    </div>
+    <!-- 크롬 등 일반 브라우저에서 한 번 뜨는 설치 줄 — 앱 설치 창 · 설치 방법 안내 · 주소 복사 -->
+    <div class="ib" id="installBar" hidden>
+      <div class="ib-t"><span class="ic" aria-hidden="true">📲</span><span>홈 화면에 <b>앱처럼</b> 설치해 두고 쓰세요</span></div>
+      <div class="ib-row">
+        <button class="ib-btn go" id="installGo" type="button">📲 앱 설치</button>
+        <button class="ib-btn" id="installCopy" type="button">📋 주소 복사</button>
+        <button class="ib-x" id="installX" type="button" aria-label="설치 안내 닫기">✕</button>
+      </div>
+    </div>
+    <div class="top">
+      <div class="logo" aria-hidden="true"><svg viewBox="0 0 64 64" width="19" height="19"><path d="M10 46 L22 33 L31 39 L44 23 L54 14 L54 49 L10 49 Z" fill="rgba(255,255,255,.22)"/><path d="M10 46 L22 33 L31 39 L44 23 L54 14" fill="none" stroke="#fff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="54" cy="14" r="3.6" fill="#fff"/></svg></div>
+      <div class="brand"><span class="who">김재헌</span>뉴스레이더<small>주요 뉴스 · 테마달력 · 오늘 상한가</small></div>
+      <span class="mood" id="moodKr" hidden></span>
+      <span class="mood" id="moodUs" hidden></span>
+      <div class="spacer"></div>
+      <div class="live" id="live"><span class="dot"></span><span id="liveTxt">LIVE</span></div>
+      <button class="ntbtn" id="btnNotice" type="button" aria-label="공지사항 보기" title="공지사항">📢</button>
+      <button class="refresh" id="btnRefresh" aria-label="새로고침" title="새로고침 — 최신 뉴스를 지금 다시 받아옵니다">⟳</button>
+    </div>
+    <div class="kkwrap"><a class="kk" href="https://www.youtube.com/live/aZyD6EPl6KU?si=f2xDpMJWiH08VApW" target="_blank" rel="noopener noreferrer" aria-label="실시간 뉴스 보기">📺 실시간 뉴스 · <b>뉴스보기</b></a></div>
+    <div class="tabs" role="tablist" aria-label="화면 전환">
+      <button class="tab" role="tab" data-tab="news" aria-selected="true">📰 뉴스</button>
+      <button class="tab cal" role="tab" data-tab="calendar" aria-selected="false" aria-label="테마달력">📅 테마달력</button>
+      <button class="tab radar" role="tab" data-tab="radar" aria-selected="false" aria-label="레이더(비밀번호 필요)"><span class="lk" id="radLk" aria-hidden="true">🔒</span>📡 레이더<span class="rdot" id="radarDot" aria-hidden="true"></span></button>
+      <button class="tab hot" role="tab" data-tab="hotbar" aria-selected="false" aria-label="실전(비밀번호 필요)"><span class="lk" id="hotLk" aria-hidden="true">🔒</span>🎯 실전</button>
+      <button class="tab res" role="tab" data-tab="result" aria-selected="false" aria-label="결과(비밀번호 필요)"><span class="lk" id="resLk" aria-hidden="true">🔒</span>📊 결과</button>
+    </div>
+    <!-- 지금 고른 칸의 역할 한 줄 — 네 칸이 무엇을 맡는지 한눈에 (2026-11-24 역할 분담) -->
+    <div class="tabrole" id="tabRole" aria-live="polite"></div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="view" data-view="news" id="view-news">
+    <div class="meta">
+      <span>업데이트 <b id="updated">불러오는 중…</b></span>
+      <a class="vbadge" id="visitors" href="https://crawler5696.goatcounter.com/" target="_blank" rel="noopener noreferrer" title="GoatCounter 방문자 대시보드" hidden>👥 오늘 <span id="visitorN">–</span>명</a>
+    </div>
+
+    <!-- 2026-11-23 지시(#11664): '실시간 속보' 3건 섹션을 걷어내고, 맨 위부터 바로 주요 뉴스가 온다 -->
+    <div class="sechead"><span>🔥 주요 뉴스</span></div>
+    <div id="issueList" class="cl">
+      <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
+    </div>
+    <button class="more" id="moreIssues" hidden>이슈 더 보기</button>
+  </section>
+
+  <section class="view" data-view="radar" id="view-radar" hidden>
+    <div class="hot-lock" id="radLock">
+      <div class="ico">🔒</div>
+      <b>레이더는 본인 전용입니다</b>
+      <p>뉴스 · 테마달력 · 오늘 상한가는 누구나 볼 수 있습니다.<br>레이더 · 실전 · 결과는 비밀코드를 넣어야 열립니다.</p>
+      <div class="hl-row">
+        <input id="radCode" type="password" inputmode="numeric" autocomplete="off" enterkeyhint="go" placeholder="비밀코드" maxlength="12" aria-label="비밀코드">
+        <button id="radGo" type="button">열기</button>
+      </div>
+      <p class="hl-err" id="radErr" hidden>비밀코드가 맞지 않습니다</p>
+      <p class="hl-tip">본인이면 상단 <b>LIVE</b> 배지를 1.5초 안에 세 번 눌러도 열 수 있습니다.</p>
+    </div>
+    <div id="radarInner"></div>
+    </div>
+    </div>
+  </section>
+
+  <section class="view" data-view="hotbar" id="view-hotbar" hidden>
+    <div class="hot-lock" id="hotLock">
+      <div class="ico">🔒</div>
+      <b>실전은 본인 전용입니다</b>
+      <p>뉴스 · 테마달력 · 오늘 상한가는 누구나 볼 수 있습니다.<br>레이더 · 실전 · 결과는 비밀코드를 넣어야 열립니다.</p>
+      <div class="hl-row">
+        <input id="hotCode" type="password" inputmode="numeric" autocomplete="off" enterkeyhint="go" placeholder="비밀코드" maxlength="12" aria-label="비밀코드">
+        <button id="hotGo" type="button">열기</button>
+      </div>
+      <p class="hl-err" id="hotErr" hidden>비밀코드가 맞지 않습니다</p>
+      <p class="hl-tip">본인이면 상단 <b>LIVE</b> 배지를 1.5초 안에 세 번 눌러도 열 수 있습니다.</p>
+    </div>
+    <div id="hotInner"></div>
+    </div>
+  </section>
+
+  <section class="view" data-view="result" id="view-result" hidden>
+    <div class="hot-lock" id="resLock">
+      <div class="ico">🔒</div>
+      <b>결과는 본인 전용입니다</b>
+      <p>뉴스 · 테마달력 · 오늘 상한가는 누구나 볼 수 있습니다.<br>레이더 · 실전 · 결과는 비밀코드를 넣어야 열립니다.</p>
+      <div class="hl-row">
+        <input id="resCode" type="password" inputmode="numeric" autocomplete="off" enterkeyhint="go" placeholder="비밀코드" maxlength="12" aria-label="비밀코드">
+        <button id="resGo" type="button">열기</button>
+      </div>
+      <p class="hl-err" id="resErr" hidden>비밀코드가 맞지 않습니다</p>
+      <p class="hl-tip">본인이면 상단 <b>LIVE</b> 배지를 1.5초 안에 세 번 눌러도 열 수 있습니다.</p>
+    </div>
+    <div id="resInner"></div>
+  </section>
+
+  <section class="view" data-view="calendar" id="view-calendar" hidden>
+    <!-- 2026-11-24 지시 — 테마달력은 공개다. 잠금 화면 없이 누구나 바로 본다. -->
+    <div id="calInner">
+    <div class="viewhead"><b>📅 테마달력</b><span id="calSub"></span></div>
+    <!-- 2026-11-24 지시 — '전체' 칩을 '오늘 상한가'로 바꾸고 맨 앞으로 옮겼다 -->
+    <div class="cal-flt" id="calFlt" role="group" aria-label="테마 구분 필터">
+      <button type="button" data-k="오늘 상한가" aria-pressed="true">오늘 상한가 <i>0</i></button>
+      <button type="button" data-k="동반테마" aria-pressed="false">동반테마 <i>0</i></button>
+      <button type="button" data-k="개별상한가" aria-pressed="false">개별상한가 <i>0</i></button>
+    </div>
+    <div id="calCal">
+    <p class="cal-note">동반테마 = 같은 테마 종목이 상한가일 ±3거래일 안에 함께 15% 이상 오른 테마 · 개별상한가 = 실적·계약·인수·임상·허가·기술수출·경영권·자사주·신작·특허 등 단독 재료로 한 종목만 오른 경우</p>
+    <div class="mon-grid" id="monGrid"></div>
+    <div class="cal-leg" id="calLeg" aria-label="종목 칩 색 범례">
+      <span>최근 상한가</span><span class="arr">→</span>
+      <span><i class="d1"></i>2주~이번 달</span><span><i class="d2"></i>1~3개월</span><span><i class="d3"></i>3개월↑</span>
+      <span><em>↑</em>신호</span>
+    </div>
+    <div class="cal-head"><b id="calMonthTitle">–</b><span id="calMonthSub"></span>
+      <button class="cal-all" id="calAll" type="button">모두 펼치기</button>
+    </div>
+    <div id="calThemes">
+      <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
+    </div>
+    </div>
+    <!-- '오늘 상한가' 칩을 골랐을 때 — 월별 달력 대신 뉴스 칸과 같은 상한가 카드가 여기 그려진다 -->
+    <div id="calUpper" hidden>
+      <div class="upper-bar">
+        <span class="badge-d" id="calUpperDate">–</span>
+        <span class="badge-d cnt" id="calUpperCnt">–</span>
+      </div>
+      <div id="calUpperList">
+        <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
+      </div>
+    </div>
+    </div>
+  </section>
+</main>
+
+<button id="top" aria-label="맨 위로">↑</button>
+
+<!-- 종목 차트 창 — 잠금이 풀린 본인 화면에서 열린다 -->
+<div class="chart-ov" id="chartOv" hidden>
+  <div class="chart-box" role="dialog" aria-modal="true" aria-labelledby="chartNm">
+    <div class="chart-top">
+      <div class="chart-hd" id="chartHd"></div>
+      <button class="chart-x" id="chartX" type="button" aria-label="차트 닫기">✕</button>
+    </div>
+    <div class="chart-pg" id="chartPg" role="group" aria-label="차트 주기 전환"></div>
+    <div class="chart-read" id="chartRead"></div>
+    <div class="chart-tools" id="chartTools" hidden><button class="chart-zoom" id="chartZoom" type="button">전체 90봉</button><span class="hint" id="chartHint"></span></div>
+    <div class="chart-pos" id="chartPos" hidden></div>
+    <svg class="chart-svg" id="chartSvg" viewBox="0 0 360 292" role="img" aria-label="최근 일봉 차트"></svg>
+    <div class="chart-lg" id="chartLg"></div>
+  <!-- 2026-11-22 지시 #11372 — '네이버 증권에서 보기' 링크는 지웠다(폰에서 종목이 아니라 증권 홈으로만 감) -->
+  </div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<!-- 공지사항 — 처음 한 번 뜨고, [확인] 을 누르면 그 기기에서는 다시 뜨지 않는다 (헤더 📢 로 언제든 다시 보기) -->
+<div class="nt-ov" id="noticeOv" hidden>
+  <div class="nt-box nt-main" role="dialog" aria-modal="true" aria-labelledby="ntTitle">
+    <div class="nt-top">
+      <span class="ico" aria-hidden="true">📢</span>
+      <h2 id="ntTitle">뉴스레이더 안내</h2>
+      <button class="nt-x" id="ntX" type="button" aria-label="공지 닫기">✕</button>
+    </div>
+    <p class="nt-sub">처음 한 번만 뜨는 안내입니다 · <b>[확인]</b> 을 누르면 다시 뜨지 않습니다</p>
+    <div class="nt-head"><p class="nt-legal">⚠️ 본 사이트는 투자 목적이 아닌 뉴스 정보 제공용이며, <em>투자 권유가 아닙니다</em>. 모든 투자 판단과 책임은 본인에게 있습니다.</p></div>
+    <div class="nt-body">
+    <div class="nt-it">
+      <span class="nt-n">1</span>
+      <div class="nt-c"><b>이번 업데이트 (11.26) · 뉴스 탭 '뉴스 부각' 정리 · 테마달력 상한가 많은 순</b>
+        <p>뉴스 탭 맨 아래의 <em>뉴스 부각(오늘 뉴스가 부른 테마)</em> 칸을 걷어냈습니다. 단어만 걸린 사회 기사까지 테마로 붙어 시장과 무관한 줄이 섞였고, 위쪽 <em>주요 뉴스</em>와 역할도 겹쳤습니다. 뉴스는 위의 주요 뉴스까지, 테마 소식은 <em>테마달력</em>이 맡습니다. <em>테마달력</em>의 동반테마는 이제 <em>그 달 상한가 종목이 많은 순서</em>(같으면 최근 상한가일 순)로 서고, 다른 테마 종목이 섞여 있던 자리는 테마 DB에서 바로잡았습니다.</p></div>
+      <div class="nt-c"><b>이번 업데이트 (11.24) · 테마달력 맨 앞에 [오늘 상한가] 칸</b>
+        <p><em>테마달력</em> 위 칩을 <em>[오늘 상한가] [동반테마] [개별상한가]</em> 세 개로 바꿨습니다. 맨 앞 <em>오늘 상한가</em>를 누르면 월별 달력 대신 <em>오늘 상한가로 간 종목</em>이 <em>뉴스</em> 칸과 같은 카드(테마·거래대금·이슈 한 줄·원문 링크)로 바로 펼쳐집니다. 칩에 붙은 숫자는 각각 <em>오늘 상한가 종목 수</em> · <em>이 달 동반테마 수</em> · <em>이 달 개별상한가 수</em>입니다. <em>동반테마나 개별상한가</em>를 누르면 월별 달력과 테마 목록으로 돌아갑니다.</p></div>
+    </div>
+    <div class="nt-it">
+      <span class="nt-n">2</span>
+      <div class="nt-c"><b>이번 업데이트 (11.26) · 🔒 결과 탭 — 픽으로 올린 종목의 월별 상태·경과</b>
+        <p>위쪽 탭이 <em>📰 뉴스 · 📅 테마달력 · 🔒 📡 레이더 · 🔒 🎯 실전 · 🔒 📊 결과</em> 다섯 칸입니다. <em>뉴스</em>(오늘 자금 방향 · 주요 뉴스 · 오늘 상한가)와 <em>테마달력</em>은 누구나 봅니다. <em>레이더 · 실전 · 결과</em>는 본인 비밀코드로만 열립니다. <em>결과</em>는 실전에서 픽으로 올린 종목을 <em>월 단위</em>로 세워, 포착일 때 가격과 지금 가격·경과 수익률·최고 도달·현재 상태를 한 눈에 보는 자리입니다. 최근 달이 맨 앞에 펼쳐지고, 카드를 누르면 그 종목 차트가 열립니다.</p></div>
+      <div class="nt-c"><b>이번 업데이트 (11.24) · 화면을 네 칸으로 나누고, 공개·비공개를 갈랐습니다</b>
+        <p>위쪽 탭이 <em>📰 뉴스 · 📅 테마달력 · 🔒 📡 레이더 · 🔒 🎯 실전</em> 네 칸으로 정리됐습니다. <em>뉴스</em>(오늘 자금 방향 · 주요 뉴스 · 오늘 상한가)와 <em>테마달력</em>은 누구나 봅니다. <em>레이더</em>와 <em>실전</em>은 본인 비밀코드로만 열립니다. 탭 바로 아래 한 줄에 지금 칸이 무엇을 보는 자리인지 적어 두었습니다.</p></div>
+    </div>
+    <div class="nt-it">
+      <span class="nt-n">3</span>
+      <div class="nt-c"><b>이번 업데이트 (11.23) · 차트에 하늘색 장기선 (일봉 240일 · 주봉 240주 · 월봉 120월)</b>
+        <p>종목을 눌러 여는 차트에 <em>하늘색 장기선</em>을 그렸습니다. 일봉에는 <em>240일선</em>, 주봉에는 <em>240주선</em>, 월봉에는 <em>120개월선</em>이 깔리고, 차트 위 <em>일봉·주봉·월봉</em> 버튼으로 바꿔 봐도 그 주기의 선이 따라갑니다. 차트 아래 범례에는 그 선의 지금 값이 숫자로 함께 나옵니다. 상장한 지 얼마 안 되어 봉이 모자란 구간은 선을 긋지 않습니다.</p></div>
+    </div>
+    <div class="nt-it">
+      <span class="nt-n">4</span>
+      <div class="nt-c"><b>이번 업데이트 (11.22) · 각 매체 시사·정책 메인까지 읽고 레이더와 연결</b>
+        <p>뉴스 탭이 네이버 경제면에 더해 <em>정치·사회면</em>과 <em>YTN 메인·속보</em>까지 함께 읽습니다. 가십·사건사고는 그대로 걸러내고 정책·규제·시험/교육·외교·재난·산업 이슈만 남깁니다. 위쪽 <em>실시간 속보</em>는 많이 본·여러 매체가 같이 다룬 <em>3건</em>으로 간결하게 줄였습니다. 같은 테마를 다룬 뉴스는 <em>대표 1건</em>만 순위에 세우고 <em>+ 같은 테마 뉴스 n건</em>으로 접어 두어, 목록이 한 테마로 길게 늘어서지 않습니다. <em>레이더</em> 맨 위에는 <em>📰 오늘 뉴스가 부른 테마</em>가 뉴스 제목·매체 수와 함께 먼저 서고, 거기 있는 종목을 누르면 바로 차트가 열립니다.</p></div>
+    </div>
+    <button class="nt-more" id="ntMore" type="button" aria-expanded="false" aria-controls="ntOld"><span class="lbl">지난 공지 4건 더보기</span><span class="ar" aria-hidden="true">▾</span></button>
+    <div class="nt-old" id="ntOld" hidden>
+    <div class="nt-it">
+      <span class="nt-n">5</span>
+      <div class="nt-c"><b>이번 업데이트 (11.21) · 상한가 봉 표시</b>
+        <p>종목을 눌러 여는 <em>일봉 125봉 차트</em>에 <em>노란 화살표 ▼</em> 를 붙였습니다. 전날 종가보다 28% 넘게 오른 <em>상한가 봉의 꼭대기 위</em>에 노란 화살표가 서서, 상한가가 난 자리를 한눈에 볼 수 있습니다.</p></div>
+    </div>
+    <div class="nt-it">
+      <span class="nt-n">6</span>
+      <div class="nt-c"><b>이번 업데이트 (11.21) · 테마달력에 '동반테마 / 개별상한가' 구분 필터</b>
+        <p><em>테마달력</em> 위에 <em>[동반테마] [개별상한가] [전체]</em> 칩을 달았습니다. 처음에는 <em>동반테마</em>가 선택돼 있어 같은 테마 종목들이 <em>함께 오른 진짜 테마</em>부터 보입니다. <em>개별상한가</em>를 누르면 실적·계약·인수·임상·허가·기술수출·경영권·자사주·신작·특허 같은 <em>단독 재료</em>로 한 종목만 오른 경우를 볼 수 있습니다.</p></div>
+    </div>
+    <div class="nt-it">
+      <span class="nt-n">7</span>
+      <div class="nt-c"><b>종목 차트 보는 법</b>
+        <p><em>뉴스(오늘 상한가 포함) · 테마달력 · 레이더 · 실전</em> 어느 화면에서든 종목 이름을 누르면 그 종목의 <em>일봉 125봉 차트</em> 가 열립니다. 봉을 짚으면 그날 종가·등락률·거래량과 5·10·20·60일선 값이 위에 뜨고, <em>전체 125봉 / 최근 60봉</em> 버튼으로 넓혀 보거나 좁혀 볼 수 있습니다.</p></div>
+    </div>
+    <div class="nt-it">
+      <span class="nt-n">8</span>
+      <div class="nt-c"><b>지정시간 자동 업데이트</b>
+        <p>평일 지정시간마다 뉴스와 차트가 자동으로 갱신됩니다. 화면 위 <em>⟳</em> 를 누르면 지금 바로 새로 받아옵니다.</p></div>
+    </div>
+    </div>
+    </div>
+    <button class="nt-ok" id="ntOk" type="button">확인 (다시 보지 않기)</button>
+    <p class="nt-foot">다시 보려면 화면 위 📢 를 누르세요</p>
+  </div>
+</div>
+
+<!-- 1회성 안내 (11.21 상단 실시간 뉴스 링크 교체) — 한 번만 뜨고 [확인] · ✕ 로 닫으면 그 기기에서는
+     다시 뜨지 않는다. 공지 목록(📢)에는 넣지 않는다 — 여기서만 보여 주고 사라진다. -->
+<div class="nt-ov" id="onceOv" hidden>
+  <div class="nt-box once-box" role="dialog" aria-modal="true" aria-labelledby="onceTitle">
+    <div class="nt-top">
+      <span class="ico" aria-hidden="true">📢</span>
+      <h2 id="onceTitle">안내</h2>
+      <button class="nt-x" id="onceX" type="button" aria-label="안내 닫기">✕</button>
+    </div>
+    <p class="once-p">상단 <em>'실시간 뉴스 · 뉴스보기'</em> 링크가 <em>바로 재생되는 실시간 방송</em>으로 교체되었습니다.</p>
+    <button class="nt-ok" id="onceOk" type="button">확인</button>
+  </div>
+</div>
+
+<!-- 앱 설치 방법 안내 — [📲 앱 설치] 를 눌렀을 때 설치 창이 아직 없으면 이 순서도를 띄운다.
+     기기(안드로이드 크롬 / iOS Safari / 컴퓨터)에 맞는 순서만 보여 준다. -->
+<div class="nt-ov" id="instOv" hidden>
+  <div class="nt-box inst-box" role="dialog" aria-modal="true" aria-labelledby="instTitle">
+    <div class="nt-top">
+      <span class="ico" aria-hidden="true">📲</span>
+      <h2 id="instTitle">홈 화면에 앱처럼 설치</h2>
+      <button class="nt-x" id="instX" type="button" aria-label="설치 안내 닫기">✕</button>
+    </div>
+    <div id="instBody"></div>
+    <button class="nt-ok" id="instCopy2" type="button">📋 주소 복사</button>
+    <p class="nt-foot">설치하면 홈 화면 아이콘으로 한 번에 열립니다</p>
+  </div>
+</div>
+
+<!-- 2026-11-25 지시로 자동 종합 알림 팝업(#cfOv)은 없앴다 — 오늘 픽은 🔒 🎯 실전 탭 최상단(#hotPickTop)에
+     한 번만 서고, 30분 갱신마다 새로 잡힌 종목이 맨 위(added_at 최신순)에 온다. 종목을 누르면 일봉 125봉 차트. -->
+<script>
+/* ---------------- 비공개 화면 코드 연결 (v123) ----------------
+   비공개 탭(레이더·실전)의 화면 코드는 이 파일에 없다. data/private_ui.json 안에 AES-256-GCM 으로
+   잠겨 있고, 잠금이 풀릴 때만 이 자리에 실제 함수가 연결된다(아래 P1~P16).
+   잠겨 있는 동안 이 함수들은 아무것도 그리지 않는다 — 공개 탭은 그대로 다 보인다. */
+const privFns = Object.create(null);
+const PRIV_ASYNC = {1:1, 2:1, 3:1, 4:1, 5:1, 6:1, 10:1, 12:1, 13:1, 15:1, 16:1, 17:1};
+const PRIV_EMPTY = {7:'', 8:'', 9:() => []};      /* 잠겨 있을 때 돌려줄 빈 값 */
+function privCall(n, a){
+  const f = privFns[n];
+  if(f){ try{ return f.apply(null, a); }catch(e){ console.warn('priv', n, e); } }
+  if(PRIV_ASYNC[n]) return Promise.resolve();
+  const e = PRIV_EMPTY[n];
+  return (typeof e === 'function') ? e() : (e === undefined ? undefined : e);
+}
+function P1(){ return privCall(1, arguments); }
+function P2(){ return privCall(2, arguments); }
+function P3(){ return privCall(3, arguments); }
+function P4(){ return privCall(4, arguments); }
+function P5(){ return privCall(5, arguments); }
+function P6(){ return privCall(6, arguments); }
+function P7(){ return privCall(7, arguments); }
+function P8(){ return privCall(8, arguments); }
+function P9(){ return privCall(9, arguments); }
+function P10(){ return privCall(10, arguments); }
+function P11(){ return privCall(11, arguments); }
+function P12(){ return privCall(12, arguments); }
+function P13(){ return privCall(13, arguments); }
+function P14(){ return privCall(14, arguments); }
+function P15(){ return privCall(15, arguments); }
+function P16(){ return privCall(16, arguments); }
+function P17(){ return privCall(17, arguments); }
+
+
+const state = { data:null, calendar:null, radar:null, month:null, tab:'news', more:false, open:new Set(), sameOpen:new Set(), hotOpen:new Set(), flowOpen:new Set(), calKind:'오늘 상한가' };
+
+const TABS = ['news','radar','calendar','hotbar','result'];
+
+const TAB_ROLE = {
+  news: '<b>📰 뉴스</b> — 오늘 자금 방향 · 주요 뉴스',
+  calendar: '<b>📅 테마달력</b> — 오늘 상한가 · 최근 1년 무리 테마 · 동반 묶음 (누구나)',
+  radar: '<b>🔒 📡 레이더</b> — 본인 전용 (비밀코드로 열립니다)',
+  hotbar: '<b>🔒 🎯 실전</b> — 본인 전용 (비밀코드로 열립니다)',
+  result: '<b>🔒 📊 결과</b> — 본인 전용 (비밀코드로 열립니다)',
+};
+
+function paintTabRole(name){
+  const el = $('#tabRole');
+  if(!el) return;
+  let h = TAB_ROLE[name] || TAB_ROLE.news;
+  /* 잠금이 풀려 있으면 열쇠·'본인 전용' 글자는 빼고 역할만 적는다 */
+  if(visOn()) h = h.replace('<b>🔒 ', '<b>').replace(' (본인 전용)', '');
+  el.innerHTML = h;
+}
+
+const FIRST_ISSUES = 14;
+
+const $ = s => document.querySelector(s);
+
+const esc = s => (s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+function relTime(iso){
+  if(!iso) return '';
+  const d = new Date(iso), now = new Date();
+  const m = Math.floor((now - d)/60000);
+  if(isNaN(m)) return '';
+  if(m < 1) return '방금';
+  if(m < 60) return m + '분 전';
+  const h = Math.floor(m/60);
+  if(h < 24) return h + '시간 전';
+  const days = Math.floor(h/24);
+  if(days < 7) return days + '일 전';
+  return (d.getMonth()+1) + '.' + d.getDate();
+}
+
+function hm(iso){
+  if(!iso) return '';
+  const d = new Date(iso);
+  if(isNaN(d)) return '';
+  return String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0');
+}
+
+function themesList(){ return (state.data && state.data.themes) || []; }
+
+function flashAll(){ return (state.data && state.data.flash) || []; }
+
+function issueAll(){ return (state.data && state.data.issues) || (state.data && state.data.articles) || []; }
+
+function themeColor(id){
+  const t = themesList().find(x => x.id === id);
+  return (t && t.color) || '#8f9bb3';
+}
+
+function normTitle(t){
+  return (t||'').replace(/\[[^\]]*\]|\([^)]*\)|[“”"'‘’·…,!?.\-~]/g,'').replace(/[^0-9A-Za-z가-힣]/g,'');
+}
+
+function sameStory(a, b){
+  if(!a || !b) return false;
+  if(a === b) return true;
+  const k = Math.min(a.length, b.length, 16);
+  return k >= 11 && a.slice(0, k) === b.slice(0, k);
+}
+
+function flashList(){
+  return flashAll();
+}
+
+function issueList(){
+  /* 2026-11-23 지시(#11664): 뉴스 탭에서 '실시간 속보'를 걷어냈으므로, 속보와 겹친 이슈를 빼던
+     거르기도 함께 걷어낸다 — 화면에 없는 기사 때문에 주요 뉴스 순위가 비지 않게. */
+  return issueAll();
+}
+
+function switchTab(name, keepScroll){
+  if(!TABS.includes(name)) name = 'news';
+  state.tab = name;
+  document.querySelectorAll('.tab').forEach(b => b.setAttribute('aria-selected', b.dataset.tab === name));
+  document.querySelectorAll('.view').forEach(v => { v.hidden = v.dataset.view !== name; });
+  /* 지금 칸의 state(창이 쌓아 둔 표시)는 그대로 두고 해시만 바꾼다 — 뒤로가기 칸이 지워지지 않게 */
+  if(location.hash !== '#' + name) history.replaceState(history.state, '', '#' + name);
+  if(!keepScroll) window.scrollTo({top:0});
+  paintTabRole(name);
+  if(name === 'news'){ renderUpper(); }
+  if(name === 'calendar') renderCalendar();
+  if(name === 'radar') P1();
+  if(name === 'hotbar') P2();
+  if(name === 'result') P17();
+}
+
+const ovStack = [];
+
+let ovHandOver = 0;
+
+let ovSelfBack = 0, ovSelfBackTimer = 0;
+
+function ovStackPush(id){
+  if(!id || ovStack.indexOf(id) >= 0) return;      /* 이미 쌓인 창은 칸을 또 만들지 않는다 */
+  ovStack.push(id);
+  try{ history.pushState({nrOv:id}, '', location.href); }catch(e){}
+}
+
+function ovStackDrop(id){
+  const i = ovStack.lastIndexOf(id);
+  if(i < 0) return;
+  if(ovHandOver > 0) return;                       /* 자리를 넘겨줌(팝업→차트) — 스택·칸 모두 그대로 두어 뒤로가기 2번이 팝업을 닫는다 */
+  ovStack.splice(i, 1);
+  if(i === ovStack.length){                        /* 방금 닫은 창이 맨 위였을 때만 그 칸으로 물러난다 */
+    ovSelfBack++;
+    clearTimeout(ovSelfBackTimer);
+    ovSelfBackTimer = setTimeout(() => { ovSelfBack = 0; }, 1500);   /* popstate 가 안 오면 풀어 둔다 */
+    try{ history.back(); }catch(e){ ovSelfBack = 0; }
+  }
+}
+
+function ovCloseTop(){
+  const id = ovStack.pop();
+  if(!id) return false;
+  if(id === 'chartOv'){ closeChart(); return true; }
+  if(id === 'noticeOv'){ noticeHide(); return true; }
+  if(id === 'onceOv'){ onceHide(); return true; }
+  const el = document.getElementById(id);
+  if(el) ovClose(el);
+  return true;
+}
+
+addEventListener('popstate', () => {
+  if(ovSelfBack > 0){                              /* 내가 걷어낸 칸 — 이미 닫았으니 통과 */
+    ovSelfBack--;
+    if(!ovSelfBack) clearTimeout(ovSelfBackTimer);
+    return;
+  }
+  ovCloseTop();
+});
+
+function leadBadge(leaders){
+  const names = (leaders||[]).filter(Boolean).slice(0,2);
+  if(!names.length) return '';
+  const html = names.map(nm => `<span class="lead-c" data-name="${esc(nm)}" role="button" tabindex="0" title="일봉 125봉 차트 보기">${esc(nm)}</span>`).join(' · ');
+  return `<span class="sep">·</span><span class="lead" title="${esc(names.join(' · '))}"><b>🏢</b>${html}</span>`;
+}
+
+function themeChip(a){
+  const t = String((a && a.theme_label) || '').trim();
+  if(!t) return '';
+  const c = String((a && a.theme_color) || (a && a.theme ? themeColor(a.theme) : '') || '').trim();
+  const st = /^#[0-9a-f]{3,8}$/i.test(c) ? ` style="color:${c};border-color:${c}66;background:${c}14"` : '';
+  return `<span class="sep">·</span><span class="cl-th"${st} title="${esc(t)}">${esc(t)}</span>`;
+}
+
+function flashHtml(a){
+  const cls = `cl-it${a.breaking ? ' brk' : ''}`;
+  return `<a class="${cls}" href="${esc(a.url)}" target="_blank" rel="noopener noreferrer">
+    <span class="cl-t">${hm(a.time)||relTime(a.time)}</span>
+    <span class="cl-b">
+      <span class="cl-tt">${esc(a.title)}</span>
+      <span class="cl-meta"><span class="src">${esc(a.press||'')}</span>${themeChip(a)}${leadBadge(a.leaders)}</span>
+    </span>
+  </a>`;
+}
+
+function issueHtml(a, i, nested){
+  const rank = nested ? '' : (i + 1);   // 화면에 보이는 순서대로 번호를 매긴다(속보와 겹쳐 빠지는 카드가 있어도 번호가 끊기지 않게)
+  const pressN = a.presses || 1;
+  const open = state.open.has(a.id);
+  const pressBadge = pressN >= 2
+    ? `<button class="presses" type="button" aria-label="다른 매체 기사 펼치기">${pressN}개 매체</button>`
+    : (a.main_rank ? `<span class="rankp">메인 ${a.main_rank}위</span>` : '');
+  const related = (a.related||[]);
+  const relHtml = related.length
+    ? `<div class="cl-rel">` + related.map(r =>
+        `<a href="${esc(r.url)}" target="_blank" rel="noopener noreferrer">${esc(r.title)} <span class="rp">· ${esc(r.press||'')}</span></a>`).join('') + `</div>`
+    : '';
+  const det = (a.summary || relHtml)
+    ? `<div class="cl-det">${a.summary ? `<p class="cl-sum">${esc(a.summary)}</p>` : ''}${relHtml}</div>` : '';
+  /* DB 테마에 아직 없는 새 이슈 — 여러 매체가 같이 미는 정책·산업 씨앗 (2026-11-22, 거시·지수는 제외) */
+  const seed = (!(a.db_themes && a.db_themes.length) && pressN >= 3 && a.theme !== 'macro')
+    ? `<span class="newseed" title="우리 테마 DB에 아직 없는 새 이슈 — ${pressN}개 매체가 함께 다룸">새 이슈</span>` : '';
+  return `<article class="cl-it icard${open?' open':''}${nested?' same':''}" data-id="${esc(a.id)}">
+    ${rank !== '' ? `<span class="cl-t">${rank}</span>` : ''}
+    <div class="cl-b">
+      <a class="cl-tt" href="${esc(a.url)}" target="_blank" rel="noopener noreferrer">${esc(a.title)}</a>
+      <div class="cl-meta">
+        <span class="src">${hm(a.time)||relTime(a.time)} · ${esc(a.press||'')}</span>${themeChip(a)}${seed}${leadBadge(a.leaders)}${pressBadge}
+        ${det ? `<button class="cl-exp exp" type="button" aria-label="요약과 다른 매체 기사 펼치기">${open?'▴':'▾'}</button>` : ''}
+      </div>
+      ${det}
+    </div>
+  </article>`;
+}
+
+function groupIssues(list){
+  const groups = new Map(), out = [];
+  const keyOf = a => (a.db_themes && a.db_themes[0]) ? 'db:' + a.db_themes[0] : '';
+  for(const a of list){
+    const k = keyOf(a);
+    if(k && groups.has(k)){ groups.get(k).members.push(a); continue; }
+    const g = {rep: a, members: [a]};
+    if(k) groups.set(k, g);
+    out.push(g);
+  }
+  return out.map(g => {
+    /* 대표는 그 테마에서 가장 많은 매체가 다룬 이슈 */
+    let rep = g.members[0];
+    for(const a of g.members) if((a.presses || 1) > (rep.presses || 1)) rep = a;
+    return {rep, same: g.members.filter(a => a !== rep)};
+  });
+}
+
+function sameThemeHtml(g, open){
+  const n = g.same.length;
+  if(!n) return '';
+  const th = String((g.rep.db_themes || [])[0] || '').split(' (')[0];
+  return `<button class="same-t${open?' on':''}" type="button" data-same="${esc(g.rep.id)}" aria-expanded="${open?'true':'false'}" title="${esc(th)} 테마를 다룬 다른 기사">+ 같은 테마 뉴스 ${n}건 ${open?'▴':'▾'}</button>`
+    + `<div class="cl-same"${open?'':' hidden'}>${g.same.map(a => issueHtml(a, 0, true)).join('')}</div>`;
+}
+
+let lastKey = '';
+
+let lastIssueHtml = '';
+
+function renderNews(force){
+  if(!state.data) return;
+  const key = [state.data.generated_at, state.more?1:0].join('|');
+  if(!force && key === lastKey) return;
+  lastKey = key;
+
+  const iss = issueList();
+
+  const groups = groupIssues(iss);
+  const shown = state.more ? groups : groups.slice(0, FIRST_ISSUES);
+  const ih = shown.length
+    ? shown.map((g, i) => {
+        const open = state.sameOpen && state.sameOpen.has(g.rep.id);
+        return issueHtml(g.rep, i) + sameThemeHtml(g, open);
+      }).join('')
+    : `<div class="mini-empty">수집된 이슈가 없습니다.</div>`;
+  if(ih !== lastIssueHtml){
+    lastIssueHtml = ih;
+    $('#issueList').innerHTML = ih;
+  }
+  const more = $('#moreIssues');
+  more.hidden = groups.length <= FIRST_ISSUES;
+  more.textContent = state.more ? '이슈 접기' : '이슈 더 보기';
+}
+
+const MOOD_GOOD = ['급등','상승','반등','호실적','사상최대','수주','타결','강세','돌파','상한가','최고치','흑자','회복','기대감','신기록'];
+
+const MOOD_BAD = ['급락','하락','폭락','약세','충격','악재','금리인상','전쟁','우려','반토막','하한가','적자','유출','속락','불안','경고'];
+
+const MOOD_MID = ['혼조','눈치보기','보합','엇갈','관망','혼재'];
+
+const US_TAG = /뉴욕|미\s*증시|미증시|나스닥|다우|S&P|연준|엔비디아|FOMC|월가|트럼프|나스닥\s*선물|S&P\s*선물|미\s*선물|미증시\s*선물|야간선물|선물/i;
+
+const KR_TAG = /코스피|코스닥|유가증권|한국거래소/;
+
+function moodScore(texts){
+  let g = 0, b = 0, n = 0;
+  for(const t of texts){
+    if(MOOD_GOOD.some(w => t.includes(w))) g++;
+    if(MOOD_BAD.some(w => t.includes(w))) b++;
+    if(MOOD_MID.some(w => t.includes(w))) n++;
+  }
+  return { g, b, n, count: texts.length };
+}
+
+function moodJudge(s){
+  if(!s.count) return null;
+  const why = `호재 ${s.g} · 악재 ${s.b} · 혼조 ${s.n} (기사 ${s.count}건)`;
+  if(s.n >= Math.max(s.g, s.b)) return { key:'mid', label:'혼조', why };
+  const diff = s.g - s.b;
+  if(diff >= 2) return { key:'good', label:'호재', why };
+  if(diff <= -2) return { key:'bad', label:'악재', why };
+  return { key:'mid', label:'혼조', why };
+}
+
+/* 2026-11-26 지시 — 뉴스 탭의 '뉴스 부각'(오늘 뉴스가 부른 테마 카드)을 걷어냈다.
+   단어만 걸린 사회 기사까지 테마로 붙어 시장과 무관한 줄이 섞였고, 위쪽 주요 뉴스와 역할도 겹쳤다.
+   뉴스는 주요 뉴스까지, 테마 소식은 테마달력이 맡는다. */
+
+function moodFromIndex(vals){
+  const nums = vals.filter(v => v != null && v !== '' && !isNaN(Number(v))).map(Number);
+  if(!nums.length) return null;
+  const avg = nums.reduce((a, b) => a + b, 0) / nums.length;
+  const why = `지수 평균 ${avg.toFixed(2)}% (${nums.length}개) — 등락률 직접 반입`;
+  if(avg >= 0.5) return { key:'good', label:'호재', why };
+  if(avg <= -0.5) return { key:'bad', label:'악재', why };
+  return { key:'mid', label:'혼조', why };
+}
+
+const MOOD_LABEL = { good:'호재', bad:'악재', mid:'혼조' };
+
+function moodFromServer(m){
+  if(!m || !m.key) return null;
+  return { key: m.key, label: MOOD_LABEL[m.key] || m.label || '혼조',
+           why: m.why || '지수 등락률 직접 반입', at: m.as_of_kst || '' };
+}
+
+function marketMoods(){
+  const d = state.data || {};
+  const idx = d.index || d.indices || {};
+  const mm = d.market_mood || {};
+  const arts = flashAll().concat(issueAll()).slice(0, 30);
+  const krTexts = [], usTexts = [];
+  for(const a of arts){
+    const raw = (a.title || '') + ' ' + (a.summary || '');
+    const to = (KR_TAG.test(raw) || !US_TAG.test(raw)) ? krTexts : usTexts;
+    to.push(raw.toLowerCase());
+  }
+  /* 장 시작 전(오늘 등락률이 아직 0)이면 live:false 로 오므로 그때만 뉴스 분위기로 보조한다 */
+  const krLive = (mm.kr && mm.kr.live !== false) ? moodFromServer(mm.kr) : null;
+  const usLive = (mm.us && mm.us.live !== false) ? moodFromServer(mm.us) : null;
+  const kr = krLive || moodFromIndex([idx.kospi_chg, idx.kosdaq_chg]) || moodJudge(moodScore(krTexts));
+  const us = usLive || moodFromIndex([idx.nasdaq_chg, idx.dow_chg, idx.sp500_chg]) || moodJudge(moodScore(usTexts));
+  return { kr, us };
+}
+
+function paintMood(sel, m, flag, name){
+  const el = $(sel);
+  if(!el) return;
+  if(!m){ el.hidden = true; return; }
+  el.hidden = false;
+  el.className = 'mood ' + m.key;
+  el.innerHTML = `<span class="flag" aria-hidden="true">${flag}</span>${esc(m.label)}`;
+  el.title = [`${name} 시장 분위기 — ${m.why}`, m.at ? `${m.at} 기준` : ''].filter(Boolean).join(' · ');
+  el.setAttribute('aria-label', `${name} 시장 분위기 ${m.label}`);
+}
+
+function renderMood(){
+  const { kr, us } = marketMoods();
+  paintMood('#moodKr', kr, '🇰🇷', '한국');
+  paintMood('#moodUs', us, '🇺🇸', '미국');
+}
+
+function upperData(){ return (state.data && state.data.upper_limits) || null; }
+
+function upperCardHtml(it, i){
+  const theme = it.theme ? `<span class="up-theme">${esc(it.theme)}</span>` : '';
+  const tv = it.trading_value_text ? `<span class="up-val">거래대금 ${esc(it.trading_value_text)}</span>` : '';
+  const tags = (theme || tv) ? `<div class="up-tags">${theme}${tv}</div>` : '';
+  const sum = it.issue_summary
+    ? `<p class="up-sum">${esc(it.issue_summary)}</p>`
+    : `<p class="up-sum" style="color:#7d8aa3">관련 보도가 아직 확인되지 않았습니다.</p>`;
+  const when = it.article_time ? relTime(it.article_time) : '';
+  const srcLabel = [it.article_press, when].filter(Boolean).join(' · ');
+  const link = it.article_url
+    ? `<a href="${esc(it.article_url)}" target="_blank" rel="noopener noreferrer">원문 ↗</a>` : '';
+  const showTitle = it.article_title && it.summary_from === '본문';
+  const titleLine = showTitle
+    ? `<div class="u-full"><a href="${esc(it.article_url)}" target="_blank" rel="noopener noreferrer">${esc(it.article_title)}</a></div>`
+    : '';
+  const more = (showTitle || (it.issue_summary || '').length > 70)
+    ? `<button class="up-more" type="button">더 보기 ▾</button>` : '';
+  const rate = Number(it.change_rate || 0).toFixed(2);
+  return `<article class="up-card">
+    <div class="up-top">
+      <span class="up-no">${i + 1}</span>
+      <span class="up-name"${it.code ? ` data-code="${esc(it.code)}" data-name="${esc(it.name || '')}" role="button" tabindex="0" title="일봉 125봉 차트 보기"` : ''}>${esc(it.name)}</span>
+      <span class="up-mk">${esc(it.market || '')}</span>
+      <span class="up-price">${esc(it.price_text || '')}원</span>
+      <span class="up-rate">+${rate}%</span>
+    </div>
+    ${tags}
+    ${sum}
+    <div class="up-src">
+      <span class="p">${srcLabel ? esc(srcLabel) : '관련 보도 확인 중'}</span>${more}${link}
+    </div>
+    ${titleLine}
+  </article>`;
+}
+
+function renderUpper(){
+  const u = upperData();
+  const items = (u && u.items) || [];
+  const label = (u && u.label) || '–';
+  const session = (u && u.session_label) || '';
+  const dateText = label + (session ? ' · ' + session : '');
+  const dateCls = 'badge-d' + (u && u.is_today ? '' : ' prev');
+  const cntText = items.length ? items.length + '종목' : '0종목';
+  const emptyHtml = !u
+    ? '오늘 상한가 자료를 불러오지 못했습니다.<br>잠시 후 새로고침(⟳)을 눌러 주세요.'
+    : `${esc(u.note || '오늘 상한가 종목이 아직 없습니다.')}<br>장중에 다시 확인해 주세요.`;
+  /* ① 뉴스 칸의 🚀 오늘 상한가 */
+  const box = $('#upperList');
+  if(box){
+    const dateEl = $('#upperDate');
+    if(dateEl){ dateEl.textContent = dateText; dateEl.className = dateCls; }
+    if($('#upperCnt')) $('#upperCnt').textContent = cntText;
+    if($('#upperSub')) $('#upperSub').textContent = '';
+    box.innerHTML = items.length ? items.map(upperCardHtml).join('') : `<div class="empty">${emptyHtml}</div>`;
+  }
+  /* ② 테마달력 칸 — '오늘 상한가' 칩을 골랐을 때 같은 카드가 이 칸에 그려진다 */
+  const cbox = $('#calUpperList');
+  if(cbox){
+    const cdate = $('#calUpperDate');
+    if(cdate){ cdate.textContent = dateText; cdate.className = dateCls; }
+    if($('#calUpperCnt')) $('#calUpperCnt').textContent = cntText;
+    cbox.innerHTML = items.length ? items.map(upperCardHtml).join('') : `<div class="empty">${emptyHtml}</div>`;
+  }
+  /* ③ 칩 숫자 — 오늘 상한가 종목 수 */
+  const chip = document.querySelector('#calFlt button[data-k="오늘 상한가"] i');
+  if(chip) chip.textContent = items.length;
+}
+
+const CAL_KIND = Object.create(null);
+
+let LEADER_RANK = null;
+
+const CAL_CACHE_KEY = 'newsradar_cal';
+
+let calData = null;
+
+async function loadCalendar(){
+  if(calData) return calData;
+  try{
+    const res = await fetch('data/calendar.json?_=' + Date.now(), {cache:'no-store'});
+    if(res.ok){
+      const d = await res.json();
+      /* 지난 배포의 잠금본({enc:1})이 남아 있으면 읽지 않는다 — 새 평문 자료를 기다린다. */
+      if(Number(d && d.enc) === 1) return null;
+      calData = d;
+      try{ localStorage.setItem(CAL_CACHE_KEY, JSON.stringify(calData)); }catch(e){}
+      return calData;
+    }
+  }catch(err){}
+  try{ calData = JSON.parse(localStorage.getItem(CAL_CACHE_KEY) || 'null'); }catch(err){}
+  if(calData && Number(calData.enc) === 1) calData = null;
+  return calData;
+}
+
+async function ensureCalendar(){
+  if(state.calendar) return state.calendar;
+  const d = await loadCalendar();
+  if(!d || !(d.months || []).length) return null;
+  state.calendar = d;
+  LEADER_RANK = null;                    /* 새 달력이 오면 대장 1·2·3등 장부를 다시 짓는다 */
+  for(const m of ((d.months) || [])){
+    for(const t of (m.themes || [])){
+      const n = String(t.name || '').trim();
+      if(n && t.kind) CAL_KIND[n] = t.kind;
+    }
+  }
+  return state.calendar;
+}
+
+function stkLast(s){
+  return String((s && (s.first || s.last)) || '');
+}
+
+function stkAgo(s){
+  const last = stkLast(s);
+  if(!last) return null;
+  const t = new Date(last + 'T00:00:00');
+  if(isNaN(t)) return null;
+  const n = new Date(); n.setHours(0, 0, 0, 0);
+  return Math.round((n - t) / 86400000);     /* 오늘 - 잡은 날 (일수) */
+}
+
+function stkTier(ago){
+  return ago == null ? 't3' : (ago <= 21 ? 't1' : (ago <= 90 ? 't2' : 't3'));
+}
+
+function stkTierOf(s){
+  if(s && s.tier != null) return 't' + Math.min(3, Math.max(1, Number(s.tier) || 3));
+  return stkTier(stkAgo(s));
+}
+
+function stkHtml(s, themeNm){
+  const tier = stkTierOf(s);
+  const pk = s.pinkArrow
+    ? `<em class="pk" title="신호 표시${s.pinkDate ? ' (' + String(s.pinkDate).slice(5).replace('-', '/') + ')' : ''}">↑</em>`
+    : '';
+  /* 2026-11-25 지시 — 테마 1등(대)·2등(2)·3등(3)을 칩에도 같은 표기로 (개인 카드와 통일) */
+  const rk = Number(s.rank) || (themeNm ? leaderRankOf(themeNm, s.code) : 0) || (s.leader ? 1 : 0);
+  const rankB = rk === 1 ? '<em class="rk r1" title="테마 1등 대장주">대</em>'
+    : (rk === 2 ? '<em class="rk r2" title="테마 2등">2</em>'
+    : (rk === 3 ? '<em class="rk r3" title="테마 3등">3</em>' : ''));
+  const cls = 'stk ' + tier + (rk === 1 ? ' lead' : '');
+  /* 날짜는 화면에 적지 않는다 — 손가락으로 짚었을 때만(툴팁) 잡은 날을 알려 준다 */
+  const tip = (rk === 1 ? '1등 대장주 · ' : (rk ? `${rk}등주 · ` : '')) + (s.first ? `잡은 날 ${String(s.first).replace(/-/g, '.')} · ` : '')
+    + s.name + (s.n ? ` 상한가 ${s.n}회` : '') + ' — 일봉 125봉 차트 보기';
+  return `<span class="${cls}"${s.code ? ` data-code="${esc(s.code)}" data-name="${esc(s.name)}" role="button" tabindex="0" title="${esc(tip)}"` : ''}>${rankB}<b>${esc(s.name)}</b>${pk}</span>`;
+}
+
+function stkGroups(list, themeNm){
+  return sortStocks(list, themeNm).map(s => stkHtml(s, themeNm)).join('');
+}
+
+function sortStocks(list, themeNm){
+  const rkOf = x => Number(x.rank) || (themeNm ? leaderRankOf(themeNm, x.code) : 0) || (x.leader ? 1 : 0) || 9;
+  return (list || []).slice().sort((a, b) =>
+    (rkOf(a) - rkOf(b)) ||
+    stkLast(b).localeCompare(stkLast(a)) ||
+    ((b.n || 0) - (a.n || 0)) ||
+    String(a.name || '').localeCompare(String(b.name || ''), 'ko'));
+}
+
+async function renderCalendar(){
+  const box = $('#calThemes');
+  if(!box) return;
+  /* 2026-11-24 지시 — '전체' 칩 자리에 '오늘 상한가'를 맨 앞에 두었다.
+     이 칩을 고르면 월 그리드·테마 목록 대신 오늘 상한가 카드가 이 칸에 그려진다. */
+  const upperMode = state.calKind === '오늘 상한가';
+  if($('#view-calendar')) $('#view-calendar').classList.toggle('cal-upper', upperMode);
+  if($('#calUpper')) $('#calUpper').hidden = !upperMode;
+  if(upperMode) renderUpper();
+  const cal = await ensureCalendar();
+  if(!cal || !(cal.months || []).length){
+    if($('#monGrid')) $('#monGrid').innerHTML = '';
+    box.innerHTML = `<div class="empty">테마달력 자료를 불러오지 못했습니다.<br>잠시 후 다시 열어 주세요.</div>`;
+    return;
+  }
+  const months = cal.months;
+  if(!state.month || !months.some(m => m.month === state.month)){
+    state.month = (cal.this_month && months.some(m => m.month === cal.this_month))
+      ? cal.this_month : months[months.length - 1].month;
+  }
+  const sel = state.month;
+  const r = cal.range || {};
+  if($('#calSub')){
+    if(upperMode){
+      const u = upperData() || {};
+      const nup = (u.items || []).length;
+      $('#calSub').textContent = (u.label || '오늘') + (nup ? ` · ${nup}종목` : '');
+    } else {
+      const f = (r.from || '').slice(2).replace('-', '.');
+      const t = (r.to || '').slice(2).replace('-', '.');
+      $('#calSub').textContent = `${f}~${t} · 테마 ${cal.theme_total || 0}개`;
+    }
+  }
+  const grid = $('#monGrid');
+  if(grid){
+    grid.innerHTML = months.map(m =>
+      `<button class="mon" type="button" data-month="${m.month}" aria-pressed="${m.month === sel}">` +
+      `<span class="m">${esc(m.label)}</span><span class="n">${m.theme_count}</span></button>`).join('');
+  }
+  const mm = months.find(m => m.month === sel) || months[months.length - 1];
+  const kc = mm.kind_count || {};
+  const nD = kc['동반테마'] || 0, nG = kc['개별상한가'] || 0;
+  const flt = $('#calFlt');
+  if(flt){
+    const nUp = ((upperData() || {}).items || []).length;
+    flt.querySelectorAll('button').forEach(b => {
+      const k = b.dataset.k;
+      const n = k === '오늘 상한가' ? nUp : k === '동반테마' ? nD : nG;
+      b.setAttribute('aria-pressed', String(k === state.calKind));
+      const i = b.querySelector('i');
+      if(i) i.textContent = n;
+    });
+  }
+  if(upperMode) return;          /* 오늘 상한가 보기 — 아래 월별 달력·테마 목록은 그리지 않는다 */
+  const all = mm.themes || [];
+  const list = all.filter(t => ((t.kind || '동반테마') === state.calKind));
+  const kindLabel = state.calKind;
+  if($('#calMonthTitle')) $('#calMonthTitle').textContent = `${mm.month_name} ${kindLabel} ${list.length}개`;
+  if($('#calMonthSub')){
+    const st = list.reduce((a, t) => a + (t.count || 0), 0);
+    $('#calMonthSub').textContent = `상한가 종목 ${st}건`;
+  }
+  if($('#calAll')) $('#calAll').textContent = '모두 펼치기';
+  if(!list.length){
+    const other = state.calKind === '동반테마' ? '개별상한가' : '동반테마';
+    box.innerHTML = `<div class="empty">이 달에는 ${esc(state.calKind)} 테마가 없습니다.<br>[${other}] 칩을 누르면 이 달의 다른 테마를 볼 수 있습니다.</div>`;
+    return;
+  }
+  box.innerHTML = list.map(t => {
+    const individual = t.kind === '개별상한가';
+    /* 2026-11-24 지시(#14138) — 테마명 안에 그 달 대표 상한가 이름·날짜, 대장주는 따로 배지로 */
+    const rep = t.rep || {};
+    /* 2026-11-25 지시 — 제목에도 상한가 날짜를 적지 않는다(차트로 확인) */
+    const repTxt = rep.name ? esc(rep.name) : '';
+    const lead = t.leader || {};
+    const board = t.leaders || [];
+    const mdd = v => String(v || '').slice(5).replace('-', '/');
+    /* 2026-11-25 지시 — 테마 상단에 1·2·3등 대장주를 배지로 세운다(바디 맨 위) */
+    const leadHtml = board.length
+      ? `<div class="th-leaders">${board.map(l => `<span class="s${l.rank >= 1 && l.rank <= 3 ? l.rank : 3}"`
+          + ` title="${esc((l.rank || '') + '등 대장주')}">`
+          + `<em>${l.rank}등</em>${esc(l.name)}</span>`).join('')}</div>` : '';
+    /* 2026-11-25 지시 — 불씨 → 확산(뉴스 누적) */
+    const fire = t.fire || {}, sp = t.spread || {};
+    const fireHtml = fire.날짜
+      ? `<p class="th-fire" title="${esc(fire.재료 || '테마에 처음 붙은 뉴스')}"><b>🔥 불씨 ${mdd(fire.날짜)}</b>`
+        + (sp.마지막 ? `<span class="sp">→ 확산 ${mdd(sp.마지막)} · 뉴스 이력 ${sp.날짜수 || 1}일`
+            + (Number(sp.기사) > 0 ? ` · 기사 ${sp.기사}건` : '') + `</span>` : `<span class="sp">· 뉴스가 여기서 붙었습니다</span>`)
+        + `</p>` : '';
+    const repDup = rep.name && lead.name && rep.name === lead.name;   /* 👑 배지와 같은 이름이면 한 번만 */
+    const leadTxt = lead.name && lead.code
+      ? `<span class="th-lead" title="1등 대장주">👑 ${esc(lead.name)}</span>` : '';
+    const tip = individual
+      ? '개별상한가 — 실적·계약·인수·임상·허가·기술수출·경영권·자사주·신작·특허 등 단독 재료로 한 종목만 상한가(같은 테마 ±3거래일 동반 상승 없음)'
+      : '동반테마 — 같은 테마 종목이 상한가일 ±3거래일 안에 함께 15% 이상 올랐습니다';
+    return `<article class="th-card">
+      <button class="th-head" type="button">
+        <span class="th-badge ${individual ? 'bg' : 'bd'}" title="${esc(tip)}">${individual ? '개별' : '동반'}</span>
+        <span class="th-name"><b>${esc(t.name)}</b>${repTxt && !repDup ? `<span class="th-rep">${repTxt}</span>` : ''}</span>
+        ${leadTxt}
+        <span class="th-cnt">${t.count}</span>
+        <span class="th-exp">▾</span>
+      </button>
+      <div class="th-body">
+        ${leadHtml}
+        ${fireHtml}
+        ${t.why ? `<p class="th-why">${individual ? '개별 근거' : '동반 근거'} — ${esc(t.why)}</p>` : ''}
+        ${t.summary ? `<p class="th-sum">${esc(t.summary)}</p>` : ''}
+        <div class="stk-grid">${stkGroups(t.stocks, t.name)}</div>
+      </div>
+    </article>`;
+  }).join('');
+}
+
+let coreData = null;                  /* 잠금이 풀리면 비공개 화면 자료가 여기 담긴다 */
+
+function b64d(s){
+  const b = atob(String(s || ''));
+  const u = new Uint8Array(b.length);
+  for(let i = 0; i < b.length; i++) u[i] = b.charCodeAt(i);
+  return u;
+}
+
+async function hotKey(code, salt){
+  const base = await crypto.subtle.importKey('raw', new TextEncoder().encode(code), 'PBKDF2', false, ['deriveKey']);
+  return crypto.subtle.deriveKey({name:'PBKDF2', salt, iterations:HOT_ITER, hash:'SHA-256'},
+    base, {name:'AES-GCM', length:256}, false, ['decrypt']);
+}
+
+async function hotDecrypt(sealed, code){
+  if(!crypto || !crypto.subtle) throw new Error('no webcrypto');
+  const key = await hotKey(code, b64d(sealed.salt));
+  const plain = await crypto.subtle.decrypt({name:'AES-GCM', iv:b64d(sealed.iv)}, key, b64d(sealed.ct));
+  return JSON.parse(new TextDecoder().decode(plain));
+}
+
+function ymd6(n){
+  const s = String(n == null ? '' : n).padStart(6, '0');
+  return '20' + s.slice(0, 2) + '-' + s.slice(2, 4) + '-' + s.slice(4, 6);
+}
+
+const SEC_CLS = {'호재':'strong','강세':'strong','바닥':'bottom','약세':'weak'};
+
+function leaderRankOf(themeNm, code){
+  const nm = String(themeNm || '').trim(), cd = String(code || '').trim();
+  if(!nm || !cd || !state.calendar) return 0;
+  if(!LEADER_RANK){
+    LEADER_RANK = Object.create(null);
+    (state.calendar.months || []).forEach(m => (m.themes || []).forEach(ct => {
+      const key = String(ct.name || '').trim();
+      if(!key || !(ct.leaders || []).length) return;
+      const row = LEADER_RANK[key] || (LEADER_RANK[key] = Object.create(null));
+      (ct.leaders || []).forEach(l => {
+        const c = String(l.code || '').trim();
+        if(c && !row[c]) row[c] = Number(l.rank) || 0;
+      });
+    }));
+  }
+  const row = LEADER_RANK[nm];
+  return row ? (row[cd] || 0) : 0;
+}
+
+let popupData = null, popupLoading = null;
+
+const PERIOD = {day:{t:'일봉', n:'일'}, week:{t:'주봉', n:'주'}, month:{t:'월봉', n:'월'}};
+
+function periodOf(s){ return (s && PERIOD[s.period]) ? s.period : 'day'; }
+
+let chartSet = null, chartBase = null;
+
+const CH_W = 360, CH_H = 292, CH_X0 = 6, CH_X1 = 326;
+
+const CH_PY0 = 26, CH_PY1 = 196, CH_VY0 = 216, CH_VY1 = 252;
+
+let chartCur = null;
+
+function dayStr(d){ return String(d || '').slice(0, 10); }
+
+function mondayOf(d){
+  const t = dayStr(d);
+  const dt = new Date(t + 'T00:00:00Z');
+  if(!t || isNaN(dt.getTime())) return t;
+  dt.setUTCDate(dt.getUTCDate() - ((dt.getUTCDay() + 6) % 7));
+  return dt.toISOString().slice(0, 10);
+}
+
+function groupCandles(cs, kind){
+  const out = [];
+  for(const c of cs){
+    const k = kind === 'week' ? mondayOf(c[0]) : dayStr(c[0]).slice(0, 7);
+    const last = out[out.length - 1];
+    if(!last || last.k !== k){
+      out.push({k, c:[dayStr(c[0]), c[1], c[2], c[3], c[4], c[5]]});
+    }else{
+      last.c[2] = Math.max(last.c[2], c[2]);
+      last.c[3] = Math.min(last.c[3], c[3]);
+      last.c[4] = c[4];
+      last.c[5] += c[5];
+      last.c[0] = dayStr(c[0]);
+    }
+  }
+  return out.map(o => o.c);
+}
+
+function barEndFor(bars, d){
+  const t = dayStr(d);
+  if(!t || !bars.length) return '';
+  for(const b of bars){ if(dayStr(b[0]) >= t) return dayStr(b[0]); }
+  return '';
+}
+
+function refVolOf(bars, n){
+  const prior = bars.slice(0, Math.max(1, bars.length - 1)).slice(-n);
+  return prior.length ? Math.max.apply(null, prior.map(b => Number(b[5]) || 0)) : 0;
+}
+
+function longDaily(s){
+  const own = (s && s.candles) || [];
+  if(!s || s.plain || own.length >= 100) return own;
+  const it = dayDoc && dayItem(s.code, s.name);
+  return (it && it.candles.length > own.length) ? it.candles : own;
+}
+
+function periodItem(s, bars, period, rich){
+  const n = bars.length;
+  const out = Object.assign({}, s);
+  out.period = period;
+  out.candles = bars;
+  out.view = n;
+  out.full = 0;
+  out.zoomTo = 0;
+  out.mas = 0;                      /* 이평선은 일봉에만 */
+  out.ref_bars = period === 'week' ? 48 : 12;
+  if(rich){
+    /* 서버가 만든 주봉·월봉 카드 — 필요한 값이 그 봉 기준으로 이미 실려 있다 */
+    out.line = rich.line || null;
+    out.base_open = rich.base_open || null;
+    /* 기준 거래량은 서버 카드의 6개월 잣대 대신 주봉 48주·월봉 12개월로 다시 잰다 —
+       모든 주봉·월봉 차트가 같은 잣대를 쓰게(2026-11-23) */
+    out.ref_vol = refVolOf(bars, out.ref_bars);
+    out.stage_dates = rich.stage_dates || {};
+    out.pos2 = rich.pos2 || null; out.pos2_why = rich.pos2_why || null;
+    out.ratio = (rich.ratio != null) ? rich.ratio : null;
+    out.ratio_pace = rich.ratio_pace; out.bar_partial = rich.bar_partial;
+    out.lu_date = rich.lu_date || s.lu_date || s.d0 || null;
+  }else{
+    out.ref_vol = refVolOf(bars, out.ref_bars);
+    out.pos2 = null; out.pos2_why = null; out.ratio = null;
+    const sdj = {};
+    Object.keys(s.stage_dates || {}).forEach(k => {
+      const bd = barEndFor(bars, s.stage_dates[k]);
+      if(bd) sdj[k] = bd;
+    });
+    out.stage_dates = sdj;
+    out.dnames = 1;                 /* 이름표는 일봉과 같은 말 */
+  }
+  out.lu_bar = barEndFor(bars, out.lu_date || s.d0 || '');   /* 상한가 ▼ 를 찍을 봉 */
+  /* 하늘색 장기선(주봉 240주 · 월봉 120월) — 이 주기의 봉과 한 칸씩 맞는 배열만 넘긴다.
+     봉 수가 맞지 않으면(일봉에서 합산한 봉 등) 선을 그리지 않는다. */
+  const ser = period === 'week'
+    ? ((rich && Array.isArray(rich.w_ma240) && rich.w_ma240) || (Array.isArray(s.w_ma240) ? s.w_ma240 : null))
+    : ((rich && Array.isArray(rich.m_ma120) && rich.m_ma120) || (Array.isArray(s.m_ma120) ? s.m_ma120 : null));
+  out.ma_line = (Array.isArray(ser) && ser.length === bars.length) ? ser : null;
+  const pb = [];
+  (s.pink || []).forEach(d => { const b = barEndFor(bars, d); if(b && pb.indexOf(b) < 0) pb.push(b); });
+  out.pink_bars = pb;
+  out.pink = [];
+  return out;
+}
+
+function derivePeriod(s, p){
+  if(!s) return null;
+  const code = String(s.code || '');
+  /* ① 카드·차트에 실려 온 실봉 */
+  const pack = p === 'week' ? (s.w_candles || s.w) : (s.m_candles || s.m);
+  if(Array.isArray(pack) && pack.length > 1) return periodItem(s, pack, p, null);
+  /* ② 잠금이 풀린 본인 화면에서 연 카드의 주봉·월봉 봉(같은 종목이 있으면 그 봉 그대로) */
+  if(!s.plain && coreData){
+    const sec = (coreData.sections || []).find(x => x.key === p);
+    if(sec){
+      for(const st of (sec.stages || [])){
+        const hit = (st.stocks || []).find(x => String(x.code) === code && (x.candles || []).length > 1);
+        if(hit) return periodItem(s, hit.candles, p, hit);
+      }
+    }
+  }
+  /* ③ 일봉 캔들 → 주·월봉 합산 */
+  const base = longDaily(s);
+  if(!base || base.length < 3) return null;
+  const bars = groupCandles(base, p);
+  if(bars.length < 2) return null;
+  return periodItem(s, bars, p, null);
+}
+
+function buildChartSet(s){
+  const set = {day: s};
+  const w = derivePeriod(s, 'week');  if(w) set.week = w;
+  const m = derivePeriod(s, 'month'); if(m) set.month = m;
+  return set;
+}
+
+function renderChartPg(){
+  const el = $('#chartPg'); if(!el) return;
+  const cur = chartCur ? periodOf(chartCur) : '';
+  el.innerHTML = [['day', '일봉'], ['week', '주봉'], ['month', '월봉']].map(([k, lab]) => {
+    const it = chartSet && chartSet[k];
+    const n = it ? (it.candles || []).length : 0;
+    return `<button type="button" data-p="${k}"${cur === k ? ' class="on"' : ''}`
+      + `${n > 1 ? '' : ' disabled'}>${lab}${n > 1 ? `<i>${n}</i>` : ''}</button>`;
+  }).join('');
+}
+
+function switchChartPeriod(p){
+  const it = chartSet && chartSet[p];
+  if(!it || (it.candles || []).length < 2) return;
+  chartCur = it;
+  paintChart();
+}
+
+function fmtWon(v){ return Math.round(Number(v) || 0).toLocaleString('ko-KR'); }
+
+function fmtVolK(v){
+  v = Number(v) || 0;
+  if(v >= 1e8) return (v / 1e8).toFixed(2).replace(/\.?0+$/, '') + '억';
+  if(v >= 1e4) return Math.round(v / 1e4).toLocaleString('ko-KR') + '만';
+  return Math.round(v).toLocaleString('ko-KR');
+}
+
+function mmdd(d){ return String(d || '').slice(5).replace('-', '.'); }
+
+function textW(t, fs){
+  let w = 0;
+  for(const ch of t) w += /[가-힣]/.test(ch) ? fs * 1.03 : (/[0-9]/.test(ch) ? fs * 0.58 : fs * 0.5);
+  return w;
+}
+
+function chartSvgHtml(s){
+  const all = s.candles || [];
+  if(!all.length) return '';
+  /* 보이는 봉 — view 가 있으면 최근 그만큼만(카드가 정한 봉 수), 없으면 전부 */
+  const viewN = Math.min(all.length, Math.max(8, Number(s.view) || all.length));
+  const off = all.length - viewN;
+  const cs = all.slice(off), n = cs.length;
+  const p = periodOf(s);
+  const plain = !!s.plain;      /* 다른 메뉴에서 연 공개 주봉 — 개인 표시 없음 */
+  const lineDay = (!plain && p === 'day' && s.line) ? Number(s.line) : 0;   /* 일봉 = 개인 기준 줄 */
+  const base = plain ? 0 : (lineDay || Number(s.base_open) || 0);
+  const refVol = Number(s.ref_vol) || 0;
+  /* 이동평균선 5·10·20·60 — 일봉이고 60봉 이상일 때. 공개 일봉 125봉 차트에도 같은 선을 깐다 */
+  const MAS = (p === 'day' && s.mas && all.length >= 60)
+    ? [[5, '#ff9ecb'], [10, '#4fd6ff'], [20, '#63e3ae'], [60, '#a78bfa']] : [];
+  const maVal = {};
+  if(MAS.length){
+    const cl = all.map(c => c[4]);
+    MAS.forEach(([k]) => {
+      maVal[k] = [];
+      let sum = 0;
+      for(let i = 0; i < cl.length; i++){
+        sum += cl[i];
+        if(i >= k) sum -= cl[i - k];
+        maVal[k][i] = i >= k - 1 ? sum / k : null;
+      }
+    });
+  }
+  let hi = -Infinity, lo = Infinity;
+  for(const c of cs){ hi = Math.max(hi, c[2]); lo = Math.min(lo, c[3]); }
+  if(base > 0){ hi = Math.max(hi, base); lo = Math.min(lo, base); }
+  /* 하늘색 장기선 — 일봉 240일 · 주봉 240주 · 월봉 120월 (2026-11-23 지시).
+     봉과 같은 자리 수의 값 배열이고, 봉이 모자란 앞 구간은 비어 있다(null). */
+  const sky = p === 'day'
+    ? (Array.isArray(s.ma240) ? s.ma240 : null)
+    : (Array.isArray(s.ma_line) ? s.ma_line
+        : (p === 'week' ? (Array.isArray(s.w_ma240) ? s.w_ma240 : null)
+                        : (Array.isArray(s.m_ma120) ? s.m_ma120 : null)));
+  let skyHi = -Infinity, skyLo = Infinity;
+  if(sky){
+    for(let i = off; i < all.length; i++){
+      const v = sky[i];
+      if(v > 0){ skyHi = Math.max(skyHi, v); skyLo = Math.min(skyLo, v); }
+    }
+  }
+  const cspan0 = Math.max(hi - lo, Math.max(hi, 1) * 0.02);   /* 봉만의 폭 — 장기선을 넣을지 재는 잣대 */
+  if(MAS.length){
+    MAS.forEach(([k]) => { for(let i = off; i < all.length; i++){
+      const v = maVal[k][i]; if(v > 0){ hi = Math.max(hi, v); lo = Math.min(lo, v); }
+    } });
+  }
+  /* 장기선이 봉에서 너무 멀면(40봉만 보는 카드에서 240일선이 50% 위인 바닥 종목 등) 봉이 납작해진다 —
+     선을 넣어 차트 세로가 봉 폭의 1.9배를 넘게 늘어나면 선을 빼고 봉을 크게 그린다.
+     선 값은 범례에 숫자로 남으므로 '선 위인지 아래인지'는 잃지 않는다. */
+  let skyShown = false;
+  if(skyHi > -Infinity){
+    const nh = Math.max(hi, skyHi), nl = Math.min(lo, skyLo);
+    if((nh - nl) <= cspan0 * 1.9){
+      hi = nh; lo = nl;
+      skyShown = true;
+    }
+  }
+  let span = hi - lo;
+  if(!(span > 0)) span = Math.max(hi, 1);
+  hi += span * 0.07; lo -= span * 0.07;
+  if(lo < 0) lo = 0;      /* 가격은 0 아래로 안 내려간다 — 위아래 여백이 넓으면 축에 음수가 찍혔다(11.23) */
+  const Y = v => CH_PY1 - (v - lo) / (hi - lo) * (CH_PY1 - CH_PY0);
+  const slot = (CH_X1 - CH_X0) / n;
+  const bw = Math.max(2.2, slot * 0.62);
+  let g = '';
+  /* 가로 눈금 3줄 + 오른쪽 가격 */
+  [0, 0.5, 1].forEach(f => {
+    const v = lo + (hi - lo) * f, y = Y(v);
+    g += `<line x1="${CH_X0}" x2="${CH_X1}" y1="${y.toFixed(1)}" y2="${y.toFixed(1)}" stroke="rgba(255,255,255,.055)" stroke-width="1"/>`;
+    g += `<text x="${CH_X1 + 4}" y="${(y + 3).toFixed(1)}" font-size="8.2" fill="#6b778f">${fmtWon(v)}</text>`;
+  });
+  g += `<line x1="${CH_X0}" x2="${CH_X1}" y1="${CH_VY1}" y2="${CH_VY1}" stroke="rgba(255,255,255,.07)" stroke-width="1"/>`;
+  const vmax = Math.max(1, refVol, ...cs.map(c => c[5]));
+  const vh = CH_VY1 - CH_VY0;
+  /* 캔들(양봉 빨강 #ff5a6e · 음봉 파랑 #4f8cff) + 거래량 막대 */
+  cs.forEach((c, i) => {
+    const col = c[4] >= c[1] ? '#ff5a6e' : '#4f8cff';
+    const x = CH_X0 + slot * i + slot / 2;
+    g += `<line x1="${x.toFixed(1)}" x2="${x.toFixed(1)}" y1="${Y(c[2]).toFixed(1)}" y2="${Y(c[3]).toFixed(1)}" stroke="${col}" stroke-width="1"/>`;
+    const yt = Y(Math.max(c[1], c[4])), yb = Y(Math.min(c[1], c[4]));
+    g += `<rect x="${(x - bw / 2).toFixed(1)}" y="${yt.toFixed(1)}" width="${bw.toFixed(1)}" height="${Math.max(1, yb - yt).toFixed(1)}" fill="${col}"/>`;
+    const h = Math.max(1, c[5] / vmax * vh);
+    g += `<rect x="${(x - bw / 2).toFixed(1)}" y="${(CH_VY1 - h).toFixed(1)}" width="${bw.toFixed(1)}" height="${h.toFixed(1)}" fill="${col}" opacity=".5"/>`;
+  });
+  /* 이동평균선 5·10·20·60 — 얇은 색선. 봉 뒤에 깔아 선이 차례로 선 자리가 한눈에 보이게 */
+  if(MAS.length){
+    MAS.forEach(([k, col]) => {
+      let d = '';
+      for(let i = off; i < all.length; i++){
+        const v = maVal[k][i];
+        if(!(v > 0)) continue;
+        const x = CH_X0 + slot * (i - off) + slot / 2, y = Y(v);
+        d += (d ? 'L' : 'M') + x.toFixed(1) + ' ' + y.toFixed(1) + ' ';
+      }
+      if(d) g += `<path d="${d.trim()}" fill="none" stroke="${col}" stroke-width="1.1" stroke-linejoin="round" opacity=".9"/>`;
+    });
+  }
+  /* 하늘색 장기선 — 일봉 240일 · 주봉 240주 · 월봉 120월. 봉·얇은 이평선 위에 굵직하게 */
+  if(sky && skyShown){
+    let d = '', pen = false;
+    for(let i = off; i < all.length; i++){
+      const v = sky[i];
+      if(!(v > 0)){ pen = false; continue; }      /* 봉이 모자란 구간 — 선을 끊는다 */
+      const y = Y(v);
+      if(y < CH_PY0 - 2 || y > CH_PY1 + 2){ pen = false; continue; }
+      const x = CH_X0 + slot * (i - off) + slot / 2;
+      d += (pen ? 'L' : 'M') + x.toFixed(1) + ' ' + y.toFixed(1) + ' ';
+      pen = true;
+    }
+    if(d) g += `<path d="${d.trim()}" fill="none" stroke="#38bdf8" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"/>`;
+  }
+  /* 가로 줄 — 일봉은 개인 기준 줄, 주봉·월봉은 기준 봉.
+     2026-11-19 지시: 차트 왼쪽 끝부터 오른쪽 끝까지 가로지르는 선명한 실선 한 줄로 긋고,
+     왼쪽 끝에 그 줄 가격 숫자를 또렷하게 붙인다(점선 아님). */
+  if(base > 0 && base <= hi && base >= lo){
+    const y = Y(base), t = fmtWon(base), tw = textW(t, 9.2) + 12;
+    g += `<line x1="${CH_X0}" x2="${CH_X1}" y1="${y.toFixed(1)}" y2="${y.toFixed(1)}" stroke="#ffd45c" stroke-width="2" stroke-linecap="round"/>`;
+    g += `<rect x="${CH_X0}" y="${(y - 7.5).toFixed(1)}" width="${tw.toFixed(1)}" height="15" rx="4" fill="rgba(11,17,32,.96)" stroke="#ffd45c" stroke-width="1.2"/>`;
+    g += `<text x="${CH_X0 + 6}" y="${(y + 3.3).toFixed(1)}" font-size="9.2" font-weight="800" fill="#ffe1a0">${t}</text>`;
+  }
+  /* 기준 거래량 — 주봉 48주 · 월봉 12개월 최대(돌파를 잰 자). 거래량 칸에 점선으로 */
+  if(refVol > 0){
+    const yv = CH_VY1 - refVol / vmax * vh;
+    const rvU = p === 'week' ? '주' : '개월';
+    const rvWin = s.ref_bars || (p === 'week' ? 48 : (p === 'month' ? 12 : 6));
+    const rvUse = Math.min(rvWin, Math.max(1, (s.candles || []).length - 1));
+    const rvHead = (rvUse >= rvWin) ? `${rvWin}${rvU} 최대` : `차트 ${rvUse}${rvU} 최대`;
+    const tv = `${rvHead} ${fmtVolK(refVol)}주`, tw2 = textW(tv, 7.6) + 6;
+    g += `<line x1="${CH_X0}" x2="${CH_X1}" y1="${yv.toFixed(1)}" y2="${yv.toFixed(1)}" stroke="#7fa8ff" stroke-width="1" stroke-dasharray="3 3" opacity=".85"/>`;
+    g += `<rect x="${CH_X1 - tw2 - 1}" y="${(yv - 10.5).toFixed(1)}" width="${tw2.toFixed(1)}" height="9.5" rx="2" fill="rgba(11,17,32,.85)"/>`;
+    g += `<text x="${CH_X1 - 2}" y="${(yv - 3).toFixed(1)}" font-size="7.6" font-weight="700" fill="#9fc0ff" text-anchor="end">${tv}</text>`;
+  }
+  /* 2026-11-22 지시 #11175 — 캔들 위 ①·②·③·④ 동그라미 번호는 더 그리지 않는다.
+     차트에는 기준 줄 하나 · 노란 상한가 ▼(위) · 개인 표시 ▲(아래)만 남긴다. */
+
+  /* 상한가 봉 위 노란 화살표 ▼ (2026-11-21 지시) · 개인 표시 ▲.
+     2026-11-23: 주봉·월봉으로 바꿔 봐도 그 주·달 안에 상한가(1번)와 표시 날이 있으면 같은 자리에 찍는다.
+     잠금이 풀린 본인이 여는 차트에만 그린다 — 잠긴 화면에는 그리지 않는다. */
+  const arrowOn = !plain || visOn();
+  if(arrowOn){
+    const arrowDown = i => {
+      const x = CH_X0 + slot * i + slot / 2;
+      const w = Math.min(6, Math.max(4.6, slot * 0.5)), h = w * 1.25;
+      const tip = Math.max(Y(cs[i][2]) - 2.4, h + 3);      /* 윗꼬리 끝 바로 붙게 · 화면 위로 잘리지 않게 */
+      return `<path d="M${(x - w).toFixed(1)} ${(tip - h).toFixed(1)} L${(x + w).toFixed(1)} ${(tip - h).toFixed(1)} L${x.toFixed(1)} ${tip.toFixed(1)} Z" fill="#fde047" stroke="rgba(11,17,32,.85)" stroke-width=".7" stroke-linejoin="round"/>`;
+    };
+    const arrowUp = i => {
+      const x = CH_X0 + slot * i + slot / 2;
+      const w = Math.min(6, Math.max(4.6, slot * 0.5)), h = w * 1.25;
+      const top = Y(cs[i][3]) + 2.8;                        /* 아랫꼬리 끝 바로 아래에 꼭대기 */
+      const baseY = Math.min(top + h, CH_VY0 - 2.4);        /* 거래량 칸으로 넘어가지 않게 */
+      return `<path d="M${x.toFixed(1)} ${top.toFixed(1)} L${(x - w).toFixed(1)} ${baseY.toFixed(1)} L${(x + w).toFixed(1)} ${baseY.toFixed(1)} Z" fill="#65ff00" stroke="rgba(11,17,32,.95)" stroke-width=".7" stroke-linejoin="round"/>`;
+    };
+    if(p === 'day'){
+      /* 전일 종가 대비 +28.5% 이상 오른 봉(첫 봉은 시가 대비). 거래정지로 앞 봉과 열흘 넘게
+         벌어진 봉은 하루 등락이 아니므로 건너뛴다. */
+      const LU = 0.285;
+      cs.forEach((c, i) => {
+        const pi = off + i - 1, prev = pi >= 0 ? all[pi] : null;
+        const pc = prev ? Number(prev[4]) : Number(c[1]);
+        if(!(pc > 0)) return;
+        if(prev){
+          const d0 = Date.parse(String(prev[0])), d1 = Date.parse(String(c[0]));
+          if(d0 && d1 && (d1 - d0) > 12 * 864e5) return;
+        }
+        if((Number(c[4]) / pc - 1) < LU) return;
+        g += arrowDown(i);
+      });
+      if(arrowOn && Array.isArray(s.pink) && s.pink.length){
+        const pset = new Set(s.pink.map(d => String(d)));
+        cs.forEach((c, i) => { if(pset.has(String(c[0]))) g += arrowUp(i); });
+      }
+    }else{
+      /* 주봉·월봉 — 봉 이름이 그 주·달의 마지막 거래일이라, 그 안에 든 날짜를 같은 봉으로 옮겨 찍는다 */
+      if(s.lu_bar){
+        const i = cs.findIndex(c => String(c[0]) === String(s.lu_bar));
+        if(i >= 0) g += arrowDown(i);
+      }
+      /* 표시 날짜(pink)만 있고 봉으로 옮겨 둔 pink_bars 가 없으면(주봉·월봉 카드를 바로 열었을 때)
+         여기서 그 주·달 봉을 찾아 찍는다 */
+      let pbs = Array.isArray(s.pink_bars) ? s.pink_bars.map(String) : [];
+      if(!pbs.length && Array.isArray(s.pink) && s.pink.length){
+        pbs = [];
+        s.pink.forEach(d => { const b = barEndFor(cs, d); if(b && pbs.indexOf(b) < 0) pbs.push(b); });
+      }
+      if(pbs.length){
+        const pset = new Set(pbs);
+        cs.forEach((c, i) => { if(pset.has(String(c[0]))) g += arrowUp(i); });
+      }
+    }
+  }
+  /* 날짜 눈금 — 처음·가운데·끝 */
+  const ax = d => p === 'month' ? String(d).slice(2,7).replace('-','.') : mmdd(d);
+  g += `<text x="${CH_X0}" y="${CH_VY1 + 12}" font-size="8" fill="#6b778f">${ax(cs[0][0])}</text>`;
+  g += `<text x="${((CH_X0 + CH_X1) / 2).toFixed(1)}" y="${CH_VY1 + 12}" font-size="8" fill="#6b778f" text-anchor="middle">${ax(cs[Math.floor(n / 2)][0])}</text>`;
+  g += `<text x="${CH_X1}" y="${CH_VY1 + 12}" font-size="8" fill="#6b778f" text-anchor="end">${ax(cs[n - 1][0])}</text>`;
+  g += `<text x="${CH_X1}" y="11" font-size="8" fill="#6b778f" text-anchor="end">${p === 'day' ? '일봉' : (p === 'week' ? '주봉' : '월봉')} 거래량 최대 ${fmtVolK(vmax)}주</text>`;
+  /* 터치 가이드 — 손가락이 짚은 봉에 세로 점선 */
+  g += `<line id="cGuide" x1="0" x2="0" y1="${CH_PY0 - 4}" y2="${CH_VY1}" stroke="rgba(255,255,255,.42)" stroke-width="1" stroke-dasharray="2 2" visibility="hidden"/>`;
+  return g;
+}
+
+function barName(s, d){
+  const t = String(d || '');
+  if(!t) return '';
+  if(periodOf(s) === 'month') return t.slice(0, 7).replace('-', '.');
+  return mmdd(t);
+}
+
+function chartDayNote(s){
+  const cs = (s && s.candles) || [];
+  if(!cs.length) return '';
+  let today = '';
+  try{ today = new Date().toLocaleDateString('en-CA', {timeZone:'Asia/Seoul'}); }catch(e){ today = ''; }
+  const last = String(cs[cs.length - 1][0] || '');
+  if(!today || last === today) return '';
+  return `<span class="chart-note">차트는 ${barName(s, last)} 종가까지${s.plain ? '' : ' · 오늘 장중 가격은 위 현재가'}</span>`;
+}
+
+function chartReadText(s, i){
+  const cs = s.candles || [];
+  if(!cs.length) return '';
+  const idx = Math.max(0, Math.min(cs.length - 1, (i == null ? cs.length - 1 : i)));
+  const c = cs[idx], prev = idx > 0 ? cs[idx - 1][4] : c[1];
+  const ch = prev ? (c[4] / prev - 1) * 100 : 0;
+  const cls = ch < 0 ? 'b' : 'r';
+  const arrow = ch > 0 ? '▲' : (ch < 0 ? '▼' : '–');
+  let ma = '';
+  if(s.mas && idx >= 4){                       /* 그 봉 시점의 5·20·60일선도 같이 */
+    const v = k => idx + 1 >= k ? cs.slice(idx + 1 - k, idx + 1).reduce((a, x) => a + x[4], 0) / k : null;
+    const m5 = v(5), m10 = v(10), m20 = v(20), m60 = v(60);
+    ma = ` · <span class="t">5일</span> ${fmtWon(m5)}`
+       + (m10 ? ` <span class="t">10일</span> ${fmtWon(m10)}` : '')
+       + (m20 ? ` <span class="t">20일</span> ${fmtWon(m20)}` : '')
+       + (m60 ? ` <span class="t">60일</span> ${fmtWon(m60)}` : '');
+  }
+  return `<span class="t">${barName(s, c[0])}${periodOf(s) === 'week' ? ' 주' : ''}${idx === cs.length - 1 ? ' (최근)' : ''}</span> `
+    + `<b>${fmtWon(c[4])}</b> `
+    + `<span class="${cls}">${arrow}${ch > 0 ? '+' : ''}${ch.toFixed(1)}%</span> · 거래량 ${fmtVolK(c[5])}주` + ma;
+}
+
+function skyMaOf(s){
+  const p = periodOf(s);
+  const arr = p === 'day' ? s.ma240
+    : (Array.isArray(s.ma_line) ? s.ma_line
+        : (p === 'week' ? s.w_ma240 : s.m_ma120));
+  const cs = s.candles || [];
+  if(!Array.isArray(arr) || arr.length !== cs.length) return null;
+  for(let i = arr.length - 1; i >= 0; i--){
+    if(arr[i] > 0) return {v: arr[i], label: p === 'day' ? '240일' : (p === 'week' ? '240주' : '120월')};
+  }
+  return null;
+}
+
+function skyLegendHtml(s){
+  const m = skyMaOf(s);
+  if(!m) return '';
+  return `<span><i class="cm sky">${m.label}</i>${fmtWon(m.v)}</span>`;
+}
+
+function paintChart(){
+  const s = chartCur;
+  if(!s) return;
+  const p = periodOf(s), pd = PERIOD[p];
+  const chg = Number(s.chg) || 0;
+  const cls = chg < 0 ? 'dn' : 'up';
+  $('#chartHd').innerHTML =
+    `<div class="chart-nm" id="chartNm">${esc(s.name)}${s.aplus === 'A++' ? '<span class="hb-aplus">A++</span>' : ''}<span class="chart-cd">${esc(String(s.code || ''))}</span><span class="chart-pd">${pd.t}</span></div>`
+    + `<div class="chart-px"><b>${esc(s.price_text || (fmtWon(s.price) + '원'))}</b>`
+    + `<span class="chart-chg ${cls}">${chg > 0 ? '+' : ''}${chg.toFixed(1)}%</span>`
+    + `</div>`
+    /* 2026-11-25 v122 — 종목명·가격 아래 '고점 대비 -XX% · 상한가 이후 고점…' 줄과 그 아래 중복 뉴스
+       헤드라인 줄을 지웠다(푸른하늘님 "위아래 필요 없음"). 사유는 아래 📰 재료가 한 줄로 맡는다. */
+    + (s.sector && s.sector.state
+        ? `<div class="chart-sec ${SEC_CLS[s.sector.state] || 'weak'}">업종 ${esc(s.sector.name || '')} · ${esc(s.sector.state)} — ${esc(s.sector.why || '')}`
+          + `${s.sector.ma5 != null ? ` · 업종지수 5일선 ${Number(s.sector.ma5).toFixed(1)} / 20일선 ${Number(s.sector.ma20).toFixed(1)}` : ''}</div>`
+        : '');
+  $('#chartRead').innerHTML = chartReadText(s);
+  const cp = P8(s);
+  if($('#chartPos')){ $('#chartPos').innerHTML = cp; $('#chartPos').hidden = !cp; }
+  $('#chartSvg').innerHTML = chartSvgHtml(s);
+  $('#chartSvg').setAttribute('aria-label', `${esc(s.name)} ${pd.t} 차트`);
+  $('#chartLg').innerHTML = P7(s);
+  paintZoom();
+  renderChartPg();
+}
+
+function unifyDayItem(s){
+  if(!s || !s.code || !dayDoc) return s;
+  const it = dayItem(String(s.code), s.name);
+  if(!it) return s;
+  /* 공개 자료로 그리지만 개인 카드에서 연 화면이다 — 개인 기준 줄·개인 표시를 그대로 얹으려면
+     plain 을 그 카드에 맞춰 둔다(개인 카드는 0, 공개 탭에서 연 차트는 1 그대로). */
+  it.plain = s.plain ? 1 : 0;
+  ['base_open', 'line', 'line_pct', 'lu_date', 'd0', 'stage', 'stage_dates',
+   'pos2', 'pos2_why', 'judge', 'from10', 'aplus', 'peak_dd', 'peak_high', 'peak_date',
+   'ref_vol', 'ref_bars', 'theme', 'themes', 'theme_label', 'reason', 'sector'].forEach(k => {
+    if(s[k] != null) it[k] = s[k];
+  });
+  if(Array.isArray(s.pink) && s.pink.length) it.pink = s.pink;
+  return it;
+}
+
+function openChart(s){
+  if(!s) return;
+  const cs = s.candles || [];
+  if(!cs.length){ toast('이 종목 차트 자료가 아직 없습니다 — ⟳ 새로고침 후 다시 눌러 주세요'); return; }
+  /* 카드에 표시 날짜가 없으면(주봉·월봉 카드 · 공개 일봉 차트) 잠금 해제 상태에서 한 번 더 찾아 붙인다.
+     원본 카드는 그대로 두고 사본에만 붙인다 — 화면을 다시 그려도 같은 자료를 안 건드린다. */
+  if(visOn() && s.code && !(Array.isArray(s.pink) && s.pink.length)){
+    const pk = P9(s.code);
+    if(pk.length) s = Object.assign({}, s, {pink: pk});
+  }
+  const card = s;                                  /* 카드 원본 — 125봉이 무시되면 되돌아갈 자리 */
+  const wantP = periodOf(card);
+  let base = unifyDayItem(card);
+  chartBase = base;
+  chartSet = buildChartSet(base);                  /* 일봉 · 주봉 · 월봉 한 벌 */
+  chartCur = chartSet[wantP] || chartSet.day;
+  paintChart();
+  /* 아래 '오늘 픽 · 보유 · 재료 · 테마' 요약은 비밀 자료를 풀어야 채워진다 — 아직 안 받았으면 받아서 그 줄만 다시 그린다 */
+  if(visOn() && (!popupData || !hotPick || !state.calendar)){
+    Promise.all([P4(), P5(), ensureCalendar()]).catch(() => {}).then(() => {
+      const box = $('#chartOv');
+      if(box && !box.hidden && chartCur && $('#chartLg')) $('#chartLg').innerHTML = P7(chartCur);
+    });
+  }
+  const ov = $('#chartOv');
+  ovStackPush('chartOv');                         /* 뒤로가기 한 번에 이 차트만 닫히게 */
+  ov.hidden = false;
+  requestAnimationFrame(() => ov.classList.add('show'));
+  document.body.classList.add('lock');
+  /* 공개 125봉이 아직 안 받았으면 — 도착하는 대로 그 종목만 125봉으로 다시 그린다(본 사람 고른 주기는 유지) */
+  if(base === card && card.code && !card.plain){
+    ensureDay().then(() => {
+      if(chartBase !== base || !chartCur || $('#chartOv').hidden) return;
+      const it = unifyDayItem(card);
+      if(!it || it === base) return;
+      const keep = periodOf(chartCur);
+      chartBase = it;
+      chartSet = buildChartSet(it);
+      chartCur = chartSet[keep] || chartSet.day;
+      paintChart();
+    });
+  }
+}
+
+function paintZoom(){
+  const box = $('#chartTools'), btn = $('#chartZoom'), hint = $('#chartHint');
+  if(!box || !btn) return;
+  const s = chartCur, all = (s && s.candles) || [];
+  const full = Number(s && s.full) || 0;
+  const zt = Number(s && s.zoomTo) || 38;
+  const on = !!full && full > zt;
+  box.hidden = !on;
+  if(!on) return;
+  const viewing = Math.min(Number(s.view) || all.length, all.length);
+  btn.textContent = viewing < full ? `전체 ${full}봉` : `최근 ${zt}봉`;
+  if(hint) hint.textContent = viewing < full ? `지금 최근 ${viewing}봉 확대` : `지금 전체 ${full}봉`;
+}
+
+function toggleZoom(){
+  const s = chartCur;
+  if(!s) return;
+  const full = Number(s.full) || 0, zt = Number(s.zoomTo) || 38;
+  if(!full || full <= zt) return;
+  s.view = (Number(s.view) === full) ? zt : full;
+  $('#chartSvg').innerHTML = chartSvgHtml(s);
+  $('#chartRead').innerHTML = chartReadText(s);
+  paintZoom();
+}
+
+function closeChart(){
+  const ov = $('#chartOv');
+  if(!ov || ov.hidden) return;
+  ov.classList.remove('show');
+  ovStackDrop('chartOv');                         /* 직접 닫았으면 쌓아 둔 칸도 걷어낸다 */
+  chartCur = null;
+  document.body.classList.remove('lock');
+  setTimeout(() => { if(!ov.classList.contains('show')) ov.hidden = true; }, 170);
+}
+
+function chartPoint(e){
+  const s = chartCur, svg = $('#chartSvg');
+  if(!s || !svg) return;
+  const all = s.candles || [];
+  if(!all.length) return;
+  const viewN = Math.min(all.length, Math.max(8, Number(s.view) || all.length));
+  const off = all.length - viewN;
+  const r = svg.getBoundingClientRect();
+  if(!r.width) return;
+  const x = (e.clientX - r.left) * (CH_W / r.width);
+  const slot = (CH_X1 - CH_X0) / viewN;
+  const i = Math.max(0, Math.min(viewN - 1, Math.floor((x - CH_X0) / slot)));
+  $('#chartRead').innerHTML = chartReadText(s, off + i);
+  const g = document.getElementById('cGuide');
+  if(g){
+    const cx = (CH_X0 + slot * i + slot / 2).toFixed(1);
+    g.setAttribute('x1', cx); g.setAttribute('x2', cx);
+    g.setAttribute('visibility', 'visible');
+  }
+}
+
+let dayDoc = null, dayLoading = null;
+
+const DAY_CODE_KEY = 'newsradar_day125';
+
+async function ensureDay(){
+  if(dayDoc) return dayDoc;
+  if(dayLoading) return dayLoading;
+  dayLoading = (async () => {
+    try{
+      const res = await fetch('data/day125.json?_=' + Date.now(), {cache:'no-store'});
+      if(res.ok){
+        dayDoc = await res.json();
+        try{
+          /* 저장본은 125봉 시세만 — 240선·주봉·월봉 배열은 파일만 키우므로 뺀다(오프라인 대체용) */
+          const lean = {dates: dayDoc.dates, days: dayDoc.days, names: dayDoc.names, stocks: {}};
+          Object.keys(dayDoc.stocks || {}).forEach(c => {
+            const st = dayDoc.stocks[c];
+            lean.stocks[c] = {n: st.n, b: st.b, o0: st.o0, x: st.x};
+          });
+          localStorage.setItem(DAY_CODE_KEY, JSON.stringify(lean));
+        }catch(e){}
+      }
+    }catch(e){ dayDoc = null; }
+    if(!dayDoc){
+      try{ dayDoc = JSON.parse(localStorage.getItem(DAY_CODE_KEY) || 'null'); }catch(e){}
+    }
+    dayLoading = null;
+    return dayDoc;
+  })();
+  return dayLoading;
+}
+
+function dayItem(code, name){
+  const s = dayDoc && dayDoc.stocks && dayDoc.stocks[String(code)];
+  if(!s || !(s.b || []).length) return null;
+  const dates = dayDoc.dates || [];
+  const xs = s.x || s.b.map((_, i) => (Number(s.o0) || 0) + i);
+  const cs = s.b.map((x, i) => [ymd6(dates[xs[i]]), x[0], x[1], x[2], x[3], x[4]]);
+  const last = cs[cs.length - 1], prev = cs[cs.length - 2] || last;
+  /* 125봉 안 최고가와 지금 종가의 거리 — "최고가 대비 -XX.X%" */
+  let hi = cs[0];
+  cs.forEach(c => { if(c[2] > hi[2]) hi = c; });
+  const dd = hi[2] ? (last[4] / hi[2] - 1) * 100 : null;
+  /* 이 봉 안에서 하늘색 장기선 — 일봉 240선은 봉과 같은 자리 수로 실려 오고(2026-11-23),
+     주봉 52주·월봉 30개월 실봉과 그 240주선·120개월선도 함께 온다(차트 안 주기 전환). */
+  const packOf = q => (q && Array.isArray(q.b) && q.b.length)
+    ? q.b.map((x, i) => [ymd6(q.d[i]), x[0], x[1], x[2], x[3], x[4]]) : null;
+  return {
+    code: String(code), name: name || s.n || '', period: 'day', plain: 1, mas: 1,
+    candles: cs, full: cs.length, view: cs.length, zoomTo: 60,
+    ma240: Array.isArray(s.ma240) ? s.ma240 : null,
+    w_candles: packOf(s.w), w_ma240: (s.w && s.w.ma240) || null,
+    m_candles: packOf(s.m), m_ma120: (s.m && s.m.ma120) || null,
+    price: last[4], price_text: fmtWon(last[4]) + '원',
+    chg: prev[4] ? (last[4] / prev[4] - 1) * 100 : 0,
+    hi_price: hi[2], hi_date: hi[0], dd: dd, bars: cs.length,
+    pink: P9(code),        /* 잠금 해제 상태에서만 채워진다 */
+  };
+}
+
+async function openDayChart(code, name){
+  const have = dayDoc && dayDoc.stocks && dayDoc.stocks[String(code)];
+  if(!have) toast('일봉 차트 불러오는 중…');
+  await ensureDay();
+  const it = dayItem(code, name);
+  if(it){ openChart(it); return; }
+  /* 안전망 — 공개 125봉 자료에 아직 없는 종목도 잠금이 풀린 본인 화면이면 그 화면의 자료로 차트를 연다
+     (2026-11-23 피앤에스로보틱스). 잠긴 화면에서는 절대 쓰지 않는다. */
+  const fb = await P13(code, name);
+  if(fb){ openChart(fb); return; }
+  toast('이 종목 일봉 시세가 아직 없습니다');
+}
+
+function codeOfName(nm){
+  nm = String(nm || '').trim();
+  if(!nm) return '';
+  if(dayDoc && dayDoc.names && dayDoc.names[nm]) return dayDoc.names[nm];
+  const cal = state.calendar;
+  for(const m of ((cal && cal.months) || [])){
+    for(const t of (m.themes || [])){
+      const hit = (t.stocks || []).find(s => String(s.name || '').trim() === nm);
+      if(hit && hit.code) return String(hit.code);
+    }
+  }
+  for(const it of ((upperData() && upperData().items) || [])){
+    if(String(it.name || '').trim() === nm && it.code) return String(it.code);
+  }
+  for(const t of (((state.radar || {}).tiers) || [])){
+    const hit = (t.stocks || []).find(s => String(s.name || '').trim() === nm);
+    if(hit && hit.code) return String(hit.code);
+  }
+  return '';
+}
+
+function bindStockChart(sel){
+  const el = $(sel);
+  if(!el) return;
+  el.addEventListener('click', e => {
+    const t = e.target.closest('[data-code],[data-name]');
+    if(!t) return;
+    const name = t.dataset.name || (t.textContent || '').trim();
+    const code = t.dataset.code || codeOfName(name);
+    e.preventDefault();                 /* 안쪽 링크(기사)로 넘어가지 않게 먼저 막는다 */
+    e.stopPropagation();
+    if(code){ openDayChart(code, name); return; }
+    /* 이름만 있는 자리(관련 종목 칩) — 자료를 아직 안 받았으면 한 번 받아 보고 이름으로 다시 찾는다 */
+    ensureDay().then(() => {
+      const c = codeOfName(name) || t.dataset.code;
+      if(!c){ toast('이 종목 일봉 시세가 아직 없습니다'); return; }
+      openDayChart(c, name);
+    });
+  });
+}
+
+let toastTimer = null;
+
+function toast(msg){
+  const el = $('#toast');
+  if(!el){ return; }
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => {
+    el.classList.remove('show');
+    // 사라지는 동안은 글자를 남기고, 다 사라진 뒤에는 비운다(덮개 없이 떠 있는 글자처럼 읽히지 않게)
+    setTimeout(() => { if(!el.classList.contains('show')) el.textContent = ''; }, 220);
+  }, 1800);
+}
+
+function dataHm(data){
+  const m = /(\d{1,2}):(\d{2})/.exec((data && data.generated_at_kst) || '');
+  if(m) return m[1].padStart(2,'0') + ':' + m[2];
+  return hm(data && data.generated_at);
+}
+
+let loading = 0;
+
+async function load(manual){
+  const btn = $('#btnRefresh');
+  if(manual){
+    loading++;
+    btn.classList.add('spinning');
+    btn.setAttribute('aria-busy', 'true');
+  }
+  const prevGen = state.data && state.data.generated_at;
+  try{
+    const res = await fetch('data/news.json?_=' + Date.now(), {cache:'no-store'});
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    if(res.headers.get('x-news-cache') === '1') throw new Error('offline: saved copy');
+    const data = await res.json();
+    state.data = data;
+    try{ localStorage.setItem('newsradar_last', JSON.stringify(data)); }catch(e){}
+    applyData(data);
+    $('#liveTxt').textContent = 'LIVE';
+    /* 새 자료가 들어왔으니 개인 화면 목록도 다시 본다(2026-11-23 지시 #12146) */
+    if(visOn()){                 /* 개인 화면 최상단 목록도 새 자료로 바로 다시 그린다 */
+      popupData = null;
+      P4().catch(() => {}).then(() => P3());
+    }
+    if(manual){
+      const t = dataHm(data);
+      const prevT = prevGen ? new Date(prevGen).getTime() : NaN;
+      const nextT = data.generated_at ? new Date(data.generated_at).getTime() : NaN;
+      const changed = !isNaN(nextT) && (isNaN(prevT) || nextT > prevT);
+      toast(changed
+        ? `✅ 최신 뉴스 반영됨${t ? ' (' + t + ')' : ''}`
+        : `ℹ️ 현재 최신 상태${t ? ' (' + t + ' 기준)' : ''}`);
+    }
+  }catch(err){
+    let cached = null;
+    try{ cached = JSON.parse(localStorage.getItem('newsradar_last')||'null'); }catch(e){}
+    if(cached && !state.data){ state.data = cached; applyData(cached); $('#liveTxt').textContent = '저장본'; }
+    else if(!state.data){
+      $('#issueList').innerHTML = `<div class="empty">뉴스를 불러오지 못했습니다.<br>잠시 후 새로고침(⟳)을 눌러 주세요.</div>`;
+    }
+    if(manual) toast('⚠️ 새로고침 실패 — 잠시 후 다시 시도');
+  }finally{
+    if(manual){
+      loading--;
+      if(loading <= 0){ loading = 0; btn.classList.remove('spinning'); btn.removeAttribute('aria-busy'); }
+      /* 비밀 방문자 수를 켜 둔 경우에는 숫자도 함께 새로 받는다 */
+      visDone = false;
+      if(!visBadge.hidden) visNumber();
+    }
+  }
+}
+
+function applyData(data){
+  const age = relTime(data.generated_at);
+  $('#updated').textContent = (data.generated_at_kst || '–') + (age ? ` (${age})` : '');
+  renderNews(false);
+  renderMood();
+  paintTabRole(state.tab);
+  renderUpper();                       /* 오늘 상한가는 이제 뉴스 칸 안에 있다 */
+  if(state.tab === 'calendar'){ calData = null; state.calendar = null; renderCalendar(); }   /* 공개 달력 — 새로고침 때 같이 새로 받는다 */
+  if(state.tab === 'radar') P1();
+  if(state.tab === 'result') P17();      /* 결과 탭도 5분마다 새 %로 */
+  P6();
+}
+
+$('#moreIssues').addEventListener('click', () => { state.more = !state.more; renderNews(true); });
+
+$('#issueList').addEventListener('click', e => {
+  /* 같은 테마 뉴스 접기/펼치기 (2026-11-22) */
+  const sb = e.target.closest('.same-t');
+  if(sb){
+    e.preventDefault();
+    const id = sb.dataset.same;
+    if(!state.sameOpen) state.sameOpen = new Set();
+    if(state.sameOpen.has(id)) state.sameOpen.delete(id); else state.sameOpen.add(id);
+    renderNews(true);
+    const again = document.querySelector(`#issueList .same-t[data-same="${id}"]`);
+    if(again) again.scrollIntoView({block:'nearest'});
+    return;
+  }
+  const card = e.target.closest('.icard');
+  if(!card) return;
+  const btn = e.target.closest('.exp, .presses');
+  if(!btn) return;
+  if(btn.tagName === 'A') return;
+  e.preventDefault();
+  const id = card.dataset.id;
+  const open = !card.classList.contains('open');
+  card.classList.toggle('open', open);
+  if(open) state.open.add(id); else state.open.delete(id);
+  const ex = card.querySelector('.exp');
+  if(ex) ex.textContent = open ? '▴' : '▾';
+});
+
+$('#btnRefresh').addEventListener('click', () => load(true));
+
+['#upperList', '#calUpperList'].forEach(sel => {
+  const box = $(sel);
+  if(!box) return;
+  box.addEventListener('click', e => {
+    const btn = e.target.closest('.up-more');
+    if(!btn) return;
+    const card = btn.closest('.up-card');
+    if(!card) return;
+    const open = card.classList.toggle('open');
+    btn.textContent = open ? '접기 ▴' : '더 보기 ▾';
+  });
+});
+
+$('#calFlt').addEventListener('click', e => {
+  const b = e.target.closest('button[data-k]');
+  if(!b) return;
+  state.calKind = b.dataset.k;
+  renderCalendar();
+});
+
+$('#monGrid').addEventListener('click', e => {
+  const b = e.target.closest('.mon');
+  if(!b) return;
+  state.month = b.dataset.month;
+  renderCalendar();
+});
+
+$('#calThemes').addEventListener('click', e => {
+  const h = e.target.closest('.th-head');
+  if(!h) return;
+  const card = h.closest('.th-card');
+  if(card) card.classList.toggle('open');
+});
+
+$('#calAll').addEventListener('click', () => {
+  const cards = document.querySelectorAll('#calThemes .th-card');
+  if(!cards.length) return;
+  const allOpen = [...cards].every(c => c.classList.contains('open'));
+  cards.forEach(c => c.classList.toggle('open', !allOpen));
+  $('#calAll').textContent = allOpen ? '모두 펼치기' : '모두 접기';
+});
+
+document.querySelectorAll('.tab').forEach(b => b.onclick = () => switchTab(b.dataset.tab));
+
+['#calUpperList', '#calThemes', '#radarList', '#issueList'].forEach(bindStockChart);
+
+(function(){
+  const ov = $('#chartOv');
+  if(ov){
+    ov.addEventListener('click', e => { if(e.target === ov) closeChart(); });
+    $('#chartX').addEventListener('click', closeChart);
+    /* 차트 안 주기 전환 — 일봉 · 주봉 · 월봉 (2026-11-23 지시 #12008) */
+    const pg = $('#chartPg');
+    if(pg) pg.addEventListener('click', e => {
+      const b = e.target.closest('button[data-p]');
+      if(b && !b.disabled) switchChartPeriod(b.dataset.p);
+    });
+    const z = $('#chartZoom');
+    if(z) z.addEventListener('click', toggleZoom);
+    addEventListener('keydown', e => { if(e.key === 'Escape') closeChart(); });
+  }
+  const svg = $('#chartSvg');
+  if(svg){
+    svg.addEventListener('pointerdown', chartPoint);
+    svg.addEventListener('pointermove', e => { if(e.pointerType !== 'touch') chartPoint(e); });
+    svg.addEventListener('pointerleave', () => {
+      if(!chartCur) return;
+      $('#chartRead').innerHTML = chartReadText(chartCur);
+      const g = document.getElementById('cGuide');
+      if(g) g.setAttribute('visibility', 'hidden');
+    });
+  }
+})();
+
+addEventListener('hashchange', () => {
+  let name = (location.hash||'').replace('#','');
+  if(TABS.includes(name) && name !== state.tab) switchTab(name, true);
+});
+
+setInterval(() => { if(document.visibilityState === 'visible') load(false); }, 5*60*1000);
+
+document.addEventListener('visibilitychange', () => {
+  if(document.visibilityState === 'visible' && state.data){
+    const age = Date.now() - new Date(state.data.generated_at).getTime();
+    if(age > 5*60*1000) load(false);
+  }
+});
+
+const topBtn = $('#top');
+
+addEventListener('scroll', () => topBtn.classList.toggle('show', scrollY > 600), {passive:true});
+
+topBtn.onclick = () => scrollTo({top:0, behavior:'smooth'});
+
+/* ---------------- 잠금 (비공개 화면) — 2026-11-25 v123 ----------------
+   비공개 화면(레이더·실전) 코드는 이 파일에 없다. data/private_ui.json 안에
+   AES-256-GCM(PBKDF2-SHA256 10만회)으로 잠겨 있고, 비밀코드가 맞을 때만 기기에서 풀어 실행한다.
+   비밀코드는 이 파일에 적지 않는다.
+   열기: 주소 끝에 ?me=비밀코드  또는  상단 LIVE 배지를 1.5초 안에 3번 연속 탭하면 코드를 묻는다.
+   한 번 열면 코드를 localStorage(nr_hot_code)에 남겨 다음부터 바로 열린다. 잠그려면 다시 3번 탭. */
+const VIS_KEY = 'nr_show_visitors', HOT_CODE_KEY = 'nr_hot_code', HOT_CACHE_KEY = 'newsradar_hotbar_sealed';
+const HOT_ITER = 100000;                 /* 자료를 잠글 때 쓴 PBKDF2 반복수와 같아야 한다 */
+const PRIV_SRC = 'data/private_ui.json';
+const visBadge = $('#visitors');
+let visDone = false;
+let secretOn = false;                    /* 지금 잠금이 풀려 있나 — 복호화에 성공해야 true */
+let privOn = false;                      /* 비공개 화면 코드가 이 기기에 실려 있나 */
+
+function visOn(){ return secretOn; }
+function savedCode(){
+  try{ return localStorage.getItem(HOT_CODE_KEY) || ''; }catch(e){ return ''; }
+}
+function saveCode(code){
+  try{ localStorage.setItem(HOT_CODE_KEY, code); localStorage.setItem(VIS_KEY, '1'); }catch(e){}
+}
+function dropCode(){
+  try{ localStorage.removeItem(HOT_CODE_KEY); localStorage.removeItem(VIS_KEY); }catch(e){}
+}
+/* 화면을 건드리지 않고, 켜져 있을 때만 조용히 숫자만 채운다 */
+async function visNumber(){
+  if(visDone || !visBadge || visBadge.hidden) return;
+  try{
+    /* 오늘(KST) 자정부터의 방문자 수만 받는다 — start만 주면 0이 오므로 end(다음 날)까지 함께 넘긴다 */
+    const kstToday = new Date(Date.now() + 9*3600*1000).toISOString().slice(0,10);
+    const kstTomorrow = new Date(Date.now() + (9+24)*3600*1000).toISOString().slice(0,10);
+    const res = await fetch('https://crawler5696.goatcounter.com/counter/TOTAL.json?start=' + kstToday + '&end=' + kstTomorrow + '&_=' + Date.now(), {cache:'no-store'});
+    if(!res.ok) return;
+    const j = await res.json();
+    const v = (j && (j.count_unique != null ? j.count_unique : j.count));
+    if(v === undefined || v === null || v === '') return;
+    const n = Number(v);
+    $('#visitorN').textContent = isNaN(n) ? String(v) : n.toLocaleString('ko-KR');
+    visDone = true;
+  }catch(e){}
+}
+/* 잠금 그림 — 잠긴 동안 열쇠·잠금 화면만, 열려 있으면 그 탭 자료를 다시 그린다.
+   테마달력은 공개라 건드리지 않는다(2026-11-24 지시). */
+function paintLock(){
+  const on = visOn();
+  document.querySelectorAll('.tab.hot, .tab.radar, .tab.res').forEach(tab => tab.classList.toggle('locked', !on));
+  const lk = $('#hotLk'); if(lk) lk.textContent = on ? '' : '🔒';
+  const rlk = $('#radLk'); if(rlk) rlk.textContent = on ? '' : '🔒';
+  const slk = $('#resLk'); if(slk) slk.textContent = on ? '' : '🔒';
+  ['#view-hotbar', '#view-radar', '#view-result'].forEach(sel => {
+    const view = $(sel);
+    if(view) view.classList.toggle('locked', !on);
+  });
+  if(!on) P11();                         /* 잠그면 비공개 화면 자료를 기억에서 지운다 */
+  paintTabRole(state.tab);
+  if(state.tab === 'hotbar') P2();
+  if(state.tab === 'radar') P1();
+  if(state.tab === 'result') P17();      /* 결과 탭도 잠그면 바로 비운다 */
+  P3();                                  /* 잠그면 오늘 픽도 바로 사라진다 */
+}
+function visPaint(){
+  if(visBadge){ visBadge.hidden = !visOn(); if(!visBadge.hidden) visNumber(); }
+  paintLock();
+}
+/* 잠긴 화면 코드를 풀어 이 기기에 올린다 — 한 번 올리면 잠갔다 열어도 다시 받지 않는다 */
+function mountPrivate(pack){
+  const styles = document.querySelectorAll('style.nrpriv');
+  const list = Array.isArray(pack.css) ? pack.css : [];
+  for(let i = 0; i < styles.length; i++) styles[i].textContent = list[i] || '';
+  const h = pack.html || {};
+  const ri = $('#radarInner'); if(ri && h.radar) ri.innerHTML = h.radar;
+  const hi = $('#hotInner'); if(hi && h.hotbar) hi.innerHTML = h.hotbar;
+  const si = $('#resInner'); if(si && h.result) si.innerHTML = h.result;
+  const s = document.createElement('script');
+  s.textContent = String(pack.js || '');
+  document.body.appendChild(s);
+}
+async function unlockPrivate(code){
+  code = String(code || '').trim();
+  if(!code) return false;
+  let pack = null;
+  try{
+    const res = await fetch(PRIV_SRC + '?_=' + Date.now(), {cache:'no-store'});
+    if(!res.ok) return false;
+    pack = await hotDecrypt(await res.json(), code);
+  }catch(e){ return false; }
+  if(!pack || !pack.js) return false;
+  secretOn = true;
+  if(!privOn){
+    try{ mountPrivate(pack); privOn = true; }
+    catch(e){ secretOn = false; return false; }
+  }
+  saveCode(code);
+  return true;
+}
+function lockNow(){
+  secretOn = false;
+  dropCode();
+  visPaint();
+}
+/* 비밀코드를 묻고, 맞으면 풀어서 연다(틀리면 아무것도 열리지 않는다) */
+function visToggle(){
+  if(secretOn){ lockNow(); return; }
+  let code = '';
+  try{ code = (prompt('비밀코드') || '').trim(); }catch(e){ code = ''; }
+  if(!code) return;
+  unlockPrivate(code).then(ok => {
+    if(ok){ visPaint(); toast('비밀 모드'); }
+    else toast('비밀코드가 맞지 않습니다');
+  });
+}
+visPaint();
+/* 잠금 화면 — 레이더·실전 어느 쪽에 넣어도 같은 비밀코드로 둘 다 열린다(틀리면 아무것도 열리지 않는다) */
+(function(){
+  function bind(goSel, inpSel, errSel){
+    const go = $(goSel), inp = $(inpSel), err = $(errSel);
+    if(!go || !inp) return;
+    async function tryOpen(){
+      const code = String(inp.value || '').trim();
+      if(!code){ try{ inp.focus(); }catch(e){} return; }
+      if(err) err.hidden = true;
+      go.disabled = true;
+      let ok = false;
+      try{ ok = await unlockPrivate(code); }catch(e){ ok = false; }
+      go.disabled = false;
+      if(ok){
+        inp.value = '';
+        visPaint();
+        toast('레이더 · 실전 · 결과 열림');
+        if(state.tab === 'radar') P1();
+        else if(state.tab === 'hotbar') P2();
+        else if(state.tab === 'result') P17();
+      } else {
+        if(err) err.hidden = false;
+        try{ inp.select(); }catch(e){}
+      }
+    }
+    go.addEventListener('click', tryOpen);
+    inp.addEventListener('keydown', e => { if(e.key === 'Enter'){ e.preventDefault(); tryOpen(); } });
+  }
+  bind('#hotGo', '#hotCode', '#hotErr');
+  bind('#radGo', '#radCode', '#radErr');
+  bind('#resGo', '#resCode', '#resErr');
+})();
+
+const NOTICE_KEY = 'newsradar_notice_v4_ack';
+
+let noticeOv = $('#noticeOv');
+
+function noticeSeen(){
+  try{ return !!localStorage.getItem(NOTICE_KEY); }catch(e){ return false; }
+}
+
+function noticeShow(){
+  if(!noticeOv) return;
+  if(typeof noticeFold === 'function') noticeFold(false);   /* 열 때는 늘 접힌 채로 — 한 화면에 들어오게 */
+  ovStackPush('noticeOv');
+  noticeOv.hidden = false;
+  requestAnimationFrame(() => noticeOv.classList.add('show'));
+  document.body.classList.add('lock');
+}
+
+function noticeHide(){
+  if(!noticeOv || noticeOv.hidden) return;
+  noticeOv.classList.remove('show');
+  ovStackDrop('noticeOv');
+  const ch = $('#chartOv');
+  if(!ch || ch.hidden) document.body.classList.remove('lock');
+  setTimeout(() => { if(noticeOv && !noticeOv.classList.contains('show')){ noticeOv.hidden = true; onceShow(); } }, 180);
+}
+
+function noticeAck(){
+  try{ localStorage.setItem(NOTICE_KEY, String(Date.now())); }catch(e){}
+  noticeHide();
+}
+
+const ntMore = $('#ntMore'), ntOld = $('#ntOld');
+
+function noticeFold(open){
+  if(!ntMore || !ntOld) return;
+  ntOld.hidden = !open;
+  ntMore.setAttribute('aria-expanded', open ? 'true' : 'false');
+  const lbl = ntMore.querySelector('.lbl');
+  if(lbl) lbl.textContent = open ? '지난 공지 접기' : `지난 공지 ${ntOld.querySelectorAll('.nt-it').length}건 더보기`;
+}
+
+if(ntMore && ntOld) ntMore.addEventListener('click', () => noticeFold(ntOld.hidden));
+
+if(noticeOv){
+  const ok = $('#ntOk'), x = $('#ntX');
+  if(ok) ok.addEventListener('click', noticeAck);
+  if(x) x.addEventListener('click', noticeHide);      /* ✕ 는 그냥 닫기 — 다음에 또 띄운다 */
+  noticeOv.addEventListener('click', e => { if(e.target === noticeOv) noticeHide(); });
+  const btn = $('#btnNotice');
+  if(btn) btn.addEventListener('click', () => { noticeShow(); });
+  if(!noticeSeen()) setTimeout(() => { if(!noticeSeen()) noticeShow(); else onceShow(); }, 450);
+}
+
+const ONCE_KEY = 'newsradar_once_live_link_1121';
+
+let onceOv = $('#onceOv');
+
+function onceSeen(){
+  try{ return !!localStorage.getItem(ONCE_KEY); }catch(e){ return false; }
+}
+
+function onceShow(){
+  if(!onceOv || onceSeen() || !onceOv.hidden) return;
+  if(noticeOv && !noticeOv.hidden) return;          /* 공지 창이 떠 있으면 그게 닫힌 뒤에 */
+  ovStackPush('onceOv');
+  onceOv.hidden = false;
+  requestAnimationFrame(() => onceOv.classList.add('show'));
+  document.body.classList.add('lock');
+}
+
+function onceHide(){
+  if(!onceOv || onceOv.hidden) return;
+  onceOv.classList.remove('show');
+  ovStackDrop('onceOv');
+  const ch = $('#chartOv'), nt = $('#noticeOv');
+  if((!ch || ch.hidden) && (!nt || nt.hidden)) document.body.classList.remove('lock');
+  setTimeout(() => { if(onceOv && !onceOv.classList.contains('show')) onceOv.hidden = true; }, 180);
+}
+
+function onceAck(){                                    /* [확인] · ✕ 둘 다 다시 보지 않는다 */
+  try{ localStorage.setItem(ONCE_KEY, '1'); }catch(e){}
+  onceHide();
+}
+
+if(onceOv){
+  const ok = $('#onceOk'), x = $('#onceX');
+  if(ok) ok.addEventListener('click', onceAck);
+  if(x) x.addEventListener('click', onceAck);
+  onceOv.addEventListener('click', e => { if(e.target === onceOv) onceAck(); });
+  /* 공지 창이 닫힌 뒤(닫기·[확인]·바깥 클릭)에 1회성 안내를 이어서 띄운다 */
+  if(noticeOv){
+    const nt = $('#noticeOv');
+    new MutationObserver(() => { if(nt.hidden){ onceShow(); } }).observe(nt, {attributes:true, attributeFilter:['hidden']});
+  }
+  if(!onceSeen()) setTimeout(() => { onceShow(); }, 1200);   /* 공지가 안 뜨는 기기(이미 본 기기)에서도 한 번 */
+}
+
+/* 주소에 ?me=비밀코드 가 있으면 그 코드로 연다. 저장된 코드가 있으면 그것으로 조용히 연다 */
+(async function(){
+  const wantHash = (location.hash || '').replace('#', '');   /* 시작 탭은 풀기 전에 적어 둔다 */
+  let code = '';
+  try{
+    const m = /[?&]me=([^&#]*)/.exec(location.search || '');
+    if(m) code = decodeURIComponent(m[1] || '').trim();
+  }catch(e){}
+  const fromUrl = !!code;
+  const saved = savedCode();
+  if(!code) code = saved;
+  if(!code) return;
+  let ok = await unlockPrivate(code);
+  /* 첫 로드에서는 서비스워커가 자리 잡기 전이라 자료 받기가 실패할 수 있다 — 잠긴 화면에 멈추지 않게 몇 번 더 시도한다 */
+  if(!ok && fromUrl){
+    for(const ms of [400, 900, 1600]){
+      await new Promise(r => setTimeout(r, ms));
+      ok = await unlockPrivate(code);
+      if(ok) break;
+    }
+  }
+  if(!ok && fromUrl && saved && saved !== code) ok = await unlockPrivate(saved);
+  if(!ok){ if(fromUrl) toast('비밀코드가 맞지 않습니다'); return; }
+  visPaint();
+  const want = (wantHash === 'hotbar' || wantHash === 'calendar' || wantHash === 'result') ? wantHash : '';
+  if(want && state.tab !== want) switchTab(want, true);
+  P3();
+})();
+
+/* LIVE 배지 1.5초 안 3연속 탭 → 토글 */
+(function(){
+  const live = $('#live');
+  if(!live) return;
+  let taps = [];
+  live.addEventListener('click', () => {
+    const now = Date.now();
+    taps = taps.filter(t => now - t < 1500);
+    taps.push(now);
+    if(taps.length >= 3){ taps = []; visToggle(); }
+  });
+})();
+
+const HOME_URL = 'https://crawler5696.github.io/';
+
+const INAPP_OFF_KEY = 'newsradar_inapp_off_v1';
+
+const INST_OFF_KEY = 'newsradar_install_off_v1';
+
+const INAPP_RE = /KAKAOTALK|KakaoTalk|NAVER|Line\/\d|Instagram|FBAN|FBAV|FB_IAB|FBIOS|Twitter|musical_ly|BytedanceWebview|;\s*wv\)/i;
+
+const isStandalone = () => (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true;
+
+const isInapp = () => INAPP_RE.test(navigator.userAgent || '');
+
+const isIOS = () => /iPad|iPhone|iPod/.test(navigator.userAgent || '') || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
+let deferredInstall = null;
+
+function chromeIntentUrl(){
+  try{
+    const u = new URL(location.href);
+    const target = u.host + u.pathname + (u.search || '');
+    return 'intent://' + target + '#Intent;scheme=https;package=com.android.chrome;S.browser_fallback_url=' + encodeURIComponent(u.href) + ';end';
+  }catch(e){ return HOME_URL; }
+}
+
+async function copyHomeUrl(){
+  let ok = false;
+  try{ await navigator.clipboard.writeText(HOME_URL); ok = true; }catch(e){}
+  if(!ok){
+    try{
+      const ta = document.createElement('textarea');
+      ta.value = HOME_URL; ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed'; ta.style.top = '-1000px'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      try{ ta.setSelectionRange(0, HOME_URL.length); }catch(e){}
+      ok = document.execCommand('copy');
+      ta.parentNode.removeChild(ta);
+    }catch(e){}
+  }
+  toast(ok ? '주소 복사됨 · 붙여넣기 해서 열어 주세요' : '주소: ' + HOME_URL);
+}
+
+function ovOpen(ov){
+  if(!ov) return;
+  ovStackPush(ov.id);
+  ov.hidden = false;
+  requestAnimationFrame(() => ov.classList.add('show'));
+  document.body.classList.add('lock');
+}
+
+function ovClose(ov){
+  if(!ov || ov.hidden) return;
+  ov.classList.remove('show');
+  if(ov.id) ovStackDrop(ov.id);
+  let others = false;
+  ['#noticeOv','#onceOv','#chartOv','#instOv'].forEach(s => { const el = $(s); if(el && el !== ov && !el.hidden) others = true; });
+  if(!others) document.body.classList.remove('lock');
+  setTimeout(() => { if(ov && !ov.classList.contains('show')) ov.hidden = true; }, 180);
+}
+
+function showInappBar(){
+  const bar = $('#inappBar');
+  if(!bar) return;
+  const inst = $('#installBar'); if(inst) inst.hidden = true;
+  const tx = $('#inappTx'), go = $('#inappGo');
+  if(isIOS()){
+    if(tx) tx.textContent = '카톡 안에서는 설치가 안 됩니다 · 오른쪽 위 ⋯ → Safari로 열기';
+    if(go) go.hidden = true;
+  }else{
+    if(tx) tx.textContent = '카톡 안에서는 앱 설치가 안 됩니다';
+    if(go){ go.hidden = false; go.href = chromeIntentUrl(); }
+  }
+  bar.hidden = false;
+}
+
+function hideInappBar(remember){
+  const bar = $('#inappBar'); if(bar) bar.hidden = true;
+  if(remember){ try{ sessionStorage.setItem(INAPP_OFF_KEY, '1'); }catch(e){} }
+}
+
+function installOff(){ try{ return !!localStorage.getItem(INST_OFF_KEY); }catch(e){ return false; } }
+
+function showInstallBar(){
+  const bar = $('#installBar');
+  if(!bar || isStandalone() || installOff()) return;
+  const inb = $('#inappBar'); if(inb) inb.hidden = true;
+  bar.hidden = false;
+}
+
+function hideInstallBar(remember){
+  const bar = $('#installBar'); if(bar) bar.hidden = true;
+  if(remember){ try{ localStorage.setItem(INST_OFF_KEY, '1'); }catch(e){} }
+}
+
+function instHelp(){
+  const body = $('#instBody');
+  if(body){
+    let h = '';
+    if(isIOS()){
+      h = '<ol class="inst-st">'
+        + '<li>Safari로 열어 주세요 — 아래 <b>주소 복사</b> 후 Safari 주소창에 붙여넣기</li>'
+        + '<li>아래 <b>공유</b>(⬆️) 버튼을 누릅니다</li>'
+        + '<li><b>홈 화면에 추가</b> → 오른쪽 위 <b>추가</b></li></ol>'
+        + '<p class="inst-tip">카톡·네이버 앱 안에서는 이 메뉴가 없습니다 — 꼭 <b>Safari</b>에서 열어 주세요.</p>';
+    }else if(/Android/i.test(navigator.userAgent || '')){
+      h = '<ol class="inst-st">'
+        + '<li>크롬으로 열어 주세요 — 아래 <b>주소 복사</b> 후 크롬 주소창에 붙여넣기</li>'
+        + '<li>오른쪽 위 <b>⋮</b> 메뉴를 누릅니다</li>'
+        + '<li><b>앱 설치</b>(또는 <b>홈 화면에 추가</b>) → <b>설치</b></li></ol>'
+        + '<p class="inst-tip">카톡·네이버 앱 안에서는 이 메뉴가 없습니다 — 꼭 <b>크롬</b>에서 열어 주세요.</p>';
+    }else{
+      h = '<ol class="inst-st">'
+        + '<li>크롬·엣지 주소창 오른쪽의 <b>설치</b> 아이콘을 누릅니다</li>'
+        + '<li><b>설치</b>를 고르면 바탕화면·앱 목록에 뉴스레이더가 생깁니다</li></ol>'
+        + '<p class="inst-tip">휴대폰에서는 크롬으로 열면 <b>📲 앱 설치</b> 줄이 화면 위에 바로 뜹니다.</p>';
+    }
+    body.innerHTML = h;
+  }
+  ovOpen($('#instOv'));
+}
+
+(function (){
+  const instOv = $('#instOv');
+  if(instOv){
+    const x = $('#instX');
+    if(x) x.addEventListener('click', () => ovClose(instOv));
+    instOv.addEventListener('click', e => { if(e.target === instOv) ovClose(instOv); });
+  }
+  const ibX = $('#inappX');
+  if(ibX) ibX.addEventListener('click', () => hideInappBar(true));
+  const iX = $('#installX');
+  if(iX) iX.addEventListener('click', () => hideInstallBar(true));
+  ['#inappCopy','#installCopy','#instCopy2'].forEach(s => { const b = $(s); if(b) b.addEventListener('click', copyHomeUrl); });
+
+  const go = $('#installGo');
+  if(go) go.addEventListener('click', () => {
+    const ev = deferredInstall;
+    if(!ev){ instHelp(); return; }                                  /* 설치 창이 아직 없으면 방법 안내 */
+    let p = null;
+    try{ p = ev.prompt(); }catch(e){ deferredInstall = null; instHelp(); return; }
+    const done = c => {
+      if(c && c.outcome === 'accepted'){
+        deferredInstall = null;
+        hideInstallBar(true);
+        toast('설치가 시작되었습니다 · 홈 화면을 확인해 주세요');
+      }
+    };
+    try{
+      if(ev.userChoice && ev.userChoice.then) ev.userChoice.then(done).catch(() => {});
+      else if(p && p.then) p.then(done).catch(() => {});
+    }catch(e){}
+  });
+
+  /* 크롬이 "이 사이트는 설치할 수 있다"고 알려 오면 그 창을 잡아 두었다가 [📲 앱 설치] 에서 바로 띄운다 */
+  window.addEventListener('beforeinstallprompt', e => {
+    e.preventDefault();
+    deferredInstall = e;
+    showInstallBar();
+  });
+  window.addEventListener('appinstalled', () => {
+    deferredInstall = null;
+    hideInstallBar(true);
+    const inb = $('#inappBar'); if(inb) inb.hidden = true;
+    toast('설치 완료 · 홈 화면에서 뉴스레이더를 열어 보세요');
+  });
+
+  if(isStandalone()){ hideInappBar(false); hideInstallBar(false); return; }   /* 이미 앱으로 열렸다 */
+  if(isInapp()){
+    let off = false;
+    try{ off = sessionStorage.getItem(INAPP_OFF_KEY) === '1'; }catch(e){}
+    if(!off) showInappBar();
+    hideInstallBar(false);
+    return;
+  }
+  showInstallBar();
+})();
+
+if('serviceWorker' in navigator){
+  const hadController = !!navigator.serviceWorker.controller;
+  let swReloaded = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if(!hadController || swReloaded) return;      /* 첫 설치 때는 새로고침하지 않는다(무한 반복 방지) */
+    swReloaded = true;
+    location.reload();
+  });
+  navigator.serviceWorker.register('sw.js', {updateViaCache:'none'}).then(reg => {
+    reg.update().catch(() => {});
+    setInterval(() => reg.update().catch(() => {}), 30 * 60 * 1000);   /* 30분마다 새 배포 확인 */
+  }).catch(() => {});
+}
+
+let startTab = (location.hash||'').replace('#','');
+
+switchTab(TABS.includes(startTab) ? startTab : 'news', true);
+
+load(false);
+
+P10().then(() => P6());
+</script>
+<script data-goatcounter="https://crawler5696.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
