@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<!-- 뉴스레이더 newsradar-v139 — 공개 화면. 겉은 3탭(📰 뉴스 · 🗺️ 지도 · 📊 결과).
+<!-- 뉴스레이더 newsradar-v143 — 공개 화면. 겉은 3탭(📰 뉴스 · 🗺️ 지도 · 📊 결과).
      2026-11-28 지시 "지도껍대기 오픈 대환장쇼" — 지도 껍데기와 결과(수익%)는 누구나 보고,
-     안쪽 비법(10단계 자리 · 기준선 · 실전 매수 타점 · 포착 유형)은 data/private_ui.json 잠금 안에만 있다. -->
+     개인용 화면은 data/private_ui.json 잠금 안에만 있다. -->
 <html lang="ko">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>뉴스레이더 — 증시 실시간 뉴스 · 테마 지도 · 결과</title>
-<meta name="description" content="국내 증시 실시간 주요 뉴스·이슈와 테마 지도(1·2·3등 히트맵), 실전 픽의 수익 결과를 한 화면에 보여주는 무료 뉴스 대시보드">
+<meta name="description" content="국내 증시 실시간 주요 뉴스·이슈와 테마 지도 히트맵, 실전 픽의 수익 결과를 한 화면에 보여주는 무료 뉴스 대시보드">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="뉴스레이더">
 <meta property="og:title" content="뉴스레이더 — 증시 실시간 뉴스 · 테마 지도 · 결과">
@@ -126,7 +126,7 @@
   /* ---------- 탭 (세 칸 — 2026-11-28 v138 '지도껍대기 오픈 대환장쇼') ---------- */
   /* 진화론님 확정: "실제 내용은 살아 움직이고 앱은 뉴스.지도.결과(공개용)".
      📅 테마달력과 🎯 실전은 🗺️ 지도 안으로 들어가고, 겉은 세 칸만 남는다.
-     잠금(🔒)은 탭이 아니라 그 안쪽 비법 자리(10단계·기준선·타점·포착 유형)에만 붙는다. */
+     잠금(🔒)은 탭이 아니라 결과 카드의 열쇠 자리에만 붙는다. */
   .tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;padding:0 0 5px}
   /* 탭 바로 아래 한 줄 — 지금 칸이 무엇을 보는 자리인지(역할 분담) */
   .tabrole{padding:0 1px 4px;font-size:10px;font-weight:700;letter-spacing:-.2px;line-height:1.4;
@@ -382,7 +382,7 @@
     color:#ffd35c;background:rgba(255,196,64,.12);border:1px solid rgba(255,208,90,.34);
     padding:1px 5px;border-radius:5px;letter-spacing:-.2px;max-width:44%;overflow:hidden;
     text-overflow:ellipsis;white-space:nowrap}
-  /* 2026-11-25 지시 — 테마 1·2·3등 대장주 배지 + 불씨→확산 줄 */
+  /* 2026-11-25 지시 — 테마 대장주 배지 + 불씨→확산 줄 */
   .th-leaders{display:flex;flex-wrap:wrap;align-items:center;gap:4px;margin:7px 0 6px}
   .th-leaders>span{display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:800;
     color:#ffd35c;background:rgba(255,196,64,.10);border:1px solid rgba(255,208,90,.26);
@@ -493,11 +493,11 @@
 <style class="nrpriv"></style>
 <style>
 
-  /* ---------- 잠금 (2026-11-28 v138 — 이제 잠금은 탭이 아니라 '비법 자리'에만 있다) ---------- */
+  /* ---------- 잠금 (2026-11-28 v143 — 잠금은 결과 카드의 열쇠 자리에만) ---------- */
   .tab[hidden]{display:none}
   @media (max-width:410px){ .tabs .tab{font-size:12px;letter-spacing:-.3px;padding:7px 1px} }
   @media (max-width:360px){ .tabs .tab{font-size:11px;letter-spacing:-.4px} }
-  /* 잠금 카드 — 게스트 지도·결과 안에서 비법 자리에 앉는다 */
+  /* 잠금 카드 — 개인 화면에서만 쓰는 옛 모양(게스트 화면에서는 거뒀다) */
   .hot-lock{display:none;max-width:340px;margin:20px auto 6px;text-align:center;padding:0 6px}
   .hot-lock.show{display:block}
   .hot-lock .ico{font-size:27px;line-height:1;margin-bottom:8px;filter:saturate(.9)}
@@ -578,7 +578,7 @@
     font-weight:800;letter-spacing:-.3px;cursor:pointer}
   .us-rs button:active{opacity:.85}
 
-  /* ---------- 🗺️ 지도 껍데기 (게스트) — 10단계 색·숫자는 없다. 무채색 중립 톤 ---------- */
+  /* ---------- 🗺️ 지도 껍데기 (게스트) — 무채색 중립 톤 ---------- */
   .gm-head{display:flex;align-items:baseline;gap:6px;margin:10px 1px 0;font-size:12px;font-weight:900;color:#b9c7de;letter-spacing:-.3px}
   .gm-head span{margin-left:auto;font-size:9.5px;font-weight:700;color:#65748e;letter-spacing:0}
   .gm-sub{margin:2px 1px 0;font-size:9.5px;font-weight:700;color:#5f6f8c;line-height:1.5}
@@ -610,7 +610,7 @@
   .gm-sz.s-소{background:#8fa0bb}
   .gm-lg{margin:8px 1px 0;font-size:9.5px;font-weight:700;color:#5f6f8c;line-height:1.55}
   .gm-lg b{color:#8fa6c8;font-weight:900}
-  /* 잠금 줄 — 지도 껍데기 아래쪽 비법 자리 */
+  /* 잠금 줄 — 옛 모양(게스트 화면에서는 거뒀다) */
   .gm-lock{margin:10px 0 0;padding:11px 12px;border-radius:12px;border:1px dashed rgba(143,178,255,.45);
     background:linear-gradient(135deg,rgba(79,140,255,.10),rgba(124,92,255,.08));display:flex;align-items:center;gap:9px}
   .gm-lock .ic{font-size:18px;flex:none}
@@ -655,7 +655,7 @@
   .gm-hc.on i{color:#c98f75}
   .gm-hist-n{margin:5px 1px 0;font-size:9.5px;font-weight:700;color:#6d7c96;line-height:1.5}
 
-  /* ---------- 📊 결과 껍데기 (게스트) — 수익·승률은 그대로, 단계·기준선은 🔒 ---------- */
+  /* ---------- 📊 결과 껍데기 (게스트) — 수익·승률 공개, 종목명은 가린다 ---------- */
   .gp-rt{display:flex;align-items:center;gap:5px;margin:9px 1px 4px;font-size:12px;font-weight:900;color:#b9c7de}
   .gp-rt span{margin-left:auto;font-size:9.5px;font-weight:700;color:#65748e}
   .gp-top{display:flex;align-items:center;gap:6px}
@@ -999,7 +999,7 @@
     </div>
     <button class="more" id="moreIssues" hidden>이슈 더 보기</button>
     </div>
-    <!-- 🇺🇸 미국 뉴스 (게스트 공개) — 14테마 최신 뉴스·온도만. 단계·기준선·타점은 이 자료에 없다. -->
+    <!-- 🇺🇸 미국 뉴스 (게스트 공개) — 14테마 최신 뉴스·온도만. -->
     <div id="newsUs" hidden>
       <div class="meta">
         <span>기준 <b id="usUpdated">불러오는 중…</b></span>
@@ -1013,8 +1013,7 @@
   </section>
 
   <!-- 2026-11-28 v138 — 🗺️ 지도. 겉(껍데기)은 누구나 열리고, 테마 히트맵·테마 상세·12개월 상한가 이력까지 보인다.
-       안쪽 비법(10단계 자리 · 기준선 · 오늘 매수 타점)은 잠금 카드 뒤에 있고, 비밀코드를 넣으면
-       이 탭 안에서 🗺️ 테마 지도 | 🎯 실전 타점 | 📅 테마달력 세 뷰가 그대로 살아 움직인다. -->
+       개인 화면은 비밀번호를 넣으면 이 탭 안에서 그대로 살아 움직인다. -->
   <section class="view" data-view="map" id="view-map" hidden>
     <div class="map-seg" id="mapSeg" role="tablist" aria-label="지도 보기 전환" hidden>
       <button type="button" role="tab" data-sub="map" class="on" aria-selected="true">🗺️ 테마 지도</button>
@@ -1034,7 +1033,7 @@
       <div class="map-pane" id="usPane-live" hidden><div id="usHotInner"></div></div>
     </div>
     <!-- 게스트용 공개 껍데기 — 아래 #mapGuest 안은 공개 JS(renderGuestMap)가 data/theme_map_public.json 으로 그린다.
-         개인 단계·기준선·타점은 이 안에 절대 들어오지 않는다. -->
+         개인 자료는 이 안에 절대 들어오지 않는다. -->
     <div id="mapGuest">
       <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
     </div>
@@ -1081,13 +1080,13 @@
     </div>
   </section>
 
-  <!-- 📊 결과 (v139) — 겉은 누구나(수익%·승률 공개). 단계·기준선·포착 유형은 🔒 로 가린다.
+  <!-- 📊 결과 (v143) — 겉은 누구나(수익%·승률 공개). 종목명은 **** 로 가린다.
        백엔드(build_pick_results.py)와 채점·종료 기준은 그대로다 — 화면만 공개용/개인용으로 나뉜다. -->
   <section class="view" data-view="result" id="view-result" hidden>
     <!-- 🇺🇸 미국 결과 — 아직 실전 픽 이력이 없다(준비 중 안내만). -->
     <div id="usResult" hidden>
       <div class="us-rs"><b>🇺🇸 미국장 실전 추적 준비 중</b>
-        <p>미국장 픽 이력은 다음 단계에서 쌓입니다.<br>지금은 🗺️ 지도에서 미국 테마 1·2·3등과 뉴스 온도를 보세요.</p>
+        <p>미국장 픽 이력은 다음 단계에서 쌓입니다.<br>지금은 🗺️ 지도에서 미국 테마와 뉴스 온도를 보세요.</p>
         <button type="button" data-mkt-go="kr">🇰🇷 한국 결과 보기</button></div>
     </div>
     <div id="resGuest">
@@ -1121,16 +1120,16 @@
 <!-- 공지사항 자리 — 2026-11-28 v138 지시로 공지글·📢 버튼을 모두하지 않는다(비어 있는 자리만 남긴다). -->
 <div id="noticeHost"></div>
 
-<!-- 🔒 비밀코드 입력 모달 (2026-11-28 v138) — 지도 껍데기의 잠금 카드·결과 카드의 🔒 를 누르면 뜬다.
-     맞으면 이 자리에서 지도(10단계 자리 · 기준선 · 오늘 매수 타점)와 결과 상세가 바로 열린다. -->
+<!-- 🔒 비밀번호 입력 모달 (2026-11-28 v143) — 결과 카드의 🔒 · 상단 LIVE 3연타로 뜬다.
+     맞으면 본인용 화면(지도·결과 상세)이 바로 열린다. -->
 <div class="nt-ov" id="lockOv" hidden>
   <div class="nt-box lock-box" role="dialog" aria-modal="true" aria-labelledby="lockTitle">
     <div class="nt-top">
       <span class="ico" aria-hidden="true">🔒</span>
-      <h2 id="lockTitle">10단계 자리 · 실전 매수 타점</h2>
+      <h2 id="lockTitle">비밀번호 입력</h2>
       <button class="nt-x" id="lockX" type="button" aria-label="닫기">✕</button>
     </div>
-    <p class="lock-sub" id="lockSub">비밀코드를 넣으면 지도 안의 10단계 자리 · 기준선 · 오늘 매수 타점이 열립니다.</p>
+    <p class="lock-sub" id="lockSub">본인용 화면이 열립니다.</p>
     <div class="hl-row">
       <input id="lockCode" type="password" inputmode="numeric" autocomplete="off" enterkeyhint="go" placeholder="비밀코드" maxlength="12" aria-label="비밀코드">
       <button id="lockGo" type="button">열기</button>
@@ -1191,7 +1190,7 @@ function P14(){ return privCall(14, arguments); }
 function P15(){ return privCall(15, arguments); }
 function P16(){ return privCall(16, arguments); }
 function P17(){ return privCall(17, arguments); }
-function P18(){ return privCall(18, arguments); }   /* 🇺🇸 지도 — 테마 지도(10단계) */
+function P18(){ return privCall(18, arguments); }   /* 🇺🇸 지도 — 테마 지도 */
 function P19(){ return privCall(19, arguments); }   /* 🇺🇸 지도 — 실전 타점 */
 
 
@@ -1204,8 +1203,8 @@ let mkt = 'kr';
 
 const TAB_ROLE = {
   news: '<b>📰 뉴스</b> — 오늘 자금 방향 · 주요 뉴스',
-  map: '<b>🗺️ 지도</b> — 테마 1·2·3등 히트맵 · 뉴스 온도 (10단계 자리·타점은 🔒)',
-  result: '<b>📊 결과</b> — 픽 성적 · 수익% · 승률 (비법은 🔒)',
+  map: '<b>🗺️ 지도</b> — 테마 히트맵 · 뉴스 온도',
+  result: '<b>📊 결과</b> — 수익% · 승률',
 };
 const TAB_ROLE_ON = {
   map: '<b>🗺️ 지도</b> — 🗺️ 테마 지도 · 🎯 실전 타점 · 📅 테마달력',
@@ -1214,7 +1213,7 @@ const TAB_ROLE_ON = {
 /* 🇺🇸 미국장 (v140) — 같은 세 탭, 미국판 역할 줄 */
 const TAB_ROLE_US = {
   news: '<b>🇺🇸 뉴스</b> — 미국 14테마 최신 뉴스 · 뉴스 온도(🔥새로움 · 🔁진행)',
-  map: '<b>🇺🇸 지도</b> — 미국 테마 히트맵 · 1·2·3등 · 뉴스 온도 (10단계 자리·타점은 🔒)',
+  map: '<b>🇺🇸 지도</b> — 미국 테마 히트맵 · 뉴스 온도',
   result: '<b>🇺🇸 결과</b> — 미국장 실전 추적 준비 중',
 };
 const TAB_ROLE_US_ON = {
@@ -1380,7 +1379,7 @@ function leadBadge(leaders){
    "뉴스가 핵심 축이고 테마는 생겼다 사라진다" — 기사에 붙은 DB 테마 옆에 지금 뉴스가
    🔥새로움(불씨) · 🔁진행(확산) · ↘소멸(거시·반복) 중 어디인지, 그리고 불씨→오늘→예정 줄기를 보여 준다.
    자료는 공개 data/news_themes.json (theme_db 2·3단계가 만든 것) — 테마 이름으로 맞춘다.
-   ⚠ 개인 기준(1·2·3등·10단계·기준선)은 여기(공개 탭)에 넣지 않는다. */
+   ⚠ 개인 기준은 여기(공개 탭)에 넣지 않는다. */
 let newsPhaseMap = null, newsPhaseLoad = null;
 function baseThemeName(v){ return String(v || '').split(' — ')[0].split(' (')[0].trim(); }
 function ensureNewsPhases(){
@@ -2995,10 +2994,9 @@ async function visNumber(){
   }catch(e){}
 }
 /* ================= 🗺️ 지도 껍데도 · 📊 결과 껍데기 — 게스트 화면 (2026-11-28 v138) =================
-   진화론님 확정: "지도껍대기 오픈 대환장쇼". 게스트에게는 테마 히트맴·테마 상세(1·2·3등 이름·뉴스 흐름·
-   12개월 상한가 이력)과 결과 수익%·승률까지 보여 주고, **10단계 자리·기준선·오늘 매수 타점·포착 유형**만
-   🔒 로 기린다. 아래 코드는 공개 자료(data/theme_map_public.json · data/pick_results_public.json)만
-   읽는다 — 개인 단계·기준선은 이 파일에도, 이 자료에도 없다. */
+   진화론님 확정: "지도껍대기 오픈 대환장쇼". 게스트에게는 테마 히트맴·테마 상세(종목 이름·뉴스 흐름·
+   12개월 상한가 이력)과 결과 수익%·승률만 보여 준다. 아래 코드는 공개 자료(data/theme_map_public.json · data/pick_results_public.json)만
+   읽는다 — 개인 자료는 이 파일에도, 이 자료에도 없다. */
 let mapSub = 'map';
 const GM_SRC = 'data/theme_map_public.json';
 const GP_SRC = 'data/pick_results_public.json';
@@ -3030,7 +3028,7 @@ async function ensureGuestMap(){
   return gmLoading;
 }
 
-/* 타일 — 크기 = 돈 몰린 크기(tier), 바탕은 무채색 중립 톤, 안에 뉴스 온도·테마 규모만. 단계 숫자는 없다. */
+/* 타일 — 크기 = 테마 규모(tier), 바탕은 무채색 중립 톤, 안에 뉴스 온도·테마 규모만. 단계 숫자는 없다. */
 function gmTile(t){
   const ph = gmPh(t.phase) || '잠잠';
   const dead = (ph === '소멸' || ph === '잠잠');
@@ -3039,7 +3037,6 @@ function gmTile(t){
   const names = (t.leaders || []).slice(0, tier === 'h3' ? 3 : 2).map(l => l.name).filter(Boolean).join(' · ');
   const sz = t.grade ? `<i class="gm-sz s-${esc(t.grade)}">${esc(t.grade)}${n ? ' ' + n : ''}</i>` : '';
   const tip = [t.theme, t.phase_label || ph,
-               t.eok ? '돈 몰림 ' + Number(t.eok).toLocaleString() + '억' : '',
                t.event && t.event.short ? '📅 ' + t.event.short : ''].filter(Boolean).join(' · ');
   return `<button type="button" class="gm-t ${tier}${dead ? ' dim' : ''}" data-gm="${esc(t.theme)}" title="${esc(tip)}">`
     + `<b>${esc(t.short || gmNorm(t.theme))}</b>`
@@ -3084,7 +3081,6 @@ function gmSheetHtml(t){
     + (g ? `<i class="gm-sz s-${esc(g)}">${esc(g)}${n ? ' ' + n : ''}</i>` : '')
     + `<i class="gm-ph ${GM_PHCLS[ph] || 'p-idle'}">${GM_PHICO[ph] || '·'}${esc(ph)}</i></div>`
     + `<div class="gm-sh-m"><span>${esc(t.kind || '동반테마')}`
-    + (t.eok ? ` · 돈 몰림 ${Number(t.eok).toLocaleString()}억` : '')
     + (t.event && t.event.short ? ` · 📅 ${esc(t.event.short)}` : '') + `</span></div>`;
   const flow = t.flow
     ? `<p class="gm-sh-flow">📰 ${esc(t.flow)}</p>`
@@ -3103,8 +3099,7 @@ function gmSheetHtml(t){
     : `<div class="gm-sh-lab">📅 12개월 상한가 이력</div><p class="gm-hist-n">달력 자료를 불러오는 중입니다</p>`;
   return head + flow
     + `<div class="gm-sh-lab">🏆 테마 1·2·3등</div><div>${rows}</div>`
-    + histHtml
-    + gmLockHtml('10단계 자리 · 오늘 매수 타점', '대장이 1~10단계 중 어디에 서 있는지, 기준선과 매수 타점은 비밀코드로 열립니다.');
+    + histHtml;
 }
 
 async function renderGuestMap(force){
@@ -3121,16 +3116,11 @@ async function renderGuestMap(force){
   const themes = d.themes.slice().sort((a, b) =>
     ((Number(b.heat) || 0) - (Number(a.heat) || 0)) || ((Number(b.n) || 0) - (Number(a.n) || 0)));
   gmCur = new Map(themes.map(t => [String(t.theme), t]));
-  const nA = themes.filter(t => t.grade === '대').length;
-  const nM = themes.filter(t => t.grade === '중').length;
-  const nS = themes.length - nA - nM;
   const news = (d.news || []).filter(x => x.phase === '새로움' || x.phase === '진행').slice(0, 4);
-  const html = `<div class="gm-head">🧭 동반테마 ${themes.length} · 히트맴<span>대 ${nA} · 중 ${nM} · 소 ${nS}</span></div>`
-    + `<p class="gm-sub">${esc(d.base_date_text || '')} · 타일 크기 = 돈 몰린 크기 · 타일을 누르면 테마 상세(1·2·3등 · 뉴스 흐름 · 12개월 상한가 이력)</p>`
+  const html = `<div class="gm-head">🧭 동반테마 ${themes.length} · 히트맴<span>${esc(d.base_date_text || '')}</span></div>`
     + (news.length ? `<div class="gm-news">${news.map(gmNewsRow).join('')}</div>` : '')
     + `<div class="gm-heat">${themes.map(gmTile).join('')}</div>`
     + `<p class="gm-lg"><b>🔥새로움</b> 새 재료로 막 붙은 테마 · <b>🔁진행</b> 여러 매체로 번지는 중 · <b>↘소멸</b> 같은 기사만 반복 · 흐린 타일 = 뉴스가 식은 테마</p>`
-    + gmLockHtml('10단계 자리 · 실전 매수 타점 보기', '테마 대장이 1~10단계 중 어디에 서 있는지 · 기준선 · 오늘 매수 타점은 본인만 열 수 있습니다.')
     + `<div class="gm-sh" id="gmSheet" hidden><div class="gm-sh-box" role="dialog" aria-modal="true" aria-label="테마 상세">`
     + `<button class="gm-sh-x" id="gmShX" type="button" aria-label="테마 상세 닫기">✕</button><div id="gmShBody"></div></div></div>`;
   if(!force && html === gmRendered) return;
@@ -3174,7 +3164,7 @@ function gmCloseSheet(){
   });
 })();
 
-/* ---------- 📊 결과 껍데기 (게스트) — 수익%·승률은 그대로, 단계·기준선·포착 유형은 🔒 ---------- */
+/* ---------- 📊 결과 껍데기 (게스트) — 수익%·승률 공개 · 종목명은 **** ---------- */
 async function ensureGuestResult(){
   if(gpData && Date.now() - gpAt < 4 * 60 * 1000) return gpData;
   if(gpLoading) return gpLoading;
@@ -3226,7 +3216,7 @@ function gpCard(p, journal, noTheme){
     + `<b class="gp-pct${clsOf(rt)}">${gpPct(rt)}</b></div>
     <div class="gp-r2"><em class="gp-st ${st === '종료' ? 'off' : 'on'}">${esc(st)}</em>`
     + (p.pick_time ? `<span>${esc(p.pick_time)}</span>` : '')
-    + `<button type="button" class="gp-lock" data-lock="1" aria-label="단계·기준선·포착 유형 비밀코드로 열기" title="단계·기준선·포착 유형은 비밀코드로">🔒</button></div>
+    + `<button type="button" class="gp-lock" data-lock="1" aria-label="비밀번호 입력" title="비밀번호 입력">🔒</button></div>
     ${journal ? gpJournal(p, noTheme) : ''}
   </div>`;
 }
@@ -3329,8 +3319,7 @@ async function renderGuestResult(){
   }
   box.innerHTML = `<div class="gp-rt">📊 결과<span>${esc(d.generated_at_kst || '')} 기준</span></div>`
     + `<div class="gp-top"><div class="gp-months">${monthChips}</div><span class="gp-test">테스트중</span></div>`
-    + sum + filters + view + body
-    + gmLockHtml('무슨 기준으로 잡았을까?', '10단계 자리 · 기준선 · 포착 유형(기법)은 비밀코드로만 열립니다. 수익%·승률은 그대로 보입니다.');
+    + sum + filters + view + body;
   box.dataset.done = '1';
   box.dataset.month = gpMonth;
   box.dataset.gf = gpFilter + gpView;    /* data-f 는 필터 버튼 몫이라 쓰지 않는다(#resGuest 가 closest('[data-f]') 에 걸린다) */
@@ -3340,7 +3329,7 @@ async function renderGuestResult(){
   const box = $('#resGuest');
   if(!box) return;
   box.addEventListener('click', e => {
-    if(e.target.closest('.gm-lockBtn') || e.target.closest('[data-lock]')){ e.preventDefault(); lockOpen('단계 · 기준선 · 포착 유형(기법)은 비밀코드로 열립니다.'); return; }
+    if(e.target.closest('[data-lock]')){ e.preventDefault(); lockOpen(); return; }
     const m = e.target.closest('[data-m]');
     if(m){ gpMonth = m.dataset.m; gpAll = false; renderGuestResult(); return; }
     const f = e.target.closest('[data-f]');
@@ -3359,11 +3348,11 @@ async function renderGuestResult(){
    미국장 대상은 +15%↑ 테마주 전용(초대형주 10% 트랙 없음).
 
    · 뉴스 : data/us_theme_map_public.json — 14테마 최신 뉴스·온도(🔥새로움/🔁진행)만. 게스트 공개.
-   · 지도(게스트) : 같은 자료로 14테마 히트맵 껍데기(무채색) · 1·2·3등 이름 · 뉴스 온도 · 🔒 잠금 카드.
+   · 지도(게스트) : 같은 자료로 14테마 히트맵 껍데기(무채색) · 종목 이름 · 뉴스 온도.
    · 지도(잠금 해제) : data/us_radar.json · data/us_hotbar.json (한국과 같은 비밀코드로 잠긴 것)을
-     비공개 화면 코드(private_ui)가 풀어서 🗺️ 테마 지도(10단계)·🎯 실전 타점을 그린다 — P18/P19.
+     비공개 화면 코드(private_ui)가 풀어서 🗺️ 테마 지도·🎯 실전 타점을 그린다 — P18/P19.
    · 결과 : 아직 미국 픽 이력이 없어 준비 중 안내만.
-   ⚠ 이 파일(공개)에는 10단계 자리·기준선·타점 숫자를 절대 넣지 않는다. */
+   ⚠ 이 파일(공개)에는 개인 자료 숫자를 절대 넣지 않는다. */
 let usMapSub = 'map';
 const UM_SRC = 'data/us_theme_map_public.json';
 const UM_PH = {'새로움':3, '진행':2, '소멸':1, '잠잠':0};
@@ -3449,7 +3438,7 @@ async function renderUsNews(force){
   box.innerHTML = html;
 }
 
-/* --- 🇺🇸 지도 껍데기 (게스트) — 무채색 타일 · 1·2·3등 이름 · 뉴스 온도 · 🔒 잠금 카드 --- */
+/* --- 🇺🇸 지도 껍데기 (게스트) — 무채색 타일 · 종목 이름 · 뉴스 온도 --- */
 function umTile(t){
   const ph = t.phase || '잠잠';
   const dead = (ph === '소멸' || ph === '잠잠');
@@ -3482,8 +3471,7 @@ function umSheetHtml(t){
     + (heads.length
       ? heads.map(h => `<a class="usn-hl" href="${esc(h.url)}" target="_blank" rel="noopener noreferrer">`
           + `<em>${esc(umMd(h.date))}</em><span>${esc(h.title)}</span></a>`).join('')
-      : `<p class="usn-none">붙은 뉴스가 아직 없습니다.</p>`)
-    + gmLockHtml('10단계 자리 · 오늘 매수 타점', '테마 대장이 1~10단계 중 어디에 서 있는지 · 기준선 · 오늘 매수 타점은 비밀코드로 열립니다.');
+      : `<p class="usn-none">붙은 뉴스가 아직 없습니다.</p>`);
 }
 async function renderUsGuestMap(force){
   const box = $('#usMapGuest');
@@ -3497,10 +3485,8 @@ async function renderUsGuestMap(force){
   umCur = new Map(themes.map(t => [String(t.theme), t]));
   const idx = d.index || {};
   const html = `<div class="gm-head">🇺🇸 미국 테마 ${themes.length} · 히트맴<span>${esc(idx.temp || '')}</span></div>`
-    + `<p class="gm-sub">${esc(d.base_date_text || '')} · 타일을 누르면 테마 상세(1·2·3등 · 뉴스 온도)</p>`
     + `<div class="gm-heat">${themes.map(umTile).join('')}</div>`
     + `<p class="gm-lg"><b>🔥새로움</b> 새 재료로 막 붙은 테마 · <b>🔁진행</b> 여러 매체로 번지는 중 · <b>↘소멸</b> 같은 기사만 반복 · 흐린 타일 = 뉴스가 식은 테마</p>`
-    + gmLockHtml('10단계 자리 · 실전 매수 타점 보기', '미국 테마 대장이 1~10단계 중 어디에 서 있는지 · 기준선 · 오늘 매수 타점은 본인만 열 수 있습니다.')
     + `<div class="gm-sh" id="umSheet" hidden><div class="gm-sh-box" role="dialog" aria-modal="true" aria-label="미국 테마 상세">`
     + `<button class="gm-sh-x" id="umShX" type="button" aria-label="테마 상세 닫기">✕</button><div id="umShBody"></div></div></div>`;
   if(!force && html === umRendered) return;
@@ -3528,7 +3514,7 @@ function umCloseSheet(){
   const box = $('#usMapGuest');
   if(!box) return;
   box.addEventListener('click', e => {
-    if(e.target.closest('.gm-lockBtn')){ e.preventDefault(); lockOpen('10단계 자리 · 오늘 매수 타점은 비밀코드로 열립니다.'); return; }
+    if(e.target.closest('.gm-lockBtn')){ e.preventDefault(); lockOpen(); return; }
     if(e.target.closest('#umShX') || e.target.id === 'umSheet'){ umCloseSheet(); return; }
     const tile = e.target.closest('.gm-t[data-um]');
     if(tile){ e.preventDefault(); umOpenSheet(tile.dataset.um); return; }
