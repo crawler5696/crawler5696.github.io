@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- 뉴스레이더 newsradar-v138 — 공개 화면. 겉은 3탭(📰 뉴스 · 🗺️ 지도 · 📊 결과).
+<!-- 뉴스레이더 newsradar-v139 — 공개 화면. 겉은 3탭(📰 뉴스 · 🗺️ 지도 · 📊 결과).
      2026-11-28 지시 "지도껍대기 오픈 대환장쇼" — 지도 껍데기와 결과(수익%)는 누구나 보고,
      안쪽 비법(10단계 자리 · 기준선 · 실전 매수 타점 · 포착 유형)은 data/private_ui.json 잠금 안에만 있다. -->
 <html lang="ko">
@@ -605,6 +605,11 @@
   /* ---------- 📊 결과 껍데기 (게스트) — 수익·승률은 그대로, 단계·기준선은 🔒 ---------- */
   .gp-rt{display:flex;align-items:center;gap:5px;margin:9px 1px 4px;font-size:12px;font-weight:900;color:#b9c7de}
   .gp-rt span{margin-left:auto;font-size:9.5px;font-weight:700;color:#65748e}
+  .gp-top{display:flex;align-items:center;gap:6px}
+  .gp-top .gp-months{flex:1;min-width:0}
+  /* 2026-11-28 v139 — 결과 제목·월 칩 옆 빈 자리에 '테스트중' 배지(진화론님 지시) */
+  .gp-test{flex:none;font-size:9.5px;font-weight:900;letter-spacing:-.2px;color:#ffd76a;white-space:nowrap;
+    border:1px solid rgba(255,214,106,.5);background:rgba(255,214,106,.1);border-radius:999px;padding:2px 7px;line-height:1.5}
   .gp-months{display:flex;gap:4px;overflow-x:auto;padding:2px 0 4px;-webkit-overflow-scrolling:touch}
   .gp-months button{flex:none;appearance:none;border:1px solid var(--line);background:rgba(255,255,255,.03);
     color:var(--dim);font-family:inherit;font-size:11px;font-weight:800;padding:5px 9px;border-radius:8px;cursor:pointer;white-space:nowrap}
@@ -646,9 +651,10 @@
   .gp-st{font-style:normal;font-size:8.6px;font-weight:900;border-radius:4px;padding:0 4px;line-height:1.55}
   .gp-st.on{color:#04210f;background:#8ee6b6}
   .gp-st.off{color:#dbe4f5;background:rgba(255,255,255,.12)}
+  /* v139 — '🔒 단계' → 자물통만(터치하기 좋게 폭·여백만 유지) */
   .gp-lock{flex:none;appearance:none;cursor:pointer;font-family:inherit;margin-left:auto;
-    font-size:9px;font-weight:800;color:#93a9cc;border:1px dashed rgba(143,178,255,.45);border-radius:5px;
-    background:rgba(79,140,255,.1);padding:1px 5px;line-height:1.5}
+    font-size:11px;font-weight:800;color:#93a9cc;border:1px dashed rgba(143,178,255,.45);border-radius:7px;
+    background:rgba(79,140,255,.1);padding:3px 9px;min-width:32px;line-height:1.35;text-align:center}
   .gp-jl{margin-top:5px;padding:5px 7px;border-radius:8px;background:rgba(255,255,255,.03);border:1px solid var(--line)}
   .gp-jl-h{font-size:8.6px;font-weight:900;color:#7b8aa4;letter-spacing:0;margin-bottom:2px}
   .gp-jr{display:flex;gap:6px;font-size:9.5px;font-weight:700;color:#93a4bf;line-height:1.6;letter-spacing:-.15px}
@@ -989,7 +995,7 @@
     </div>
   </section>
 
-  <!-- 📊 결과 (v138) — 겉은 누구나(수익%·승률 공개). 단계·기준선·포착 유형은 🔒 로 가린다.
+  <!-- 📊 결과 (v139) — 겉은 누구나(수익%·승률 공개). 단계·기준선·포착 유형은 🔒 로 가린다.
        백엔드(build_pick_results.py)와 채점·종료 기준은 그대로다 — 화면만 공개용/개인용으로 나뉜다. -->
   <section class="view" data-view="result" id="view-result" hidden>
     <div id="resGuest">
@@ -3043,23 +3049,20 @@ function gpJournal(p, noTheme){
 
 function gpCard(p, journal, noTheme){
   const clsOf = v => (v == null || isNaN(Number(v))) ? '' : (Number(v) > 0 ? ' up' : (Number(v) < 0 ? ' dn' : ''));
-  const useClose = !!(journal && p.close_price != null);
+  /* v139 — 게스트 카드에는 **가격 숫자를 쓰지 않는다**(포착가·종가·현재가 모두). 진화론님: "포착가격은 제거 이것도 차트로 확인함", "종가 도 빼줘요"
+     남들이 가격으로 차트 위치를 역추적하지 못하게 수익%·상태·시각만 남긴다. (잠금 해제된 개인 화면은 private_ui.json 쪽이라 그대로) */
+  const useClose = !!(journal && p.close_return != null);
   const rt = useClose ? p.close_return : p.return_pct;
-  const nl = useClose ? '매도' : (p.now_label || '현재');
-  const nowPx = useClose ? p.close_price : p.current_price;
   const st = p.state || '진행';
-  const prices = (p.pick_price == null)
-    ? `<span>${esc(nl)}</span><b>${gpNum(nowPx)}</b>`
-    : `<span>${esc(p.price_label || '포착가')}</span><b>${gpNum(p.pick_price)}</b><span>→</span><span>${esc(nl)}</span><b>${gpNum(nowPx)}</b>`;
   const attrs = p.code ? ` data-code="${esc(String(p.code))}" data-name="${esc(p.name)}" role="button" tabindex="0"` : '';
   return `<div class="gp-card"${attrs}>
     <div class="gp-r1"><b class="gp-nm">${esc(p.name)}</b>`
     + (p.market ? `<span class="gp-mk">${esc(p.market)}</span>` : '')
     + (noTheme ? '' : `<span class="gp-th">${esc(p.theme || '')}</span>`)
     + `<b class="gp-pct${clsOf(rt)}">${gpPct(rt)}</b></div>
-    <div class="gp-r2">${prices}<em class="gp-st ${st === '종료' ? 'off' : 'on'}">${esc(st)}</em>`
-    + `<span>${p.pick_time ? esc(p.pick_time) : ''}</span>`
-    + `<button type="button" class="gp-lock" data-lock="1" title="단계·기준선·포착 유형은 비밀코드로">🔒 단계</button></div>
+    <div class="gp-r2"><em class="gp-st ${st === '종료' ? 'off' : 'on'}">${esc(st)}</em>`
+    + (p.pick_time ? `<span>${esc(p.pick_time)}</span>` : '')
+    + `<button type="button" class="gp-lock" data-lock="1" aria-label="단계·기준선·포착 유형 비밀코드로 열기" title="단계·기준선·포착 유형은 비밀코드로">🔒</button></div>
     ${journal ? gpJournal(p, noTheme) : ''}
   </div>`;
 }
@@ -3074,7 +3077,7 @@ function gpThemeGroups(rows, mats){
     map.get(k).push(p);
   });
   const groups = Array.from(map.entries()).map(([theme, list]) => {
-    const shown = x => (x.close_price != null ? x.close_return : x.return_pct);
+    const shown = x => (x.close_return != null ? x.close_return : x.return_pct);
     const rets = list.map(shown).filter(v => v != null && !isNaN(Number(v))).map(Number);
     const avg = rets.length ? rets.reduce((a, b) => a + b, 0) / rets.length : null;
     const last = list.reduce((m, x) => String(x.closed_date || '') > m ? String(x.closed_date || '') : m, '');
@@ -3137,7 +3140,7 @@ async function renderGuestResult(){
   let body = '';
   if(gpFilter === 'closed' && gpView === 'theme'){
     body = gpThemeGroups(inMonth.filter(isOff)
-      .map(p => Object.assign({}, p, {close_return: p.close_return, close_price: p.close_price})), d.theme_materials);
+      .map(p => Object.assign({}, p, {close_return: p.close_return})), d.theme_materials);
   }else{
     const rows = inMonth.filter(p => gpFilter === 'all' || (gpFilter === 'closed' ? isOff(p) : !isOff(p)));
     const byPick = (x, y) => String(y.pick_date + (y.pick_time || '')).localeCompare(String(x.pick_date + (x.pick_time || '')))
@@ -3161,7 +3164,7 @@ async function renderGuestResult(){
     if(!body) body = '<div class="gp-empty">이 달에 해당하는 픽이 없습니다.</div>';
   }
   box.innerHTML = `<div class="gp-rt">📊 결과<span>${esc(d.generated_at_kst || '')} 기준</span></div>`
-    + `<div class="gp-months">${monthChips}</div>`
+    + `<div class="gp-top"><div class="gp-months">${monthChips}</div><span class="gp-test">테스트중</span></div>`
     + sum + filters + view + body
     + gmLockHtml('무슨 기준으로 잡았을까?', '10단계 자리 · 기준선 · 포착 유형(기법)은 비밀코드로만 열립니다. 수익%·승률은 그대로 보입니다.');
   box.dataset.done = '1';
