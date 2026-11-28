@@ -510,6 +510,90 @@ def collect_ytn(now: datetime):
     return merged
 
 
+# --------------------------------------------------------------------------- TV 방송사
+# 2026-11-28 지시 — "티비에 나오는 뉴스가 좋은 것이 많아요. 티비도 참고해주세요."
+#   주요 보도·경제 TV 방송사(한국경제TV·SBS Biz·연합뉴스TV·KBS·MBC·SBS·MBN)의 네이버 뉴스
+#   경제 섹션(?sid=101)을 읽는다. 방송사가 그날 직접 고른 경제·산업·정책 기사라 테마를 깨우는
+#   재료가 많다. 같은 네이버 요청이므로 SECTION_DELAY·JITTER 간격 규칙을 그대로 지킨다.
+#   목록 HTML에 발행 시각(data-service-datetime)이 그대로 실려 원문 조회 없이도 시각이 정확하다.
+TV_PRESSES = [
+    ("215", "한국경제TV", 0.88),
+    ("374", "SBS Biz", 0.86),
+    ("422", "연합뉴스TV", 0.84),
+    ("056", "KBS", 0.80),
+    ("055", "SBS", 0.80),
+    ("214", "MBC", 0.78),
+    ("057", "MBN", 0.78),
+]
+TV_PRESS_URL = "https://media.naver.com/press/{pid}?sid=101"
+TV_LIMIT = 20            # 방송사별로 읽는 경제 뉴스 수 (목록 한 페이지에 20건이 실린다)
+TV_MAX_AGE_H = 30        # 이보다 오래된 기사는 방송사 목록에 남아 있어도 넣지 않는다
+TV_ITEM_SPLIT = re.compile(r'<li class="press_edit_news_item')
+TV_HREF_RE = re.compile(r'href="(https://n\.news\.naver\.com/article/(\d+)/(\d+))')
+TV_TITLE_RE = re.compile(r'press_edit_news_title">(.*?)</span>', re.S)
+TV_DT_RE = re.compile(r'data-service-datetime="(\d{14})')
+
+
+def parse_tv_press(page: str, press: str, weight: float, now: datetime):
+    """방송사 경제 섹션 목록에서 기사 링크·제목·발행 시각을 읽는다."""
+    out = []
+    for chunk in TV_ITEM_SPLIT.split(page)[1:]:
+        m_href = TV_HREF_RE.search(chunk)
+        m_title = TV_TITLE_RE.search(chunk)
+        if not (m_href and m_title):
+            continue
+        title = " ".join(strip_tags(m_title.group(1)).split())
+        if len(title) < 6:
+            continue
+        item = {
+            "id": f"{m_href.group(2)}/{m_href.group(3)}",
+            "title": title,
+            "lede": "",
+            "press": press,
+            "press_id": m_href.group(2),
+            "url": f"https://n.news.naver.com/article/{m_href.group(2)}/{m_href.group(3)}",
+            "section": f"{press} 경제",
+            "weight": weight,
+            "source": "tv",
+        }
+        m_dt = TV_DT_RE.search(chunk)
+        if m_dt:
+            try:
+                dt = datetime.strptime(m_dt.group(1), "%Y%m%d%H%M%S").replace(tzinfo=KST)
+            except ValueError:
+                dt = None
+            if dt:
+                if now - dt > timedelta(hours=TV_MAX_AGE_H):
+                    continue
+                item["time"] = dt.isoformat()
+        out.append(item)
+        if len(out) >= TV_LIMIT:
+            break
+    return out
+
+
+def collect_tv(now: datetime):
+    """주요 TV 방송사 경제 뉴스 목록(방송사별 최대 TV_LIMIT건)."""
+    out = []
+    for pid, name, weight in TV_PRESSES:
+        try:
+            page = fetch(TV_PRESS_URL.format(pid=pid), timeout=20)
+        except Exception as e:  # noqa: BLE001
+            print(f"[warn] tv {name} failed: {e}", file=sys.stderr)
+            continue
+        got = parse_tv_press(page, name, weight, now)
+        out.extend(got)
+        print(f"[info] tv {name}: {len(got)} items", file=sys.stderr)
+    # 같은 기사가 다른 방송사 목록에 겹치는 일은 없지만, 한 번 더 id 기준으로 정리한다
+    merged, seen = [], set()
+    for a in out:
+        if a["id"] in seen:
+            continue
+        seen.add(a["id"])
+        merged.append(a)
+    return merged
+
+
 TIME_RE = re.compile(r'_ARTICLE_DATE_TIME[^>]*data-date-time="([^"]+)"')
 # 기사 페이지가 스스로 밝히는 분류 (연예=106, 스포츠=107 등) — 가십 기사 판별에 쓴다
 SITE_META_RE = re.compile(r'name="napp-site-analysis"[^>]*content="([^"]*)"', re.I)
@@ -898,6 +982,22 @@ def is_issue_relevant(a: dict) -> bool:
     # 우리 테마 DB(테마명·종목명)에 바로 닿는 기사면 남긴다 (예: 수능 AI 커닝 → AI 시험 부정행위)
     hits = theme_link(title + " " + lede)
     return bool(hits) and hits[0][0] >= 2.5
+
+
+# 방송사 경제 뉴스는 목록에 제목만 실려 오고, "섬뜩 경고"처럼 떡밥형 헤드라인이 많다.
+# 그래서 TV 기사에만 이 말들을 증시·거시 신호로 더 본다(다른 수집 경로의 필터는 그대로 둔다).
+TV_MARKET_TERMS = ("증안펀드", "시세조종", "잠재성장률", "채권", "국채", "금리", "환율",
+                   "유가", "관세", "주주총회", "목표주가", "공모가", "배당금")
+
+
+def is_tv_relevant(a: dict) -> bool:
+    """TV 방송사 경제 뉴스를 달력·테마에 쓸 기사인지. 연예·가십·단순 사건사고는 빼다."""
+    if is_market_relevant(a) or is_issue_relevant(a):
+        return True
+    title = a["title"]
+    if is_gossip(title) or any(w in title for w in HARD_DROP) or case_only(title):
+        return False
+    return any(t in title for t in TV_MARKET_TERMS)
 
 
 # --------------------------------------------------------------------------- 테마 DB 어휘
@@ -2758,6 +2858,8 @@ def build(out_path: str):
     civic_count = sum(1 for a in raw if a.get("source") == "civic")
     ytn_items = collect_ytn(now)
     raw.extend(ytn_items)
+    tv_items = collect_tv(now)
+    raw.extend(tv_items)
     main_items = parse_main_ranking(now)
     raw.extend(main_items)
 
@@ -2791,6 +2893,10 @@ def build(out_path: str):
                 continue
         elif a.get("source") in ("civic", "press"):
             if not is_issue_relevant(a):
+                continue
+        elif a.get("source") == "tv":
+            # 방송사 경제 뉴스는 증시·산업·정책·거시·테마에 닿는 것만 남긴다
+            if not is_tv_relevant(a):
                 continue
         elif not is_market_relevant(a):
             continue
@@ -2853,6 +2959,8 @@ def build(out_path: str):
             "sections": section_count,
             "civic": civic_count,
             "ytn": len(ytn_items),
+            "tv": len(tv_items),
+            "tv_cards": sum(1 for c in kept if c.get("source") == "tv"),
             "civic_cards": sum(1 for c in kept if c.get("source") == "civic"),
         },
         "themes": themes,
