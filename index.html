@@ -86,6 +86,8 @@
     color:var(--dim);display:grid;place-items:center;font-size:14px;flex:none;cursor:pointer;transition:.2s}
   .refresh:active{transform:scale(.92);background:var(--card2)}
   /* 공지 다시 보기 — 헤더의 작은 📢 */
+  /* 2026-11-28 — 공지(📢)는 잠금이 풀렸을 때만 보인다(.ntbtn 의 display:grid 가 [hidden] 을 덮지 않게) */
+  .ntbtn[hidden]{display:none !important}
   .ntbtn{width:29px;height:29px;border-radius:9px;border:1px solid var(--line);background:var(--card);
     color:var(--dim);display:grid;place-items:center;font-size:13px;flex:none;cursor:pointer;transition:.2s}
   .ntbtn:active{transform:scale(.92);background:var(--card2)}
@@ -2832,6 +2834,7 @@ function onceSeen(){
 }
 
 function onceShow(){
+  if(!visOn()) return;                               /* 잠긴 화면에서는 안내도 띄우지 않는다 */
   if(!onceOv || onceSeen() || !onceOv.hidden) return;
   const ntNow = $('#noticeOv');
   if(ntNow && !ntNow.hidden) return;          /* 공지 창이 떠 있으면 그게 닫힌 뒤에 */
@@ -2865,7 +2868,7 @@ if(onceOv){
   if(nt0){
     new MutationObserver(() => { if(nt0.hidden){ onceShow(); } }).observe(nt0, {attributes:true, attributeFilter:['hidden']});
   }
-  if(!onceSeen()) setTimeout(() => { onceShow(); }, 1200);   /* 공지가 안 뜨는 기기(이미 본 기기)에서도 한 번 */
+  if(visOn() && !onceSeen()) setTimeout(() => { onceShow(); }, 1200);   /* 공지가 안 뜨는 기기(이미 본 기기)에서도 한 번 — 잠금이 풀렸을 때만 */
 }
 
 /* 주소에 ?me=비밀코드 가 있으면 그 코드로 연다. 저장된 코드가 있으면 그것으로 조용히 연다 */
