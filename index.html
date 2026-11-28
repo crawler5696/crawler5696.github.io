@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- 뉴스레이더 newsradar-v135 — 공개 화면. 비공개 탭(레이더·실전·결과) 코드는 data/private_ui.json 안에 잠겨 있다. -->
+<!-- 뉴스레이더 newsradar-v136 — 공개 화면. 비공개 탭(지도·실전·결과) 코드는 data/private_ui.json 안에 잠겨 있다. -->
 <html lang="ko">
 <head>
 <meta charset="utf-8">
@@ -737,14 +737,14 @@
       <span class="mood" id="moodUs" hidden></span>
       <div class="spacer"></div>
       <div class="live" id="live"><span class="dot"></span><span id="liveTxt">LIVE</span></div>
-      <button class="ntbtn" id="btnNotice" type="button" aria-label="공지사항 보기" title="공지사항">📢</button>
+      <button class="ntbtn" id="btnNotice" type="button" aria-label="공지사항 보기" title="공지사항" hidden>📢</button>
       <button class="refresh" id="btnRefresh" aria-label="새로고침" title="새로고침 — 최신 뉴스를 지금 다시 받아옵니다">⟳</button>
     </div>
     <div class="kkwrap"><a class="kk" href="https://www.youtube.com/live/aZyD6EPl6KU?si=f2xDpMJWiH08VApW" target="_blank" rel="noopener noreferrer" aria-label="실시간 뉴스 보기">📺 실시간 뉴스 · <b>뉴스보기</b></a></div>
     <div class="tabs" role="tablist" aria-label="화면 전환">
       <button class="tab" role="tab" data-tab="news" aria-selected="true">📰 뉴스</button>
       <button class="tab cal" role="tab" data-tab="calendar" aria-selected="false" aria-label="테마달력">📅 테마달력</button>
-      <button class="tab radar" role="tab" data-tab="radar" aria-selected="false" aria-label="레이더(비밀번호 필요)"><span class="lk" id="radLk" aria-hidden="true">🔒</span>📡 레이더<span class="rdot" id="radarDot" aria-hidden="true"></span></button>
+      <button class="tab radar" role="tab" data-tab="radar" aria-selected="false" aria-label="지도(비밀번호 필요)"><span class="lk" id="radLk" aria-hidden="true">🔒</span>🗺️ 지도</button>
       <button class="tab hot" role="tab" data-tab="hotbar" aria-selected="false" aria-label="실전(비밀번호 필요)"><span class="lk" id="hotLk" aria-hidden="true">🔒</span>🎯 실전</button>
       <button class="tab res" role="tab" data-tab="result" aria-selected="false" aria-label="결과(비밀번호 필요)"><span class="lk" id="resLk" aria-hidden="true">🔒</span>📊 결과</button>
     </div>
@@ -768,11 +768,12 @@
     <button class="more" id="moreIssues" hidden>이슈 더 보기</button>
   </section>
 
+  <!-- 2026-11-28 v136 — 레이더 → 🗺️ 지도. 위는 오늘 뉴스가 부른 테마, 아래는 동반테마 1·2·3등의 1~10단계 상황판. -->
   <section class="view" data-view="radar" id="view-radar" hidden>
     <div class="hot-lock" id="radLock">
       <div class="ico">🔒</div>
-      <b>레이더는 본인 전용입니다</b>
-      <p>뉴스 · 테마달력 · 오늘 상한가는 누구나 볼 수 있습니다.<br>레이더 · 실전 · 결과는 비밀코드를 넣어야 열립니다.</p>
+      <b>지도는 본인 전용입니다</b>
+      <p>뉴스 · 테마달력 · 오늘 상한가는 누구나 볼 수 있습니다.<br>지도 · 실전 · 결과는 비밀코드를 넣어야 열립니다.</p>
       <div class="hl-row">
         <input id="radCode" type="password" inputmode="numeric" autocomplete="off" enterkeyhint="go" placeholder="비밀코드" maxlength="12" aria-label="비밀코드">
         <button id="radGo" type="button">열기</button>
@@ -781,15 +782,13 @@
       <p class="hl-tip">본인이면 상단 <b>LIVE</b> 배지를 1.5초 안에 세 번 눌러도 열 수 있습니다.</p>
     </div>
     <div id="radarInner"></div>
-    </div>
-    </div>
   </section>
 
   <section class="view" data-view="hotbar" id="view-hotbar" hidden>
     <div class="hot-lock" id="hotLock">
       <div class="ico">🔒</div>
       <b>실전은 본인 전용입니다</b>
-      <p>뉴스 · 테마달력 · 오늘 상한가는 누구나 볼 수 있습니다.<br>레이더 · 실전 · 결과는 비밀코드를 넣어야 열립니다.</p>
+      <p>뉴스 · 테마달력 · 오늘 상한가는 누구나 볼 수 있습니다.<br>지도 · 실전 · 결과는 비밀코드를 넣어야 열립니다.</p>
       <div class="hl-row">
         <input id="hotCode" type="password" inputmode="numeric" autocomplete="off" enterkeyhint="go" placeholder="비밀코드" maxlength="12" aria-label="비밀코드">
         <button id="hotGo" type="button">열기</button>
@@ -805,7 +804,7 @@
     <div class="hot-lock" id="resLock">
       <div class="ico">🔒</div>
       <b>결과는 본인 전용입니다</b>
-      <p>뉴스 · 테마달력 · 오늘 상한가는 누구나 볼 수 있습니다.<br>레이더 · 실전 · 결과는 비밀코드를 넣어야 열립니다.</p>
+      <p>뉴스 · 테마달력 · 오늘 상한가는 누구나 볼 수 있습니다.<br>지도 · 실전 · 결과는 비밀코드를 넣어야 열립니다.</p>
       <div class="hl-row">
         <input id="resCode" type="password" inputmode="numeric" autocomplete="off" enterkeyhint="go" placeholder="비밀코드" maxlength="12" aria-label="비밀코드">
         <button id="resGo" type="button">열기</button>
@@ -876,70 +875,7 @@
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <!-- 공지사항 — 처음 한 번 뜨고, [확인] 을 누르면 그 기기에서는 다시 뜨지 않는다 (헤더 📢 로 언제든 다시 보기) -->
-<div class="nt-ov" id="noticeOv" hidden>
-  <div class="nt-box nt-main" role="dialog" aria-modal="true" aria-labelledby="ntTitle">
-    <div class="nt-top">
-      <span class="ico" aria-hidden="true">📢</span>
-      <h2 id="ntTitle">뉴스레이더 안내</h2>
-      <button class="nt-x" id="ntX" type="button" aria-label="공지 닫기">✕</button>
-    </div>
-    <p class="nt-sub">처음 한 번만 뜨는 안내입니다 · <b>[확인]</b> 을 누르면 다시 뜨지 않습니다</p>
-    <div class="nt-head"><p class="nt-legal">⚠️ 본 사이트는 투자 목적이 아닌 뉴스 정보 제공용이며, <em>투자 권유가 아닙니다</em>. 모든 투자 판단과 책임은 본인에게 있습니다.</p></div>
-    <div class="nt-body">
-    <div class="nt-it">
-      <span class="nt-n">1</span>
-      <div class="nt-c"><b>이번 업데이트 (11.28) · 테마 뉴스 상태(🔥새로움·🔁진행·💤소멸)와 전후 흐름 줄기</b>
-        <p><em>뉴스</em> 칸의 테마 기사 아래에 그 테마 뉴스가 지금 어디인지 한 줄로 붙였습니다 — <em>불씨(처음 붙은 날) → 이어짐 → 오늘 → 예정 일정</em>. <em>🔥 새로움</em>은 조용하다가 새 재료로 막 붙은 테마, <em>🔁 진행</em>은 여러 매체로 번지는 중, <em>💤 소멸</em>은 같은 거시·정책 기사만 되풀이되는 테마입니다. <em>레이더</em> 맨 위 <em>📰 오늘 뉴스가 부른 테마</em>에는 테마 규모와 1·2·3등, 그 아래 테마 카드에는 뉴스 상태가 함께 섭니다.</p></div>
-      <div class="nt-c"><b>이번 업데이트 (11.26) · 뉴스 탭 '뉴스 부각' 정리 · 테마달력 상한가 많은 순</b>
-        <p>뉴스 탭 맨 아래의 <em>뉴스 부각(오늘 뉴스가 부른 테마)</em> 칸을 걷어냈습니다. 단어만 걸린 사회 기사까지 테마로 붙어 시장과 무관한 줄이 섞였고, 위쪽 <em>주요 뉴스</em>와 역할도 겹쳤습니다. 뉴스는 위의 주요 뉴스까지, 테마 소식은 <em>테마달력</em>이 맡습니다. <em>테마달력</em>의 동반테마는 이제 <em>그 달 상한가 종목이 많은 순서</em>(같으면 최근 상한가일 순)로 서고, 다른 테마 종목이 섞여 있던 자리는 테마 DB에서 바로잡았습니다.</p></div>
-      <div class="nt-c"><b>이번 업데이트 (11.24) · 테마달력 맨 앞에 [오늘 상한가] 칸</b>
-        <p><em>테마달력</em> 위 칩을 <em>[오늘 상한가] [동반테마] [개별상한가]</em> 세 개로 바꿨습니다. 맨 앞 <em>오늘 상한가</em>를 누르면 월별 달력 대신 <em>오늘 상한가로 간 종목</em>이 <em>뉴스</em> 칸과 같은 카드(테마·거래대금·이슈 한 줄·원문 링크)로 바로 펼쳐집니다. 칩에 붙은 숫자는 각각 <em>오늘 상한가 종목 수</em> · <em>이 달 동반테마 수</em> · <em>이 달 개별상한가 수</em>입니다. <em>동반테마나 개별상한가</em>를 누르면 월별 달력과 테마 목록으로 돌아갑니다.</p></div>
-    </div>
-    <div class="nt-it">
-      <span class="nt-n">2</span>
-      <div class="nt-c"><b>이번 업데이트 (11.26) · 🔒 결과 탭 — 픽으로 올린 종목의 월별 상태·경과</b>
-        <p>위쪽 탭이 <em>📰 뉴스 · 📅 테마달력 · 🔒 📡 레이더 · 🔒 🎯 실전 · 🔒 📊 결과</em> 다섯 칸입니다. <em>뉴스</em>(오늘 자금 방향 · 주요 뉴스 · 오늘 상한가)와 <em>테마달력</em>은 누구나 봅니다. <em>레이더 · 실전 · 결과</em>는 본인 비밀코드로만 열립니다. <em>결과</em>는 실전에서 픽으로 올린 종목을 <em>월 단위</em>로 세워, 포착일 때 가격과 지금 가격·경과 수익률·최고 도달·현재 상태를 한 눈에 보는 자리입니다. 최근 달이 맨 앞에 펼쳐지고, 카드를 누르면 그 종목 차트가 열립니다.</p></div>
-      <div class="nt-c"><b>이번 업데이트 (11.24) · 화면을 네 칸으로 나누고, 공개·비공개를 갈랐습니다</b>
-        <p>위쪽 탭이 <em>📰 뉴스 · 📅 테마달력 · 🔒 📡 레이더 · 🔒 🎯 실전</em> 네 칸으로 정리됐습니다. <em>뉴스</em>(오늘 자금 방향 · 주요 뉴스 · 오늘 상한가)와 <em>테마달력</em>은 누구나 봅니다. <em>레이더</em>와 <em>실전</em>은 본인 비밀코드로만 열립니다. 탭 바로 아래 한 줄에 지금 칸이 무엇을 보는 자리인지 적어 두었습니다.</p></div>
-    </div>
-    <div class="nt-it">
-      <span class="nt-n">3</span>
-      <div class="nt-c"><b>이번 업데이트 (11.23) · 차트에 하늘색 장기선 (일봉 240일 · 주봉 240주 · 월봉 120월)</b>
-        <p>종목을 눌러 여는 차트에 <em>하늘색 장기선</em>을 그렸습니다. 일봉에는 <em>240일선</em>, 주봉에는 <em>240주선</em>, 월봉에는 <em>120개월선</em>이 깔리고, 차트 위 <em>일봉·주봉·월봉</em> 버튼으로 바꿔 봐도 그 주기의 선이 따라갑니다. 차트 아래 범례에는 그 선의 지금 값이 숫자로 함께 나옵니다. 상장한 지 얼마 안 되어 봉이 모자란 구간은 선을 긋지 않습니다.</p></div>
-    </div>
-    <div class="nt-it">
-      <span class="nt-n">4</span>
-      <div class="nt-c"><b>이번 업데이트 (11.22) · 각 매체 시사·정책 메인까지 읽고 레이더와 연결</b>
-        <p>뉴스 탭이 네이버 경제면에 더해 <em>정치·사회면</em>과 <em>YTN 메인·속보</em>까지 함께 읽습니다. 가십·사건사고는 그대로 걸러내고 정책·규제·시험/교육·외교·재난·산업 이슈만 남깁니다. 위쪽 <em>실시간 속보</em>는 많이 본·여러 매체가 같이 다룬 <em>3건</em>으로 간결하게 줄였습니다. 같은 테마를 다룬 뉴스는 <em>대표 1건</em>만 순위에 세우고 <em>+ 같은 테마 뉴스 n건</em>으로 접어 두어, 목록이 한 테마로 길게 늘어서지 않습니다. <em>레이더</em> 맨 위에는 <em>📰 오늘 뉴스가 부른 테마</em>가 뉴스 제목·매체 수와 함께 먼저 서고, 거기 있는 종목을 누르면 바로 차트가 열립니다.</p></div>
-    </div>
-    <button class="nt-more" id="ntMore" type="button" aria-expanded="false" aria-controls="ntOld"><span class="lbl">지난 공지 4건 더보기</span><span class="ar" aria-hidden="true">▾</span></button>
-    <div class="nt-old" id="ntOld" hidden>
-    <div class="nt-it">
-      <span class="nt-n">5</span>
-      <div class="nt-c"><b>이번 업데이트 (11.21) · 상한가 봉 표시</b>
-        <p>종목을 눌러 여는 <em>일봉 125봉 차트</em>에 <em>노란 화살표 ▼</em> 를 붙였습니다. 전날 종가보다 28% 넘게 오른 <em>상한가 봉의 꼭대기 위</em>에 노란 화살표가 서서, 상한가가 난 자리를 한눈에 볼 수 있습니다.</p></div>
-    </div>
-    <div class="nt-it">
-      <span class="nt-n">6</span>
-      <div class="nt-c"><b>이번 업데이트 (11.21) · 테마달력에 '동반테마 / 개별상한가' 구분 필터</b>
-        <p><em>테마달력</em> 위에 <em>[동반테마] [개별상한가] [전체]</em> 칩을 달았습니다. 처음에는 <em>동반테마</em>가 선택돼 있어 같은 테마 종목들이 <em>함께 오른 진짜 테마</em>부터 보입니다. <em>개별상한가</em>를 누르면 실적·계약·인수·임상·허가·기술수출·경영권·자사주·신작·특허 같은 <em>단독 재료</em>로 한 종목만 오른 경우를 볼 수 있습니다.</p></div>
-    </div>
-    <div class="nt-it">
-      <span class="nt-n">7</span>
-      <div class="nt-c"><b>종목 차트 보는 법</b>
-        <p><em>뉴스(오늘 상한가 포함) · 테마달력 · 레이더 · 실전</em> 어느 화면에서든 종목 이름을 누르면 그 종목의 <em>일봉 125봉 차트</em> 가 열립니다. 봉을 짚으면 그날 종가·등락률·거래량과 5·10·20·60일선 값이 위에 뜨고, <em>전체 125봉 / 최근 60봉</em> 버튼으로 넓혀 보거나 좁혀 볼 수 있습니다.</p></div>
-    </div>
-    <div class="nt-it">
-      <span class="nt-n">8</span>
-      <div class="nt-c"><b>지정시간 자동 업데이트</b>
-        <p>평일 지정시간마다 뉴스와 차트가 자동으로 갱신됩니다. 화면 위 <em>⟳</em> 를 누르면 지금 바로 새로 받아옵니다.</p></div>
-    </div>
-    </div>
-    </div>
-    <button class="nt-ok" id="ntOk" type="button">확인 (다시 보지 않기)</button>
-    <p class="nt-foot">다시 보려면 화면 위 📢 를 누르세요</p>
-  </div>
-</div>
+<div id="noticeHost"></div>
 
 <!-- 1회성 안내 (11.21 상단 실시간 뉴스 링크 교체) — 한 번만 뜨고 [확인] · ✕ 로 닫으면 그 기기에서는
      다시 뜨지 않는다. 공지 목록(📢)에는 넣지 않는다 — 여기서만 보여 주고 사라진다. -->
@@ -1013,7 +949,7 @@ const TABS = ['news','radar','calendar','hotbar','result'];
 const TAB_ROLE = {
   news: '<b>📰 뉴스</b> — 오늘 자금 방향 · 주요 뉴스',
   calendar: '<b>📅 테마달력</b> — 오늘 상한가 · 최근 1년 무리 테마 · 동반 묶음 (누구나)',
-  radar: '<b>🔒 📡 레이더</b> — 본인 전용 (비밀코드로 열립니다)',
+  radar: '<b>🔒 🗺️ 지도</b> — 본인 전용 (비밀코드로 열립니다)',
   hotbar: '<b>🔒 🎯 실전</b> — 본인 전용 (비밀코드로 열립니다)',
   result: '<b>🔒 📊 결과</b> — 본인 전용 (비밀코드로 열립니다)',
 };
@@ -1156,7 +1092,7 @@ function leadBadge(leaders){
 
 /* ---------------- 2026-11-28 3단계 — 뉴스 탭의 테마 뉴스 상태·전후 흐름 ----------------
    "뉴스가 핵심 축이고 테마는 생겼다 사라진다" — 기사에 붙은 DB 테마 옆에 지금 뉴스가
-   🔥새로움(불씨) · 🔁진행(확산) · 💤소멸(거시·반복) 중 어디인지, 그리고 불씨→오늘→예정 줄기를 보여 준다.
+   🔥새로움(불씨) · 🔁진행(확산) · ↘소멸(거시·반복) 중 어디인지, 그리고 불씨→오늘→예정 줄기를 보여 준다.
    자료는 공개 data/news_themes.json (theme_db 2·3단계가 만든 것) — 테마 이름으로 맞춘다.
    ⚠ 개인 기준(1·2·3등·10단계·기준선)은 여기(공개 탭)에 넣지 않는다. */
 let newsPhaseMap = null, newsPhaseLoad = null;
@@ -1183,7 +1119,7 @@ function themeNewsOf(a){
   for(const n of names){ const hit = newsPhaseMap.get(baseThemeName(n)); if(hit) return hit; }
   return null;
 }
-function newsPhaseIcon(ph){ return ph === '새로움' ? '🔥' : (ph === '진행' ? '🔁' : (ph === '소멸' ? '💤' : '')); }
+function newsPhaseIcon(ph){ return ph === '새로움' ? '🔥' : (ph === '진행' ? '🔁' : (ph === '소멸' ? '↘' : '')); }
 function flowLineOf(f){
   const steps = (f || []).filter(x => x && x.step);
   if(!steps.length) return '';
@@ -1210,11 +1146,11 @@ function themeChip(a){
   if(!t) return '';
   const c = String((a && a.theme_color) || (a && a.theme ? themeColor(a.theme) : '') || '').trim();
   const st = /^#[0-9a-f]{3,8}$/i.test(c) ? ` style="color:${c};border-color:${c}66;background:${c}14"` : '';
-  /* 2026-11-28 3단계 — 이 테마 뉴스가 지금 어디인지(🔥불씨·🔁확산·💤소멸)를 테마 이름 앞에 붙인다 */
+  /* 2026-11-28 3단계 — 이 테마 뉴스가 지금 어디인지(🔥불씨·🔁확산·↘소멸)를 테마 이름 앞에 붙인다 */
   const nw = themeNewsOf(a);
   const ph = (nw && nw.news_phase) || '';
   const ic = newsPhaseIcon(ph);
-  const tip = nw ? [t, nw.news_phase_label || ph, nw.news_phase_why || '', flowLineOf(nw.news_flow)].filter(Boolean).join(' · ') : t;
+  const tip = nw ? [t, String(nw.news_phase_label || ph).replace(/💤/g, '↘'), nw.news_phase_why || '', flowLineOf(nw.news_flow)].filter(Boolean).join(' · ') : t;
   /* 칩에 적힌 이름이 곧 그 테마일 때만 상태 이모지를 붙인다 — 기사 칩(짧은 분류말)과 DB 테마가
      다르면 엉뚱한 테마 상태가 붙어 보인다(예: '거시·환율·금리' 칩에 다른 테마의 🔁). */
   const sameName = nw ? (baseThemeName(t) === baseThemeName(nw.theme) || baseThemeName(t) === baseThemeName(nw.short)) : false;
@@ -2718,6 +2654,12 @@ function paintLock(){
     const view = $(sel);
     if(view) view.classList.toggle('locked', !on);
   });
+  const nb = $('#btnNotice');
+  if(nb) nb.hidden = !on;                /* 공지(📢)는 잠금이 풀렸을 때만 보인다(2026-11-28 지시) */
+  if(!on){
+    const ov = $('#noticeOv');
+    if(ov && !ov.hidden){ ov.classList.remove('show'); ov.hidden = true; document.body.classList.remove('lock'); }
+  }
   if(!on) P11();                         /* 잠그면 비공개 화면 자료를 기억에서 지운다 */
   paintTabRole(state.tab);
   if(state.tab === 'hotbar') P2();
@@ -2738,9 +2680,13 @@ function mountPrivate(pack){
   const ri = $('#radarInner'); if(ri && h.radar) ri.innerHTML = h.radar;
   const hi = $('#hotInner'); if(hi && h.hotbar) hi.innerHTML = h.hotbar;
   const si = $('#resInner'); if(si && h.result) si.innerHTML = h.result;
+  /* 공지(📢) — 2026-11-28 지시로 공지 글도 잠금 안으로 옮겼다(비밀코드가 풀린 뒤에만 실린다) */
+  const ni = $('#noticeHost'); if(ni && h.notice) ni.innerHTML = h.notice;
   const s = document.createElement('script');
   s.textContent = String(pack.js || '');
   document.body.appendChild(s);
+  if(typeof noticeBind === 'function') noticeBind();
+  if(!noticeSeen()) setTimeout(() => { if(visOn() && !noticeSeen()) noticeShow(); }, 700);
 }
 async function unlockPrivate(code){
   code = String(code || '').trim();
@@ -2793,7 +2739,7 @@ visPaint();
       if(ok){
         inp.value = '';
         visPaint();
-        toast('레이더 · 실전 · 결과 열림');
+        toast('지도 · 실전 · 결과 열림');
         if(state.tab === 'radar') P1();
         else if(state.tab === 'hotbar') P2();
         else if(state.tab === 'result') P17();
@@ -2810,30 +2756,36 @@ visPaint();
   bind('#resGo', '#resCode', '#resErr');
 })();
 
+/* 공지(📢) — 2026-11-28 지시로 **잠갔다**. 공지 글은 비공개 화면 코드와 함께 data/private_ui.json 안에
+   잠겨 있고, 비밀코드가 풀린 뒤에만 이 자리(#noticeHost)에 실린다. 잠긴 채로는 📢 버튼도 뜨지 않는다. */
 const NOTICE_KEY = 'newsradar_notice_v5_ack';
 
-let noticeOv = $('#noticeOv');
+function ntEl(){ return $('#noticeOv'); }          /* 잠금이 풀릴 때 생기므로 그때 찾는다 */
 
 function noticeSeen(){
   try{ return !!localStorage.getItem(NOTICE_KEY); }catch(e){ return false; }
 }
 
 function noticeShow(){
-  if(!noticeOv) return;
-  if(typeof noticeFold === 'function') noticeFold(false);   /* 열 때는 늘 접힌 채로 — 한 화면에 들어오게 */
+  if(!visOn()) return;                             /* 잠긴 화면에서는 공지를 띄우지 않는다 */
+  const ov = ntEl();
+  if(!ov) return;
+  noticeBind();
+  noticeFold(false);                               /* 열 때는 늘 접힌 채로 — 한 화면에 들어오게 */
   ovStackPush('noticeOv');
-  noticeOv.hidden = false;
-  requestAnimationFrame(() => noticeOv.classList.add('show'));
+  ov.hidden = false;
+  requestAnimationFrame(() => ov.classList.add('show'));
   document.body.classList.add('lock');
 }
 
 function noticeHide(){
-  if(!noticeOv || noticeOv.hidden) return;
-  noticeOv.classList.remove('show');
+  const ov = ntEl();
+  if(!ov || ov.hidden) return;
+  ov.classList.remove('show');
   ovStackDrop('noticeOv');
   const ch = $('#chartOv');
   if(!ch || ch.hidden) document.body.classList.remove('lock');
-  setTimeout(() => { if(noticeOv && !noticeOv.classList.contains('show')){ noticeOv.hidden = true; onceShow(); } }, 180);
+  setTimeout(() => { if(ov && !ov.classList.contains('show')){ ov.hidden = true; onceShow(); } }, 180);
 }
 
 function noticeAck(){
@@ -2841,9 +2793,8 @@ function noticeAck(){
   noticeHide();
 }
 
-const ntMore = $('#ntMore'), ntOld = $('#ntOld');
-
 function noticeFold(open){
+  const ntMore = $('#ntMore'), ntOld = $('#ntOld');
   if(!ntMore || !ntOld) return;
   ntOld.hidden = !open;
   ntMore.setAttribute('aria-expanded', open ? 'true' : 'false');
@@ -2851,17 +2802,26 @@ function noticeFold(open){
   if(lbl) lbl.textContent = open ? '지난 공지 접기' : `지난 공지 ${ntOld.querySelectorAll('.nt-it').length}건 더보기`;
 }
 
-if(ntMore && ntOld) ntMore.addEventListener('click', () => noticeFold(ntOld.hidden));
-
-if(noticeOv){
+/* 공지 창을 한 번만 묶는다 — 잠금이 풀려 #noticeHost 에 실린 뒤에 부른다 */
+function noticeBind(){
+  const ov = ntEl();
+  if(!ov || ov.dataset.bound === '1') return;
+  ov.dataset.bound = '1';
   const ok = $('#ntOk'), x = $('#ntX');
   if(ok) ok.addEventListener('click', noticeAck);
   if(x) x.addEventListener('click', noticeHide);      /* ✕ 는 그냥 닫기 — 다음에 또 띄운다 */
-  noticeOv.addEventListener('click', e => { if(e.target === noticeOv) noticeHide(); });
-  const btn = $('#btnNotice');
-  if(btn) btn.addEventListener('click', () => { noticeShow(); });
-  if(!noticeSeen()) setTimeout(() => { if(!noticeSeen()) noticeShow(); else onceShow(); }, 450);
+  ov.addEventListener('click', e => { if(e.target === ov) noticeHide(); });
+  const more = $('#ntMore');
+  if(more) more.addEventListener('click', () => noticeFold($('#ntOld').hidden));
+  noticeFold(false);
 }
+
+/* 📢 버튼 — 잠금이 풀렸을 때만 보이고, 누르면 공지를 연다 */
+(function bindNoticeBtn(){
+  const btn = $('#btnNotice');
+  if(!btn) return;
+  btn.addEventListener('click', () => { noticeShow(); });
+})();
 
 const ONCE_KEY = 'newsradar_once_live_link_1121';
 
@@ -2873,7 +2833,8 @@ function onceSeen(){
 
 function onceShow(){
   if(!onceOv || onceSeen() || !onceOv.hidden) return;
-  if(noticeOv && !noticeOv.hidden) return;          /* 공지 창이 떠 있으면 그게 닫힌 뒤에 */
+  const ntNow = $('#noticeOv');
+  if(ntNow && !ntNow.hidden) return;          /* 공지 창이 떠 있으면 그게 닫힌 뒤에 */
   ovStackPush('onceOv');
   onceOv.hidden = false;
   requestAnimationFrame(() => onceOv.classList.add('show'));
@@ -2900,9 +2861,9 @@ if(onceOv){
   if(x) x.addEventListener('click', onceAck);
   onceOv.addEventListener('click', e => { if(e.target === onceOv) onceAck(); });
   /* 공지 창이 닫힌 뒤(닫기·[확인]·바깥 클릭)에 1회성 안내를 이어서 띄운다 */
-  if(noticeOv){
-    const nt = $('#noticeOv');
-    new MutationObserver(() => { if(nt.hidden){ onceShow(); } }).observe(nt, {attributes:true, attributeFilter:['hidden']});
+  const nt0 = $('#noticeOv');
+  if(nt0){
+    new MutationObserver(() => { if(nt0.hidden){ onceShow(); } }).observe(nt0, {attributes:true, attributeFilter:['hidden']});
   }
   if(!onceSeen()) setTimeout(() => { onceShow(); }, 1200);   /* 공지가 안 뜨는 기기(이미 본 기기)에서도 한 번 */
 }
@@ -3145,7 +3106,7 @@ switchTab(TABS.includes(startTab) ? startTab : 'news', true);
 
 load(false);
 
-/* 2026-11-28 3단계 — 테마 뉴스 상태(🔥새로움·🔁진행·💤소멸)를 뉴스 탭 테마 칩에 붙인다(공개 자료). */
+/* 2026-11-28 3단계 — 테마 뉴스 상태(🔥새로움·🔁진행·↘소멸)를 뉴스 탭 테마 칩에 붙인다(공개 자료). */
 ensureNewsPhases().catch(() => {});
 
 P10().then(() => P6());
