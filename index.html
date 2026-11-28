@@ -2300,11 +2300,13 @@ function chartSvgHtml(s){
           g += `<line x1="${CH_X0}" x2="${CH_X1}" y1="${yv.toFixed(1)}" y2="${yv.toFixed(1)}" stroke="#ffa15c" stroke-width="1" stroke-dasharray="3 3" opacity=".55"/>`;
         });
         const hbT = `핫바 ${px(hbLo)}~${px(hbHi)}`;
-        /* 이름표 — 띠 바로 위 왼쪽. 기준선 숫자(왼쪽 박스)와 겹치면 그리지 않는다. */
+        /* 이름표 — 띠 바로 위 왼쪽, 캔들 위에서도 읽히게 알은 배경 박스를 갈아 단다.
+           기준선 숫자(왼쪽 박스)와 겹치면 그리지 않는다. */
         const yBase = base > 0 ? Y(base) : -99;
-        const ty = y1 - 3.2;
+        const ty = y1 - 3.2, tw3 = textW(hbT, 7.4) + 6;
         if(Math.abs(yBase - ty) > 11 && ty > CH_PY0 + 5){
-          g += `<text x="${CH_X0 + 2}" y="${ty.toFixed(1)}" font-size="7.4" font-weight="800" fill="#ffb27a" opacity=".92">${hbT}</text>`;
+          g += `<rect x="${CH_X0 + 1}" y="${(ty - 7).toFixed(1)}" width="${tw3.toFixed(1)}" height="9" rx="2" fill="rgba(11,17,32,.82)"/>`;
+          g += `<text x="${CH_X0 + 3}" y="${ty.toFixed(1)}" font-size="7.4" font-weight="800" fill="#ffb27a" opacity=".95">${hbT}</text>`;
         }
       }
     }
