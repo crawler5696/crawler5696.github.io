@@ -525,6 +525,59 @@
     box-shadow:0 3px 12px rgba(79,140,255,.3)}
   @media (max-width:374px){ .map-seg button{font-size:10.4px;letter-spacing:-.4px} }
 
+  /* ---------- 🇰🇷 한국 / 🇺🇸 미국 시장 전환 (2026-11-28 v140) ---------- */
+  /* 세 탭 위에 작은 알약 하나 — 384·390px 폭에서 헤더 한 줄을 밀어내지 않게 가운데·작게 둔다. */
+  .mkt{display:flex;justify-content:center;margin:0 0 5px}
+  .mkt-seg{display:inline-flex;align-items:center;gap:2px;padding:2px;border-radius:999px;
+    border:1px solid var(--line);background:rgba(255,255,255,.035)}
+  .mkt-seg button{appearance:none;border:0;background:transparent;color:#93a4bf;font-family:inherit;
+    font-size:11px;font-weight:800;letter-spacing:-.3px;padding:4px 12px;border-radius:999px;cursor:pointer;
+    display:inline-flex;align-items:center;gap:3px;white-space:nowrap;transition:.15s}
+  .mkt-seg button.on{color:#fff;background:linear-gradient(135deg,#4f8cff,#7c5cff);
+    box-shadow:0 2px 10px rgba(79,140,255,.34)}
+  .mkt-seg button:active{transform:scale(.97)}
+  @media (max-width:374px){ .mkt-seg button{font-size:10.4px;padding:3px 10px} }
+  /* 미국은 두 뷰(테마 지도·실전 타점) — .map-seg 기본이 3칸이라 두 칸짜리를 따로 둔다 */
+  .map-seg.two{grid-template-columns:repeat(2,1fr)}
+
+  /* ---------- 🇺🇸 미국 뉴스 (게스트) — 테마별 최신 뉴스·온도 ---------- */
+  .us-temp{margin-left:auto;flex:none;font-size:10px;font-weight:800;color:#9fc0ff;
+    border:1px solid rgba(79,140,255,.34);background:rgba(79,140,255,.1);padding:1px 7px;border-radius:20px}
+  .us-temp[hidden]{display:none}
+  .us-idx{display:flex;gap:4px;flex-wrap:wrap;margin:2px 0 6px}
+  .us-idx i{font-style:normal;font-size:9px;font-weight:700;color:#8fa1ba;border:1px solid var(--line);
+    background:rgba(255,255,255,.025);padding:1px 6px;border-radius:20px;white-space:nowrap}
+  .us-idx i b{font-weight:900;color:#c2cde0}
+  .us-idx i.up b{color:#ff8095}.us-idx i.dn b{color:#66b2ff}
+  .us-news{}
+  .usn-card{border:1px solid var(--line);background:linear-gradient(160deg,rgba(255,255,255,.045),rgba(255,255,255,.015));
+    border-radius:12px;padding:8px 9px 7px;margin-bottom:6px;min-width:0}
+  .usn-h{display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin-bottom:3px}
+  .usn-h b{font-size:12px;font-weight:900;color:#e8eefc;letter-spacing:-.35px;word-break:keep-all}
+  .usn-h .gm-ph,.usn-h .gm-sz{flex:none}
+  .usn-rk{margin-left:auto;flex:none;font-size:9px;font-weight:700;color:#7b8aa4;white-space:nowrap;
+    overflow:hidden;text-overflow:ellipsis;max-width:52%}
+  .usn-why{margin:0 0 4px;font-size:9.6px;font-weight:700;color:#7d8dab;line-height:1.45;word-break:keep-all}
+  .usn-hl{display:flex;align-items:baseline;gap:5px;padding:4px 0;border-top:1px solid rgba(255,255,255,.05);
+    text-decoration:none;min-width:0}
+  .usn-hl em{flex:none;font-style:normal;font-size:8.6px;font-weight:800;color:#65748e}
+  .usn-hl span{flex:1;min-width:0;font-size:10.2px;font-weight:700;color:#c9d4e8;line-height:1.35;
+    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;word-break:keep-all}
+  .usn-hl:active span{color:#fff}
+  .usn-none{padding:4px 2px 6px;font-size:10px;font-weight:700;color:#65748e}
+  /* 미국 테마 규모 배지 — 등급에 '단독'이 있다(1종목) */
+  .gm-sz.s-단독{background:#c9b6ff}
+
+  /* ---------- 🇺🇸 미국 결과 — 준비 중 안내 ---------- */
+  .us-rs{margin:18px auto 8px;max-width:340px;text-align:center;padding:14px 12px;border-radius:14px;
+    border:1px dashed rgba(143,178,255,.4);background:rgba(79,140,255,.06)}
+  .us-rs b{display:block;font-size:14px;font-weight:900;letter-spacing:-.4px;color:#e8eefc}
+  .us-rs p{margin:7px 0 0;font-size:11.5px;font-weight:600;color:#9fb3d4;line-height:1.6;word-break:keep-all}
+  .us-rs button{appearance:none;margin-top:12px;padding:8px 14px;border-radius:10px;border:1px solid transparent;
+    background:linear-gradient(135deg,#4f8cff,#7c5cff);color:#fff;font-family:inherit;font-size:12px;
+    font-weight:800;letter-spacing:-.3px;cursor:pointer}
+  .us-rs button:active{opacity:.85}
+
   /* ---------- 🗺️ 지도 껍데기 (게스트) — 10단계 색·숫자는 없다. 무채색 중립 톤 ---------- */
   .gm-head{display:flex;align-items:baseline;gap:6px;margin:10px 1px 0;font-size:12px;font-weight:900;color:#b9c7de;letter-spacing:-.3px}
   .gm-head span{margin-left:auto;font-size:9.5px;font-weight:700;color:#65748e;letter-spacing:0}
@@ -913,6 +966,14 @@
       <button class="refresh" id="btnRefresh" aria-label="새로고침" title="새로고침 — 최신 뉴스를 지금 다시 받아옵니다">⟳</button>
     </div>
     <div class="kkwrap"><a class="kk" href="https://www.youtube.com/live/aZyD6EPl6KU?si=f2xDpMJWiH08VApW" target="_blank" rel="noopener noreferrer" aria-label="실시간 뉴스 보기">📺 실시간 뉴스 · <b>뉴스보기</b></a></div>
+    <!-- 2026-11-28 v140 — 🇰🇷 한국 / 🇺🇸 미국 시장 전환. 세 탭(📰·🗺️·📊)은 그대로 두고 보는 시장만 바꾼다.
+         헤더의 🇰🇷 호재 · 🇺🇸 호재 전광판과 헷갈리지 않게 '한국/미국' 글자를 함께 둔다. -->
+    <div class="mkt" id="mktBar" role="group" aria-label="시장 전환">
+      <div class="mkt-seg">
+        <button type="button" data-mkt="kr" class="on" aria-pressed="true">🇰🇷 한국</button>
+        <button type="button" data-mkt="us" aria-pressed="false">🇺🇸 미국</button>
+      </div>
+    </div>
     <div class="tabs" role="tablist" aria-label="화면 전환">
       <button class="tab" role="tab" data-tab="news" aria-selected="true">📰 뉴스</button>
       <button class="tab map" role="tab" data-tab="map" aria-selected="false" aria-label="지도">🗺️ 지도</button>
@@ -925,6 +986,7 @@
 
 <main class="wrap">
   <section class="view" data-view="news" id="view-news">
+    <div id="newsKr">
     <div class="meta">
       <span>업데이트 <b id="updated">불러오는 중…</b></span>
       <a class="vbadge" id="visitors" href="https://crawler5696.goatcounter.com/" target="_blank" rel="noopener noreferrer" title="GoatCounter 방문자 대시보드" hidden>👥 오늘 <span id="visitorN">–</span>명</a>
@@ -936,6 +998,18 @@
       <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
     </div>
     <button class="more" id="moreIssues" hidden>이슈 더 보기</button>
+    </div>
+    <!-- 🇺🇸 미국 뉴스 (게스트 공개) — 14테마 최신 뉴스·온도만. 단계·기준선·타점은 이 자료에 없다. -->
+    <div id="newsUs" hidden>
+      <div class="meta">
+        <span>기준 <b id="usUpdated">불러오는 중…</b></span>
+        <span class="us-temp" id="usTemp" hidden></span>
+      </div>
+      <div id="usIdx" class="us-idx"></div>
+      <div id="usNewsList" class="us-news">
+        <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
+      </div>
+    </div>
   </section>
 
   <!-- 2026-11-28 v138 — 🗺️ 지도. 겉(껍데기)은 누구나 열리고, 테마 히트맵·테마 상세·12개월 상한가 이력까지 보인다.
@@ -946,6 +1020,18 @@
       <button type="button" role="tab" data-sub="map" class="on" aria-selected="true">🗺️ 테마 지도</button>
       <button type="button" role="tab" data-sub="live" aria-selected="false">🎯 실전 타점</button>
       <button type="button" role="tab" data-sub="cal" aria-selected="false">📅 테마달력</button>
+    </div>
+    <!-- 🇺🇸 미국 지도 — 잠금이 풀리면 🗺️ 테마 지도 | 🎯 실전 타점 두 뷰(미국은 테마달력이 없다) -->
+    <div class="map-seg two" id="usMapSeg" role="tablist" aria-label="미국 지도 보기 전환" hidden>
+      <button type="button" role="tab" data-usub="map" class="on" aria-selected="true">🗺️ 테마 지도</button>
+      <button type="button" role="tab" data-usub="live" aria-selected="false">🎯 실전 타점</button>
+    </div>
+    <div id="usMapGuest" hidden>
+      <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
+    </div>
+    <div id="usMapPriv" hidden>
+      <div class="map-pane" id="usPane-map" hidden><div id="usRadarInner"></div></div>
+      <div class="map-pane" id="usPane-live" hidden><div id="usHotInner"></div></div>
     </div>
     <!-- 게스트용 공개 껍데기 — 아래 #mapGuest 안은 공개 JS(renderGuestMap)가 data/theme_map_public.json 으로 그린다.
          개인 단계·기준선·타점은 이 안에 절대 들어오지 않는다. -->
@@ -998,6 +1084,12 @@
   <!-- 📊 결과 (v139) — 겉은 누구나(수익%·승률 공개). 단계·기준선·포착 유형은 🔒 로 가린다.
        백엔드(build_pick_results.py)와 채점·종료 기준은 그대로다 — 화면만 공개용/개인용으로 나뉜다. -->
   <section class="view" data-view="result" id="view-result" hidden>
+    <!-- 🇺🇸 미국 결과 — 아직 실전 픽 이력이 없다(준비 중 안내만). -->
+    <div id="usResult" hidden>
+      <div class="us-rs"><b>🇺🇸 미국장 실전 추적 준비 중</b>
+        <p>미국장 픽 이력은 다음 단계에서 쌓입니다.<br>지금은 🗺️ 지도에서 미국 테마 1·2·3등과 뉴스 온도를 보세요.</p>
+        <button type="button" data-mkt-go="kr">🇰🇷 한국 결과 보기</button></div>
+    </div>
     <div id="resGuest">
       <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
     </div>
@@ -1073,7 +1165,7 @@
    잠겨 있고, 잠금이 풀릴 때만 이 자리에 실제 함수가 연결된다(아래 P1~P16).
    잠겨 있는 동안 이 함수들은 아무것도 그리지 않는다 — 공개 탭은 그대로 다 보인다. */
 const privFns = Object.create(null);
-const PRIV_ASYNC = {1:1, 2:1, 3:1, 4:1, 5:1, 6:1, 10:1, 12:1, 13:1, 15:1, 16:1, 17:1};
+const PRIV_ASYNC = {1:1, 2:1, 3:1, 4:1, 5:1, 6:1, 10:1, 12:1, 13:1, 15:1, 16:1, 17:1, 18:1, 19:1};
 const PRIV_EMPTY = {7:'', 8:'', 9:() => []};      /* 잠겨 있을 때 돌려줄 빈 값 */
 function privCall(n, a){
   const f = privFns[n];
@@ -1099,11 +1191,16 @@ function P14(){ return privCall(14, arguments); }
 function P15(){ return privCall(15, arguments); }
 function P16(){ return privCall(16, arguments); }
 function P17(){ return privCall(17, arguments); }
+function P18(){ return privCall(18, arguments); }   /* 🇺🇸 지도 — 테마 지도(10단계) */
+function P19(){ return privCall(19, arguments); }   /* 🇺🇸 지도 — 실전 타점 */
 
 
 const state = { data:null, calendar:null, radar:null, month:null, tab:'news', more:false, open:new Set(), sameOpen:new Set(), hotOpen:new Set(), flowOpen:new Set(), calKind:'오늘 상한가' };
 
 const TABS = ['news', 'map', 'result'];
+
+/* 🗺️ 지금 보고 있는 시장 — 'kr' 한국 · 'us' 미국 (2026-11-28 v140) */
+let mkt = 'kr';
 
 const TAB_ROLE = {
   news: '<b>📰 뉴스</b> — 오늘 자금 방향 · 주요 뉴스',
@@ -1114,10 +1211,24 @@ const TAB_ROLE_ON = {
   map: '<b>🗺️ 지도</b> — 🗺️ 테마 지도 · 🎯 실전 타점 · 📅 테마달력',
   result: '<b>📊 결과</b> — 픽 성적 · 매매일지 · 단계·기준선까지 전부',
 };
+/* 🇺🇸 미국장 (v140) — 같은 세 탭, 미국판 역할 줄 */
+const TAB_ROLE_US = {
+  news: '<b>🇺🇸 뉴스</b> — 미국 14테마 최신 뉴스 · 뉴스 온도(🔥새로움 · 🔁진행)',
+  map: '<b>🇺🇸 지도</b> — 미국 테마 히트맵 · 1·2·3등 · 뉴스 온도 (10단계 자리·타점은 🔒)',
+  result: '<b>🇺🇸 결과</b> — 미국장 실전 추적 준비 중',
+};
+const TAB_ROLE_US_ON = {
+  map: '<b>🇺🇸 지도</b> — 🗺️ 테마 지도(10단계 자리) · 🎯 실전 타점(2단계 핫바·4번 자리)',
+  result: '<b>🇺🇸 결과</b> — 미국장 실전 추적 준비 중',
+};
 
 function paintTabRole(name){
   const el = $('#tabRole');
   if(!el) return;
+  if(mkt === 'us'){
+    el.innerHTML = (visOn() && TAB_ROLE_US_ON[name]) ? TAB_ROLE_US_ON[name] : (TAB_ROLE_US[name] || TAB_ROLE_US.news);
+    return;
+  }
   let h = TAB_ROLE[name] || TAB_ROLE.news;
   if(visOn() && TAB_ROLE_ON[name]) h = TAB_ROLE_ON[name];
   el.innerHTML = h;
@@ -1202,6 +1313,12 @@ function switchTab(name, keepScroll){
   if(location.hash !== '#' + name) history.replaceState(history.state, '', '#' + name);
   if(!keepScroll) window.scrollTo({top:0});
   paintTabRole(name);
+  if(mkt === 'us'){                      /* 🇺🇸 미국장 — 같은 탭, 미국 자료로 그린다 (2026-11-28 v140) */
+    if(name === 'news') renderUsNews();
+    if(name === 'map') renderUsMap();
+    if(name === 'result') renderUsResult();
+    return;
+  }
   if(name === 'news'){ renderUpper(); }
   if(name === 'map') renderMap();
   if(name === 'result') renderResultTab();
@@ -3190,6 +3307,265 @@ async function renderGuestResult(){
   });
 })();
 
+/* ================= 🇺🇸 미국장 — 🇰🇷 한국 / 🇺🇸 미국 클릭 전환 (2026-11-28 v140) =================
+   진화론님 확정: "한국장과 같은 3탭(📰 뉴스 · 🗺️ 지도 · 📊 결과) 위에서 🇰🇷 한국 / 🇺🇸 미국 클릭 전환".
+   미국장 대상은 +15%↑ 테마주 전용(초대형주 10% 트랙 없음).
+
+   · 뉴스 : data/us_theme_map_public.json — 14테마 최신 뉴스·온도(🔥새로움/🔁진행)만. 게스트 공개.
+   · 지도(게스트) : 같은 자료로 14테마 히트맵 껍데기(무채색) · 1·2·3등 이름 · 뉴스 온도 · 🔒 잠금 카드.
+   · 지도(잠금 해제) : data/us_radar.json · data/us_hotbar.json (한국과 같은 비밀코드로 잠긴 것)을
+     비공개 화면 코드(private_ui)가 풀어서 🗺️ 테마 지도(10단계)·🎯 실전 타점을 그린다 — P18/P19.
+   · 결과 : 아직 미국 픽 이력이 없어 준비 중 안내만.
+   ⚠ 이 파일(공개)에는 10단계 자리·기준선·타점 숫자를 절대 넣지 않는다. */
+let usMapSub = 'map';
+const UM_SRC = 'data/us_theme_map_public.json';
+const UM_PH = {'새로움':3, '진행':2, '소멸':1, '잠잠':0};
+const UM_PHCLS = {'새로움':'p-new', '진행':'p-go', '소멸':'p-die', '잠잠':'p-idle'};
+const UM_PHICO = {'새로움':'🔥', '진행':'🔁', '소멸':'↘', '잠잠':'·'};
+let umData = null, umAt = 0, umLoading = null, umCur = null, umRendered = '';
+
+function umNorm(v){ return String(v || '').split(' — ')[0].split(' (')[0].trim(); }
+function umMd(day){ const s = String(day || '').slice(0, 10); return s.length === 10 ? s.slice(5).replace('-', '.') : ''; }
+function umPct(v){ const n = Number(v); return isNaN(n) ? '–' : (n > 0 ? '+' : '') + (n * 100).toFixed(1) + '%'; }
+function umIdxCls(v){ const n = Number(v); return isNaN(n) ? '' : (n > 0 ? 'up' : (n < 0 ? 'dn' : '')); }
+
+async function ensureUsMap(){
+  if(umData && Date.now() - umAt < 3 * 60 * 1000) return umData;
+  if(umLoading) return umLoading;
+  umLoading = (async () => {
+    try{
+      const res = await fetch(UM_SRC + '?_=' + Date.now(), {cache:'no-store'});
+      if(res.ok){ umData = await res.json(); umAt = Date.now(); }
+    }catch(e){}
+    umLoading = null;
+    return umData;
+  })();
+  return umLoading;
+}
+function umThemes(){
+  return ((umData && umData.themes) || []).slice().sort((a, b) =>
+    ((UM_PH[b.phase] || 0) - (UM_PH[a.phase] || 0)) || ((Number(b.n) || 0) - (Number(a.n) || 0)) ||
+    String(a.theme).localeCompare(String(b.theme), 'ko'));
+}
+function umIdxHtml(){
+  const items = ((umData && umData.index) || {}).items || [];
+  const qq = items.find(y => y.sym === 'QQQ') || {};
+  const q20 = Number(qq.chg20);
+  return items.map(x => {
+    const v = Number(x.chg);
+    return `<i class="${umIdxCls(v)}">${esc(x.label)} <b>${isNaN(v) ? '–' : (v > 0 ? '+' : '') + (v * 100).toFixed(1) + '%'}</b></i>`;
+  }).join('') + (items.length
+    ? `<i class="${umIdxCls(q20)}">나스닥20일 <b>${isNaN(q20) ? '–' : (q20 > 0 ? '+' : '') + (q20 * 100).toFixed(1) + '%'}</b></i>` : '');
+}
+
+/* --- 🇺🇸 뉴스 탭 (게스트) — 테마별 최신 헤드라인·뉴스 온도 --- */
+function usnCard(nw){
+  const ph = nw.phase || '잠잠';
+  const heads = (nw.headlines || []).slice(0, 3);
+  const rk = (nw.leaders || []).map(l => l.name).slice(0, 3).join(' · ');
+  const sz = nw.grade ? `<i class="gm-sz s-${esc(nw.grade)}">${esc(nw.grade)}${nw.n ? ' ' + nw.n : ''}</i>` : '';
+  return `<article class="usn-card">
+    <div class="usn-h"><b>${esc(nw.short || umNorm(nw.theme))}</b>`
+    + `<i class="gm-ph ${UM_PHCLS[ph] || 'p-idle'}">${UM_PHICO[ph] || '·'}${esc(ph)}</i>${sz}`
+    + (rk ? `<span class="usn-rk" title="${esc(rk)}">${esc(rk)}</span>` : '') + `</div>`
+    + (nw.why ? `<p class="usn-why">${esc(nw.why)}</p>` : '')
+    + (heads.length
+      ? heads.map(h => `<a class="usn-hl" href="${esc(h.url)}" target="_blank" rel="noopener noreferrer">`
+          + `<em>${esc(umMd(h.date))}</em><span>${esc(h.title)}</span></a>`).join('')
+      : `<p class="usn-none">붙은 뉴스가 아직 없습니다.</p>`)
+    + `</article>`;
+}
+let usNewsRendered = '';
+async function renderUsNews(force){
+  const box = $('#usNewsList');
+  if(!box) return;
+  const d = await ensureUsMap();
+  if(!d || !(d.news || []).length){
+    box.innerHTML = '<div class="empty">미국장 뉴스 자료를 불러오지 못했습니다.<br>잠시 뒤 ⟳ 새로고침을 눌러 주세요.</div>';
+    return;
+  }
+  const up = $('#usUpdated'); if(up) up.textContent = d.base_date_text || d.generated_at_kst || '–';
+  const tm = $('#usTemp');
+  if(tm){ const t = (d.index || {}).temp || ''; tm.hidden = !t; tm.textContent = t ? `🌡️ ${t}` : ''; tm.title = (d.index || {}).note || ''; }
+  const ix = $('#usIdx'); if(ix) ix.innerHTML = umIdxHtml();
+  const news = (d.news || []).slice().sort((a, b) =>
+    ((UM_PH[b.phase] || 0) - (UM_PH[a.phase] || 0)) || ((Number(b.articles) || 0) - (Number(a.articles) || 0)));
+  const cnt = {new: news.filter(x => x.phase === '새로움').length, go: news.filter(x => x.phase === '진행').length};
+  const html = `<div class="gm-head">🇺🇸 미국 테마 ${news.length} · 뉴스 온도`
+    + `<span>🔥새로움 ${cnt.new} · 🔁진행 ${cnt.go}</span></div>`
+    + `<p class="gm-sub">${esc(d.note || '')}</p>`
+    + news.map(usnCard).join('')
+    + `<p class="gm-lg"><b>🔥새로움</b> 새 재료로 막 붙은 테마 · <b>🔁진행</b> 여러 매체로 번지는 중 · <b>↘소멸</b> 같은 기사만 반복 · <b>·잠잠</b> 뉴스 끊김</p>`;
+  if(!force && html === usNewsRendered) return;
+  usNewsRendered = html;
+  box.className = 'us-news';
+  box.innerHTML = html;
+}
+
+/* --- 🇺🇸 지도 껍데기 (게스트) — 무채색 타일 · 1·2·3등 이름 · 뉴스 온도 · 🔒 잠금 카드 --- */
+function umTile(t){
+  const ph = t.phase || '잠잠';
+  const dead = (ph === '소멸' || ph === '잠잠');
+  const n = Number(t.n) || 0;
+  const tier = n >= 8 ? 'h3' : (n >= 5 ? 'h2' : 'h1');
+  const names = (t.leaders || []).slice(0, n >= 8 ? 3 : 2).map(l => l.name).filter(Boolean).join(' · ');
+  const sz = t.grade ? `<i class="gm-sz s-${esc(t.grade)}">${esc(t.grade)}${n ? ' ' + n : ''}</i>` : '';
+  const tip = [t.theme, t.phase_label || ph, t.why].filter(Boolean).join(' · ');
+  return `<button type="button" class="gm-t ${tier}${dead ? ' dim' : ''}" data-um="${esc(t.theme)}" title="${esc(tip)}">`
+    + `<b>${esc(t.short || umNorm(t.theme))}</b>`
+    + (names ? `<span class="n">${esc(names)}</span>` : '')
+    + `<span class="r"><i class="gm-ph ${UM_PHCLS[ph] || 'p-idle'}">${UM_PHICO[ph] || '·'}${esc(ph)}</i>${sz}</span></button>`;
+}
+function umSheetHtml(t){
+  const ph = t.phase || '잠잠';
+  const n = Number(t.n) || 0;
+  const head = `<div class="gm-sh-h"><b>${esc(t.short || umNorm(t.theme))}</b>`
+    + (t.grade ? `<i class="gm-sz s-${esc(t.grade)}">${esc(t.grade)}${n ? ' ' + n : ''}</i>` : '')
+    + `<i class="gm-ph ${UM_PHCLS[ph] || 'p-idle'}">${UM_PHICO[ph] || '·'}${esc(ph)}</i></div>`
+    + `<div class="gm-sh-m"><span>${esc(t.kind || '동반테마')}${n ? ' · 테마 ' + n + '종목' : ''}</span></div>`
+    + (t.why ? `<p class="gm-sh-flow">📰 ${esc(t.why)}</p>` : `<p class="gm-sh-flow">📰 뉴스 줄기 자료가 아직 없습니다</p>`);
+  const rows = (t.leaders || []).map(l =>
+    `<div class="gm-sh-row"><em class="gm-rk ${l.rank ? 'r' + l.rank : ''}">${l.rank === 1 ? '대' : (l.rank || '·')}</em>`
+    + `<b>${esc(l.name)}</b>`
+    + (l.ticker ? `<span style="font-size:9px;font-weight:800;color:#7b8aa4">${esc(l.ticker)}</span>` : '') + `</div>`).join('');
+  const nw = ((umData && umData.news) || []).find(x => String(x.theme) === String(t.theme)) || {};
+  const heads = (nw.headlines || []).slice(0, 3);
+  return head + `<div class="gm-sh-lab">🏆 테마 1·2·3등</div><div>${rows}</div>`
+    + `<div class="gm-sh-lab">📰 최근 뉴스</div>`
+    + (heads.length
+      ? heads.map(h => `<a class="usn-hl" href="${esc(h.url)}" target="_blank" rel="noopener noreferrer">`
+          + `<em>${esc(umMd(h.date))}</em><span>${esc(h.title)}</span></a>`).join('')
+      : `<p class="usn-none">붙은 뉴스가 아직 없습니다.</p>`)
+    + gmLockHtml('10단계 자리 · 오늘 매수 타점', '테마 대장이 1~10단계 중 어디에 서 있는지 · 기준선 · 오늘 매수 타점은 비밀코드로 열립니다.');
+}
+async function renderUsGuestMap(force){
+  const box = $('#usMapGuest');
+  if(!box || visOn()) return;
+  const d = await ensureUsMap();
+  if(!d || !(d.themes || []).length){
+    box.innerHTML = '<div class="empty">미국장 지도 자료를 불러오지 못했습니다.<br>잠시 뒤 ⟳ 새로고침을 눌러 주세요.</div>';
+    return;
+  }
+  const themes = umThemes();
+  umCur = new Map(themes.map(t => [String(t.theme), t]));
+  const idx = d.index || {};
+  const html = `<div class="gm-head">🇺🇸 미국 테마 ${themes.length} · 히트맴<span>${esc(idx.temp || '')}</span></div>`
+    + `<p class="gm-sub">${esc(d.base_date_text || '')} · 타일을 누르면 테마 상세(1·2·3등 · 뉴스 온도)</p>`
+    + `<div class="gm-heat">${themes.map(umTile).join('')}</div>`
+    + `<p class="gm-lg"><b>🔥새로움</b> 새 재료로 막 붙은 테마 · <b>🔁진행</b> 여러 매체로 번지는 중 · <b>↘소멸</b> 같은 기사만 반복 · 흐린 타일 = 뉴스가 식은 테마</p>`
+    + gmLockHtml('10단계 자리 · 실전 매수 타점 보기', '미국 테마 대장이 1~10단계 중 어디에 서 있는지 · 기준선 · 오늘 매수 타점은 본인만 열 수 있습니다.')
+    + `<div class="gm-sh" id="umSheet" hidden><div class="gm-sh-box" role="dialog" aria-modal="true" aria-label="미국 테마 상세">`
+    + `<button class="gm-sh-x" id="umShX" type="button" aria-label="테마 상세 닫기">✕</button><div id="umShBody"></div></div></div>`;
+  if(!force && html === umRendered) return;
+  umRendered = html;
+  box.innerHTML = html;
+}
+function umOpenSheet(key){
+  const sh = $('#umSheet');
+  const t = umCur && umCur.get(String(key || ''));
+  if(!sh || !t) return;
+  const b = $('#umShBody');
+  if(b) b.innerHTML = umSheetHtml(t);
+  sh.hidden = false;
+  requestAnimationFrame(() => sh.classList.add('show'));
+  document.body.classList.add('lock');
+}
+function umCloseSheet(){
+  const sh = $('#umSheet');
+  if(!sh || sh.hidden) return;
+  sh.classList.remove('show');
+  document.body.classList.remove('lock');
+  setTimeout(() => { if(sh && !sh.classList.contains('show')) sh.hidden = true; }, 170);
+}
+(function bindUsGuestMap(){
+  const box = $('#usMapGuest');
+  if(!box) return;
+  box.addEventListener('click', e => {
+    if(e.target.closest('.gm-lockBtn')){ e.preventDefault(); lockOpen('10단계 자리 · 오늘 매수 타점은 비밀코드로 열립니다.'); return; }
+    if(e.target.closest('#umShX') || e.target.id === 'umSheet'){ umCloseSheet(); return; }
+    const tile = e.target.closest('.gm-t[data-um]');
+    if(tile){ e.preventDefault(); umOpenSheet(tile.dataset.um); return; }
+  });
+})();
+
+/* --- 시장 전환 그리기 — 어느 칸이 보이고 어느 칸이 숨는지 한 곳에서 --- */
+function applyMarket(){
+  const us = (mkt === 'us');
+  const on = visOn();
+  const set = (sel, show) => { const el = $(sel); if(el) el.hidden = !show; };
+  set('#newsKr', !us);
+  set('#newsUs', us);
+  set('#mapSeg', !us && on);
+  set('#usMapSeg', us && on);
+  set('#mapGuest', !us && !on);
+  set('#mapPriv', !us && on);
+  set('#usMapGuest', us && !on);
+  set('#usMapPriv', us && on);
+  set('#resGuest', !us && !on);
+  set('#resInner', !us && on);
+  set('#usResult', us);
+}
+
+function renderUsMap(force){
+  applyMarket();
+  if(!visOn()){ umCloseSheet(); renderUsGuestMap(force); return; }
+  usSwitchSub(usMapSub, true, force);
+}
+function usSwitchSub(sub, quiet, force){
+  if(['map', 'live'].indexOf(sub) < 0) sub = 'map';
+  usMapSub = sub;
+  document.querySelectorAll('#usMapSeg button[data-usub]').forEach(b => {
+    const on = b.dataset.usub === sub;
+    b.classList.toggle('on', on);
+    b.setAttribute('aria-selected', on ? 'true' : 'false');
+  });
+  ['map', 'live'].forEach(k => { const el = $('#usPane-' + k); if(el) el.hidden = k !== sub; });
+  if(!quiet) umCloseSheet();
+  if(sub === 'map') P18();
+  else P19();
+}
+function renderUsResult(){ applyMarket(); }
+
+/* --- 🇰🇷 한국 / 🇺🇸 미국 클릭 전환 --- */
+function setMarket(m){
+  m = (m === 'us') ? 'us' : 'kr';
+  const changed = (m !== mkt);
+  mkt = m;
+  document.querySelectorAll('#mktBar [data-mkt]').forEach(b => {
+    const on = b.dataset.mkt === mkt;
+    b.classList.toggle('on', on);
+    b.setAttribute('aria-pressed', on ? 'true' : 'false');
+  });
+  try{ localStorage.setItem('nr_market', mkt); }catch(e){}
+  paintTabRole(state.tab);
+  applyMarket();
+  if(state.tab === 'news'){ mkt === 'us' ? renderUsNews() : renderUpper(); }
+  else if(state.tab === 'map'){ mkt === 'us' ? renderUsMap() : renderMap(); }
+  else { mkt === 'us' ? renderUsResult() : renderResultTab(); }
+  if(changed) window.scrollTo({top:0});
+}
+(function bindMarket(){
+  const bar = $('#mktBar');
+  if(bar) bar.addEventListener('click', e => {
+    const b = e.target.closest('[data-mkt]');
+    if(b) setMarket(b.dataset.mkt);
+  });
+  const ru = $('#usResult');
+  if(ru) ru.addEventListener('click', e => {
+    const g = e.target.closest('[data-mkt-go]');
+    if(g) setMarket(g.dataset.mktGo || 'kr');
+  });
+  const seg = $('#usMapSeg');
+  if(seg) seg.addEventListener('click', e => {
+    const b = e.target.closest('[data-usub]');
+    if(b) usSwitchSub(b.dataset.usub);
+  });
+  /* 지난번에 보던 시장으로 열어 준다 */
+  let save = '';
+  try{ save = localStorage.getItem('nr_market') || ''; }catch(e){}
+  if(save === 'us') setMarket('us'); else applyMarket();
+})();
+
 /* 🔒 비밀코드 모달 — 지도 껍데기·결과 껍데기의 잠금 카드가 연다 (2026-11-28 v138) */
 function lockOpen(msg){
   const ov = $('#lockOv');
@@ -3230,6 +3606,8 @@ function lockOpen(msg){
 
 /* 지도 안 전환 — 🗺️ 테마 지도 | 🎯 실전 타점 | 📅 테마달력 (잠금이 풀렸을 때만) */
 function renderMap(){
+  if(mkt === 'us'){ renderUsMap(); return; }    /* 🇺🇸 미국장 — 같은 자리, 미국 자료로 (v140) */
+  applyMarket();
   const on = visOn();
   const seg = $('#mapSeg'), g = $('#mapGuest'), p = $('#mapPriv');
   if(seg) seg.hidden = !on;
@@ -3253,6 +3631,8 @@ function switchMapSub(sub, quiet){
   else renderCalendar();
 }
 function renderResultTab(){
+  if(mkt === 'us'){ renderUsResult(); return; }  /* 🇺🇸 미국장 — 결과는 준비 중 안내 (v140) */
+  applyMarket();
   const on = visOn();
   const g = $('#resGuest'), p = $('#resInner');
   if(g) g.hidden = on;

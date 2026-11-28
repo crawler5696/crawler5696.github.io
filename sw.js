@@ -5,9 +5,9 @@
    activate 에서 옛 버전 캐시를 전부 지운 뒤 화면을 넘겨받는다(clients.claim).
    그래서 사용자가 캐시를 직접 지우거나 새로고침하지 않아도 접속할 때마다 최신 화면·최신 데이터가 뜬다.
    index.html · data/*.json 은 쿼리스트링까지 포함해 언제나 네트워크를 먼저 탄다(cache:'no-store'). */
-const CACHE = 'newsradar-v139';
+const CACHE = 'newsradar-v140';
 const SHELL = ['./', './index.html', './manifest.json', './icons/icon-192.png', './data/calendar.json', './data/radar.json',
-  './data/theme_map_public.json', './data/pick_results_public.json'];
+  './data/theme_map_public.json', './data/pick_results_public.json', './data/us_theme_map_public.json'];
 const NEWS_KEY = './data/news.json';   // 쿼리스트링이 붙어도 캐시에는 이 한 자리에만 남긴다
 
 self.addEventListener('install', e => {
@@ -39,6 +39,10 @@ const isPickResJson = url => /\/data\/pick_results\.json$/.test(url.pathname);
 /* 2026-11-28 v138 — 🗺️ 지도 껍데기·📊 결과 껍데기(게스트 공개 자료). 화면이 5분마다 다시 본다. */
 const isMapPubJson = url => /\/data\/theme_map_public\.json$/.test(url.pathname);
 const isPickPubJson = url => /\/data\/pick_results_public\.json$/.test(url.pathname);
+/* 2026-11-28 v140 — 🇺🇸 미국장: 잠긴 두 개(레이더·실전) + 게스트 공개 껍데기 하나 */
+const isUsRadarJson = url => /\/data\/us_radar\.json$/.test(url.pathname);
+const isUsHotJson = url => /\/data\/us_hotbar\.json$/.test(url.pathname);
+const isUsMapPubJson = url => /\/data\/us_theme_map_public\.json$/.test(url.pathname);
 /* 화면 문서는 index.html 하나다 — 주소가 '/'든 '/index.html'이든, 새로 열든 늘 서버에서 새로 */
 const isDoc = (req, url) => req.mode === 'navigate' || /\/index\.html$/.test(url.pathname) || url.pathname.endsWith('/');
 const CAL_KEY = './data/calendar.json';
@@ -53,6 +57,9 @@ const PRIV_KEY = './data/private_ui.json';
 const PICKRES_KEY = './data/pick_results.json';
 const MAPPUB_KEY = './data/theme_map_public.json';
 const PICKPUB_KEY = './data/pick_results_public.json';
+const USRADAR_KEY = './data/us_radar.json';
+const USHOT_KEY = './data/us_hotbar.json';
+const USMAPPUB_KEY = './data/us_theme_map_public.json';
 
 /* 캐시에서 꺼낸 응답에는 표시(x-news-cache)를 붙인다.
    화면은 이 표시를 보면 "새로고침 실패(저장본 표시)"로 알린다 — 오래된 데이터를 최신이라고 말하지 않기 위해. */
@@ -84,15 +91,18 @@ self.addEventListener('fetch', e => {
   const pres = isPickResJson(url);
   const mappub = isMapPubJson(url);
   const pickpub = isPickPubJson(url);
+  const usradar = isUsRadarJson(url);
+  const ushot = isUsHotJson(url);
+  const usmappub = isUsMapPubJson(url);
   const doc = isDoc(req, url);
 
   e.respondWith((async () => {
     try {
       // 문서·데이터는 쿼리스트링과 무관하게 항상 네트워크가 먼저(그리고 캐시 협상 없이)
-      const fresh = await fetch(req, {cache: (doc || news || cal || rdr || hot || hotmon || popup || day || week || sch || priv || pres || mappub || pickpub) ? 'no-store' : 'no-cache'});
+      const fresh = await fetch(req, {cache: (doc || news || cal || rdr || hot || hotmon || popup || day || week || sch || priv || pres || mappub || pickpub || usradar || ushot || usmappub) ? 'no-store' : 'no-cache'});
       if (fresh && fresh.ok && (fresh.type === 'basic' || fresh.type === 'default')) {
         const copy = fresh.clone();
-        const key = doc ? './index.html' : (news ? NEWS_KEY : (cal ? CAL_KEY : (rdr ? RADAR_KEY : (hot ? HOT_KEY : (hotmon ? HOTMON_KEY : (popup ? POPUP_KEY : (day ? DAY_KEY : (week ? WEEK_KEY : (sch ? SCHED_KEY : (priv ? PRIV_KEY : (pres ? PICKRES_KEY : (mappub ? MAPPUB_KEY : (pickpub ? PICKPUB_KEY : req))))))))))))));   // 데이터 파일은 한 자리에만 저장(매번 다른 ?_= 주소로 쌓이지 않게)
+        const key = doc ? './index.html' : (news ? NEWS_KEY : (cal ? CAL_KEY : (rdr ? RADAR_KEY : (hot ? HOT_KEY : (hotmon ? HOTMON_KEY : (popup ? POPUP_KEY : (day ? DAY_KEY : (week ? WEEK_KEY : (sch ? SCHED_KEY : (priv ? PRIV_KEY : (pres ? PICKRES_KEY : (mappub ? MAPPUB_KEY : (pickpub ? PICKPUB_KEY : (usradar ? USRADAR_KEY : (ushot ? USHOT_KEY : (usmappub ? USMAPPUB_KEY : req)))))))))))))))));   // 데이터 파일은 한 자리에만 저장(매번 다른 ?_= 주소로 쌓이지 않게)
         caches.open(CACHE).then(c => c.put(key, copy)).catch(() => {});
       }
       return fresh;
