@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- 뉴스레이더 newsradar-v134 — 공개 화면. 비공개 탭(레이더·실전·결과) 코드는 data/private_ui.json 안에 잠겨 있다. -->
+<!-- 뉴스레이더 newsradar-v135 — 공개 화면. 비공개 탭(레이더·실전·결과) 코드는 data/private_ui.json 안에 잠겨 있다. -->
 <html lang="ko">
 <head>
 <meta charset="utf-8">
@@ -220,6 +220,13 @@
   .cl-th{flex:none;font-size:9.5px;font-weight:800;color:#9fc0ff;border:1px solid rgba(79,140,255,.35);
     background:rgba(79,140,255,.08);border-radius:4px;padding:0 4px;line-height:14px;white-space:nowrap;
     max-width:46%;overflow:hidden;text-overflow:ellipsis}
+  /* 2026-11-28 3단계 — 테마 뉴스 상태 이모지 + 뉴스 줄기(불씨→오늘→예정) */
+  .cl-th .cl-npit{font-style:normal;margin-right:2px;font-size:9px}
+  .cl-flow{margin-top:5px;font-size:10px;font-weight:700;line-height:1.4;letter-spacing:-.2px;color:#ffce7a;
+    padding-left:9px;word-break:keep-all;overflow-wrap:anywhere}
+  .cl-flow b{font-weight:900;margin-right:5px;color:#ffbe4d}
+  .cl-flow.die{color:#8291a9}
+  .cl-flow.die b{color:#93a4bf}
   .brk{display:none}
   .presses{appearance:none;font-family:inherit;font-size:10px;font-weight:700;color:#8fb2ff;
     background:transparent;border:0;padding:0;cursor:pointer;white-space:nowrap}
@@ -881,6 +888,8 @@
     <div class="nt-body">
     <div class="nt-it">
       <span class="nt-n">1</span>
+      <div class="nt-c"><b>이번 업데이트 (11.28) · 테마 뉴스 상태(🔥새로움·🔁진행·💤소멸)와 전후 흐름 줄기</b>
+        <p><em>뉴스</em> 칸의 테마 기사 아래에 그 테마 뉴스가 지금 어디인지 한 줄로 붙였습니다 — <em>불씨(처음 붙은 날) → 이어짐 → 오늘 → 예정 일정</em>. <em>🔥 새로움</em>은 조용하다가 새 재료로 막 붙은 테마, <em>🔁 진행</em>은 여러 매체로 번지는 중, <em>💤 소멸</em>은 같은 거시·정책 기사만 되풀이되는 테마입니다. <em>레이더</em> 맨 위 <em>📰 오늘 뉴스가 부른 테마</em>에는 테마 규모와 1·2·3등, 그 아래 테마 카드에는 뉴스 상태가 함께 섭니다.</p></div>
       <div class="nt-c"><b>이번 업데이트 (11.26) · 뉴스 탭 '뉴스 부각' 정리 · 테마달력 상한가 많은 순</b>
         <p>뉴스 탭 맨 아래의 <em>뉴스 부각(오늘 뉴스가 부른 테마)</em> 칸을 걷어냈습니다. 단어만 걸린 사회 기사까지 테마로 붙어 시장과 무관한 줄이 섞였고, 위쪽 <em>주요 뉴스</em>와 역할도 겹쳤습니다. 뉴스는 위의 주요 뉴스까지, 테마 소식은 <em>테마달력</em>이 맡습니다. <em>테마달력</em>의 동반테마는 이제 <em>그 달 상한가 종목이 많은 순서</em>(같으면 최근 상한가일 순)로 서고, 다른 테마 종목이 섞여 있던 자리는 테마 DB에서 바로잡았습니다.</p></div>
       <div class="nt-c"><b>이번 업데이트 (11.24) · 테마달력 맨 앞에 [오늘 상한가] 칸</b>
@@ -1145,12 +1154,72 @@ function leadBadge(leaders){
   return `<span class="sep">·</span><span class="lead" title="${esc(names.join(' · '))}"><b>🏢</b>${html}</span>`;
 }
 
+/* ---------------- 2026-11-28 3단계 — 뉴스 탭의 테마 뉴스 상태·전후 흐름 ----------------
+   "뉴스가 핵심 축이고 테마는 생겼다 사라진다" — 기사에 붙은 DB 테마 옆에 지금 뉴스가
+   🔥새로움(불씨) · 🔁진행(확산) · 💤소멸(거시·반복) 중 어디인지, 그리고 불씨→오늘→예정 줄기를 보여 준다.
+   자료는 공개 data/news_themes.json (theme_db 2·3단계가 만든 것) — 테마 이름으로 맞춘다.
+   ⚠ 개인 기준(1·2·3등·10단계·기준선)은 여기(공개 탭)에 넣지 않는다. */
+let newsPhaseMap = null, newsPhaseLoad = null;
+function baseThemeName(v){ return String(v || '').split(' — ')[0].split(' (')[0].trim(); }
+function ensureNewsPhases(){
+  if(newsPhaseMap) return Promise.resolve(newsPhaseMap);
+  if(newsPhaseLoad) return newsPhaseLoad;
+  newsPhaseLoad = fetch('data/news_themes.json?_=' + Date.now(), {cache:'no-store'})
+    .then(r => r.ok ? r.json() : null)
+    .then(j => {
+      const m = new Map();
+      ((j && j.news_links) || []).forEach(ln => {
+        [ln.theme, ln.short].map(baseThemeName).filter(Boolean).forEach(k => { if(!m.has(k)) m.set(k, ln); });
+      });
+      newsPhaseMap = m;
+    })
+    .catch(() => { newsPhaseMap = new Map(); })
+    .then(() => { newsPhaseLoad = null; renderNews(true); return newsPhaseMap; });
+  return newsPhaseLoad;
+}
+function themeNewsOf(a){
+  if(!newsPhaseMap) return null;
+  const names = (a && a.db_themes) || [];
+  for(const n of names){ const hit = newsPhaseMap.get(baseThemeName(n)); if(hit) return hit; }
+  return null;
+}
+function newsPhaseIcon(ph){ return ph === '새로움' ? '🔥' : (ph === '진행' ? '🔁' : (ph === '소멸' ? '💤' : '')); }
+function flowLineOf(f){
+  const steps = (f || []).filter(x => x && x.step);
+  if(!steps.length) return '';
+  let keep = steps.filter(x => ['불씨','이어짐','최근','오늘','예정'].indexOf(x.step) >= 0);
+  if(keep.length > 4){
+    const tail = keep.filter(x => x.step === '예정');
+    const head = keep.filter(x => x.step !== '예정');
+    keep = head.slice(0, 1).concat(head.slice(-2)).concat(tail);
+  }
+  const thisYear = new Date().getFullYear();
+  return keep.map(x => {
+    const raw = String(x.date || '');
+    let d = raw.slice(5).replace('-', '/');
+    if(raw.length === 10 && raw.slice(0, 4) !== String(thisYear)) d = raw.slice(2, 4) + '/' + d;
+    if(x.step === '예정') return `예정 ${d} ${String(x.text || '').slice(0, 14)}`.trim();
+    if(x.step === '불씨') return `불씨 ${d}`;
+    if(x.step === '오늘') return `오늘 ${d}`;
+    return `${x.step} ${d}`;
+  }).filter(v => v).join(' → ');
+}
+
 function themeChip(a){
   const t = String((a && a.theme_label) || '').trim();
   if(!t) return '';
   const c = String((a && a.theme_color) || (a && a.theme ? themeColor(a.theme) : '') || '').trim();
   const st = /^#[0-9a-f]{3,8}$/i.test(c) ? ` style="color:${c};border-color:${c}66;background:${c}14"` : '';
-  return `<span class="sep">·</span><span class="cl-th"${st} title="${esc(t)}">${esc(t)}</span>`;
+  /* 2026-11-28 3단계 — 이 테마 뉴스가 지금 어디인지(🔥불씨·🔁확산·💤소멸)를 테마 이름 앞에 붙인다 */
+  const nw = themeNewsOf(a);
+  const ph = (nw && nw.news_phase) || '';
+  const ic = newsPhaseIcon(ph);
+  const tip = nw ? [t, nw.news_phase_label || ph, nw.news_phase_why || '', flowLineOf(nw.news_flow)].filter(Boolean).join(' · ') : t;
+  /* 칩에 적힌 이름이 곧 그 테마일 때만 상태 이모지를 붙인다 — 기사 칩(짧은 분류말)과 DB 테마가
+     다르면 엉뚱한 테마 상태가 붙어 보인다(예: '거시·환율·금리' 칩에 다른 테마의 🔁). */
+  const sameName = nw ? (baseThemeName(t) === baseThemeName(nw.theme) || baseThemeName(t) === baseThemeName(nw.short)) : false;
+  const pn = (ic && sameName) ? `<i class="cl-npit">${ic}</i>` : '';
+  return `<span class="sep">·</span><span class="cl-th"${st} title="${esc(tip)}">${pn}${esc(t)}</span>`;
 }
 
 function flashHtml(a){
@@ -1189,9 +1258,23 @@ function issueHtml(a, i, nested){
         <span class="src">${hm(a.time)||relTime(a.time)} · ${esc(a.press||'')}</span>${themeChip(a)}${seed}${leadBadge(a.leaders)}${pressBadge}
         ${det ? `<button class="cl-exp exp" type="button" aria-label="요약과 다른 매체 기사 펼치기">${open?'▴':'▾'}</button>` : ''}
       </div>
+      ${themeNewsLine(a)}
       ${det}
     </div>
   </article>`;
+}
+
+/* 기사에 붙은 테마의 뉴스 줄기 — 3단계(2026-11-28). 새로움·진행일 때만 한 줄(공개 탭이라 이모지·줄기만). */
+function themeNewsLine(a){
+  const nw = themeNewsOf(a);
+  if(!nw) return '';
+  const ph = nw.news_phase || '';
+  if(ph !== '새로움' && ph !== '진행' && ph !== '소멸') return '';
+  const fl = flowLineOf(nw.news_flow);
+  if(!fl) return '';
+  /* 소멸(거시·반복)은 같은 기사가 며칠씩 되풀이되는 중이라는 표시 — 흐린 회색으로만 남긴다 */
+  const cls = ph === '소멸' ? ' die' : '';
+  return `<div class="cl-flow${cls}"><b>${esc(newsPhaseIcon(ph))} ${esc(ph)}</b>${esc(fl)}</div>`;
 }
 
 function groupIssues(list){
@@ -2727,7 +2810,7 @@ visPaint();
   bind('#resGo', '#resCode', '#resErr');
 })();
 
-const NOTICE_KEY = 'newsradar_notice_v4_ack';
+const NOTICE_KEY = 'newsradar_notice_v5_ack';
 
 let noticeOv = $('#noticeOv');
 
@@ -3061,6 +3144,9 @@ let startTab = (location.hash||'').replace('#','');
 switchTab(TABS.includes(startTab) ? startTab : 'news', true);
 
 load(false);
+
+/* 2026-11-28 3단계 — 테마 뉴스 상태(🔥새로움·🔁진행·💤소멸)를 뉴스 탭 테마 칩에 붙인다(공개 자료). */
+ensureNewsPhases().catch(() => {});
 
 P10().then(() => P6());
 </script>
